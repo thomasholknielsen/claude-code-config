@@ -1,0 +1,9 @@
+# Ignore everything by default
+*
+
+# Allow only agents and commands directories
+!agents/
+!commands/
+
+# Allow .gitignore itself
+!.gitignore
