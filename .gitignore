@@ -1,9 +1,10 @@
-# Ignore everything by default
-*
+# Ignore specific directories and files
+.DS_Store
+ide/
+plugins/
+projects/
+shell-snapshots/
+statsig/
+todos/
 
-# Allow only agents and commands directories
-!agents/
-!commands/
-
-# Allow .gitignore itself
-!.gitignore
+# Allow agents and commands directories (explicitly not ignored)
