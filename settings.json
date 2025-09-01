@@ -1,0 +1,88 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '✅ Claude Code' -message 'Task completed successfully' -sound 'Glass' -sender 'com.anthropic.claude'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '🔔 Claude Code' -message 'Needs your attention' -sound 'Basso' -sender 'com.anthropic.claude'"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '🏁 Claude Code' -message 'Session ended' -sound 'Hero' -sender 'com.anthropic.claude'"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '🤖 Claude Code' -message 'Subagent task completed' -sound 'Ping' -sender 'com.anthropic.claude'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash.*test",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '🧪 Tests' -message 'Test execution completed' -sound 'Tink' -sender 'com.anthropic.claude'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash.*build",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '🏗️ Build' -message 'Build process completed' -sound 'Pop' -sender 'com.anthropic.claude'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash.*git commit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '📝 Git' -message 'Commit created successfully' -sound 'Blow' -sender 'com.anthropic.claude'"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title '📤 Claude Code' -message 'Prompt submitted' -sound 'Submarine' -sender 'com.anthropic.claude'"
+          }
+        ]
+      }
+    ]
+  }
+}
