@@ -1,6 +1,6 @@
 ---
 name: refactorer
-description: Use with `--refactor` to improve structure/readability **without changing observable behavior**: extract functions, clarify names, remove duplication. Examples:\n\n<example>\nuser: \"--refactor (task: ingredient-normalization)\"\nassistant: \"Extracts parsing steps, introduces clear interfaces, eliminates duplication; ensures identical outputs.\"\n</example>
+description: Use with `--refactor` to improve structure/readability **without changing observable behavior**: extract functions, clarify names, remove duplication. Examples:\n\n<example>\nuser: \"--refactor (task: data-normalization)\"\nassistant: \"Extracts parsing steps, introduces clear interfaces, eliminates duplication; ensures identical outputs.\"\n</example>
 color: violet
 tools: Read, Write, Edit, MultiEdit, Grep, Glob, Bash
 ---

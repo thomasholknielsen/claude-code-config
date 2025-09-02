@@ -1,298 +1,212 @@
-# Contains Studio AI Agents
+# Software Development AI Agents
 
-A comprehensive collection of specialized AI agents designed to accelerate and enhance every aspect of rapid development. Each agent is an expert in their domain, ready to be invoked when their expertise is needed.
+A comprehensive collection of specialized AI agents designed to accelerate software development across all stages and domains. Each agent is an expert in their field, ready to be invoked when their expertise is needed.
 
 ## 📥 Installation
 
-1. **Download this repository:**
-   ```bash
-   git clone https://github.com/contains-studio/agents.git
-   ```
-
-2. **Copy to your Claude Code agents directory:**
+1. **Download or clone this repository**
+2. **Copy agents to your Claude Code agents directory:**
    ```bash
    cp -r agents/* ~/.claude/agents/
    ```
-   
-   Or manually copy all the agent files to your `~/.claude/agents/` directory.
-
-3. **Restart Claude Code** to load the new agents.
+3. **Restart Claude Code** to load the new agents
 
 ## 🚀 Quick Start
 
 Agents are automatically available in Claude Code. Simply describe your task and the appropriate agent will be triggered. You can also explicitly request an agent by mentioning their name.
 
-📚 **Learn more:** [Claude Code Sub-Agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
-
 ### Example Usage
-- "Create a new app for tracking meditation habits" → `rapid-prototyper`
-- "What's trending on TikTok that we could build?" → `trend-researcher`
-- "Our app reviews are dropping, what's wrong?" → `feedback-synthesizer`
-- "Make this loading screen more fun" → `whimsy-injector`
+- "Create a new web app for task management" → `rapid-prototyper` or `universal-scaffolder`
+- "Review this Python code for issues" → `code-reviewer` & `security-auditor`
+- "Our npm/pip dependencies have security alerts" → `dependency-manager`
+- "Set up CI/CD for our Java/Go/Python project" → `devops-automator`
+- "Add authentication to our Django/Rails/Express app" → `backend-architect`
+- "Create tests for our new feature (any language)" → `test-writer-fixer`
 
 ## 📁 Directory Structure
 
-Agents are organized by department for easy discovery:
+Agents are organized by department for efficient software development workflows:
 
 ```
-contains-studio-agents/
-├── design/
-│   ├── brand-guardian.md
-│   ├── ui-designer.md
-│   ├── ux-researcher.md
-│   ├── visual-storyteller.md
-│   └── whimsy-injector.md
-├── engineering/
-│   ├── ai-engineer.md
-│   ├── backend-architect.md
-│   ├── devops-automator.md
-│   ├── frontend-developer.md
-│   ├── mobile-app-builder.md
-│   ├── rapid-prototyper.md
-│   └── test-writer-fixer.md
-├── marketing/
-│   ├── app-store-optimizer.md
-│   ├── content-creator.md
-│   ├── growth-hacker.md
-│   ├── instagram-curator.md
-│   ├── reddit-community-builder.md
-│   ├── tiktok-strategist.md
-│   └── twitter-engager.md
-├── product/
-│   ├── feedback-synthesizer.md
-│   ├── sprint-prioritizer.md
-│   └── trend-researcher.md
-├── project-management/
-│   ├── experiment-tracker.md
-│   ├── project-shipper.md
-│   └── studio-producer.md
-├── studio-operations/
-│   ├── analytics-reporter.md
-│   ├── finance-tracker.md
-│   ├── infrastructure-maintainer.md
-│   ├── legal-compliance-checker.md
-│   └── support-responder.md
-├── testing/
-│   ├── api-tester.md
-│   ├── performance-benchmarker.md
-│   ├── test-results-analyzer.md
-│   ├── tool-evaluator.md
-│   └── workflow-optimizer.md
-└── bonus/
-    ├── joker.md
-    └── studio-coach.md
+agents/
+├── engineering/           # Core development agents
+├── testing/              # Quality assurance agents
+├── design/               # UI/UX and visual design
+├── operations/           # DevOps, infrastructure, security
+├── product/              # Planning, analysis, coordination
+├── maintenance/          # Code quality and refactoring
+├── specialized/          # Cross-cutting concerns
+└── domain-experts/       # Industry-specific expertise
 ```
 
 ## 📋 Complete Agent List
 
 ### Engineering Department (`engineering/`)
-- **ai-engineer** - Integrate AI/ML features that actually ship
-- **backend-architect** - Design scalable APIs and server systems
-- **devops-automator** - Deploy continuously without breaking things
-- **frontend-developer** - Build blazing-fast user interfaces
-- **mobile-app-builder** - Create native iOS/Android experiences
-- **rapid-prototyper** - Build MVPs in days, not weeks
-- **test-writer-fixer** - Write tests that catch real bugs
+- **universal-scaffolder** - Set up projects and components across any tech stack
+- **rapid-prototyper** - Build MVPs and prototypes quickly (stack-agnostic)
+- **backend-architect** - Design scalable APIs and server systems (any language)
+- **frontend-developer** - Build responsive user interfaces (any framework)
+- **database-migration-manager** - Handle schema changes safely (SQL/NoSQL)
+- **graphql-architect** - Design GraphQL schemas and resolvers
+- **error-debugger** - Troubleshoot and fix bugs systematically
+- **integration-specialist** - Connect with third-party APIs and services
+- **ai-engineer** - Integrate AI/ML capabilities
+- **mobile-app-builder** - Create native mobile applications
+- **code-reviewer** - Perform comprehensive code reviews (any language)
+- **dependency-manager** - Manage packages and dependencies (npm, pip, maven, etc.)
 
-### Product Department (`product/`)
-- **feedback-synthesizer** - Transform complaints into features
-- **sprint-prioritizer** - Ship maximum value in 6 days
-- **trend-researcher** - Identify viral opportunities
-
-### Marketing Department (`marketing/`)
-- **app-store-optimizer** - Dominate app store search results
-- **content-creator** - Generate content across all platforms
-- **growth-hacker** - Find and exploit viral growth loops
-- **instagram-curator** - Master the visual content game
-- **reddit-community-builder** - Win Reddit without being banned
-- **tiktok-strategist** - Create shareable marketing moments
-- **twitter-engager** - Ride trends to viral engagement
+### Testing Department (`testing/`)
+- **test-writer-fixer** - Write and maintain tests (Jest, pytest, JUnit, RSpec, etc.)
+- **api-tester** - Test API functionality and performance (any protocol)
+- **performance-benchmarker** - Measure and optimize performance (any platform)
+- **analytics-engine** - Analyze test results and metrics
 
 ### Design Department (`design/`)
-- **brand-guardian** - Keep visual identity consistent everywhere
-- **ui-designer** - Design interfaces developers can actually build
-- **ux-researcher** - Turn user insights into product improvements
-- **visual-storyteller** - Create visuals that convert and share
-- **whimsy-injector** - Add delight to every interaction
+- **ui-designer** - Create beautiful, functional interfaces
+- **ux-researcher** - Understand user needs and behaviors
 
-### Project Management (`project-management/`)
-- **experiment-tracker** - Data-driven feature validation
-- **project-shipper** - Launch products that don't crash
-- **studio-producer** - Keep teams shipping, not meeting
+### Operations Department (`operations/`)
+- **devops-automator** - Automate deployments and CI/CD
+- **azure-platform-architect** - Design cloud infrastructure
+- **monitoring-engineer** - Set up observability and alerting
+- **infrastructure-maintainer** - Maintain and scale systems
+- **edge-cdn-optimizer** - Optimize content delivery
+- **security-auditor** - Perform security audits and compliance
 
-### Studio Operations (`studio-operations/`)
-- **analytics-reporter** - Turn data into actionable insights
-- **finance-tracker** - Keep the studio profitable
-- **infrastructure-maintainer** - Scale without breaking the bank
-- **legal-compliance-checker** - Stay legal while moving fast
-- **support-responder** - Turn angry users into advocates
+### Product Department (`product/`)
+- **mvp-planner** - Define and scope product features
+- **sprint-prioritizer** - Prioritize features and manage roadmaps
+- **task-planner** - Break down work into actionable tasks
+- **data-analyst** - Analyze user data and product metrics
+- **delivery-coordinator** - Coordinate releases and launches
+- **feedback-synthesizer** - Process user feedback into insights
+- **trend-researcher** - Identify market opportunities
 
-### Testing & Benchmarking (`testing/`)
-- **api-tester** - Ensure APIs work under pressure
-- **performance-benchmarker** - Make everything faster
-- **test-results-analyzer** - Find patterns in test failures
-- **tool-evaluator** - Choose tools that actually help
-- **workflow-optimizer** - Eliminate workflow bottlenecks
+### Maintenance Department (`maintenance/`)
+- **codebase-cleanup-conductor** - Orchestrate systematic code cleanup
+- **debloat** - Remove dead code and unused imports
+- **modernizer** - Update code to use modern patterns
+- **refactorer** - Improve code structure and readability
+- **restructurer** - Reorganize files and modules
+- **simplifier** - Reduce complexity and cognitive load
+- **workflow-optimizer** - Improve development processes
+- **tool-evaluator** - Evaluate and recommend development tools
+- **analytics-reporter** - Generate insights from development metrics
 
-## 🎁 Bonus Agents
-- **studio-coach** - Rally the AI troops to excellence
-- **joker** - Lighten the mood with tech humor
+### Specialized Department (`specialized/`)
+- **search-tuner** - Optimize search functionality across any technology
+- **documentation-specialist** - Create and maintain technical documentation
+- **financial-guardian** - Manage development costs and budgets
+- **gdpr-dpo** - Ensure data privacy compliance
+- **legal-compliance-checker** - Handle regulatory requirements
+- **threat-modeler** - Assess security risks proactively
+- **pwa-optimizer** - Optimize Progressive Web App performance
+- **localization-expert** - Handle internationalization and localization
+- **project-management/** - Structured project management agents
+  - **cli-command-router** - Route CLI commands to appropriate agents
+  - **feature-steward** - Manage feature development lifecycle
+  - **memorybank-guardian** - Maintain project memory and context
+  - **missing-memory-sentinel** - Handle missing project context
+  - **scope-gatekeeper** - Enforce project scope boundaries
+  - **task-steward** - Manage individual task execution
+
+### Domain Experts (`domain-experts/`)
+- **food-beverage/** - Specialized agents for food and beverage applications
+  - **recipe-specialist** - Handle recipe data, import, and intelligence
+
+## 🌐 Framework-Agnostic Design
+
+All agents are designed to work across technology stacks:
+
+**Language Support**: JavaScript/TypeScript, Python, Java, C#, Go, Rust, Ruby, PHP, and more
+**Framework Detection**: Automatically detect React, Vue, Django, Spring, Rails, Express, etc.
+**Pattern Recognition**: Understand MVC, microservices, component-based, and other architectures
+**Tool Integration**: Work with npm, pip, maven, cargo, composer, and other package managers
+
+**Key Features**:
+- **Context Detection**: Agents analyze your project structure before making recommendations
+- **Convention Respect**: Follow existing patterns rather than imposing new ones
+- **Multi-Language Examples**: Agents provide relevant examples for your tech stack
+- **Universal Patterns**: Apply the same principles across different technologies
 
 ## 🎯 Proactive Agents
 
 Some agents trigger automatically in specific contexts:
-- **studio-coach** - When complex multi-agent tasks begin or agents need guidance
-- **test-writer-fixer** - After implementing features, fixing bugs, or modifying code
-- **whimsy-injector** - After UI/UX changes
-- **experiment-tracker** - When feature flags are added
+- **code-reviewer** - After significant code changes (any language)
+- **test-writer-fixer** - After implementing features or fixing bugs
+- **security-auditor** - When handling sensitive data or authentication
+- **dependency-manager** - When package updates or conflicts occur
 
 ## 💡 Best Practices
 
-1. **Let agents work together** - Many tasks benefit from multiple agents
-2. **Be specific** - Clear task descriptions help agents perform better
-3. **Trust the expertise** - Agents are designed for their specific domains
-4. **Iterate quickly** - Agents support the 6-day sprint philosophy
+1. **Let agents collaborate** - Complex tasks often benefit from multiple agents working together
+2. **Be specific** - Clear task descriptions help agents perform optimally
+3. **Trust the expertise** - Each agent is designed for their specific domain
+4. **Iterate quickly** - Agents support rapid development and deployment cycles
+5. **Maintain quality** - Use testing and review agents throughout development
 
 ## 🔧 Technical Details
 
 ### Agent Structure
 Each agent includes:
 - **name**: Unique identifier
-- **description**: When to use the agent with examples
-- **color**: Visual identification
+- **description**: When to use with detailed examples
+- **color**: Visual identification in Claude Code
 - **tools**: Specific tools the agent can access
-- **System prompt**: Detailed expertise and instructions
+- **System prompt**: Comprehensive expertise and instructions
 
-### Adding New Agents
+### Adding Custom Agents
 1. Create a new `.md` file in the appropriate department folder
-2. Follow the existing format with YAML frontmatter
-3. Include 3-4 detailed usage examples
+2. Follow the existing YAML frontmatter format
+3. Include 3-4 detailed usage examples with context
 4. Write comprehensive system prompt (500+ words)
-5. Test the agent with real tasks
+5. Test the agent with real development tasks
 
 ## 📊 Agent Performance
 
 Track agent effectiveness through:
-- Task completion time
-- User satisfaction
-- Error rates
-- Feature adoption
-- Development velocity
+- Task completion time and quality
+- Bug reduction and code quality metrics
+- Developer productivity improvements
+- Security vulnerability detection
+- User satisfaction scores
+
+## 🛠️ Customization
+
+### Adapting for Your Team
+- Modify examples to reflect your technology stack
+- Adjust tool permissions based on your workflow
+- Customize department structure if needed
+- Add company-specific best practices
+- Create domain-specific agents for your industry
+
+### Department-Specific Guidelines
+- **Engineering**: Focus on code quality, testing, and maintainability
+- **Testing**: Emphasize comprehensive coverage and automation
+- **Design**: Prioritize user experience and accessibility
+- **Operations**: Ensure reliability, security, and scalability
+- **Product**: Balance user needs with technical constraints
+- **Maintenance**: Prevent technical debt accumulation
 
 ## 🚦 Status
 
-- ✅ **Active**: Fully functional and tested
-- 🚧 **Coming Soon**: In development
-- 🧪 **Beta**: Testing with limited functionality
-
-## 🛠️ Customizing Agents for Your Studio
-
-### Agent Customization Todo List
-
-Use this checklist when creating or modifying agents for your specific needs:
-
-#### 📋 Required Components
-- [ ] **YAML Frontmatter**
-  - [ ] `name`: Unique agent identifier (kebab-case)
-  - [ ] `description`: When to use + 3-4 detailed examples with context/commentary
-  - [ ] `color`: Visual identification (e.g., blue, green, purple, indigo)
-  - [ ] `tools`: Specific tools the agent can access (Write, Read, MultiEdit, Bash, etc.)
-
-#### 📝 System Prompt Requirements (500+ words)
-- [ ] **Agent Identity**: Clear role definition and expertise area
-- [ ] **Core Responsibilities**: 5-8 specific primary duties
-- [ ] **Domain Expertise**: Technical skills and knowledge areas
-- [ ] **Studio Integration**: How agent fits into 6-day sprint workflow
-- [ ] **Best Practices**: Specific methodologies and approaches
-- [ ] **Constraints**: What the agent should/shouldn't do
-- [ ] **Success Metrics**: How to measure agent effectiveness
-
-#### 🎯 Required Examples by Agent Type
-
-**Engineering Agents** need examples for:
-- [ ] Feature implementation requests
-- [ ] Bug fixing scenarios
-- [ ] Code refactoring tasks
-- [ ] Architecture decisions
-
-**Design Agents** need examples for:
-- [ ] New UI component creation
-- [ ] Design system work
-- [ ] User experience problems
-- [ ] Visual identity tasks
-
-**Marketing Agents** need examples for:
-- [ ] Campaign creation requests
-- [ ] Platform-specific content needs
-- [ ] Growth opportunity identification
-- [ ] Brand positioning tasks
-
-**Product Agents** need examples for:
-- [ ] Feature prioritization decisions
-- [ ] User feedback analysis
-- [ ] Market research requests
-- [ ] Strategic planning needs
-
-**Operations Agents** need examples for:
-- [ ] Process optimization
-- [ ] Tool evaluation
-- [ ] Resource management
-- [ ] Performance analysis
-
-#### ✅ Testing & Validation Checklist
-- [ ] **Trigger Testing**: Agent activates correctly for intended use cases
-- [ ] **Tool Access**: Agent can use all specified tools properly
-- [ ] **Output Quality**: Responses are helpful and actionable
-- [ ] **Edge Cases**: Agent handles unexpected or complex scenarios
-- [ ] **Integration**: Works well with other agents in multi-agent workflows
-- [ ] **Performance**: Completes tasks within reasonable timeframes
-- [ ] **Documentation**: Examples accurately reflect real usage patterns
-
-#### 🔧 Agent File Structure Template
-
-```markdown
----
-name: your-agent-name
-description: Use this agent when [scenario]. This agent specializes in [expertise]. Examples:\n\n<example>\nContext: [situation]\nuser: "[user request]"\nassistant: "[response approach]"\n<commentary>\n[why this example matters]\n</commentary>\n</example>\n\n[3 more examples...]
-color: agent-color
-tools: Tool1, Tool2, Tool3
----
-
-You are a [role] who [primary function]. Your expertise spans [domains]. You understand that in 6-day sprints, [sprint constraint], so you [approach].
-
-Your primary responsibilities:
-1. [Responsibility 1]
-2. [Responsibility 2]
-...
-
-[Detailed system prompt content...]
-
-Your goal is to [ultimate objective]. You [key behavior traits]. Remember: [key philosophy for 6-day sprints].
-```
-
-#### 📂 Department-Specific Guidelines
-
-**Engineering** (`engineering/`): Focus on implementation speed, code quality, testing
-**Design** (`design/`): Emphasize user experience, visual consistency, rapid iteration  
-**Marketing** (`marketing/`): Target viral potential, platform expertise, growth metrics
-**Product** (`product/`): Prioritize user value, data-driven decisions, market fit
-**Operations** (`studio-operations/`): Optimize processes, reduce friction, scale systems
-**Testing** (`testing/`): Ensure quality, find bottlenecks, validate performance
-**Project Management** (`project-management/`): Coordinate teams, ship on time, manage scope
-
-#### 🎨 Customizations
-
-Modify these elements for your needs:
-- [ ] Adjust examples to reflect your product types
-- [ ] Add specific tools agents have access to
-- [ ] Modify success metrics for your KPIs
-- [ ] Update department structure if needed
-- [ ] Customize agent colors for your brand
+- ✅ **Production Ready**: Thoroughly tested and documented
+- 🧪 **Beta**: Testing with core functionality
+- 🚧 **Development**: In active development
 
 ## 🤝 Contributing
 
 To improve existing agents or suggest new ones:
-1. Use the customization checklist above
-2. Test thoroughly with real projects
+1. Follow the agent customization guidelines
+2. Test thoroughly with real projects  
 3. Document performance improvements
-4. Share successful patterns with the community
+4. Contribute back successful patterns
+
+## 📚 Resources
+
+- [Claude Code Sub-Agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
+- [Agent Development Best Practices](https://docs.anthropic.com/en/docs/claude-code/custom-agents)
+
+---
+
+*Built for rapid software development across all domains and technology stacks.*
