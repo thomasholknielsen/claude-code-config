@@ -2,22 +2,10 @@
   "hooks": {
     "Stop": [
       {
-        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "sh ~/.claude/scripts/notify-cross-platform.sh"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "sh ~/.claude/scripts/notify-cross-platform.sh"
+            "command": "python scripts/notify.py"
           }
         ]
       }
