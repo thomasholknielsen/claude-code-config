@@ -1,5 +1,6 @@
 # Ignore specific directories and files
 .DS_Store
+.claude/
 ide/
 plugins/
 projects/
@@ -7,4 +8,7 @@ shell-snapshots/
 statsig/
 todos/
 
-# Allow agents and commands directories (explicitly not ignored)
+# Ignore credentials and sensitive files
+.credentials.json
+
+# Allow agents, commands, and scripts directories (explicitly not ignored)
