@@ -10,5 +10,6 @@ todos/
 
 # Ignore credentials and sensitive files
 .credentials.json
+settings.local.json
 
 # Allow agents, commands, and scripts directories (explicitly not ignored)
