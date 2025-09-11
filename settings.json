@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"%USERPROFILE%\\.claude\\scripts\\notify.py\""
+            "command": "python \"$HOME/.claude/scripts/notify.py\""
           }
         ]
       }
