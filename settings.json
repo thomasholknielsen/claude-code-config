@@ -5,10 +5,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$HOME/.claude/scripts/notify.py\""
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/notify.py')).read())\""
           }
         ]
       }
     ]
   }
 }
+

@@ -13,7 +13,12 @@ from pathlib import Path
 
 def get_script_dir():
     """Get the directory where this script is located."""
-    return Path(__file__).parent
+    # Handle case where __file__ is not defined (when using exec())
+    if '__file__' in globals():
+        return Path(__file__).parent
+    else:
+        # Fallback to ~/.claude/scripts directory
+        return Path.home() / '.claude' / 'scripts'
 
 
 def detect_os():
