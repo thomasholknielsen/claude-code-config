@@ -1,5 +1,15 @@
 {
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/scripts/log-prompt.py"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
