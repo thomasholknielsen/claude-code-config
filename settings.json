@@ -20,10 +20,8 @@
         ]
       }
     ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "input=$(cat); printf \"PS %s@%s:%s>\" \"$(whoami)\" \"$(hostname)\" \"$(echo \"$input\" | jq -r '.workspace.current_dir' | sed 's|.*/||')\""
   }
 }
+
+
 
