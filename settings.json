@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.claude/scripts/log-prompt.py"
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/log-prompt.py')).read())\""
           }
         ]
       }
@@ -20,6 +20,10 @@
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); printf \"PS %s@%s:%s>\" \"$(whoami)\" \"$(hostname)\" \"$(echo \"$input\" | jq -r '.workspace.current_dir' | sed 's|.*/||')\""
   }
 }
 
