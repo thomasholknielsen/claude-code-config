@@ -1,4 +1,5 @@
 {
+  "model": "opusplan",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -19,9 +20,17 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/update-search-year.py')).read())\""
+          }
+        ]
+      }
     ]
   }
 }
-
-
-
