@@ -9,8 +9,56 @@ shell-snapshots/
 statsig/
 todos/
 
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# TypeScript
+*.tsbuildinfo
+dist/
+build/
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Debug logs
+*.log
+hook-debug.log
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
 # Ignore credentials and sensitive files
 .credentials.json
 settings.local.json
+*.key
+*.pem
+.env
+.env.local
+.env.*.local
 
 # Allow agents, commands, and scripts directories (explicitly not ignored)

@@ -25,15 +25,15 @@ All features must begin with a comprehensive specification that defines user req
 
 **Rationale**: Clear specifications prevent scope creep, ensure stakeholder alignment, and provide a foundation for test-driven development. This approach reduces rework and ensures features meet actual user needs.
 
-### III. Test-First Implementation (NON-NEGOTIABLE)
-Implementation follows strict TDD methodology: Write tests → User approval → Tests fail → Implement to pass. Contract tests must be generated from API specifications. Integration tests must validate user scenarios. All code changes require comprehensive test coverage before completion.
+### III. Pragmatic Testing Approach
+Testing should be appropriate to the context: critical functionality requires comprehensive tests, while prototypes and experiments may use lighter testing. Tests should be written based on risk assessment and user impact. Test coverage should prioritize high-value scenarios over arbitrary metrics.
 
-**Rationale**: TDD ensures code correctness, prevents regressions, and serves as living documentation. This non-negotiable principle maintains code quality and reduces debugging time.
+**Rationale**: Flexible testing approach balances quality with development velocity. This allows teams to adapt testing investment based on actual risk and business value.
 
-### IV. Constitutional Compliance Gates
-All features must pass constitution compliance checks at two stages: initial specification review and post-design review. Violations must be documented with justification in the Complexity Tracking section. No complexity can be added without demonstrating that simpler alternatives are insufficient.
+### IV. Practical Quality Standards
+Code changes should meet reasonable quality standards through automated tooling (linting, type checking) and peer review. Complex changes benefit from additional testing, but simplicity is preferred over rigid compliance. Quality investments should be proportional to the feature's importance and risk profile.
 
-**Rationale**: Prevents unnecessary complexity accumulation and ensures architectural consistency. Gates provide natural checkpoints for quality assurance and technical debt prevention.
+**Rationale**: Maintains code quality while allowing flexibility for different project phases and requirements. Focuses resources where they provide the most value.
 
 ### V. Incremental Context Management
 Agent context files (CLAUDE.md, AGENTS.md, etc.) must be updated incrementally using the provided scripts. Manual context between markers must be preserved. Files must remain under 150 lines for token efficiency. Only recent changes (last 3) should be maintained to prevent context bloat.
@@ -65,17 +65,17 @@ Agent context files (CLAUDE.md, AGENTS.md, etc.) must be updated incrementally u
 
 ## Quality Assurance Framework
 
-### Multi-Modal Review Process
-Three specialized review workflows operate in parallel:
-1. **Code Review**: Syntax, bugs, performance, style, completeness via code-reviewer-advanced
-2. **Security Review**: OWASP compliance, vulnerability assessment via security-scanner
-3. **Design Review**: UI/UX compliance, accessibility validation via ui-compliance-checker
+### Balanced Review Process
+Apply reviews based on change risk and impact:
+1. **Code Review**: Focus on maintainability, security, and functionality
+2. **Security Review**: Required for authentication, data handling, and external integrations
+3. **Design Review**: Applied to user-facing changes and accessibility-critical features
 
-### Automated Quality Gates
-- Pre-commit: Quick code review and security scan for sensitive changes
-- Pre-merge: Full review workflow with all three review types
-- Post-deployment: Performance monitoring and user feedback analysis
-- Dependency updates: Automated security scanning for CVE detection
+### Flexible Quality Checkpoints
+- **High-risk changes**: Comprehensive review and testing
+- **Standard changes**: Automated tooling plus peer review
+- **Low-risk changes**: Automated checks with optional review
+- **Experimental features**: Lightweight validation focused on learning
 
 ### Continuous Improvement Loop
 Track effectiveness metrics: task completion quality, time to completion, error reduction rates, and user satisfaction. Use analytics-engine for comprehensive data analysis and trend identification.
@@ -89,13 +89,13 @@ Constitution changes require:
 3. Sync Impact Report documenting all affected artifacts
 4. Validation that all template references align with new principles
 
-### Compliance Enforcement
-- All PRs must verify constitutional compliance
-- Complexity deviations require documented justification
-- Regular reviews of agent performance and selection patterns
-- Template consistency checks during constitution updates
+### Practical Governance
+- Follow constitution principles as guidelines, not rigid rules
+- Document significant architectural decisions and their rationale
+- Regular retrospectives on what's working and what needs adjustment
+- Evolve practices based on team feedback and project realities
 
 ### Version Control and Tracking
 Constitution supersedes all other development practices. The latest version always takes precedence. Track amendments with dates and rationale. Maintain backward compatibility unless explicitly documented as breaking change.
 
-**Version**: 1.0.0 | **Ratified**: 2025-09-24 | **Last Amended**: 2025-09-24
+**Version**: 1.1.0 | **Ratified**: 2025-09-24 | **Last Amended**: 2025-09-25
