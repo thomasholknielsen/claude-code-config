@@ -4,9 +4,11 @@ This guide explains how to effectively use parallel execution patterns in the Ag
 
 ## Overview
 
-The `[P]` marker system enables orchestrators to spawn multiple worker agents simultaneously, reducing execution time for independent tasks from sequential processing to parallel processing.
+The `[P]` marker system enables orchestrators to spawn multiple worker
+agents simultaneously, reducing execution time for independent tasks from sequential processing to parallel processing.
 
 **Key Benefits:**
+
 - **3-5x faster** execution for complex workflows
 - Better resource utilization across multiple agents
 - Improved throughput for independent operations
@@ -17,6 +19,7 @@ The `[P]` marker system enables orchestrators to spawn multiple worker agents si
 ### When to Use Parallel Execution
 
 ✅ **Always Use Parallel For:**
+
 - Independent code reviews (security, quality, design)
 - Separate file analysis or modification
 - Different types of testing (unit, integration, performance)
@@ -24,6 +27,7 @@ The `[P]` marker system enables orchestrators to spawn multiple worker agents si
 - Documentation generation for different components
 
 ❌ **Never Use Parallel For:**
+
 - Editing the same file
 - Sequential dependencies (API → tests that use API)
 - Shared state modifications
@@ -39,7 +43,7 @@ The `[P]` marker system enables orchestrators to spawn multiple worker agents si
 [P] Task A → agent-type-1 with tools
 [P] Task B → agent-type-2 with tools
 [P] Task C → agent-type-3 with tools
-```
+```yaml
 
 ## Orchestrator-Specific Patterns
 
@@ -48,23 +52,26 @@ The `[P]` marker system enables orchestrators to spawn multiple worker agents si
 The task-orchestrator should **prioritize parallel execution** whenever possible:
 
 #### Standard Code Review (5 agents parallel)
+
 ```markdown
 [P] Code Quality Review → reviewer with /review:code
 [P] Security Scan → reviewer with /review:security
 [P] Performance Analysis → reviewer with /analyze:performance
 [P] Design Review → reviewer with /review:design
 [P] Dependencies Check → Task with /analyze:dependencies
-```
+```text
 
 #### Multi-Component Implementation (4 agents parallel)
+
 ```markdown
 [P] Component A → code-writer with specific scope
 [P] Component B → code-writer with specific scope
 [P] Utilities → code-writer with helper functions
 [P] Tests → test-writer for all components
-```
+```text
 
 #### Comprehensive Analysis (6+ agents parallel)
+
 ```markdown
 [P] Existing Code Analysis → research-orchestrator
 [P] External Best Practices → research-orchestrator with WebSearch
@@ -72,13 +79,14 @@ The task-orchestrator should **prioritize parallel execution** whenever possible
 [P] Performance Requirements → Task with /analyze:performance
 [P] Architecture Impact → Task with /explain:architecture
 [P] Documentation Analysis → Task with /docs:analyze
-```
+```yaml
 
 ### Research Orchestrator Patterns
 
 The research-orchestrator should **maximize parallel agents** for information gathering:
 
 #### Standard Feature Research (9 agents parallel)
+
 ```markdown
 # Core Implementation Research
 [P] Similar implementations in codebase → Glob + Grep
@@ -92,9 +100,10 @@ The research-orchestrator should **maximize parallel agents** for information ga
 [P] Documentation examples → /docs:analyze
 [P] Error handling patterns → Grep error handling
 [P] Configuration requirements → Glob config files
-```
+```text
 
 #### Deep Bug Investigation (10 agents parallel)
+
 ```markdown
 # Primary Investigation
 [P] Error log analysis → Grep error patterns
@@ -109,13 +118,14 @@ The research-orchestrator should **maximize parallel agents** for information ga
 [P] Security implications → /review:security
 [P] Database state analysis → Grep database logs
 [P] External service issues → WebSearch service status
-```
+```yaml
 
 ### Implementation Orchestrator Patterns
 
 The implementation-orchestrator uses **hybrid approach** - sequential for dependencies, parallel for independent validation:
 
 #### Feature Development with Parallel Reviews
+
 ```markdown
 Phase 1: Core Implementation (Sequential - File Dependencies)
   1. Data models → code-writer
@@ -134,7 +144,7 @@ Phase 3: Quality Assurance (Parallel - Independent Reviews)
   [P] Design review → reviewer with /review:design
   [P] Performance analysis → Task with /analyze:performance
   [P] Final cleanup → Task with /clean:improve-readability
-```
+```text
 
 ## Workflow Examples
 
@@ -143,6 +153,7 @@ Phase 3: Quality Assurance (Parallel - Independent Reviews)
 **Task**: "Implement user authentication with JWT"
 
 **Optimal Execution**:
+
 ```markdown
 Phase 1: Parallel Research (4 agents, ~2 minutes)
   [P] JWT best practices → research-orchestrator with WebSearch
@@ -161,7 +172,7 @@ Phase 3: Parallel Testing & Review (5 agents, ~3 minutes)
   [P] Security review → reviewer with /review:security
   [P] Code review → reviewer with /review:code
   [P] Documentation → documenter
-```
+```text
 
 **Performance Gain**: ~10 minutes parallel vs ~20 minutes sequential (50% faster)
 
@@ -170,6 +181,7 @@ Phase 3: Parallel Testing & Review (5 agents, ~3 minutes)
 **Task**: "Database connection timeouts in production"
 
 **Optimal Execution**:
+
 ```markdown
 Parallel Investigation (8 agents, ~3 minutes)
   [P] Database logs analysis → Grep + specific patterns
@@ -180,7 +192,7 @@ Parallel Investigation (8 agents, ~3 minutes)
   [P] Network connectivity → infrastructure analysis
   [P] Application performance → /analyze:performance
   [P] Error correlation → log pattern analysis
-```
+```text
 
 **Performance Gain**: ~3 minutes parallel vs ~24 minutes sequential (87% faster)
 
@@ -189,6 +201,7 @@ Parallel Investigation (8 agents, ~3 minutes)
 **Task**: "Review pull request with 15 file changes"
 
 **Optimal Execution**:
+
 ```markdown
 Parallel Review (6 agents, ~4 minutes)
   [P] Code quality & style → reviewer with /review:code
@@ -197,25 +210,28 @@ Parallel Review (6 agents, ~4 minutes)
   [P] Design patterns → reviewer with /review:design
   [P] Test coverage → test-writer with coverage analysis
   [P] Documentation updates → documenter with /docs:analyze
-```
+```yaml
 
 **Performance Gain**: ~4 minutes parallel vs ~18 minutes sequential (78% faster)
 
 ## Best Practices
 
 ### 1. Maximize Parallel Opportunities
+
 - **Default to parallel** unless dependencies exist
 - Look for independent subtasks within complex operations
 - Split reviews by concern (security, performance, quality)
 - Separate research by domain or information source
 
 ### 2. Optimal Agent Counts
+
 - **Simple tasks**: 1-3 agents parallel
 - **Moderate tasks**: 3-6 agents parallel
 - **Complex tasks**: 5-10 agents parallel
 - **Research tasks**: 10+ agents parallel (research-orchestrator specialty)
 
 ### 3. Clear Task Boundaries
+
 ```markdown
 # Good - Specific, non-overlapping
 [P] Security vulnerabilities in auth module → reviewer with /review:security
@@ -224,14 +240,16 @@ Parallel Review (6 agents, ~4 minutes)
 # Bad - Overlapping scope
 [P] Overall security review → reviewer
 [P] General code review → reviewer
-```
+```text
 
 ### 4. Tool Assignment Strategy
+
 - Give each parallel agent **specific tools** for their domain
 - Avoid generic tool assignments that create overlap
 - Use slash commands to focus agent scope
 
 ### 5. Dependency Management
+
 ```markdown
 # Correct - Sequential when dependent
 1. Create API endpoints → code-writer
@@ -240,7 +258,7 @@ Parallel Review (6 agents, ~4 minutes)
 # Incorrect - Parallel when dependent
 [P] Create API endpoints → code-writer
 [P] Write tests for endpoints → test-writer  # Will fail - endpoints don't exist yet
-```
+```yaml
 
 ## Performance Metrics
 
@@ -256,6 +274,7 @@ Based on typical workflow analysis:
 ## Common Anti-Patterns
 
 ### ❌ Sequential When Parallel Possible
+
 ```markdown
 # Bad
 1. Security review → reviewer
@@ -266,9 +285,10 @@ Based on typical workflow analysis:
 [P] Security review → reviewer with /review:security
 [P] Code review → reviewer with /review:code
 [P] Performance review → reviewer with /analyze:performance
-```
+```text
 
 ### ❌ Parallel When Dependencies Exist
+
 ```markdown
 # Bad
 [P] Create database schema → code-writer
@@ -277,9 +297,10 @@ Based on typical workflow analysis:
 # Good
 1. Create database schema → code-writer
 2. Create models using schema → code-writer (depends on 1)
-```
+```text
 
 ### ❌ Vague Task Boundaries
+
 ```markdown
 # Bad
 [P] Review the code → reviewer
@@ -302,6 +323,7 @@ Many workflow commands can leverage parallel execution:
 ## Cross-Platform Considerations
 
 All parallel execution patterns work identically across:
+
 - **Windows**: Full parallel agent support
 - **macOS**: Full parallel agent support
 - **Linux**: Full parallel agent support
@@ -310,4 +332,6 @@ The Agent Orchestra Framework handles platform differences transparently, ensuri
 
 ---
 
-Remember: **Parallel execution is your secret weapon for dramatically faster workflows**. Default to parallel patterns whenever tasks are independent, and watch your development velocity soar!
+Remember: **Parallel execution is your secret weapon for dramatically faster workflows**. Default to parallel patterns whenever tasks are independent,
+and
+watch your development velocity soar!

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Spec-Kit workflow is a comprehensive feature development system that guides projects from initial concept to implementation. It provides structured templates, validation frameworks, and integration with the Agent Orchestra to ensure consistent, high-quality feature development.
+The Spec-Kit workflow is a comprehensive feature development system that
+guides projects from initial concept to implementation. It provides structured templates, validation frameworks,
+and integration with the Agent Orchestra to ensure consistent, high-quality feature development.
 
 ## Complete Workflow Architecture
 
@@ -44,7 +46,7 @@ flowchart TD
         Memory --> Templates[Templates]
         Memory --> Agents[Agent Context]
     end
-```
+```yaml
 
 ## Workflow Steps Detailed
 
@@ -53,6 +55,7 @@ flowchart TD
 **Purpose**: Establish project principles and constraints
 
 **Process Flow**:
+
 ```mermaid
 stateDiagram-v2
     [*] --> CheckExisting
@@ -67,11 +70,12 @@ stateDiagram-v2
 
     note right of InteractivePrinciples : User provides core principles
     note right of ValidationFramework : Ensure consistency across templates
-```
+```text
 
 **Output**: `constitution.md` with project principles, constraints, and validation rules
 
 **Template Structure**:
+
 ```markdown
 # Project Constitution
 
@@ -90,13 +94,14 @@ stateDiagram-v2
 ## Validation Rules
 - [Rule 1]
 - [Rule 2]
-```
+```python
 
 ### 2. Specify (`/spec-kit:specify`)
 
 **Purpose**: Create detailed feature specification from natural language description
 
 **Agent Integration**:
+
 ```mermaid
 graph LR
     Input[Natural Language Description] --> TO[task-orchestrator]
@@ -109,11 +114,12 @@ graph LR
     R3 --> Synthesize
     Synthesize --> Validate[Constitution Compliance]
     Validate --> Output[spec.md]
-```
+```text
 
 **Output**: `spec.md` with comprehensive feature specification
 
 **Template Structure**:
+
 ```markdown
 # Feature Specification: [Feature Name]
 
@@ -145,13 +151,14 @@ graph LR
 ## Dependencies
 - [Internal dependencies]
 - [External dependencies]
-```
+```yaml
 
 ### 3. Plan (`/spec-kit:plan`)
 
 **Purpose**: Generate implementation plan using design templates
 
 **Planning Flow**:
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -169,11 +176,12 @@ sequenceDiagram
     IO->>IO: Define validation approach
     IO->>Memory: Save plan.md
     Memory-->>User: Implementation plan ready
-```
+```text
 
 **Output**: `plan.md` with detailed implementation approach
 
 **Template Structure**:
+
 ```markdown
 # Implementation Plan: [Feature Name]
 
@@ -205,13 +213,14 @@ sequenceDiagram
 ## Validation Strategy
 - [Testing approach]
 - [Quality gates]
-```
+```yaml
 
 ### 4. Clarify (`/spec-kit:clarify`)
 
 **Purpose**: Identify and resolve underspecified areas
 
 **Clarification Process**:
+
 ```mermaid
 graph TD
     A[Load Current Spec] --> B[Analyze Specification]
@@ -224,9 +233,10 @@ graph TD
     H --> I[Validate Consistency]
     I --> C
     E --> J[Finalize Specification]
-```
+```yaml
 
 **Question Categories**:
+
 1. **Functional Gaps**: Missing requirements or behaviors
 2. **Technical Details**: Implementation specifics needed
 3. **User Experience**: Interface and interaction clarification
@@ -240,6 +250,7 @@ graph TD
 **Purpose**: Generate actionable, dependency-ordered task breakdown
 
 **Task Generation Flow**:
+
 ```mermaid
 flowchart LR
     subgraph "Input Analysis"
@@ -270,9 +281,10 @@ flowchart LR
     Validate --> Tasks
     Validate --> Dependencies
     Validate --> Checklist
-```
+```yaml
 
 **Task Categories**:
+
 - **Setup Tasks**: Environment preparation
 - **Core Implementation**: Primary feature development
 - **Integration Tasks**: System integration points
@@ -287,6 +299,7 @@ flowchart LR
 **Purpose**: Cross-artifact consistency and quality analysis
 
 **Analysis Framework**:
+
 ```mermaid
 mindmap
   root((Spec-Kit Analysis))
@@ -310,9 +323,10 @@ mindmap
       Risk Mitigations
       Quality Enhancements
       Process Optimizations
-```
+```yaml
 
 **Analysis Outputs**:
+
 1. **Consistency Report**: Alignment between artifacts
 2. **Quality Metrics**: Objective quality scores
 3. **Gap Identification**: Areas needing attention
@@ -323,6 +337,7 @@ mindmap
 **Purpose**: Execute implementation plan with Agent Orchestra coordination
 
 **Implementation Orchestration**:
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -348,12 +363,13 @@ sequenceDiagram
     end
     IO->>IO: Validate implementation
     IO-->>User: Implementation complete
-```
+```text
 
 ## Memory System Architecture
 
 ### Directory Structure
-```
+
+```text
 .specify/
 ├── memory/
 │   ├── constitution.md      # Project principles
@@ -373,11 +389,12 @@ sequenceDiagram
     ├── diagrams/           # Generated diagrams
     ├── documentation/      # Generated docs
     └── validation/         # Quality reports
-```
+```text
 
 ### Memory Persistence Patterns
 
 **Context Preservation**:
+
 ```mermaid
 graph LR
     subgraph "Workflow State"
@@ -402,7 +419,7 @@ graph LR
     M1 --> M2
     M2 --> M3
     M3 --> M4
-```
+```yaml
 
 ## Integration with Agent Orchestra
 
@@ -421,6 +438,7 @@ graph LR
 ### Coordination Patterns
 
 **Research Phase** (specify, clarify):
+
 ```python
 # Parallel information gathering
 research_orchestrator.spawn([
@@ -429,9 +447,10 @@ research_orchestrator.spawn([
     research_agent_3("constraint_validation"),
     research_agent_4("user_story_development")
 ])
-```
+```text
 
 **Implementation Phase** (implement):
+
 ```python
 # Sequential implementation
 implementation_orchestrator.execute([
@@ -440,7 +459,7 @@ implementation_orchestrator.execute([
     reviewer("code_quality_review"),
     documenter("user_documentation")
 ])
-```
+```text
 
 ## Quality Gates & Validation
 
@@ -496,11 +515,12 @@ flowchart TD
     Implement --> G4A
     Implement --> G4B
     Implement --> G4C
-```
+```text
 
 ### Automated Validation
 
 **Quality Metrics**:
+
 ```python
 def validate_specification_quality(spec_md):
     metrics = {
@@ -520,11 +540,12 @@ def gate_validation(phase, artifacts):
         results.append(result)
 
     return all(results)
-```
+```text
 
 ## Advanced Usage Patterns
 
 ### Iterative Development
+
 ```bash
 # Initial specification
 claude /spec-kit:specify "User authentication system"
@@ -541,9 +562,10 @@ claude /spec-kit:plan
 claude /spec-kit:tasks
 claude /spec-kit:analyze
 claude /spec-kit:implement
-```
+```text
 
 ### Partial Workflow Usage
+
 ```bash
 # Use only planning components
 claude /spec-kit:constitution
@@ -553,9 +575,10 @@ claude /implement  # Direct implementation
 # Use only quality components
 claude /spec-kit:analyze
 claude /review:comprehensive
-```
+```text
 
 ### Cross-Feature Integration
+
 ```bash
 # Build on existing constitution
 claude /spec-kit:specify "Payment integration" --use-existing-constitution
@@ -569,16 +592,19 @@ claude /spec-kit:plan --reference-feature "user-auth"
 ### Common Issues
 
 **Incomplete Specifications**:
+
 - Use multiple clarification rounds
 - Review against constitution principles
 - Validate with domain experts
 
 **Planning Complexity**:
+
 - Break into smaller features
 - Use iterative planning approach
 - Focus on MVP first
 
 **Implementation Bottlenecks**:
+
 - Review task dependencies
 - Parallelize independent work streams
 - Use incremental delivery
@@ -591,4 +617,5 @@ claude /spec-kit:plan --reference-feature "user-auth"
 4. **Memory Preservation**: Keep all artifacts for reference
 5. **Agent Coordination**: Let orchestrators handle complex workflows
 
-The Spec-Kit workflow provides a structured, validated approach to feature development that integrates seamlessly with the Agent Orchestra framework for comprehensive, high-quality software delivery.
+The Spec-Kit workflow provides a structured, validated approach to feature development that
+integrates seamlessly with the Agent Orchestra framework for comprehensive, high-quality software delivery.

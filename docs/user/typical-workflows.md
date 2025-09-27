@@ -2,7 +2,9 @@
 
 ## Overview
 
-This document illustrates common development workflows using the Claude Code Command System, showing how users interact with commands, agents coordinate tasks, and the system delivers results. Each workflow demonstrates the integration between user requests, Agent Orchestra coordination, and command execution.
+This document illustrates common development workflows using the Claude Code Command System, showing how users interact with
+commands, agents coordinate tasks, and the system delivers results. Each workflow demonstrates the integration between user requests,
+Agent Orchestra coordination, and command execution.
 
 ## Core Workflow Pattern
 
@@ -37,7 +39,7 @@ sequenceDiagram
     end
     TO-->>Claude: Task Complete
     Claude-->>User: Present Results
-```
+```text
 
 ## Workflow Categories
 
@@ -74,7 +76,7 @@ flowchart TD
     S3 --> S4[reviewer: Security Review]
     S4 --> S5[documenter: Update Docs]
     S5 --> Done2([Complex Feature Complete])
-```
+```text
 
 #### Full Spec-Kit Workflow
 
@@ -134,7 +136,7 @@ graph TB
     FixIssues --> Analyze
 
     Implement --> Done([Checkout Feature Complete])
-```
+```text
 
 ### 2. Code Quality Workflows
 
@@ -174,7 +176,7 @@ sequenceDiagram
     CW->>CW: Prioritize Issues
     CW-->>TO: Comprehensive Review Complete
     TO-->>User: Present Consolidated Results
-```
+```text
 
 #### Automated Cleanup Workflow
 
@@ -216,7 +218,7 @@ flowchart LR
     end
 
     Report --> Done([Cleanup Complete])
-```
+```text
 
 ### 3. Bug Fix Workflows
 
@@ -242,7 +244,7 @@ stateDiagram-v2
     Documentation --> [*]
 
     note right of QuickFix : Single agent handles\nentire fix process
-```
+```text
 
 #### Complex Bug Investigation
 
@@ -283,7 +285,7 @@ flowchart TD
     end
 
     F4 --> Verified[Bug Fixed & Documented]
-```
+```text
 
 ### 4. Documentation Workflows
 
@@ -319,7 +321,7 @@ sequenceDiagram
     Doc->>Doc: Create interactive examples
     Doc-->>TO: Documentation Complete
     TO-->>User: API docs generated
-```
+```text
 
 #### Comprehensive Documentation Update
 
@@ -358,7 +360,7 @@ graph LR
     V1 --> Complete([Documentation Updated])
     V2 --> Complete
     V3 --> Complete
-```
+```text
 
 ### 5. Deployment & Operations Workflows
 
@@ -396,7 +398,7 @@ flowchart TD
 
     Complete --> Notify[Send Success Notifications]
     Investigate --> Report[Generate Failure Report]
-```
+```text
 
 ### 6. Research & Analysis Workflows
 
@@ -431,7 +433,7 @@ mindmap
       Generate recommendations
       Create decision matrix
       Present options
-```
+```text
 
 #### Performance Analysis
 
@@ -465,7 +467,7 @@ sequenceDiagram
     RO->>RO: Recommend Optimizations
     RO-->>TO: Comprehensive Analysis
     TO-->>User: Performance Insights & Recommendations
-```
+```text
 
 ## Workflow Selection Guide
 
@@ -534,4 +536,5 @@ flowchart TD
 - **User Satisfaction**: Feedback on workflow effectiveness
 - **Error Reduction**: Decrease in post-workflow issues
 
-These typical workflows demonstrate how the Claude Code Command System orchestrates complex development tasks through intelligent agent coordination, providing users with powerful automation while maintaining quality and consistency.
+These typical workflows demonstrate how the Claude Code Command System orchestrates complex development tasks through
+intelligent agent coordination, providing users with powerful automation while maintaining quality and consistency.

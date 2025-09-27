@@ -2,7 +2,8 @@
 
 ## Architecture Overview
 
-The Claude Code Command System is built on the **Agent Orchestra Framework**, a task-focused coordination system that replaces traditional domain-based agents with specialized orchestrators and workers.
+The Claude Code Command System is built on the **Agent Orchestra Framework**, a task-focused coordination system that
+replaces traditional domain-based agents with specialized orchestrators and workers.
 
 ### System Components
 
@@ -41,28 +42,34 @@ graph TB
     Orchestrators --> Workers
     Workers --> Commands
     Commands --> Hooks
-```
+```python
 
 ## Agent Orchestra Framework
 
 ### Orchestrators (Coordination Layer)
 
 #### 1. task-orchestrator
+
 **Purpose**: General task coordination and delegation
+
 - Analyzes task complexity
 - Delegates to appropriate workers
 - Manages TodoWrite tracking
 - Uses SlashCommand for delegation
 
 #### 2. research-orchestrator
+
 **Purpose**: Parallel information gathering
+
 - Spawns multiple research agents
 - Coordinates breadth-first search patterns
 - Aggregates findings from parallel streams
 - No interference between parallel agents
 
 #### 3. implementation-orchestrator
+
 **Purpose**: Sequential code changes
+
 - Manages file dependencies
 - Ensures proper execution order
 - Maintains state consistency
@@ -71,26 +78,31 @@ graph TB
 ### Workers (Execution Layer)
 
 #### 1. code-writer
+
 - **Focus**: Code generation only
 - **Commands**: `/refactor:large-scale`, `/implement`
 - **Constraints**: No testing, documentation, or review
 
 #### 2. test-writer
+
 - **Focus**: Test creation only
 - **Commands**: `/test`, `/spec-kit:tasks`
 - **Capabilities**: Auto-detects test frameworks
 
 #### 3. bug-fixer
+
 - **Focus**: Debugging only
 - **Commands**: `/fix:bug-quickly`, `/analyze:potential-issues`
 - **Process**: Reproduce → Isolate → Fix → Verify
 
 #### 4. reviewer
+
 - **Focus**: Code analysis only
 - **Commands**: `/review:code`, `/review:security`
 - **Capabilities**: Can run multiple review types in parallel
 
 #### 5. documenter
+
 - **Focus**: Documentation only
 - **Commands**: `/docs:generate`, `/docs:api`
 - **Formats**: README, API docs, inline comments
@@ -100,11 +112,13 @@ graph TB
 ### Creating New Commands
 
 #### 1. Command Structure
-```
+
+```text
 commands/{category}/{command-name}.md
-```
+```text
 
 #### 2. Command Format
+
 ```markdown
 # Command: {action-verb} {object}
 
@@ -112,9 +126,11 @@ commands/{category}/{command-name}.md
 Single clear sentence describing what this command does.
 
 ## Usage
-```
+```text
+
 {command-name} [arguments]
-```
+
+```yaml
 
 ## Agent Integration
 - Primary agent: {agent-name}
@@ -125,14 +141,16 @@ Single clear sentence describing what this command does.
 
 ## Integration Points
 {How this connects to other commands}
-```
+```yaml
 
 #### 3. Naming Conventions
+
 - **Action verb + clear object**: `analyze:performance`, `clean:code-comments`
 - **No redundant prefixes**: Use category folders, not command prefixes
 - **Consistent patterns**: Follow existing commands in the same category
 
 #### 4. Categories (16 total)
+
 - `analyze/` - Analysis and investigation
 - `build/` - Building and packaging
 - `clean/` - Cleanup operations
@@ -153,16 +171,19 @@ Single clear sentence describing what this command does.
 ### Creating New Agents
 
 #### 1. Agent Types
+
 - **Orchestrators**: Coordinate complex tasks
 - **Workers**: Execute specific functions
 - **Specialists**: Domain-specific expertise
 
 #### 2. Agent File Structure
-```
+
+```text
 agents/{type}/{agent-name}.md
-```
+```text
 
 #### 3. Agent Definition Format
+
 ```markdown
 # Agent: {agent-name}
 
@@ -190,9 +211,10 @@ agents/{type}/{agent-name}.md
 
 ## Usage Patterns
 {Common workflows using this agent}
-```
+```yaml
 
 #### 4. Agent Constraints
+
 - **Single Responsibility**: Each agent has one clear focus
 - **No Overlap**: Agents should not duplicate functionality
 - **Clear Boundaries**: Well-defined interaction points
@@ -201,11 +223,13 @@ agents/{type}/{agent-name}.md
 ### Hook Development
 
 #### 1. Hook Types (3 supported)
+
 - **UserPromptSubmit**: Triggered on every user input
 - **Stop**: Triggered when tasks complete
 - **PreToolUse**: Triggered before specific tools
 
 #### 2. Hook Implementation
+
 ```python
 # scripts/{hook-name}.py
 import os
@@ -222,9 +246,10 @@ def execute_hook():
 
 if __name__ == "__main__":
     execute_hook()
-```
+```text
 
 #### 3. Hook Registration (settings.json)
+
 ```json
 {
   "hooks": {
@@ -236,9 +261,10 @@ if __name__ == "__main__":
     }]
   }
 }
-```
+```yaml
 
 #### 4. Hook Best Practices
+
 - **Fast execution**: Hooks should complete quickly
 - **Error handling**: Always catch and log exceptions
 - **Resource cleanup**: Clean up temporary files
@@ -247,6 +273,7 @@ if __name__ == "__main__":
 ### Security Guidelines
 
 #### 1. Permission Management
+
 ```json
 {
   "permissions": {
@@ -254,15 +281,17 @@ if __name__ == "__main__":
     "deny": ["Sensitive patterns"]
   }
 }
-```
+```bash
 
 #### 2. Git Operations Constraints
+
 - **CRITICAL**: Only `/git/*` commands can perform Git operations
 - **All other agents**: Must use SlashCommand to delegate Git operations
 - **No direct Git**: Agents cannot call git commands directly
 - **Explicit consent**: All Git operations require user approval
 
 #### 3. Secret Protection
+
 - **Blocked patterns**: `.env*`, `*.key`, `*.pem`, `secrets/`, `credentials/`
 - **No logging**: Never log API keys, tokens, or passwords
 - **Environment variables**: Use secure environment variable patterns
@@ -270,6 +299,7 @@ if __name__ == "__main__":
 ### Testing Guidelines
 
 #### 1. Command Testing
+
 ```bash
 # Test command existence
 ls commands/{category}/{command}.md
@@ -279,9 +309,10 @@ grep -E "^# Command:" commands/{category}/{command}.md
 
 # Test agent integration
 grep -E "Primary agent:" commands/{category}/{command}.md
-```
+```text
 
 #### 2. Agent Testing
+
 ```bash
 # Test agent definitions
 ls agents/{type}/{agent}.md
@@ -291,9 +322,10 @@ grep -E "Model:" agents/{type}/{agent}.md
 
 # Test integration points
 grep -E "Commands:" agents/{type}/{agent}.md
-```
+```yaml
 
 #### 3. Integration Testing
+
 - Test Agent Orchestra coordination
 - Verify command delegation works
 - Ensure Git constraints are enforced
@@ -302,19 +334,22 @@ grep -E "Commands:" agents/{type}/{agent}.md
 ## Advanced Customization
 
 ### Model Selection Strategy
+
 - **Opus**: Planning-heavy orchestrators (task, research, implementation)
 - **Sonnet**: Balanced workers (code-writer, reviewer)
 - **Haiku**: Simple workers (bug-fixer for obvious issues)
 
 ### Think Commands Integration
+
 ```markdown
 ## Think Commands Support
 - **think**: Basic analysis and straightforward problem solving
 - **think hard**: Deep analysis, complex reasoning, multi-step problems
 - **ultra think**: Comprehensive planning, architectural decisions, complex debugging
-```
+```text
 
 ### Orchestrator Delegation Logic
+
 ```python
 # Pseudocode for orchestrator decision-making
 def delegate_task(task_complexity, task_type):
@@ -329,18 +364,21 @@ def delegate_task(task_complexity, task_type):
 ### Extension Points
 
 #### 1. New Command Categories
+
 1. Create new category folder: `commands/{new-category}/`
 2. Add category to CLAUDE.md command list
 3. Update documentation
 4. Create first command in category
 
 #### 2. New Agent Types
+
 1. Define in appropriate folder: `agents/{type}/`
 2. Follow Agent Orchestra patterns
 3. Ensure no overlap with existing agents
 4. Document integration points
 
 #### 3. Custom Workflows
+
 1. Create in `commands/workflows/`
 2. Use `run-{workflow-name}.md` format
 3. Orchestrate multiple commands
@@ -349,18 +387,21 @@ def delegate_task(task_complexity, task_type):
 ## Quality Standards
 
 ### Code Quality
+
 - **Consistency**: Follow existing patterns
 - **Documentation**: Every command and agent documented
 - **Testing**: Validate functionality before deployment
 - **Security**: Enforce permission and Git constraints
 
 ### Documentation Quality
+
 - **Clear Purpose**: Every component has obvious purpose
 - **Usage Examples**: Real-world usage patterns
 - **Integration Points**: How components work together
 - **Troubleshooting**: Common issues and solutions
 
 ### Maintenance
+
 - **Regular Reviews**: Audit commands and agents for overlap
 - **Performance Monitoring**: Track command execution times
 - **User Feedback**: Incorporate usage patterns
@@ -369,6 +410,7 @@ def delegate_task(task_complexity, task_type):
 ## Migration Patterns
 
 ### From MECE to Agent Orchestra
+
 1. **Identify domain agent**: Map old MECE agent to new pattern
 2. **Extract responsibilities**: Break into orchestrator/worker tasks
 3. **Update references**: Change agent calls to orchestrator calls
@@ -376,10 +418,12 @@ def delegate_task(task_complexity, task_type):
 5. **Update documentation**: Reflect new patterns
 
 ### Command Evolution
+
 1. **Deprecation**: Mark old commands as deprecated
 2. **Migration path**: Provide clear upgrade instructions
 3. **Backward compatibility**: Maintain for transition period
 4. **Documentation**: Update all references
 5. **Cleanup**: Remove deprecated commands after transition
 
-This guide provides the foundation for extending and customizing the Claude Code Command System. Follow these patterns to maintain consistency and quality across the system.
+This guide provides the foundation for extending and
+customizing the Claude Code Command System. Follow these patterns to maintain consistency and quality across the system.

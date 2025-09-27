@@ -27,7 +27,7 @@ npm install -g @context7/mcp-server
 
 # Or install locally in your project
 npm install @context7/mcp-server
-```
+```text
 
 ### 2. Configure Context7 in Claude Code
 
@@ -45,7 +45,7 @@ Add Context7 to your Claude Code configuration:
     }
   }
 }
-```
+```python
 
 ### 3. Get Context7 API Key
 
@@ -60,7 +60,7 @@ export CONTEXT7_API_KEY="your-api-key-here"
 
 # Or create a .env file in your project root
 echo "CONTEXT7_API_KEY=your-api-key-here" >> .env
-```
+```text
 
 ### 4. Verify Context7 Setup
 
@@ -69,9 +69,10 @@ Test the Context7 integration:
 ```bash
 # In Claude Code, try resolving a library
 claude "Use Context7 to find React documentation"
-```
+```yaml
 
 The system will automatically use these tools:
+
 - `mcp__context7__resolve-library-id` - Map package names to documentation IDs
 - `mcp__context7__get-library-docs` - Fetch current documentation content
 
@@ -87,7 +88,7 @@ npm install -g @playwright/mcp-server
 
 # Install Playwright browsers
 npx playwright install
-```
+```text
 
 ### 2. Configure Playwright in Claude Code
 
@@ -105,7 +106,7 @@ Add Playwright to your Claude Code configuration:
     }
   }
 }
-```
+```text
 
 ### 3. Browser Setup
 
@@ -117,7 +118,7 @@ npx playwright install
 
 # Or install specific browsers
 npx playwright install chromium firefox webkit
-```
+```text
 
 ### 4. Verify Playwright Setup
 
@@ -126,9 +127,10 @@ Test the Playwright integration:
 ```bash
 # In Claude Code, try a browser automation task
 claude "Use Playwright to take a screenshot of example.com"
-```
+```bash
 
 Available Playwright tools include:
+
 - `mcp__playwright__browser_navigate` - Navigate to URLs
 - `mcp__playwright__browser_click` - Click elements
 - `mcp__playwright__browser_type` - Type text
@@ -173,7 +175,7 @@ Here's a complete Claude Code configuration with both MCP servers:
     ]
   }
 }
-```
+```yaml
 
 ## Command Integration
 
@@ -216,15 +218,17 @@ Playwright integration enhances browser-related tasks:
 ### Context7 Issues
 
 **API Key Not Working:**
+
 ```bash
 # Verify your API key is set
 echo $CONTEXT7_API_KEY
 
 # Test the key directly
 curl -H "Authorization: Bearer $CONTEXT7_API_KEY" https://api.context7.com/health
-```
+```yaml
 
 **Library Not Found:**
+
 - Use `mcp__context7__resolve-library-id` to find correct library IDs
 - Try alternative library names or versions
 - Check Context7 documentation for supported libraries
@@ -232,24 +236,27 @@ curl -H "Authorization: Bearer $CONTEXT7_API_KEY" https://api.context7.com/healt
 ### Playwright Issues
 
 **Browsers Not Installed:**
+
 ```bash
 # Reinstall browsers
 npx playwright install --force
 
 # Check installed browsers
 npx playwright install --dry-run
-```
+```text
 
 **Permission Errors:**
+
 ```bash
 # On Linux, install dependencies
 sudo npx playwright install-deps
 
 # On macOS, grant accessibility permissions
 # System Preferences > Security & Privacy > Accessibility
-```
+```text
 
 **Headless Mode Issues:**
+
 ```bash
 # Try running with GUI for debugging
 export PLAYWRIGHT_HEADLESS=false
@@ -258,11 +265,13 @@ export PLAYWRIGHT_HEADLESS=false
 ## Environment Variables Reference
 
 ### Context7 Variables
+
 - `CONTEXT7_API_KEY` - Your Context7 API key (required)
 - `CONTEXT7_BASE_URL` - Custom API endpoint (optional)
 - `CONTEXT7_TIMEOUT` - Request timeout in milliseconds (default: 30000)
 
 ### Playwright Variables
+
 - `PLAYWRIGHT_BROWSER` - Browser to use (chromium, firefox, webkit)
 - `PLAYWRIGHT_HEADLESS` - Run in headless mode (true/false)
 - `PLAYWRIGHT_TIMEOUT` - Page timeout in milliseconds (default: 30000)
@@ -272,12 +281,14 @@ export PLAYWRIGHT_HEADLESS=false
 ## Security Considerations
 
 ### Context7 Security
+
 - Store API keys in environment variables, never in code
 - Use project-specific API keys when possible
 - Regularly rotate API keys
 - Monitor API usage through Context7 dashboard
 
 ### Playwright Security
+
 - Run in sandboxed environments when possible
 - Be cautious with `--no-sandbox` flags
 - Use headless mode in production
