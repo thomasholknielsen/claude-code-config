@@ -23,7 +23,6 @@
 
    ```bash
    chmod +x scripts/*.sh
-   ```yaml
 
 3. **Test the setup:**
 
