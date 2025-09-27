@@ -1,0 +1,77 @@
+# Dependabot configuration for Claude Code Command System
+# Automated dependency updates with security and maintenance focus
+
+version: 2
+updates:
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    target-branch: "master"
+    reviewers:
+      - "@thomasholknielsen"
+    assignees:
+      - "@thomasholknielsen"
+    commit-message:
+      prefix: "deps(actions)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    open-pull-requests-limit: 5
+
+  # Python dependencies (for hooks and scripts)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+    target-branch: "master"
+    reviewers:
+      - "@thomasholknielsen"
+    assignees:
+      - "@thomasholknielsen"
+    commit-message:
+      prefix: "deps(python)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+      - "automated"
+    open-pull-requests-limit: 3
+    # Allow security updates immediately
+    allow:
+      - dependency-type: "direct"
+        update-type: "security"
+      - dependency-type: "indirect"
+        update-type: "security"
+
+  # NPM dependencies (for markdownlint and other tools)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "09:00"
+    target-branch: "master"
+    reviewers:
+      - "@thomasholknielsen"
+    assignees:
+      - "@thomasholknielsen"
+    commit-message:
+      prefix: "deps(npm)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "automated"
+    open-pull-requests-limit: 3
+    ignore:
+      # Ignore major version updates for stability
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

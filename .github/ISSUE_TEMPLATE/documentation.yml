@@ -1,0 +1,97 @@
+name: Documentation Issue
+description: Report documentation issues or suggest improvements
+title: "[Docs]: "
+labels: ["documentation", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve our documentation!
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation issue is this?
+      options:
+        - Command Documentation
+        - Agent Documentation
+        - User Guide
+        - Developer Guide
+        - API Reference
+        - README
+        - Contributing Guidelines
+        - Code Examples
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What kind of documentation issue is this?
+      options:
+        - Missing Information
+        - Incorrect Information
+        - Unclear/Confusing
+        - Outdated Content
+        - Broken Links
+        - Formatting Issues
+        - New Documentation Needed
+        - Translation Issue
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Documentation Location
+      description: Where is this documentation located?
+      placeholder: e.g., docs/user-guide.md, commands/git/commit.md, README.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content
+      description: What does the current documentation say? (copy/paste the relevant section)
+      placeholder: Current text or description of the issue
+
+  - type: textarea
+    id: suggested-improvement
+    attributes:
+      label: Suggested Improvement
+      description: What should the documentation say instead?
+      placeholder: Provide the corrected or improved content
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Why is this change needed? What problems does the current documentation cause?
+      placeholder: Explain the impact and importance of this documentation change
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope of Changes
+      description: Please check all that apply
+      options:
+        - label: This affects multiple documentation files
+        - label: This requires updating code examples
+        - label: This requires updating screenshots/diagrams
+        - label: This affects user workflows
+        - label: This affects developer workflows
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
