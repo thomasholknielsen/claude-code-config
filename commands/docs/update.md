@@ -28,6 +28,7 @@ I'll automatically detect what needs updating by:
    - README.md with new features/changes
    - CHANGELOG.md with version entries
    - API docs with new endpoints
+   - CLAUDE.md statistics via `.specify/scripts/sync-claude-md.py` (if in Claude Code repo)
    - Configuration docs with new options
    - Migration guides if breaking changes
 

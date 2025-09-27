@@ -7,7 +7,7 @@ This file contains **project-specific** configuration for the Claude Code comman
 The Claude Code Command System is a comprehensive development automation system built on the **Agent Orchestra Framework**. This repository contains:
 
 - **8 Agents**: 3 orchestrators + 5 workers for task coordination and execution
-- **48 Commands**: Atomic operations organized across 12 categories
+- **54 Commands**: Atomic operations organized across 13 categories
 - **Complete Documentation**: User guides, technical docs, and visual workflows
 - **Hooks System**: Cross-platform Python-based automation
 - **MCP Integration**: Context7 and Playwright tools for enhanced capabilities
@@ -45,22 +45,23 @@ Execute specific functions with focused responsibilities:
 
 ## 📁 Command System Structure
 
-### Actual Command Categories (48 total)
+### Actual Command Categories (54 total)
 
 ```
 commands/
-├── analyze/             # 3 commands - Performance, dependencies, potential issues
-├── clean/             # 4 commands - Code cleanup and formatting operations
-├── docs/             # 6 commands - Documentation generation and maintenance
-├── explain/             # 2 commands - Code understanding and architecture
-├── fix/             # 2 commands - Bug fixes and issue resolution
-├── git/             # 1 command - Operations and management
-├── implement/             # 2 commands - Feature implementation and task execution
-├── refactor/             # 6 commands - Code restructuring and optimization
-├── review/             # 3 commands - Code review and quality analysis
-├── spec-kit/             # 7 commands - Complete 7-step feature development workflow
-├── to-do/             # 5 commands - Task management and todo operations
-├── workflows/             # 7 commands - Operations and management
+├── analyze/      # 3 commands
+├── clean/        # 4 commands
+├── docs/         # 6 commands
+├── explain/      # 2 commands
+├── fix/          # 2 commands
+├── git/          # 6 commands
+├── implement/    # 2 commands
+├── plan/         # 1 commands
+├── refactor/     # 6 commands
+├── review/       # 3 commands
+├── spec-kit/     # 7 commands
+├── to-do/        # 5 commands
+├── workflows/    # 7 commands
 ```
 
 ### Command Design Principles
