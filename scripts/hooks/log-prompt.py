@@ -120,8 +120,9 @@ def main():
     if success:
         print(f"[INFO] Prompt logged successfully: {message}")
         return 0
-    print(f"[ERROR] {message}", file=sys.stderr)
-    return 1
+    else:
+        print(f"[ERROR] {message}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
