@@ -1,21 +1,36 @@
 ---
-description: Automated code formatting using project's configured formatter (prettier, eslint --fix, etc.)
-domain: code
-boundary: Automated formatting tools only - does not include manual style improvements
+description: "Automated code formatting using project's configured formatter (prettier, eslint --fix, etc.)"
+category: "clean"
+agent: "code-writer"
+tools: ["Read", "Edit", "MultiEdit", "Bash"]
+complexity: "simple"
 ---
 
-# Auto Format Code
+# Command: Apply Style Rules
 
-I'll format your code using the project's configured formatter.
+## Purpose
 
-I'll detect your project's formatter automatically by analyzing configuration files and project structure without assuming specific technologies.
+Executes clean operations for apply style rules functionality.
 
-I'll format only modified files to avoid unnecessary changes and focus on your current work.
+## Usage
 
-If no formatter is configured, I'll suggest appropriate options for your project type and offer to format using language conventions.
+```bash
+/clean:apply-style-rules [arguments]
+```yaml
 
-After formatting, I'll show what changed and ensure the code follows your project's established style patterns.
+**Arguments**: Optional parameters specific to the operation
 
-If formatting encounters issues, I'll provide specific error details and suggest solutions.
+## Process
 
-This maintains consistent code style according to your project's standards efficiently.
+1. Analyze the current state and requirements
+2. Execute the clean operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
+
+## Agent Integration
+
+- **Primary Agent**: code-writer - Handles clean operations and coordination
+
+## Examples
+
+```bash

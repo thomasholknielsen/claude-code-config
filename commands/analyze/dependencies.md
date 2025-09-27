@@ -6,28 +6,31 @@ tools: ["Bash", "Read", "Grep", "WebFetch"]
 complexity: "moderate"
 ---
 
-# Analyze Project Dependencies
+# Command: Dependencies
 
-I'll analyze your project dependencies for security, updates, and optimization opportunities.
+## Purpose
 
-## Dependency Analysis
+Executes analyze operations for dependencies functionality.
 
-**Security analysis:**
-- CVE vulnerability scanning
-- License compatibility check
-- Malicious package detection
-- Dependency confusion risks
+## Usage
 
-**Update analysis:**
-- Outdated package identification
-- Breaking change assessment
-- Update impact evaluation
-- Automated update suggestions
+```bash
+/analyze:dependencies [arguments]
+```yaml
 
-**Optimization opportunities:**
-- Bundle size impact analysis
-- Unused dependency detection
-- Alternative package recommendations
-- Tree-shaking effectiveness
+**Arguments**: Optional parameters specific to the operation
 
-Keeps your dependencies secure and optimized.
+## Process
+
+1. Analyze the current state and requirements
+2. Execute the analyze operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
+
+## Agent Integration
+
+- **Primary Agent**: research-orchestrator - Handles analyze operations and coordination
+
+## Examples
+
+```bash

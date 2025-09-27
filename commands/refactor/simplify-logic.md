@@ -6,52 +6,31 @@ tools: ["Read", "Edit", "Bash"]
 complexity: "moderate"
 ---
 
-# Simplify Logic
+# Command: Simplify Logic
 
-I'll simplify complex conditionals, nested statements, and convoluted logic to make code more readable and maintainable.
+## Purpose
 
-Arguments: `$ARGUMENTS` - files, functions, or specific logic blocks to simplify
+Executes refactor operations for simplify logic functionality.
 
-## Logic Simplification Targets
+## Usage
 
-**Complex conditionals:**
-- Nested if-else chains
-- Multiple boolean conditions
-- Ternary operator overuse
-- Switch statements with complex cases
+```bash
+/refactor:simplify-logic [arguments]
+```yaml
 
-**Control flow improvements:**
-- Early returns to reduce nesting
-- Guard clauses for input validation
-- Loop simplification and optimization
-- Exception handling streamlining
+**Arguments**: Optional parameters specific to the operation
 
-## Simplification Techniques
+## Process
 
-**Conditional optimization:**
-- Replace nested ifs with early returns
-- Extract complex boolean logic into named functions
-- Use lookup tables instead of long if-else chains
-- Simplify ternary operators for readability
+1. Analyze the current state and requirements
+2. Execute the refactor operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Structure improvements:**
-- Flatten nested code blocks
-- Combine related conditions
-- Remove redundant checks
-- Optimize loop structures
+## Agent Integration
 
-## Readability Focus
+- **Primary Agent**: code-writer - Handles refactor operations and coordination
 
-**Cognitive load reduction:**
-- Reduce nesting levels
-- Make code flow more linear
-- Eliminate redundant logic
-- Create clear, obvious code paths
+## Examples
 
-**Maintainability improvements:**
-- Easier to test individual logic branches
-- Clearer error handling paths
-- More obvious business logic flow
-- Reduced complexity metrics
-
-Quick logic simplification focused on immediate readability improvements.
+```bash

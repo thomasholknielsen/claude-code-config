@@ -1,77 +1,36 @@
 ---
-description: Rapid bug fixes without full implementation session complexity  
-category: debugging
-tools: Read, Edit, MultiEdit, Bash
+description: "Rapid bug fixes without full implementation session complexity"
+category: "debugging"
+agent: "bug-fixer"
+tools: ["Read", "Edit", "MultiEdit", "Bash"]
+complexity: "moderate"
 ---
 
-# Quick Bug Fix
+# Command: Bug Quickly
 
-I'll rapidly identify and fix bugs without full implementation session complexity.
+## Purpose
 
-Arguments: `$ARGUMENTS` - bug description, error message, or file with issue
+Executes fix operations for bug quickly functionality.
 
-## Fix Categories
+## Usage
 
-**Common Issues:**
-- Import/export errors and missing dependencies
-- Type errors and null/undefined issues
-- Logic errors and off-by-one mistakes
-- Configuration and environment problems
+```bash
+/fix:bug-quickly [arguments]
+```yaml
 
-**Runtime Errors:**
-- Exception handling and error boundaries
-- Async/await timing and promise issues
-- Memory leaks and resource cleanup
-- API integration and network failures
+**Arguments**: Optional parameters specific to the operation
 
-**UI/UX Issues:**
-- Layout problems and responsive design
-- State management and component lifecycle
-- Event handling and user interaction
-- Performance and rendering issues
+## Process
 
-## Fix Process
+1. Analyze the current state and requirements
+2. Execute the fix operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Rapid diagnosis:**
-- Analyze error messages and stack traces
-- Identify root cause from symptoms
-- Check related code for similar patterns
-- Validate fix scope and impact
+## Agent Integration
 
-**Targeted solution:**
-- Apply minimal change to resolve issue
-- Test fix in isolation
-- Verify no regressions introduced
-- Update related documentation if needed
+- **Primary Agent**: bug-fixer - Handles fix operations and coordination
 
-**Quick validation:**
-- Run affected tests immediately
-- Check integration points
-- Validate error resolution
-- Confirm expected behavior restored
+## Examples
 
-## Smart Detection
-
-**Error pattern matching:**
-- Common JavaScript/TypeScript errors
-- Framework-specific issues (React, Vue, etc.)
-- Database connection and query problems
-- Build and deployment failures
-
-**Context-aware fixes:**
-- Consider project conventions and patterns
-- Maintain code style consistency
-- Preserve existing functionality
-- Follow established error handling
-- Check `.specify/` for feature-specific requirements and constraints
-
-## Usage Examples
-
-```
-/quick-fix "undefined is not a function"
-/quick-fix src/components/UserCard.tsx
-/quick-fix "API returning 500 error"
-/quick-fix "tests failing after merge"
-```
-
-Fast, focused bug resolution without session overhead or complex analysis.
+```bash

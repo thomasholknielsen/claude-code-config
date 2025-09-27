@@ -6,69 +6,31 @@ tools: ["Read", "Edit", "Bash"]
 complexity: "simple"
 ---
 
-# Quick Refactor
+# Command: Quick
 
-I'll rapidly apply common refactoring patterns without session management overhead, perfect for daily code improvements.
+## Purpose
 
-Arguments: `$ARGUMENTS` - files, code snippets, or specific improvements needed
+Executes refactor operations for quick functionality.
 
-## Common Quick Refactors
+## Usage
 
-**Immediate improvements:**
-- Extract magic numbers to named constants
-- Simplify complex ternary operators
-- Remove unused variables and imports
-- Inline single-use variables
-- Replace string concatenation with template literals
+```bash
+/refactor:quick [arguments]
+```yaml
 
-**Logic optimizations:**
-- Convert if-else to early returns
-- Simplify boolean expressions
-- Replace repetitive code with loops
-- Optimize array/object operations
-- Streamline error handling
+**Arguments**: Optional parameters specific to the operation
 
-## Rapid Execution
+## Process
 
-**No session overhead:**
-- Direct analysis and immediate changes
-- Focus on obvious improvements
-- Quick validation and testing
-- Instant feedback on changes
+1. Analyze the current state and requirements
+2. Execute the refactor operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Pattern recognition:**
-- Identify common anti-patterns
-- Apply established refactoring techniques
-- Use language-specific optimizations
-- Follow project conventions automatically
+## Agent Integration
 
-## Quick Win Categories
+- **Primary Agent**: code-writer - Handles refactor operations and coordination
 
-**Readability improvements:**
-- Better variable names for unclear identifiers
-- Extract complex expressions into variables
-- Add missing const/let corrections
-- Simplify nested object access
+## Examples
 
-**Performance optimizations:**
-- Remove unnecessary array iterations
-- Optimize conditional checks
-- Eliminate redundant operations
-- Improve memory usage patterns
-
-**Code quality fixes:**
-- Fix inconsistent formatting
-- Remove console.log statements
-- Add missing error handling
-- Standardize similar code patterns
-
-## Usage Examples
-
-```
-/refactor:quick "extract this magic number"
-/refactor:quick UserCard.tsx
-/refactor:quick "simplify these nested ifs"
-/refactor:quick src/utils/
-```
-
-Fast, focused refactoring for immediate code quality improvements.
+```bash
