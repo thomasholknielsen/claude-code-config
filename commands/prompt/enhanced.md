@@ -6,14 +6,14 @@ tools: ["Read", "Grep", "Glob", "TodoWrite"]
 complexity: "moderate"
 ---
 
-# Command: Create Enhanced Prompt
+# Command: Enhance User Prompt
 
 ## Purpose
 Analyzes user prompts and enhances them by leveraging knowledge of available slash commands and subagents.
 
 ## Usage
 ```
-/prompt:create "user prompt text"
+/prompt:enhanced "user prompt text"
 ```
 
 **Arguments**: Raw user prompt or task description to enhance
@@ -56,7 +56,7 @@ Based on Agent Orchestra Framework:
 
 ### Example 1: Basic Bug Fix
 ```bash
-/prompt:create "My login form isn't working"
+/prompt:enhanced "My login form isn't working"
 ```
 
 **Enhanced Output:**
@@ -78,7 +78,7 @@ I'll help you fix the login form issue. Here's an optimized approach:
 
 ### Example 2: Code Quality Improvement
 ```bash
-/prompt:create "Make my code better"
+/prompt:enhanced "Make my code better"
 ```
 
 **Enhanced Output:**
@@ -102,7 +102,7 @@ I'll help improve your code quality comprehensively. Here's a structured approac
 
 ### Example 3: Feature Implementation
 ```bash
-/prompt:create "Add user authentication to my app"
+/prompt:enhanced "Add user authentication to my app"
 ```
 
 **Enhanced Output:**
