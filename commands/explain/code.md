@@ -1,3 +1,11 @@
+---
+description: "Provide clear code explanations with context-appropriate depth"
+category: "explain"
+agent: "code-writer"
+tools: ["Read", "Grep", "Glob"]
+complexity: "simple"
+---
+
 # Explain Code
 
 I'll provide clear code explanations with context-appropriate depth.

@@ -1,3 +1,11 @@
+---
+description: "Systematically fix import statements broken by file moves or renames"
+category: "fix"
+agent: "bug-fixer"
+tools: ["Grep", "Edit", "Bash", "Read"]
+complexity: "moderate"
+---
+
 # Fix Broken Imports
 
 I'll systematically fix import statements broken by file moves or renames, with full continuity across sessions.

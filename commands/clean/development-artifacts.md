@@ -1,3 +1,11 @@
+---
+description: "Clean up development artifacts while preserving working code"
+category: "clean"
+agent: "task-orchestrator"
+tools: ["Bash", "Glob", "Read"]
+complexity: "moderate"
+---
+
 # Clean Project
 
 I'll help clean up development artifacts while preserving your working code.

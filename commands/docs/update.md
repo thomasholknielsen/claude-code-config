@@ -1,3 +1,11 @@
+---
+description: "Intelligently update existing project documentation by analyzing changes and keeping content current"
+category: "docs"
+agent: "documenter"
+tools: ["Read", "Edit", "Bash", "Grep"]
+complexity: "moderate"
+---
+
 # Documentation Updater
 
 I'll intelligently update your existing project documentation by analyzing changes and keeping everything current and consistent.

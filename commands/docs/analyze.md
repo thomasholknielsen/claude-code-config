@@ -1,3 +1,11 @@
+---
+description: "Analyze project documentation coverage, quality, and freshness to identify improvement opportunities"
+category: "docs"
+agent: "documenter"
+tools: ["Glob", "Read", "Grep", "Bash"]
+complexity: "complex"
+---
+
 # Documentation Analyzer
 
 I'll comprehensively analyze your project's documentation coverage, quality, and freshness to identify gaps and improvement opportunities.

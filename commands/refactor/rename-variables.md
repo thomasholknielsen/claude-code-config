@@ -1,3 +1,11 @@
+---
+description: "Improve code clarity by renaming variables, functions, and identifiers to be more descriptive"
+category: "refactor"
+agent: "code-writer"
+tools: ["Grep", "Edit", "Bash"]
+complexity: "simple"
+---
+
 # Rename Variables
 
 I'll improve code clarity by renaming variables, functions, and other identifiers to be more descriptive and follow naming conventions.

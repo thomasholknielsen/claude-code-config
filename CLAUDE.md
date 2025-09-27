@@ -7,7 +7,7 @@ This file contains **project-specific** configuration for the Claude Code comman
 The Claude Code Command System is a comprehensive development automation system built on the **Agent Orchestra Framework**. This repository contains:
 
 - **8 Agents**: 3 orchestrators + 5 workers for task coordination and execution
-- **49 Commands**: Atomic operations organized across 13 categories
+- **54 Commands**: Atomic operations organized across 15 categories
 - **Complete Documentation**: User guides, technical docs, and visual workflows
 - **Hooks System**: Cross-platform Python-based automation
 - **MCP Integration**: Context7 and Playwright tools for enhanced capabilities
@@ -45,23 +45,24 @@ Execute specific functions with focused responsibilities:
 
 ## 📁 Command System Structure
 
-### Actual Command Categories (49 total)
+### Actual Command Categories (54 total)
 
 ```
 commands/
-├── analyze/             # 3 commands - Performance, dependencies, potential issues
-├── clean/             # 4 commands - Code cleanup and formatting operations
-├── docs/             # 6 commands - Documentation generation and maintenance
-├── explain/             # 2 commands - Code understanding and architecture
-├── fix/             # 2 commands - Bug fixes and issue resolution
-├── git/             # 1 command - Operations and management
-├── implement/             # 2 commands - Feature implementation and task execution
-├── plan/             # 1 command - Planning and markdown documentation
-├── refactor/             # 6 commands - Code restructuring and optimization
-├── review/             # 3 commands - Code review and quality analysis
-├── spec-kit/             # 7 commands - Complete 7-step feature development workflow
-├── to-do/             # 5 commands - Task management and todo operations
-├── workflows/             # 7 commands - Operations and management
+├── analyze/      # 3 commands
+├── clean/        # 4 commands
+├── docs/         # 6 commands
+├── explain/      # 2 commands
+├── fix/          # 2 commands
+├── git/          # 6 commands
+├── implement/    # 2 commands
+├── plan/         # 1 command
+├── prompt/       # 1 command
+├── refactor/     # 6 commands
+├── review/       # 3 commands
+├── spec-kit/     # 7 commands
+├── to-do/        # 5 commands
+├── workflows/    # 7 commands
 ```
 
 ### Command Design Principles
@@ -266,7 +267,6 @@ This ensures all development work stays aligned with planned features.
 3. Assign to existing Agent Orchestra agent
 4. Include MCP tools if relevant (Context7 for docs, Playwright for UI)
 5. Ensure atomic operation design
-6. Run `/docs:sync-claude-md` to update CLAUDE.md with current command counts
 
 **New Agents:**
 1. Follow agent template pattern from existing agents
@@ -274,7 +274,6 @@ This ensures all development work stays aligned with planned features.
 3. Single responsibility only
 4. Include model specification (Opus/Sonnet)
 5. Document MCP tool usage if applicable
-6. Run `/docs:sync-claude-md` to update CLAUDE.md with current agent information
 
 ### Read Operations
 
@@ -302,7 +301,6 @@ This ensures all development work stays aligned with planned features.
 2. Update model specification if complexity changes
 3. Keep MCP tool listings current
 4. Update related command agent assignments
-5. Run `/docs:sync-claude-md` to update CLAUDE.md with current agent information
 
 ### Delete Operations
 
@@ -311,13 +309,11 @@ This ensures all development work stays aligned with planned features.
 2. Update documentation referencing the command
 3. Remove from any workflow sequences
 4. Clean up empty categories if needed
-5. Run `/docs:sync-claude-md` to update CLAUDE.md with current command counts
 
 **Removing Agents:**
 1. Reassign all commands using the agent
 2. Update Agent Orchestra documentation
 3. Remove from workflow patterns
-4. Run `/docs:sync-claude-md` to update CLAUDE.md with current agent counts
 
 ## 🎯 Quality Standards
 
@@ -363,7 +359,7 @@ Track system effectiveness by monitoring:
 - **Cross-platform thinking**: Test on multiple operating systems
 - **Document thoroughly**: Include examples and integration points
 - **Validate security**: Ensure Git constraints are respected
-- **Maintain CLAUDE.md synchronization**: After creating, modifying, or deleting agents or commands, run `/docs:sync-claude-md` to automatically update counts and descriptions in this file
+- **Maintain CLAUDE.md synchronization**: After creating, modifying, or deleting agents or commands to update descriptions in this file
 
 ---
 

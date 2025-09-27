@@ -1,3 +1,11 @@
+---
+description: "Review code with context-appropriate depth and spec-kit integration"
+category: "review"
+agent: "reviewer"
+tools: ["Read", "Grep", "Bash"]
+complexity: "moderate"
+---
+
 # Code Review
 
 I'll review your code with context-appropriate depth and spec-kit integration.

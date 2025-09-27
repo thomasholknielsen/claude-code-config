@@ -1,3 +1,11 @@
+---
+description: "Analyze entire application to understand architecture, patterns, and how components work together"
+category: "explain"
+agent: "research-orchestrator"
+tools: ["Glob", "Read", "Grep", "Bash"]
+complexity: "complex"
+---
+
 # Understand Project
 
 I'll analyze your entire application to understand its architecture, patterns, and how everything works together.

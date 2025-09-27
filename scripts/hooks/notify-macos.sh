@@ -1,5 +1,5 @@
 #!/bin/bash
-# ~/.claude/scripts/notify-smart.sh
+# ~/.claude/scripts/hooks/notify-smart.sh
 # Smart notification script for Claude Code hooks
 
 # Read hook input data from standard input

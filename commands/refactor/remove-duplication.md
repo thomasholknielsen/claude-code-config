@@ -1,3 +1,11 @@
+---
+description: "Identify and eliminate code duplication by applying DRY principles through function extraction"
+category: "refactor"
+agent: "code-writer"
+tools: ["Grep", "Read", "Edit"]
+complexity: "moderate"
+---
+
 # Remove Duplication
 
 I'll identify and eliminate code duplication by applying DRY (Don't Repeat Yourself) principles through function extraction, parameterization, and shared utilities.

@@ -13,10 +13,10 @@ A task-based multi-agent architecture featuring orchestrators and specialized wo
 
 ## 🚀 Quick Start
 
-The multi-agent system uses a hierarchy of orchestrators and workers:
+The multi-agent system uses a hierarchy of 8 agents - orchestrators and workers:
 1. **Orchestrators** analyze tasks and spawn appropriate workers
 2. **Workers** execute focused tasks using slash commands
-3. **Memory** persists in `.specify/agents/` for coordination
+3. **Coordination** through clear task handoffs and communication
 
 ### Example Task Flows
 - "Fix login timeout bug" → `task-orchestrator` → `bug-fixer` (uses `/fix:bug-quickly`)
@@ -49,14 +49,11 @@ agents/
 └── [legacy MECE agents] # Previous domain-based structure
 ```
 
-### Memory System
+### Agent Communication
 
-```
-.specify/agents/
-├── context/            # Task state and coordination
-├── artifacts/          # Shared work products
-└── handoffs/          # Agent-to-agent communication
-```
+- **Task Handoffs**: Clear instructions between orchestrators and workers
+- **Progress Tracking**: Monitor completion status across parallel tasks
+- **Result Aggregation**: Collect and synthesize outputs from multiple agents
 
 ## 🎯 Core Agents (New Architecture)
 
@@ -96,12 +93,12 @@ reviewer → /review:code, /review:security
 documenter → /docs:generate, /docs:api
 ```
 
-### 4. Memory Coordination
-State persists in `.specify/agents/`:
-- Task state tracking
-- Worker progress monitoring
-- Artifact sharing
-- Handoff documents
+### 4. Task Coordination
+Stateless coordination through:
+- Clear task assignments
+- Progress communication
+- Result aggregation
+- Quality validation
 
 ## 🚀 Example Workflows
 

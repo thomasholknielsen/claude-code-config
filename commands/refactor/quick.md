@@ -1,3 +1,11 @@
+---
+description: "Rapidly apply common refactoring patterns for daily code improvements"
+category: "refactor"
+agent: "code-writer"
+tools: ["Read", "Edit", "Bash"]
+complexity: "simple"
+---
+
 # Quick Refactor
 
 I'll rapidly apply common refactoring patterns without session management overhead, perfect for daily code improvements.

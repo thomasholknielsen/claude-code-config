@@ -4,6 +4,8 @@
 
 The Agent Orchestra Framework is a multi-agent system implementation for Claude Code that follows Anthropic's proven patterns for parallel execution and task coordination. It replaces the previous domain-based MECE agents with task-focused orchestrators and workers.
 
+**📚 For detailed parallel execution patterns and examples**, see [Parallel Execution Patterns](parallel-execution-patterns.md).
+
 ## Architecture
 
 ```mermaid
@@ -30,10 +32,10 @@ graph TD
     SC --> |/docs| Docs
     SC --> |/test| Test
 
-    TO --> Memory[.specify/agents/]
-    Memory --> |State| Context
-    Memory --> |Artifacts| Artifacts
-    Memory --> |Communication| Handoffs
+    TO --> Coordination[Task Coordination]
+    Coordination --> |Assignments| Tasks
+    Coordination --> |Progress| Status
+    Coordination --> |Results| Output
 ```
 
 ## Core Components
@@ -44,17 +46,18 @@ graph TD
 - **Role**: General task coordinator
 - **Analyzes**: Task complexity (simple/moderate/complex)
 - **Spawns**: 1-5 workers based on needs
+- **Parallel Strategy**: Prioritizes parallel execution with `[P]` markers
 - **Uses**: TodoWrite for tracking, SlashCommand for delegation
 
 #### research-orchestrator
-- **Role**: Parallel information gathering
-- **Pattern**: Breadth-first search
-- **Spawns**: 3-10+ agents simultaneously
-- **Strength**: No interference between parallel agents
-
+- **Role**: Parallel information gathering across multiple sources
+- **Spawns**: 3-20 agents simultaneously for maximum parallelization
+- **Specialty**: Breadth-first research with `[P]` markers for all tasks
 #### implementation-orchestrator
-- **Role**: Sequential code changes
-- **Pattern**: Depth-first execution
+- **Role**: Sequential code changes with parallel validation
+- **Strategy**: Hybrid approach - sequential for dependencies, parallel for reviews
+- **Quality Assurance**: Parallel code, security, design, and performance reviews
+- **Pattern**: Depth-first execution for dependencies, parallel for independent validation
 - **Manages**: File dependencies and state
 - **Ensures**: Consistency and proper order
 
@@ -117,20 +120,14 @@ Phase 2 (Sequential implementation):
   3. Add tests
 ```
 
-## Memory System
+## Agent Coordination
 
-Located in `.specify/agents/`:
+Stateless coordination through:
 
-```
-.specify/agents/
-├── context/              # Task state
-│   ├── task-state.json  # Current execution
-│   └── worker-states/   # Agent progress
-├── artifacts/           # Work products
-│   └── [session-id]/   # Session artifacts
-└── handoffs/           # Agent communication
-    └── [task-id].md    # Handoff documents
-```
+- **Task Assignment**: Clear instructions and requirements
+- **Progress Tracking**: Monitor completion across parallel workers
+- **Result Aggregation**: Collect and synthesize outputs
+- **Quality Validation**: Ensure consistency and correctness
 
 ### State Tracking Example
 ```json
@@ -237,7 +234,7 @@ sequenceDiagram
 
 - **NO automatic git operations**: All git commands require explicit user consent
 - **Slash commands are tools**: Agents use them, not vice versa
-- **Memory in .specify/agents/**: Separate from spec-kit features
+- **Stateless coordination**: No persistent memory between sessions
 - **Worker focus**: Each worker does ONE thing only
 
 ## Future Enhancements

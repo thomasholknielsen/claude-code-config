@@ -231,7 +231,7 @@ if __name__ == "__main__":
     "UserPromptSubmit": [{
       "hooks": [{
         "type": "command",
-        "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/your-hook.py')).read())\""
+        "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/your-hook.py')).read())\""
       }]
     }]
   }

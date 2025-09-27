@@ -1,3 +1,11 @@
+---
+description: "Identify complex code blocks and extract them into well-named functions for better readability"
+category: "refactor"
+agent: "code-writer"
+tools: ["Read", "Edit", "Bash"]
+complexity: "moderate"
+---
+
 # Extract Functions
 
 I'll identify complex code blocks and extract them into well-named functions for better readability and maintainability.

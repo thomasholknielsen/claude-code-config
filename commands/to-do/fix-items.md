@@ -1,3 +1,11 @@
+---
+description: "Systematically find and resolve TODO comments in codebase with intelligent understanding"
+category: "to-do"
+agent: "task-orchestrator"
+tools: ["SlashCommand", "Read", "Write"]
+complexity: "moderate"
+---
+
 # Fix TODOs
 
 I'll systematically find and resolve TODO comments in your codebase with intelligent understanding and continuity across sessions.

@@ -1,3 +1,11 @@
+---
+description: "Orchestrate comprehensive code, security, and design review using parallel specialized agents"
+category: "workflows"
+agent: "task-orchestrator"
+tools: ["SlashCommand", "Read", "Write"]
+complexity: "complex"
+---
+
 # Full Review Command
 
 Orchestrate comprehensive code, security, and design review on $ARGUMENTS using parallel specialized agents for maximum efficiency.

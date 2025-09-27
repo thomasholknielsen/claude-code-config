@@ -1,3 +1,11 @@
+---
+description: "Simplify complex conditionals, nested statements, and convoluted logic for better readability"
+category: "refactor"
+agent: "code-writer"
+tools: ["Read", "Edit", "Bash"]
+complexity: "moderate"
+---
+
 # Simplify Logic
 
 I'll simplify complex conditionals, nested statements, and convoluted logic to make code more readable and maintainable.

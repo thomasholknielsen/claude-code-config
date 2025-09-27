@@ -1,3 +1,11 @@
+---
+description: "Perform comprehensive UI/UX compliance review to ensure design system adherence and accessibility"
+category: "review"
+agent: "reviewer"
+tools: ["mcp__playwright__browser_snapshot", "mcp__playwright__browser_navigate", "Read", "Grep"]
+complexity: "complex"
+---
+
 # Design Review Command
 
 Perform comprehensive UI/UX compliance review on $ARGUMENTS to ensure design system adherence, accessibility standards, and visual consistency.

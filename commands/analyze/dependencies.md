@@ -1,3 +1,11 @@
+---
+description: "Analyze project dependencies for security vulnerabilities, updates, and optimization opportunities"
+category: "analyze"
+agent: "research-orchestrator"
+tools: ["Bash", "Read", "Grep", "WebFetch"]
+complexity: "moderate"
+---
+
 # Analyze Project Dependencies
 
 I'll analyze your project dependencies for security, updates, and optimization opportunities.

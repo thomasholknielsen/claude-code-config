@@ -1,3 +1,11 @@
+---
+description: "Execute comprehensive optimization workflow to improve performance, reduce bundle size, and enhance user experience"
+category: "workflows"
+agent: "task-orchestrator"
+tools: ["SlashCommand", "Read", "Write"]
+complexity: "complex"
+---
+
 # Run Optimization Workflow
 
 I'll execute a comprehensive optimization workflow to improve performance, reduce bundle size, and enhance user experience.
