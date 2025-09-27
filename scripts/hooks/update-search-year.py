@@ -15,10 +15,7 @@ has_temporal = any(word in query.lower() for word in ["latest", "recent", "curre
 should_add_year = not has_year and not has_temporal
 modified_query = f"{query} {current_year}" if should_add_year else query
 modified_tool_input = {"query": modified_query}
-hook_specific_output = {
-    "hookEventName": "PreToolUse",
-    "modifiedToolInput": modified_tool_input
-}
+hook_specific_output = {"hookEventName": "PreToolUse", "modifiedToolInput": modified_tool_input}
 output = {"hookSpecificOutput": hook_specific_output}
 print(json.dumps(output))
 sys.exit(0)
