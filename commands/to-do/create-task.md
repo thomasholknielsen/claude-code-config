@@ -67,3 +67,10 @@ Each task entry follows this lightweight format:
 - Clear, actionable task titles
 - Consistent numbering and dating
 - Simple status tracking (Captured → Planning → In Progress → Done)
+
+## Constraints
+**CRITICAL: This is a CAPTURE-ONLY command**
+- **Allowed**: Only updating .specify/tasks.md with new task entries
+- **Forbidden**: ANY implementation, code writing, feature development, or execution of captured tasks
+- **Success**: Command completes by only modifying tasks.md
+- **Failure**: Creating/modifying any code files or implementing features

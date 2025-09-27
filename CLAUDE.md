@@ -7,7 +7,7 @@ This file contains **project-specific** configuration for the Claude Code comman
 The Claude Code Command System is a comprehensive development automation system built on the **Agent Orchestra Framework**. This repository contains:
 
 - **8 Agents**: 3 orchestrators + 5 workers for task coordination and execution
-- **48 Commands**: Atomic operations organized across 12 categories
+- **49 Commands**: Atomic operations organized across 13 categories
 - **Complete Documentation**: User guides, technical docs, and visual workflows
 - **Hooks System**: Cross-platform Python-based automation
 - **MCP Integration**: Context7 and Playwright tools for enhanced capabilities
@@ -45,7 +45,7 @@ Execute specific functions with focused responsibilities:
 
 ## 📁 Command System Structure
 
-### Actual Command Categories (48 total)
+### Actual Command Categories (49 total)
 
 ```
 commands/
@@ -56,6 +56,7 @@ commands/
 ├── fix/             # 2 commands - Bug fixes and issue resolution
 ├── git/             # 1 command - Operations and management
 ├── implement/             # 2 commands - Feature implementation and task execution
+├── plan/             # 1 command - Planning and markdown documentation
 ├── refactor/             # 6 commands - Code restructuring and optimization
 ├── review/             # 3 commands - Code review and quality analysis
 ├── spec-kit/             # 7 commands - Complete 7-step feature development workflow

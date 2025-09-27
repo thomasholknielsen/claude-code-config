@@ -6,6 +6,8 @@
 - Claude Code CLI installed
 - Python 3.7+ (for hook scripts)
 - Git configured
+- Node.js 18+ (for MCP server integration)
+- Optional: Context7 API key and Playwright browsers for enhanced functionality
 
 ### Installation
 
@@ -25,14 +27,24 @@
    claude /help
    ```
 
+4. **Optional: Set up MCP servers for enhanced functionality:**
+   See the [MCP Setup Guide](mcp-setup-guide.md) for Context7 and Playwright integration.
+
 ## Configuration Overview
 
 ### Core Files
-- **`settings.json`** - Main configuration with hooks and permissions
+- **`settings.json`** - Main configuration with hooks, permissions, and MCP servers
 - **`CLAUDE.md`** - Project-specific instructions and agent configuration
 - **`scripts/`** - Hook scripts for notifications and logging
 - **`agents/`** - Agent Orchestra Framework definitions
 - **`commands/`** - Custom command definitions organized by category
+
+### MCP Integration
+The system integrates with Model Context Protocol (MCP) servers for enhanced functionality:
+- **Context7 MCP** - Access current library documentation and code examples
+- **Playwright MCP** - Browser automation for testing and UI analysis
+
+For setup instructions, see the [MCP Setup Guide](mcp-setup-guide.md).
 
 ### Permissions System
 The system uses a allowlist approach in `settings.json`:
@@ -184,9 +196,10 @@ Agents are pre-configured but can be extended:
 
 ## Next Steps
 
-1. **Try the spec-kit workflow** for complex features
-2. **Set up custom notifications** by modifying hook scripts
-3. **Explore advanced commands** in each category
-4. **Customize agents** for your specific needs
+1. **Set up MCP integration** - Follow the [MCP Setup Guide](mcp-setup-guide.md) for Context7 and Playwright
+2. **Try the spec-kit workflow** for complex features
+3. **Set up custom notifications** by modifying hook scripts
+4. **Explore advanced commands** in each category
+5. **Customize agents** for your specific needs
 
 For advanced usage and customization, see the [Developer Guide](developer-guide.md).

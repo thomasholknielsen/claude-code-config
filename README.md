@@ -39,6 +39,7 @@ This system is built on the **Agent Orchestra Framework** - a task-focused coord
 
 ### Getting Started
 - **[User Guide](docs/user-guide.md)** - Setup, configuration, and basic usage
+- **[MCP Setup Guide](docs/mcp-setup-guide.md)** - Context7 & Playwright integration setup
 - **[Typical Workflows](docs/typical-workflows.md)** - Common development patterns
 
 ### System Architecture
@@ -133,6 +134,9 @@ claude /workflows:run-docs-workflow
 
 4. **Follow the User Guide:**
    See [docs/user-guide.md](docs/user-guide.md) for detailed setup instructions.
+
+5. **Optional: Set up MCP Integration:**
+   See [docs/mcp-setup-guide.md](docs/mcp-setup-guide.md) for Context7 and Playwright setup.
 
 ## 🎨 Visual Documentation
 
