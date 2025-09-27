@@ -30,10 +30,10 @@ Captures work items and ideas into a standardized TODO.md file using industry-st
 **ALLOWED ACTIONS ONLY**:
 
 1. **ENFORCE LOCATION CONSTRAINT**: Ensure TODO file is located at `{project_root}/.claude/.todos/TODO.md` only
-2. Read existing .claude/.todos/TODO.md (create directory structure if doesn't exist)
+2. Read existing {project_root}/.claude/.todos/TODO.md (create directory structure if doesn't exist)
 3. Parse input and clarify TODO description for readability
 4. Add new TODO entry using industry-standard tagging format
-5. Save updated .claude/.todos/TODO.md file
+5. Save updated {project_root}/.claude/.todos/TODO.md file
 6. **STOP IMMEDIATELY** - No further actions permitted
 
 **⚠️ LOCATION CONSTRAINT**: TODOs MUST ONLY be created in `{project_root}/.claude/.todos/TODO.md`. Reject any attempts to create TODO files in other locations.
@@ -47,7 +47,7 @@ Captures work items and ideas into a standardized TODO.md file using industry-st
 ```bash
 
 ## Output
-- Updated .claude/.todos/TODO.md with new TODO entry
+- Updated {project_root}/.claude/.todos/TODO.md with new TODO entry
 - Confirmation of TODO captured with proper tagging
 - Brief clarification of TODO description if modified
 - Location validation confirmation
