@@ -14,6 +14,11 @@ has_year = re.search(r"\b20\d{2}\b", query)
 has_temporal = any(word in query.lower() for word in ["latest", "recent", "current", "new", "now", "today"])
 should_add_year = not has_year and not has_temporal
 modified_query = f"{query} {current_year}" if should_add_year else query
-output = {"hookSpecificOutput": {"hookEventName": "PreToolUse", "modifiedToolInput": {"query": modified_query}}}
+modified_tool_input = {"query": modified_query}
+hook_specific_output = {
+    "hookEventName": "PreToolUse",
+    "modifiedToolInput": modified_tool_input
+}
+output = {"hookSpecificOutput": hook_specific_output}
 print(json.dumps(output))
 sys.exit(0)
