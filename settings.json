@@ -1,4 +1,8 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "python3 .claude/scripts/context-monitor.py"
+  },
   "permissions": {
     "allow": [
       "Bash(npm run lint)",
@@ -101,7 +105,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/log-prompt.py')).read())\""
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/log-prompt.py')).read())\""
           }
         ]
       }
@@ -111,7 +115,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/notify.py')).read())\""
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/notify.py')).read())\""
           }
         ]
       }
@@ -122,7 +126,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/update-search-year.py')).read())\""
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/update-search-year.py')).read())\""
           }
         ]
       }
