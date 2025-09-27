@@ -1,3 +1,11 @@
+---
+description: "Intelligently update existing project documentation by analyzing changes and keeping content current"
+category: "docs"
+agent: "documenter"
+tools: ["Read", "Edit", "Bash", "Grep"]
+complexity: "moderate"
+---
+
 # Documentation Updater
 
 I'll intelligently update your existing project documentation by analyzing changes and keeping everything current and consistent.
@@ -28,7 +36,6 @@ I'll automatically detect what needs updating by:
    - README.md with new features/changes
    - CHANGELOG.md with version entries
    - API docs with new endpoints
-   - CLAUDE.md statistics via `.specify/scripts/sync-claude-md.py` (if in Claude Code repo)
    - Configuration docs with new options
    - Migration guides if breaking changes
 

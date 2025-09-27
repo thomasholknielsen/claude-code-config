@@ -1,3 +1,11 @@
+---
+description: "Scan codebase for TODO comments and create professional GitHub issues"
+category: "to-do"
+agent: "task-orchestrator"
+tools: ["Grep", "Bash", "Read"]
+complexity: "moderate"
+---
+
 # TODOs to GitHub Issues
 
 I'll scan your codebase for TODO comments and create professional GitHub issues following your project's standards.

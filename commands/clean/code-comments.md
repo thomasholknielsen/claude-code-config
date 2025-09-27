@@ -1,3 +1,11 @@
+---
+description: "Clean up redundant comments while preserving valuable documentation"
+category: "clean"
+agent: "code-writer"
+tools: ["Glob", "Read", "Grep", "Edit"]
+complexity: "simple"
+---
+
 # Remove Obvious Comments
 
 I'll clean up redundant comments while preserving valuable documentation.

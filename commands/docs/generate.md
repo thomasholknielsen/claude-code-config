@@ -24,7 +24,6 @@ Creates comprehensive documentation from codebase analysis, matching project str
 3. Generate contextually appropriate documentation for the project type
 4. Follow established documentation standards and formats
 5. Ensure consistency with existing style and conventions
-6. Update CLAUDE.md statistics using `.specify/scripts/sync-claude-md.py` (if in Claude Code repo)
 
 ## Agent Integration
 - **Primary Agent**: documenter - Handles complete documentation generation workflow

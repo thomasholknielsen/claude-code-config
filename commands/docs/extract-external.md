@@ -1,3 +1,11 @@
+---
+description: "Fetch and integrate up-to-date documentation from external sources using Context7 MCP"
+category: "docs"
+agent: "documenter"
+tools: ["mcp__context7__resolve-library-id", "mcp__context7__get-library-docs", "Write", "Read"]
+complexity: "moderate"
+---
+
 # Extract External Documentation
 
 I'll fetch and integrate up-to-date documentation from external sources using Context7 MCP to ensure commands and agents have current information.

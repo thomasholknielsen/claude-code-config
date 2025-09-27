@@ -1,3 +1,11 @@
+---
+description: "Execute comprehensive refactoring workflow by orchestrating atomic refactor commands in optimal sequence"
+category: "workflows"
+agent: "task-orchestrator"
+tools: ["SlashCommand", "Read", "Write"]
+complexity: "complex"
+---
+
 # Run Refactor Workflow
 
 I'll execute a comprehensive refactoring workflow by orchestrating atomic refactor commands in optimal sequence for maximum code improvement.

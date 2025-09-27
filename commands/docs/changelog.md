@@ -1,3 +1,11 @@
+---
+description: "Manage project CHANGELOG.md by analyzing changes and maintaining professional version history"
+category: "docs"
+agent: "documenter"
+tools: ["Bash", "Read", "Edit", "Grep"]
+complexity: "moderate"
+---
+
 # CHANGELOG Manager
 
 I'll intelligently manage your project's CHANGELOG.md by analyzing changes, organizing them by type, and maintaining professional version history.

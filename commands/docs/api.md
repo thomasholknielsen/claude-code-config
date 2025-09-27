@@ -1,3 +1,11 @@
+---
+description: "Generate and maintain comprehensive API documentation by analyzing code and extracting endpoint information"
+category: "docs"
+agent: "documenter"
+tools: ["Glob", "Read", "Grep", "Write", "mcp__context7__get-library-docs"]
+complexity: "complex"
+---
+
 # API Documentation Specialist
 
 I'll generate and maintain comprehensive API documentation by analyzing your code, extracting endpoint information, and creating professional API references.

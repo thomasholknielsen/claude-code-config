@@ -1,3 +1,11 @@
+---
+description: "Locate all TODO comments and unfinished work markers in the codebase"
+category: "to-do"
+agent: "task-orchestrator"
+tools: ["Grep", "Read", "Write"]
+complexity: "simple"
+---
+
 # Find Development Tasks
 
 I'll locate all TODO comments and unfinished work markers in your codebase.

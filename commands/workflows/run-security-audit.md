@@ -1,3 +1,11 @@
+---
+description: "Execute comprehensive security audit to identify vulnerabilities and ensure secure coding practices"
+category: "workflows"
+agent: "task-orchestrator"
+tools: ["SlashCommand", "Read", "Grep"]
+complexity: "complex"
+---
+
 # Run Security Audit Workflow
 
 I'll execute a comprehensive security audit to identify vulnerabilities and ensure secure coding practices.

@@ -1,3 +1,11 @@
+---
+description: "Execute comprehensive project overhaul by orchestrating all workflows in intelligent sequence for maximum improvement"
+category: "workflows"
+agent: "task-orchestrator"
+tools: ["SlashCommand", "Read", "Write", "Grep"]
+complexity: "complex"
+---
+
 # Complete Project Overhaul
 
 I'll execute a comprehensive project overhaul by orchestrating all available workflows in intelligent sequence for maximum code improvement and quality assurance.

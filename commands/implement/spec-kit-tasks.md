@@ -79,24 +79,13 @@ The orchestrator delegates to workers with these commands:
 - `/review:code` - Quality review
 - `/review:security` - Security validation
 
-## Memory Management
+## Progress Tracking
 
-Progress tracked in `.specify/agents/`:
-```json
-{
-  "implementation_id": "feature-xyz",
-  "orchestrator": "implementation-orchestrator",
-  "phases": {
-    "planning": "complete",
-    "implementation": "in_progress",
-    "testing": "pending",
-    "documentation": "pending",
-    "review": "pending"
-  },
-  "workers_active": ["code-writer"],
-  "files_modified": ["src/feature.js"]
-}
-```
+Implementation progress monitored through:
+- Phase completion status
+- Active worker assignments
+- Modified file tracking
+- Task dependency resolution
 
 ## Usage Examples
 

@@ -1,3 +1,11 @@
+---
+description: "Analyze recent operations and create contextual TODO comments in code"
+category: "to-do"
+agent: "task-orchestrator"
+tools: ["SlashCommand", "Write", "Read"]
+complexity: "moderate"
+---
+
 # Create Smart TODOs
 
 I'll analyze recent operations and create contextual TODO comments in your code.

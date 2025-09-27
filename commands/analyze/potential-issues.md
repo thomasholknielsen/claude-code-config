@@ -1,3 +1,11 @@
+---
+description: "Analyze codebase to predict potential problems before they impact the project"
+category: "analyze"
+agent: "research-orchestrator"
+tools: ["Glob", "Read", "Grep", "Bash"]
+complexity: "complex"
+---
+
 # Predictive Code Analysis  
 
 I'll analyze your codebase to predict potential problems before they impact your project.
