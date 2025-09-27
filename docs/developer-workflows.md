@@ -43,7 +43,7 @@ graph TD
 
     E --> M{Feature Complexity?}
     M -->|Simple| N[/implement:small/]
-    M -->|Medium| O[/plan:to-markdown/]
+    M -->|Medium| O[/plan:save-plan-to-markdown/]
     M -->|Complex| P[/spec-kit:specify/]
 
     F --> Q[/fix:bug-quickly/]
@@ -109,7 +109,6 @@ graph LR
 # docs/ category - Initialize project structure (6 commands total)
 /docs:generate                    # Create comprehensive documentation structure
 /docs:api                        # Generate API documentation templates
-/docs:sync-claude-md             # Initialize Claude configuration
 
 # git/ category - Version control setup (1 command total)
 /git:commit "Initial project structure"
@@ -457,7 +456,7 @@ graph TD
     G --> H[/review:code/]
     H --> I[/docs:update/]
 
-    D --> J[/plan:to-markdown/]
+    D --> J[/plan:save-plan-to-markdown/]
     J --> K[/implement:small/ x3]
     K --> L[/workflows:run-cleanup-workflow/]
 
@@ -507,7 +506,7 @@ graph LR
 #### Medium Features: Hybrid Approach (8-12 Commands)
 ```mermaid
 graph TD
-    A[Medium Feature] --> B[/plan:to-markdown/]
+    A[Medium Feature] --> B[/plan:save-plan-to-markdown/]
     B --> C[Implementation Cycle]
     C --> D[/implement:small/]
     D --> E[/implement:small/]
@@ -521,7 +520,7 @@ graph TD
 
 ```bash
 # plan/ category - Planning phase (1 command total)
-/plan:to-markdown "Search functionality with filters"
+/plan:save-plan-to-markdown "Search functionality with filters"
 
 # implement/ category - Iterative development
 /implement:small "basic search input component"
@@ -655,7 +654,7 @@ graph TD
     B -->|High Risk<br/>Security/Integration| E[Full Specification]
 
     C --> F["/implement:small<br/>/test:write<br/>/review:code"]
-    D --> G["/plan:to-markdown<br/>Multiple /implement:small<br/>/workflows:run-cleanup-workflow"]
+    D --> G["/plan:save-plan-to-markdown<br/>Multiple /implement:small<br/>/workflows:run-cleanup-workflow"]
     E --> H["/spec-kit:specify → clarify → plan → tasks → implement<br/>/review:security<br/>/docs:api"]
 
     F --> I[5-7 Commands]
@@ -1023,8 +1022,7 @@ graph TD
     B --> C[/docs:api/]
     C --> D[/docs:extract-external/]
     D --> E[/docs:update/]
-    E --> F[/docs:sync-claude-md/]
-    F --> G[Complete Documentation]
+    E --> F[Complete Documentation]
 ```
 
 ```bash
@@ -1033,7 +1031,6 @@ graph TD
 /docs:api "REST and GraphQL endpoint documentation"
 /docs:extract-external "current framework best practices"
 /docs:update "feature guides and troubleshooting"
-/docs:sync-claude-md "update Claude configuration"
 ```
 
 #### Explain Commands (2/2) - Code Understanding
@@ -1085,13 +1082,13 @@ graph TD
 #### Plan Commands (1/1) - Strategic Planning
 ```mermaid
 graph LR
-    A[Feature Planning] --> B[/plan:to-markdown/]
+    A[Feature Planning] --> B[/plan:save-plan-to-markdown/]
     B --> C[Structured Plan Document]
 ```
 
 ```bash
 # Planning workflow
-/plan:to-markdown "microservices migration strategy"
+/plan:save-plan-to-markdown "microservices migration strategy"
 ```
 
 #### Refactor Commands (6/6) - Code Improvement
@@ -1220,7 +1217,7 @@ graph TD
     F --> G["/clean:apply-style-rules<br/>/clean:improve-readability<br/>/refactor:optimize"]
 
     G --> H[Documentation Phase]
-    H --> I["/docs:api<br/>/docs:update<br/>/docs:sync-claude-md"]
+    H --> I["/docs:api<br/>/docs:update"]
 
     I --> J[Finalization]
     J --> K["/workflows:run-cleanup-workflow<br/>/git:commit"]
@@ -1254,7 +1251,7 @@ graph TD
     F --> G["/refactor:modernize<br/>/clean:apply-style-rules<br/>/clean:improve-readability<br/>/fix:bug-quickly"]
 
     G --> H[Documentation Phase]
-    H --> I["/docs:generate<br/>/docs:api<br/>/docs:update<br/>/docs:sync-claude-md"]
+    H --> I["/docs:generate<br/>/docs:api<br/>/docs:update"]
 
     I --> J["/workflows:run-cleanup-workflow<br/>/git:commit"]
 ```

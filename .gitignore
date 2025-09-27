@@ -46,6 +46,9 @@ Thumbs.db
 *.log
 hook-debug.log
 
+# Conversation history
+history.jsonl
+
 # Temporary files
 *.tmp
 *.temp

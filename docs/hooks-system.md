@@ -51,7 +51,7 @@ sequenceDiagram
 
 **Implementation**:
 ```python
-# scripts/log-prompt.py
+# scripts/hooks/log-prompt.py
 import os
 import sys
 from datetime import datetime
@@ -83,7 +83,7 @@ def log_prompt():
     "UserPromptSubmit": [{
       "hooks": [{
         "type": "command",
-        "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/log-prompt.py')).read())\""
+        "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/log-prompt.py')).read())\""
       }]
     }]
   }
@@ -117,7 +117,7 @@ flowchart TD
 
 **Implementation**:
 ```python
-# scripts/notify.py
+# scripts/hooks/notify.py
 import os
 import subprocess
 from pathlib import Path
@@ -168,7 +168,7 @@ def extract_completion_message():
 
 **Implementation**:
 ```python
-# scripts/update-search-year.py
+# scripts/hooks/update-search-year.py
 import os
 import sys
 import re
@@ -310,7 +310,7 @@ if __name__ == "__main__":
     "UserPromptSubmit": [{
       "hooks": [{
         "type": "command",
-        "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/custom-hook.py')).read())\""
+        "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/custom-hook.py')).read())\""
       }]
     }]
   }
@@ -323,7 +323,7 @@ if __name__ == "__main__":
 chmod +x scripts/custom-hook.py
 
 # Test directly
-python ~/.claude/scripts/custom-hook.py
+python ~/.claude/scripts/hooks/custom-hook.py
 
 # Test through Claude Code
 claude "test prompt"  # Should trigger hook
@@ -400,7 +400,7 @@ graph TB
       "condition": "query_needs_update",
       "hooks": [{
         "type": "command",
-        "command": "python ~/.claude/scripts/conditional-hook.py"
+        "command": "python ~/.claude/scripts/hooks/conditional-hook.py"
       }]
     }]
   }
@@ -451,7 +451,7 @@ def chain_hook():
 **Debug Commands**:
 ```bash
 # Test hook execution
-CLAUDE_HOOK_DEBUG=1 python ~/.claude/scripts/notify.py
+CLAUDE_HOOK_DEBUG=1 python ~/.claude/scripts/hooks/notify.py
 
 # Check hook logs
 tail -f ~/.claude/logs/hook-errors.log

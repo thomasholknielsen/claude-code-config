@@ -266,7 +266,6 @@ This ensures all development work stays aligned with planned features.
 3. Assign to existing Agent Orchestra agent
 4. Include MCP tools if relevant (Context7 for docs, Playwright for UI)
 5. Ensure atomic operation design
-6. Run `/docs:sync-claude-md` to update CLAUDE.md with current command counts
 
 **New Agents:**
 1. Follow agent template pattern from existing agents
@@ -274,7 +273,6 @@ This ensures all development work stays aligned with planned features.
 3. Single responsibility only
 4. Include model specification (Opus/Sonnet)
 5. Document MCP tool usage if applicable
-6. Run `/docs:sync-claude-md` to update CLAUDE.md with current agent information
 
 ### Read Operations
 
@@ -302,7 +300,6 @@ This ensures all development work stays aligned with planned features.
 2. Update model specification if complexity changes
 3. Keep MCP tool listings current
 4. Update related command agent assignments
-5. Run `/docs:sync-claude-md` to update CLAUDE.md with current agent information
 
 ### Delete Operations
 
@@ -311,13 +308,11 @@ This ensures all development work stays aligned with planned features.
 2. Update documentation referencing the command
 3. Remove from any workflow sequences
 4. Clean up empty categories if needed
-5. Run `/docs:sync-claude-md` to update CLAUDE.md with current command counts
 
 **Removing Agents:**
 1. Reassign all commands using the agent
 2. Update Agent Orchestra documentation
 3. Remove from workflow patterns
-4. Run `/docs:sync-claude-md` to update CLAUDE.md with current agent counts
 
 ## 🎯 Quality Standards
 
@@ -363,7 +358,7 @@ Track system effectiveness by monitoring:
 - **Cross-platform thinking**: Test on multiple operating systems
 - **Document thoroughly**: Include examples and integration points
 - **Validate security**: Ensure Git constraints are respected
-- **Maintain CLAUDE.md synchronization**: After creating, modifying, or deleting agents or commands, run `/docs:sync-claude-md` to automatically update counts and descriptions in this file
+- **Maintain CLAUDE.md synchronization**: After creating, modifying, or deleting agents or commands to update descriptions in this file
 
 ---
 
