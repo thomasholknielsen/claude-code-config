@@ -1,6 +1,69 @@
 # Developer Workflows with Agent Orchestra
 
-This guide provides practical workflows for developers using the Agent Orchestra framework and command system across different project scenarios. All 50 commands across 15 categories are demonstrated in real workflow contexts.
+This guide provides practical workflows for developers using the Agent Orchestra framework and command system across different project scenarios. All 49 commands across 13 categories are demonstrated in real workflow contexts.
+
+## Table of Contents
+
+- [🎯 Quick Reference](#-quick-reference)
+  - [Project Types](#project-types)
+  - [Core Workflows](#core-workflows)
+  - [Command Categories (50 Total Commands)](#command-categories-50-total-commands)
+- [📊 Visual Workflow Overview](#-visual-workflow-overview)
+- [🌱 Greenfield Project Workflows](#-greenfield-project-workflows)
+  - [Visual: Greenfield Development Flow](#visual-greenfield-development-flow)
+  - [Starting a New Project](#starting-a-new-project)
+    - [1. Project Foundation Setup](#1-project-foundation-setup-4-commands)
+    - [2. Architecture Planning - Complex Projects](#2-architecture-planning---complex-projects-7-commands)
+    - [3. First Feature Development Options](#3-first-feature-development-options)
+  - [Complete Example: E-commerce Platform from Scratch](#complete-example-e-commerce-platform-from-scratch)
+- [🏗️ Brownfield Project Workflows](#️-brownfield-project-workflows)
+  - [Visual: Brownfield Analysis & Improvement Flow](#visual-brownfield-analysis--improvement-flow)
+  - [Taking Over an Existing Project](#taking-over-an-existing-project)
+    - [1. Project Discovery Phase](#1-project-discovery-phase-all-3-analyze-commands)
+    - [2. Understanding Phase](#2-understanding-phase-all-explain--docs-commands)
+    - [3. Quality Assessment](#3-quality-assessment-all-review--workflows-commands)
+    - [4. Planning Phase](#4-planning-phase-all-to-do-commands)
+    - [5. Standardization Phase](#5-standardization-phase-clean--refactor-commands)
+  - [Complete Example: Legacy React App Handover](#complete-example-legacy-react-app-handover)
+  - [Brownfield Success Metrics](#brownfield-success-metrics)
+- [➕ Feature Addition Workflows](#-feature-addition-workflows)
+  - [Visual: Feature Complexity Decision Tree](#visual-feature-complexity-decision-tree)
+  - [Adding Features to Existing Projects](#adding-features-to-existing-projects)
+    - [Simple Features: Direct Implementation](#simple-features-direct-implementation-4-6-commands)
+    - [Medium Features: Hybrid Approach](#medium-features-hybrid-approach-8-12-commands)
+    - [Complex Features: Full Spec-Kit](#complex-features-full-spec-kit-15-commands)
+  - [Complete Example: Adding Payment System](#complete-example-adding-payment-system-complex-feature)
+  - [Feature Addition Command Usage by Complexity](#feature-addition-command-usage-by-complexity)
+  - [Feature Development Patterns](#feature-development-patterns)
+- [🔧 Maintenance & Bug Fix Workflows](#-maintenance--bug-fix-workflows)
+  - [Visual: Maintenance Decision Flow](#visual-maintenance-decision-flow)
+  - [Quick Bug Fixes](#quick-bug-fixes-3-5-commands)
+  - [Performance Optimization Workflow](#performance-optimization-workflow-8-12-commands)
+  - [Security Updates Workflow](#security-updates-workflow-6-8-commands)
+  - [Complex Bug Investigation](#complex-bug-investigation-10-15-commands)
+- [🔄 Workflow Decision Matrix](#-workflow-decision-matrix)
+  - [When to Use Spec-Kit](#when-to-use-spec-kit)
+  - [When to Use Direct Commands](#when-to-use-direct-commands)
+  - [When to Use Hybrid Approach](#when-to-use-hybrid-approach)
+- [🎨 Custom Workflow Examples](#-custom-workflow-examples)
+  - [Rapid Prototyping Workflow](#rapid-prototyping-workflow)
+  - [Code Review & Handoff Workflow](#code-review--handoff-workflow)
+  - [Release Preparation Workflow](#release-preparation-workflow)
+  - [Technical Debt Reduction Workflow](#technical-debt-reduction-workflow)
+- [🚀 Best Practices](#-best-practices)
+  - [Command Sequencing](#command-sequencing)
+  - [Agent Utilization](#agent-utilization)
+  - [Quality Gates](#quality-gates)
+  - [Common Anti-Patterns to Avoid](#common-anti-patterns-to-avoid)
+- [📋 Workflow Checklists](#-workflow-checklists)
+  - [Greenfield Project Checklist](#greenfield-project-checklist)
+  - [Brownfield Handover Checklist](#brownfield-handover-checklist)
+  - [Feature Addition Checklist](#feature-addition-checklist)
+- [🎭 Complete Command Showcase](#-complete-command-showcase)
+  - [All 49 Commands in Context](#all-49-commands-in-context)
+  - [Command Integration Patterns](#command-integration-patterns)
+  - [Command Usage Statistics by Workflow Type](#command-usage-statistics-by-workflow-type)
+  - [Universal Command Combinations](#universal-command-combinations)
 
 ## 🎯 Quick Reference
 
@@ -15,12 +78,12 @@ This guide provides practical workflows for developers using the Agent Orchestra
 - **Direct Implementation**: Bypass planning for simple tasks
 - **Hybrid Approach**: Mix spec-kit with direct commands
 
-### Command Categories (50 Total Commands)
+### Command Categories (49 Total Commands)
 ```
 analyze/     (3) → clean/      (4) → docs/       (6) → explain/    (2)
 fix/         (2) → git/        (1) → implement/  (2) → plan/       (1)
-refactor/    (6) → review/     (3) → spec-kit/   (7) → test/       (1)
-to-do/       (5) → workflows/  (7) → create/     (1)
+refactor/    (6) → review/     (3) → spec-kit/   (7) → to-do/      (5)
+workflows/   (7)
 ```
 
 ## 📊 Visual Workflow Overview
@@ -228,7 +291,7 @@ graph TD
 | **workflows/** | 2/7 | Automation |
 | **git/** | 1/1 | Version control |
 
-**Total: 23/50 commands used in greenfield workflow**
+**Total: 23/49 commands used in greenfield workflow**
 
 ## 🏗️ Brownfield Project Workflows
 
@@ -429,7 +492,7 @@ graph LR
 | **test/** | 1/1 | Test coverage |
 | **git/** | 1/1 | Version control |
 
-**Total: 35/50 commands used in brownfield workflow**
+**Total: 35/49 commands used in brownfield workflow**
 
 ### Brownfield Success Metrics
 ```mermaid
@@ -976,7 +1039,7 @@ graph TD
 
 ## 🎭 Complete Command Showcase
 
-### All 50 Commands in Context
+### All 49 Commands in Context
 
 This section demonstrates how every command in the system fits into real development workflows.
 

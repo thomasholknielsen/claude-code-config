@@ -9,10 +9,7 @@ complexity: "simple"
 # Command: Create Task
 
 ## Purpose
-**CRITICAL: CAPTURE ONLY - NO IMPLEMENTATION**
 Captures random work items and ideas into a standardized task list in .specify/tasks.md for later planning and breakdown.
-
-**⚠️ STRICT CONSTRAINT: This command MUST NOT implement, code, or execute any tasks. It only captures task descriptions in the tasks.md file.**
 
 ## Usage
 ```
@@ -22,14 +19,10 @@ Captures random work items and ideas into a standardized task list in .specify/t
 **Arguments**: Description of the work item or task to capture
 
 ## Process
-**FORBIDDEN ACTIONS**: Writing code, implementing features, executing tasks, creating files other than tasks.md, making code changes
-
-**ALLOWED ACTIONS ONLY**:
 1. Read existing .specify/tasks.md (create if doesn't exist)
 2. Parse input and clarify task description for readability
 3. Add new task entry using standardized lightweight template
 4. Save updated tasks.md file
-5. **STOP IMMEDIATELY** - No further actions permitted
 
 ## Agent Integration
 - **Primary Agent**: documenter - Handles task capture and file management
@@ -75,7 +68,9 @@ Each task entry follows this lightweight format:
 - Consistent numbering and dating
 - Simple status tracking (Captured → Planning → In Progress → Done)
 
-## CRITICAL ENFORCEMENT
-**⚠️ VIOLATION ALERT**: If this command performs ANY implementation work, it is a CRITICAL ERROR.
-**✅ SUCCESS CRITERIA**: Command completes by only updating .specify/tasks.md file and nothing else.
-**🚫 FAILURE INDICATORS**: Creating code files, modifying existing code, running other commands, implementing features.
+## Constraints
+**CRITICAL: This is a CAPTURE-ONLY command**
+- **Allowed**: Only updating .specify/tasks.md with new task entries
+- **Forbidden**: ANY implementation, code writing, feature development, or execution of captured tasks
+- **Success**: Command completes by only modifying tasks.md
+- **Failure**: Creating/modifying any code files or implementing features
