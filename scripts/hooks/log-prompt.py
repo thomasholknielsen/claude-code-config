@@ -89,7 +89,7 @@ def parse_hook_input():
             hook_data = json.loads(input_data)
             if isinstance(hook_data, dict) and "prompt" in hook_data:
                 return hook_data["prompt"], None
-            if isinstance(hook_data, dict) and "content" in hook_data:
+            elif isinstance(hook_data, dict) and "content" in hook_data:
                 return hook_data["content"], None
             # If it's JSON but doesn't have expected structure, use the raw JSON
             return input_data, None
