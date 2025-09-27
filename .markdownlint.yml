@@ -1,6 +1,8 @@
 # Markdownlint configuration for Claude Code Command System
 # Aligned with project documentation standards
 
+# Files to ignore are specified in .markdownlintignore
+
 # Default state for all rules
 default: true
 
