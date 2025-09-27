@@ -6,52 +6,31 @@ tools: ["Grep", "Edit", "Bash"]
 complexity: "simple"
 ---
 
-# Rename Variables
+# Command: Rename Variables
 
-I'll improve code clarity by renaming variables, functions, and other identifiers to be more descriptive and follow naming conventions.
+## Purpose
 
-Arguments: `$ARGUMENTS` - files, identifiers, or scope to rename
+Executes refactor operations for rename variables functionality.
 
-## Naming Improvements
+## Usage
 
-**Variable clarity:**
-- Replace generic names (data, item, temp) with descriptive ones
-- Use consistent naming patterns across codebase
-- Follow language/framework conventions
-- Make intent clear from the name alone
+```bash
+/refactor:rename-variables [arguments]
+```yaml
 
-**Function naming:**
-- Use verb-noun patterns for functions (getUserData, calculateTotal)
-- Make return type obvious from name
-- Avoid abbreviations unless widely understood
-- Use consistent terminology across related functions
+**Arguments**: Optional parameters specific to the operation
 
-## Smart Renaming Process
+## Process
 
-**Context-aware analysis:**
-- Understand variable usage patterns
-- Consider scope and lifetime
-- Analyze related code that might be affected
-- Check for naming conflicts before renaming
+1. Analyze the current state and requirements
+2. Execute the refactor operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Safe renaming execution:**
-- Use language server capabilities for accurate refactoring
-- Update all references including imports/exports
-- Handle string references where appropriate
-- Preserve external API compatibility
+## Agent Integration
 
-## Validation
+- **Primary Agent**: code-writer - Handles refactor operations and coordination
 
-**Reference integrity:**
-- Ensure all usages are updated correctly
-- Check that imports/exports still work
-- Verify no broken references remain
-- Test that functionality remains identical
+## Examples
 
-**Naming consistency:**
-- Follow established project conventions
-- Maintain consistent patterns across similar code
-- Use domain-appropriate terminology
-- Ensure names accurately reflect current purpose
-
-Fast, safe variable renaming with comprehensive reference updating.
+```bash

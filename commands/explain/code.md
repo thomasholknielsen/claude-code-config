@@ -6,41 +6,31 @@ tools: ["Read", "Grep", "Glob"]
 complexity: "simple"
 ---
 
-# Explain Code
+# Command: Code
 
-I'll provide clear code explanations with context-appropriate depth.
+## Purpose
 
-Arguments: `$ARGUMENTS` - file path, function name, or code concept to explain
+Executes explain operations for code functionality.
 
-## Explanation Modes
+## Usage
 
-**Quick Mode (default):**
-- What the code does
-- Key concepts and patterns
-- Basic usage examples
+```bash
+/explain:code [arguments]
+```yaml
 
-**Senior Context Mode (--senior flag):**
-- Why this approach was chosen over alternatives
-- Trade-offs and architectural decisions made
-- Performance implications and considerations
-- Maintenance and scalability factors
-- Business context and constraints that influenced decisions
-- Common pitfalls junior developers miss
-- Edge cases that frequently cause issues in production
+**Arguments**: Optional parameters specific to the operation
 
-## Analysis Tools
+## Process
 
-I'll analyze using native tools:
-- **Read tool** to examine code structure and patterns
-- **Grep tool** to find related implementations and usage
-- **Glob tool** to understand broader codebase context
+1. Analyze the current state and requirements
+2. Execute the explain operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-## Usage Examples
+## Agent Integration
 
-```
-/explain:code UserService.ts
-/explain:code authentication --senior
-/explain:code "payment processing logic" --senior
-```
+- **Primary Agent**: code-writer - Handles explain operations and coordination
 
-Adapts explanation depth to your needs - from quick understanding to senior-level architectural insights.
+## Examples
+
+```bash

@@ -6,51 +6,31 @@ tools: ["Read", "Edit", "Bash"]
 complexity: "moderate"
 ---
 
-# Extract Functions
+# Command: Extract Functions
 
-I'll identify complex code blocks and extract them into well-named functions for better readability and maintainability.
+## Purpose
 
-Arguments: `$ARGUMENTS` - files, directories, or specific code areas to refactor
+Executes refactor operations for extract functions functionality.
 
-## What I Look For
+## Usage
 
-**Complex code patterns:**
-- Long functions (>20 lines)
-- Nested logic blocks
-- Repeated code patterns
-- Complex conditional statements
-- Code with multiple responsibilities
+```bash
+/refactor:extract-functions [arguments]
+```yaml
 
-**Magic numbers and strings:**
-- Hardcoded values that should be constants
-- Configuration values embedded in logic
-- Repeated literal values
+**Arguments**: Optional parameters specific to the operation
 
-## Extraction Strategy
+## Process
 
-**Function extraction:**
-- Extract logical units into named functions
-- Create meaningful function names that describe purpose
-- Maintain parameter clarity and return types
-- Preserve existing behavior exactly
+1. Analyze the current state and requirements
+2. Execute the refactor operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Constant extraction:**
-- Replace magic numbers with named constants
-- Group related constants together
-- Use descriptive naming conventions
+## Agent Integration
 
-## Validation Process
+- **Primary Agent**: code-writer - Handles refactor operations and coordination
 
-**Behavior preservation:**
-- Run existing tests to ensure no breakage
-- Verify edge cases still work correctly
-- Check that extracted functions handle all input scenarios
-- Maintain exact same output for same input
+## Examples
 
-**Code quality improvements:**
-- Better readability through clear function names
-- Easier testing of individual components
-- Reduced cognitive load when reading code
-- Improved reusability of extracted logic
-
-Quick, focused function extraction without complex session management.
+```bash

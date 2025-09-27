@@ -1,6 +1,7 @@
 # Developer Workflows with Agent Orchestra
 
-This guide provides practical workflows for developers using the Agent Orchestra framework and command system across different project scenarios. All 49 commands across 13 categories are demonstrated in real workflow contexts.
+This guide provides practical workflows for developers using the Agent Orchestra framework and
+command system across different project scenarios. All 49 commands across 13 categories are demonstrated in real workflow contexts.
 
 ## Table of Contents
 
@@ -68,23 +69,26 @@ This guide provides practical workflows for developers using the Agent Orchestra
 ## 🎯 Quick Reference
 
 ### Project Types
+
 - **Greenfield**: Starting from scratch
 - **Brownfield**: Inheriting existing codebase
 - **Feature Addition**: Adding to existing project
 - **Maintenance**: Bug fixes and optimization
 
 ### Core Workflows
+
 - **Full Spec-Kit**: Complete 7-step feature development
 - **Direct Implementation**: Bypass planning for simple tasks
 - **Hybrid Approach**: Mix spec-kit with direct commands
 
 ### Command Categories (49 Total Commands)
-```
+
+```text
 analyze/     (3) → clean/      (4) → docs/       (6) → explain/    (2)
 fix/         (2) → git/        (1) → implement/  (2) → plan/       (1)
 refactor/    (6) → review/     (3) → spec-kit/   (7) → to-do/      (5)
 workflows/   (7)
-```
+```text
 
 ## 📊 Visual Workflow Overview
 
@@ -133,7 +137,7 @@ graph TD
     Y --> Z[/git:commit/]
     Z --> AA[/docs:update/]
     AA --> AB[Project Complete]
-```
+```text
 
 ## 🌱 Greenfield Project Workflows
 
@@ -163,11 +167,12 @@ graph LR
     O --> P[/clean:improve-readability/]
     P --> Q[/docs:update/]
     Q --> R[/git:commit/]
-```
+```text
 
 ### Starting a New Project
 
 #### 1. Project Foundation Setup (4 Commands)
+
 ```bash
 # docs/ category - Initialize project structure (6 commands total)
 /docs:generate                    # Create comprehensive documentation structure
@@ -182,9 +187,10 @@ graph LR
 
 # review/ category - Security foundation (3 commands total)
 /review:security --setup         # Initialize security practices
-```
+```text
 
 #### 2. Architecture Planning - Complex Projects (7 Commands)
+
 ```bash
 # spec-kit/ category - Complete planning workflow (7 commands total)
 /spec-kit:constitution "Define project principles and standards"
@@ -192,11 +198,12 @@ graph LR
 /spec-kit:plan "Implementation roadmap"
 /spec-kit:clarify "Architecture decisions and constraints"
 /spec-kit:analyze "Cross-artifact consistency check"
-```
+```yaml
 
 #### 3. First Feature Development Options
 
 **Option A: Full Spec-Kit Workflow (All 7 spec-kit commands)**
+
 ```bash
 /spec-kit:specify "User authentication system"
 /spec-kit:plan
@@ -204,9 +211,10 @@ graph LR
 /spec-kit:tasks
 /spec-kit:analyze
 /spec-kit:implement
-```
+```text
 
 **Option B: Direct Implementation (implement + test + docs)**
+
 ```bash
 # implement/ category (2 commands total)
 /implement:small "Basic landing page"
@@ -217,11 +225,12 @@ graph LR
 
 # docs/ category
 /docs:update
-```
+```python
 
 ### Complete Example: E-commerce Platform from Scratch
 
 #### Phase 1: Foundation (9 Commands)
+
 ```mermaid
 graph TD
     A[Start] --> B[/docs:generate/]
@@ -231,7 +240,7 @@ graph TD
     E --> F[/review:security/]
     F --> G[/git:commit/]
     G --> H[Foundation Complete]
-```
+```text
 
 ```bash
 # 1. Documentation foundation (docs/)
@@ -244,18 +253,20 @@ graph TD
 
 # 3. Code standards (clean/)
 /clean:apply-style-rules
-```
+```text
 
 #### Phase 2: Core Architecture (5 Commands)
+
 ```bash
 # spec-kit/ category - Full planning
 /spec-kit:specify "Product catalog and user management"
 /spec-kit:plan
 /spec-kit:clarify "data relationships and user flows"
 /spec-kit:analyze
-```
+```text
 
 #### Phase 3: Implementation Cycles (12+ Commands)
+
 ```bash
 # Cycle 1: Core features
 /spec-kit:tasks
@@ -275,9 +286,10 @@ graph TD
 # Final polish (workflows/)
 /workflows:run-cleanup-workflow
 /workflows:run-docs-workflow
-```
+```yaml
 
 #### Complete Command Usage Matrix
+
 | Category | Commands Used | Purpose |
 |----------|---------------|---------|
 | **docs/** | 4/6 | Documentation foundation |
@@ -338,11 +350,12 @@ graph TD
     T --> U[/review:code/]
     T --> V[/docs:generate/]
     T --> W[/git:commit/]
-```
+```text
 
 ### Taking Over an Existing Project
 
 #### 1. Project Discovery Phase (All 3 analyze/ commands)
+
 ```bash
 # analyze/ category - Complete codebase analysis (3 commands total)
 /analyze:dependencies           # Audit package versions and security
@@ -352,9 +365,10 @@ graph TD
 # Initial documentation review
 /docs:extract-external "current framework best practices"
 /docs:api "document existing API endpoints"
-```
+```text
 
 #### 2. Understanding Phase (All explain/ + docs/ commands)
+
 ```bash
 # explain/ category - Codebase comprehension (2 commands total)
 /explain:codebase "overall architecture and patterns"
@@ -363,9 +377,10 @@ graph TD
 # docs/ category - Knowledge extraction
 /docs:extract-external "framework migration guides"
 /docs:update "gaps in current documentation"
-```
+```text
 
 #### 3. Quality Assessment (All review/ + workflows/ commands)
+
 ```bash
 # workflows/ category - Comprehensive analysis (7 commands total)
 /workflows:run-comprehensive-review    # Multi-perspective code review
@@ -375,9 +390,10 @@ graph TD
 # review/ category - Detailed quality checks (3 commands total)
 /review:security --audit              # Security-focused review
 /review:code "critical business logic"  # Code quality assessment
-```
+```text
 
 #### 4. Planning Phase (All to-do/ commands)
+
 ```bash
 # to-do/ category - Task management (5 commands total)
 /to-do:create-task "Fix security vulnerabilities from review"
@@ -385,9 +401,10 @@ graph TD
 /to-do:create-task "Update outdated dependencies"
 /to-do:create-task "Improve test coverage"
 /to-do:prioritize-tasks "by business impact"
-```
+```text
 
 #### 5. Standardization Phase (clean/ + refactor/ commands)
+
 ```bash
 # clean/ category - Code standards (4 commands total)
 /clean:apply-style-rules              # Consistent formatting
@@ -399,11 +416,12 @@ graph TD
 /refactor:large-scale "Apply consistent patterns"
 /refactor:modernize "legacy code patterns"
 /refactor:optimize "performance bottlenecks"
-```
+```text
 
 ### Complete Example: Legacy React App Handover
 
 #### Phase 1: Discovery & Analysis (8 Commands)
+
 ```mermaid
 graph LR
     A[Legacy App] --> B[/analyze:dependencies/]
@@ -412,7 +430,7 @@ graph LR
     D --> E[/explain:codebase/]
     E --> F[/docs:extract-external/]
     F --> G[Analysis Complete]
-```
+```text
 
 ```bash
 # 1. Technical analysis (analyze/)
@@ -428,9 +446,10 @@ graph LR
 /docs:extract-external "React 18 best practices and migration guide"
 /docs:extract-external "modern state management patterns"
 /docs:api "document existing API contracts"
-```
+```text
 
 #### Phase 2: Quality Assessment (6 Commands)
+
 ```bash
 # Comprehensive review workflow
 /workflows:run-comprehensive-review
@@ -439,9 +458,10 @@ graph LR
 # Detailed security and code review
 /review:security "authentication and data handling"
 /review:code "critical business logic components"
-```
+```text
 
 #### Phase 3: Improvement Planning (5 Commands)
+
 ```bash
 # Task creation and prioritization (to-do/)
 /to-do:create-task "Migrate to React 18 and modern patterns"
@@ -449,9 +469,10 @@ graph LR
 /to-do:create-task "Optimize bundle size and performance"
 /to-do:create-task "Add comprehensive test coverage"
 /to-do:prioritize-tasks "by security risk and business impact"
-```
+```text
 
 #### Phase 4: Systematic Improvements (12 Commands)
+
 ```bash
 # Critical fixes first (fix/)
 /fix:bug-quickly "console errors in development"
@@ -474,9 +495,10 @@ graph LR
 
 # Final documentation (docs/)
 /docs:generate "updated component and API documentation"
-```
+```yaml
 
 #### Complete Brownfield Command Usage Matrix
+
 | Category | Commands Used | Purpose |
 |----------|---------------|---------|
 | **analyze/** | 3/3 | Complete codebase analysis |
@@ -494,13 +516,14 @@ graph LR
 **Total: 35/49 commands used in brownfield workflow**
 
 ### Brownfield Success Metrics
+
 ```mermaid
 pie title Command Distribution in Brownfield Projects
     "Analysis & Discovery" : 8
     "Quality Assessment" : 6
     "Planning & Tasks" : 5
     "Improvements & Fixes" : 16
-```
+```text
 
 ## ➕ Feature Addition Workflows
 
@@ -534,11 +557,12 @@ graph TD
     Q --> S[/review:security/]
     S --> T[/docs:api/]
     T --> R
-```
+```yaml
 
 ### Adding Features to Existing Projects
 
 #### Simple Features: Direct Implementation (4-6 Commands)
+
 ```mermaid
 graph LR
     A[Simple Feature] --> B[/implement:small/]
@@ -547,7 +571,7 @@ graph LR
     D --> E[/docs:update/]
     E --> F[/git:commit/]
     F --> G[Complete]
-```
+```text
 
 ```bash
 # implement/ category - Direct development (2 commands total)
@@ -564,9 +588,10 @@ graph LR
 
 # git/ category - Version control (1 command total)
 /git:commit "Add user list export functionality"
-```
+```yaml
 
 #### Medium Features: Hybrid Approach (8-12 Commands)
+
 ```mermaid
 graph TD
     A[Medium Feature] --> B[/plan:save-plan-to-markdown/]
@@ -579,7 +604,7 @@ graph TD
     H --> I[/review:code/]
     I --> J[/workflows:run-cleanup-workflow/]
     J --> K[Complete]
-```
+```text
 
 ```bash
 # plan/ category - Planning phase (1 command total)
@@ -601,9 +626,10 @@ graph TD
 /review:code "search functionality"
 /docs:update "search feature documentation"
 /git:commit "Add comprehensive search with filtering"
-```
+```yaml
 
 #### Complex Features: Full Spec-Kit (15+ Commands)
+
 ```bash
 # spec-kit/ category - Complete planning workflow (7 commands total)
 /spec-kit:specify "Real-time notifications system"
@@ -619,11 +645,12 @@ graph TD
 /test:write "notification system integration tests"
 /docs:api "notification endpoints and events"
 /docs:update "user notification preferences guide"
-```
+```text
 
 ### Complete Example: Adding Payment System (Complex Feature)
 
 #### Phase 1: Specification & Planning (5 Commands)
+
 ```mermaid
 graph LR
     A[Payment Requirement] --> B[/spec-kit:specify/]
@@ -631,7 +658,7 @@ graph LR
     C --> D[/spec-kit:plan/]
     D --> E[/spec-kit:analyze/]
     E --> F[Ready for Implementation]
-```
+```text
 
 ```bash
 # Complete spec-kit planning
@@ -639,9 +666,10 @@ graph LR
 /spec-kit:clarify "refund handling, dispute management, and edge cases"
 /spec-kit:plan "security compliance and PCI requirements"
 /spec-kit:analyze "security and compliance requirements"
-```
+```text
 
 #### Phase 2: Implementation & Security (8 Commands)
+
 ```bash
 # Core implementation
 /spec-kit:tasks "payment flow breakdown"
@@ -656,9 +684,10 @@ graph LR
 /test:write "payment integration tests"
 /test:write "webhook processing tests"
 /test:write "refund and dispute handling tests"
-```
+```text
 
 #### Phase 3: Documentation & Compliance (6 Commands)
+
 ```bash
 # API documentation (required for payment systems)
 /docs:api "payment endpoints and webhook specifications"
@@ -671,11 +700,12 @@ graph LR
 # Final review and commit
 /workflows:run-security-audit "payment system"
 /git:commit "Add Stripe payment integration with security compliance"
-```
+```text
 
 ### Feature Addition Command Usage by Complexity
 
 #### Simple Features (5-7 commands)
+
 | Category | Commands | Usage Rate |
 |----------|----------|------------|
 | **implement/** | 1/2 | 50% |
@@ -685,6 +715,7 @@ graph LR
 | **git/** | 1/1 | 100% |
 
 #### Medium Features (8-12 commands)
+
 | Category | Commands | Usage Rate |
 |----------|----------|------------|
 | **plan/** | 1/1 | 100% |
@@ -696,6 +727,7 @@ graph LR
 | **git/** | 1/1 | 100% |
 
 #### Complex Features (15+ commands)
+
 | Category | Commands | Usage Rate |
 |----------|----------|------------|
 | **spec-kit/** | 6/7 | 86% |
@@ -723,7 +755,7 @@ graph TD
     F --> I[5-7 Commands]
     G --> J[8-12 Commands]
     H --> K[15+ Commands]
-```
+```text
 
 ## 🔧 Maintenance & Bug Fix Workflows
 
@@ -759,9 +791,10 @@ graph TD
     L --> T
     O --> T
     S --> T
-```
+```text
 
 ### Quick Bug Fixes (3-5 Commands)
+
 ```mermaid
 graph LR
     A[Bug Report] --> B[/fix:bug-quickly/]
@@ -769,7 +802,7 @@ graph LR
     C --> D[/review:code/]
     D --> E[/git:commit/]
     E --> F[Fixed]
-```
+```text
 
 ```bash
 # fix/ category - Rapid resolution (2 commands total)
@@ -784,9 +817,10 @@ graph LR
 
 # git/ category - Version control (1 command total)
 /git:commit "Fix login button responsiveness"
-```
+```text
 
 ### Performance Optimization Workflow (8-12 Commands)
+
 ```mermaid
 graph TD
     A[Performance Issue] --> B[Analysis Phase]
@@ -805,7 +839,7 @@ graph TD
     H --> I[/analyze:performance/]
     I --> J[/workflows:run-cleanup-workflow/]
     J --> K[Optimized]
-```
+```text
 
 ```bash
 # analyze/ category - Performance analysis (3 commands total)
@@ -825,9 +859,10 @@ graph TD
 # Validation
 /analyze:performance "verify improvements"
 /workflows:run-cleanup-workflow
-```
+```text
 
 ### Security Updates Workflow (6-8 Commands)
+
 ```mermaid
 graph TD
     A[Security Alert] --> B[/review:security/]
@@ -838,7 +873,7 @@ graph TD
     F --> G[/workflows:run-security-audit/]
     G --> H[/git:commit/]
     H --> I[Secured]
-```
+```text
 
 ```bash
 # review/ category - Security assessment (3 commands total)
@@ -858,9 +893,10 @@ graph TD
 
 # git/ category - Secure commit (1 command total)
 /git:commit "Fix security vulnerabilities in user input handling"
-```
+```text
 
 ### Complex Bug Investigation (10-15 Commands)
+
 ```mermaid
 graph TD
     A[Complex Bug] --> B[Investigation Phase]
@@ -881,7 +917,7 @@ graph TD
     L --> M[/docs:update/]
     M --> N[/git:commit/]
     N --> O[Resolved]
-```
+```text
 
 ```bash
 # Investigation phase (analyze/ + explain/)
@@ -900,12 +936,14 @@ graph TD
 # Documentation phase (docs/ + git/)
 /docs:update "troubleshooting guide for data issues"
 /git:commit "Fix race condition in concurrent data updates"
-```
+```yaml
 
 ## 🔄 Workflow Decision Matrix
 
 ### When to Use Spec-Kit
+
 ✅ **Use Full Spec-Kit When:**
+
 - Feature affects multiple components
 - Architecture decisions required
 - Complex business logic
@@ -914,7 +952,9 @@ graph TD
 - Integration with external systems
 
 ### When to Use Direct Commands
+
 ✅ **Use Direct Approach When:**
+
 - Simple UI changes
 - Bug fixes
 - Documentation updates
@@ -923,7 +963,9 @@ graph TD
 - Maintenance tasks
 
 ### When to Use Hybrid Approach
+
 ✅ **Use Hybrid When:**
+
 - Medium complexity features
 - Iterative development
 - Prototype to production
@@ -933,6 +975,7 @@ graph TD
 ## 🎨 Custom Workflow Examples
 
 ### Rapid Prototyping Workflow
+
 ```bash
 # Fast iteration for MVP
 /implement:small "user registration form"
@@ -940,9 +983,10 @@ graph TD
 /implement:small "data visualization"
 /clean:apply-style-rules
 /docs:generate "MVP documentation"
-```
+```text
 
 ### Code Review & Handoff Workflow
+
 ```bash
 # Before handoff to another developer
 /workflows:run-comprehensive-review
@@ -950,9 +994,10 @@ graph TD
 /clean:improve-readability
 /review:security "final security check"
 /git:commit "Prepare for handoff"
-```
+```text
 
 ### Release Preparation Workflow
+
 ```bash
 # Pre-release checklist
 /analyze:performance "production readiness"
@@ -961,9 +1006,10 @@ graph TD
 /docs:generate "release documentation"
 /workflows:run-cleanup-workflow
 /git:commit "Release candidate ready"
-```
+```text
 
 ### Technical Debt Reduction Workflow
+
 ```bash
 # Systematic debt reduction
 /analyze:potential-issues "identify technical debt"
@@ -971,11 +1017,12 @@ graph TD
 /clean:improve-readability "complex code sections"
 /refactor:optimize "performance bottlenecks"
 /workflows:run-cleanup-workflow
-```
+```yaml
 
 ## 🚀 Best Practices
 
 ### Command Sequencing
+
 1. **Analysis** before implementation
 2. **Planning** for complex features
 3. **Implementation** in small iterations
@@ -983,6 +1030,7 @@ graph TD
 5. **Documentation** updates with features
 
 ### Agent Utilization
+
 - **research-orchestrator**: For multi-source analysis
 - **implementation-orchestrator**: For complex feature builds
 - **task-orchestrator**: For workflow coordination
@@ -990,13 +1038,16 @@ graph TD
 - **documenter**: For knowledge capture
 
 ### Quality Gates
+
 - Run `/analyze:performance` before major releases
 - Use `/review:security` for any authentication/payment code
 - Apply `/clean:apply-style-rules` regularly
 - Update documentation with `/docs:generate` after features
 
 ### Common Anti-Patterns to Avoid
+
 ❌ **Don't:**
+
 - Skip analysis on complex features
 - Use spec-kit for simple changes
 - Ignore security reviews on sensitive code
@@ -1004,6 +1055,7 @@ graph TD
 - Commit without running cleanup workflows
 
 ✅ **Do:**
+
 - Match workflow complexity to feature complexity
 - Use appropriate agents for specific tasks
 - Maintain consistent code quality
@@ -1013,6 +1065,7 @@ graph TD
 ## 📋 Workflow Checklists
 
 ### Greenfield Project Checklist
+
 - [ ] `/docs:generate` for initial structure
 - [ ] `/spec-kit:constitution` for project standards
 - [ ] `/clean:apply-style-rules` setup
@@ -1021,6 +1074,7 @@ graph TD
 - [ ] Security setup with `/review:security`
 
 ### Brownfield Handover Checklist
+
 - [ ] `/analyze:dependencies` audit
 - [ ] `/workflows:run-comprehensive-review`
 - [ ] `/explain:codebase` understanding
@@ -1029,6 +1083,7 @@ graph TD
 - [ ] Security assessment
 
 ### Feature Addition Checklist
+
 - [ ] Complexity assessment (simple/medium/complex)
 - [ ] Appropriate workflow selection
 - [ ] Implementation execution
@@ -1043,6 +1098,7 @@ graph TD
 This section demonstrates how every command in the system fits into real development workflows.
 
 #### Analysis Commands (3/3) - Project Understanding
+
 ```mermaid
 graph LR
     A[Project Analysis] --> B[/analyze:dependencies/]
@@ -1051,16 +1107,17 @@ graph LR
     B --> E[Security & Compatibility]
     C --> F[Optimization Opportunities]
     D --> G[Bug Prevention]
-```
+```text
 
 ```bash
 # Complete analysis workflow
 /analyze:dependencies "audit all packages for vulnerabilities and updates"
 /analyze:performance "identify bottlenecks in critical user paths"
 /analyze:potential-issues "detect code smells and architectural problems"
-```
+```text
 
 #### Clean Commands (4/4) - Code Quality
+
 ```mermaid
 graph TD
     A[Code Quality Phase] --> B[/clean:apply-style-rules/]
@@ -1068,7 +1125,7 @@ graph TD
     C --> D[/clean:remove-unused-code/]
     D --> E[/clean:organize-imports/]
     E --> F[Quality Standards Met]
-```
+```text
 
 ```bash
 # Complete code cleaning workflow
@@ -1076,9 +1133,10 @@ graph TD
 /clean:improve-readability "complex business logic"  # Manual optimization
 /clean:remove-unused-code              # Dead code elimination
 /clean:organize-imports                # Import optimization
-```
+```text
 
 #### Documentation Commands (6/6) - Knowledge Management
+
 ```mermaid
 graph TD
     A[Documentation Phase] --> B[/docs:generate/]
@@ -1086,7 +1144,7 @@ graph TD
     C --> D[/docs:extract-external/]
     D --> E[/docs:update/]
     E --> F[Complete Documentation]
-```
+```text
 
 ```bash
 # Complete documentation workflow
@@ -1094,9 +1152,10 @@ graph TD
 /docs:api "REST and GraphQL endpoint documentation"
 /docs:extract-external "current framework best practices"
 /docs:update "feature guides and troubleshooting"
-```
+```text
 
 #### Explain Commands (2/2) - Code Understanding
+
 ```mermaid
 graph LR
     A[Understanding Phase] --> B[/explain:codebase/]
@@ -1105,28 +1164,30 @@ graph LR
     C --> E[System Overview]
     D --> F[Complete Understanding]
     E --> F
-```
+```text
 
 ```bash
 # Complete explanation workflow
 /explain:codebase "component relationships and data flow"
 /explain:architecture "high-level system design and patterns"
-```
+```text
 
 #### Fix Commands (2/2) - Issue Resolution
+
 ```mermaid
 graph LR
     A[Issue Detected] --> B[/fix:bug-quickly/]
     B --> C[Issue Resolved]
-```
+```text
 
 ```bash
 # Complete fix workflow
 /fix:bug-quickly "critical production bug"
 /fix:bug-quickly "security vulnerability"
-```
+```text
 
 #### Implementation Commands (2/2) - Feature Development
+
 ```mermaid
 graph TD
     A[Feature Development] --> B{Use Spec-Kit?}
@@ -1134,27 +1195,29 @@ graph TD
     B -->|No| D[/implement:small/]
     C --> E[Structured Implementation]
     D --> F[Direct Implementation]
-```
+```text
 
 ```bash
 # Complete implementation workflow
 /implement:small "simple UI component"
 /implement:spec-kit-tasks "complex feature from planned tasks"
-```
+```text
 
 #### Plan Commands (1/1) - Strategic Planning
+
 ```mermaid
 graph LR
     A[Feature Planning] --> B[/plan:save-plan-to-markdown/]
     B --> C[Structured Plan Document]
-```
+```text
 
 ```bash
 # Planning workflow
 /plan:save-plan-to-markdown "microservices migration strategy"
-```
+```text
 
 #### Refactor Commands (6/6) - Code Improvement
+
 ```mermaid
 graph TD
     A[Refactoring Phase] --> B[/refactor:large-scale/]
@@ -1170,7 +1233,7 @@ graph TD
     E --> K[Component Reuse]
     F --> L[Clear Naming]
     G --> M[Logical Organization]
-```
+```text
 
 ```bash
 # Complete refactoring workflow
@@ -1180,9 +1243,10 @@ graph TD
 /refactor:extract-components "reusable UI components"
 /refactor:rename-safely "improve variable and function names"
 /refactor:reorganize-structure "logical file and folder structure"
-```
+```text
 
 #### Review Commands (3/3) - Quality Assurance
+
 ```mermaid
 graph TD
     A[Quality Review] --> B[/review:security/]
@@ -1191,15 +1255,16 @@ graph TD
     C --> E[Code Quality Check]
     D --> F[Quality Gates Passed]
     E --> F
-```
+```text
 
 ```bash
 # Complete review workflow
 /review:security "authentication and data handling"
 /review:code "business logic and critical paths"
-```
+```text
 
 #### Spec-Kit Commands (7/7) - Feature Development Lifecycle
+
 ```mermaid
 graph TD
     A[Feature Start] --> B[/spec-kit:constitution/]
@@ -1210,7 +1275,7 @@ graph TD
     F --> G[/spec-kit:analyze/]
     G --> H[/spec-kit:implement/]
     H --> I[Feature Complete]
-```
+```text
 
 ```bash
 # Complete spec-kit workflow
@@ -1221,9 +1286,10 @@ graph TD
 /spec-kit:tasks "actionable development tasks"
 /spec-kit:analyze "cross-artifact consistency check"
 /spec-kit:implement "execute complete implementation"
-```
+```text
 
 #### Task Management Commands (5/5) - Project Organization
+
 ```mermaid
 graph TD
     A[Task Management] --> B[/to-do:create-task/]
@@ -1232,7 +1298,7 @@ graph TD
     D --> E[/to-do:update-status/]
     E --> F[/to-do:archive-completed/]
     F --> G[Organized Workflow]
-```
+```text
 
 ```bash
 # Complete task management workflow
@@ -1241,9 +1307,10 @@ graph TD
 /to-do:prioritize-tasks "by business impact and dependencies"
 /to-do:update-status "mark tasks as in progress or completed"
 /to-do:archive-completed "clean up finished tasks"
-```
+```text
 
 #### Workflow Commands (7/7) - Orchestrated Operations
+
 ```mermaid
 graph TD
     A[Workflow Automation] --> B[/workflows:run-comprehensive-review/]
@@ -1255,7 +1322,7 @@ graph TD
     C --> G[Security Validation]
     D --> H[Code Cleanup]
     E --> I[Documentation Update]
-```
+```text
 
 ```bash
 # Complete workflow automation
@@ -1263,11 +1330,12 @@ graph TD
 /workflows:run-security-audit "vulnerability assessment"
 /workflows:run-cleanup-workflow "code quality optimization"
 /workflows:run-docs-workflow --mode=generate "documentation refresh"
-```
+```yaml
 
 ### Command Integration Patterns
 
 #### Pattern 1: New Feature (Complex) - 20+ Commands
+
 ```mermaid
 graph TD
     A[Feature Request] --> B[Spec-Kit Phase]
@@ -1284,9 +1352,10 @@ graph TD
 
     I --> J[Finalization]
     J --> K["/workflows:run-cleanup-workflow<br/>/git:commit"]
-```
+```yaml
 
 #### Pattern 2: Bug Investigation - 15+ Commands
+
 ```mermaid
 graph TD
     A[Bug Report] --> B[Analysis Phase]
@@ -1299,9 +1368,10 @@ graph TD
     F --> G["/analyze:performance<br/>/review:security<br/>/docs:update"]
 
     G --> H["/git:commit"]
-```
+```yaml
 
 #### Pattern 3: Project Handover - 25+ Commands
+
 ```mermaid
 graph TD
     A[Project Handover] --> B[Discovery Phase]
@@ -1317,7 +1387,7 @@ graph TD
     H --> I["/docs:generate<br/>/docs:api<br/>/docs:update"]
 
     I --> J["/workflows:run-cleanup-workflow<br/>/git:commit"]
-```
+```text
 
 ### Command Usage Statistics by Workflow Type
 
@@ -1331,21 +1401,24 @@ graph TD
 ### Universal Command Combinations
 
 #### Quality Gate (Always Use Together)
+
 ```bash
 /clean:apply-style-rules
 /review:code
 /review:security
 /git:commit
-```
+```text
 
 #### Analysis Trinity (Understanding Phase)
+
 ```bash
 /analyze:dependencies
 /analyze:performance
 /analyze:potential-issues
-```
+```text
 
 #### Documentation Suite (Knowledge Capture)
+
 ```bash
 /docs:generate
 /docs:api
@@ -1353,4 +1426,5 @@ graph TD
 /docs:sync-claude-md
 ```
 
-This documentation provides practical guidance for utilizing the Agent Orchestra framework effectively across different development scenarios while maintaining code quality and development velocity.
+This documentation provides practical guidance for utilizing the Agent Orchestra framework effectively across different development scenarios while
+maintaining code quality and development velocity.

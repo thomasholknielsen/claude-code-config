@@ -6,52 +6,31 @@ tools: ["Grep", "Read", "Edit"]
 complexity: "moderate"
 ---
 
-# Remove Duplication
+# Command: Remove Duplication
 
-I'll identify and eliminate code duplication by applying DRY (Don't Repeat Yourself) principles through function extraction, parameterization, and shared utilities.
+## Purpose
 
-Arguments: `$ARGUMENTS` - files, modules, or directories to analyze for duplication
+Executes refactor operations for remove duplication functionality.
 
-## Duplication Detection
+## Usage
 
-**Code pattern analysis:**
-- Identical or near-identical code blocks
-- Similar logic with minor variations
-- Repeated string literals and magic numbers
-- Copy-pasted functions with slight modifications
+```bash
+/refactor:remove-duplication [arguments]
+```yaml
 
-**Structural duplication:**
-- Similar class structures with minor differences
-- Repeated component patterns
-- Duplicate utility functions across modules
-- Common error handling patterns
+**Arguments**: Optional parameters specific to the operation
 
-## DRY Strategies
+## Process
 
-**Function extraction:**
-- Extract common logic into shared functions
-- Parameterize differences between similar code blocks
-- Create utility functions for repeated operations
-- Build shared libraries for common functionality
+1. Analyze the current state and requirements
+2. Execute the refactor operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Configuration-driven approaches:**
-- Replace hardcoded values with configuration
-- Use data structures to drive similar behaviors
-- Create template functions that accept variations
-- Build generic handlers for similar cases
+## Agent Integration
 
-## Implementation Process
+- **Primary Agent**: code-writer - Handles refactor operations and coordination
 
-**Safe refactoring:**
-- Verify behavior is identical before extraction
-- Test extracted functions thoroughly
-- Update all call sites consistently
-- Maintain backward compatibility where needed
+## Examples
 
-**Quality improvements:**
-- Centralize business logic
-- Reduce maintenance burden
-- Improve consistency across codebase
-- Enable easier testing of shared logic
-
-Focused duplication removal with emphasis on maintainability and safety.
+```bash

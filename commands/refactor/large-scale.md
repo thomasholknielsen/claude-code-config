@@ -1,80 +1,36 @@
 ---
-description: Systematic code restructuring with behavior preservation
-category: refactoring
-tools: Read, Write, Edit, MultiEdit, Glob, Grep, Bash
-session: refactor/
+description: "Systematic code restructuring with behavior preservation"
+category: "refactoring"
+agent: "code-writer"
+tools: ["Read", "Write", "Edit", "MultiEdit", "Glob", "Grep", "Bash"]
+complexity: "moderate"
 ---
 
-# Large-Scale Refactoring
+# Command: Large Scale
 
-I'll systematically restructure large codebases while preserving functionality and improving maintainability across multiple files and modules.
+## Purpose
 
-Arguments: `$ARGUMENTS` - files, directories, or refactoring scope
+Executes refactor operations for large scale functionality.
 
-## Session Continuity
+## Usage
 
-**Session files location: `refactor/` in current directory**
-- `refactor/plan.md` - Refactoring plan with progress
-- `refactor/state.json` - Current state and checkpoints
+```bash
+/refactor:large-scale [arguments]
+```yaml
 
-**Commands:**
-- `/refactor` - Start or resume refactoring
-- `/refactor status` - Check progress  
-- `/refactor new` - Start fresh session
+**Arguments**: Optional parameters specific to the operation
 
-## Refactoring Process
+## Process
 
-**Analysis Phase:**
-- Identify code complexity hotspots and duplication
-- Analyze architecture inconsistencies
-- Check test coverage for safe refactoring
-- Reference `.specify/plan.md` for architectural guidance (if available)
-- Create refactoring plan with risk assessment
+1. Analyze the current state and requirements
+2. Execute the refactor operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Execution Phase:**
-- Apply refactorings incrementally with git checkpoints
-- Validate functionality after each change
-- Update tests and documentation as needed
-- Track progress in session files
+## Agent Integration
 
-## Refactoring Categories
+- **Primary Agent**: code-writer - Handles refactor operations and coordination
 
-**Types of refactoring:**
-- **Quick wins**: Variable renames, method extractions
-- **Structural**: Pattern applications, dependency improvements  
-- **Architectural**: Major reorganizations, module boundaries
-- **Performance**: Algorithm optimizations, caching strategies
+## Examples
 
-## Validation Process
-
-**Built-in validation:**
-- Test suite validation after each change
-- Behavior preservation checks
-- Integration point verification
-- Performance impact monitoring
-
-## Usage Examples
-
-**Start refactoring:**
-```
-/refactor                    # Analyze entire project
-/refactor src/components/    # Focus on directory
-/refactor UserService.ts     # Target single file
-```
-
-**Session control:**
-```
-/refactor resume    # Continue existing session
-/refactor status    # Check progress
-/refactor new       # Start fresh
-```
-
-## Execution Workflow
-
-1. **Setup session** - Load/create state files
-2. **Analyze** - Identify refactoring opportunities
-3. **Plan** - Create structured refactoring plan
-4. **Execute** - Apply changes incrementally
-5. **Validate** - Ensure behavior preservation
-
-Perfect session continuity with automatic rollback safety.
+```bash

@@ -1,77 +1,68 @@
 ---
-description: Smart commit message generation with quality checks
-category: git
-tools: Bash
+description: "Smart commit message generation with quality checks"
+category: "git"
+agent: "implementation-orchestrator"
+tools: ["Bash", "Read", "Grep"]
+complexity: "moderate"
 ---
 
-# Smart Git Commit
+# Command: Commit
 
-I'll analyze your changes and create a meaningful commit message.
+## Purpose
 
-**Pre-Commit Quality Checks:**
-Before committing, I'll verify:
-- Build passes (if build command exists)
-- Tests pass (if test command exists)
-- Linter passes (if lint command exists)
-- No obvious errors in changed files
+Creates logical, atomic commits with intelligent message generation and quality validation.
 
-First, let me check if this is a git repository and what's changed:
+## Usage
 
 ```bash
-# Verify we're in a git repository
-if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    echo "Error: Not a git repository"
-    echo "This command requires git version control"
-    exit 1
-fi
-
-# Check if we have changes to commit
-if ! git diff --cached --quiet || ! git diff --quiet; then
-    echo "Changes detected:"
-    git status --short
-else
-    echo "No changes to commit"
-    exit 0
-fi
-
-# Show detailed changes
-git diff --cached --stat
-git diff --stat
+/git:commit [message]
 ```
 
-Now I'll analyze the changes to determine:
-1. What files were modified
-2. The nature of changes (feature, fix, refactor, etc.)
-3. The scope/component affected
-4. Check for `.specify/` context to align commit scope with feature work
+**Arguments**: Optional commit message (auto-generated from changes if not provided)
 
-If the analysis or commit encounters errors:
-- I'll explain what went wrong
-- Suggest how to resolve it
-- Ensure no partial commits occur
+## Process
+
+1. Analyze staged and unstaged changes for logical groupings
+2. Generate meaningful commit messages based on file modifications
+3. Create atomic commits for each logical unit of work
+4. Validate commit quality and message clarity
+5. Report commit summary and next steps
+
+## Agent Integration
+
+- **Primary Agent**: implementation-orchestrator - Handles git operations and coordination
+
+## Examples
 
 ```bash
-# If nothing is staged, I'll stage modified files (not untracked)
-if git diff --cached --quiet; then
-    echo "No files staged. Staging modified files..."
-    git add -u
-fi
+# Automatic commit with generated messages
+/git:commit
 
-# Show what will be committed
-git diff --cached --name-status
+# Single commit with custom message
+/git:commit "feat: add user authentication system"
+
+# Batch commits with logical grouping
+/git:commit --batch
 ```
 
-Based on the analysis, I'll create a conventional commit message:
-- **Type**: feat|fix|docs|style|refactor|test|chore
-- **Scope**: component or area affected (optional)
-- **Subject**: clear description in present tense
-- **Body**: why the change was made (if needed)
+## Output
 
-```bash
-# I'll create the commit with the analyzed message
-# Example: git commit -m "fix(auth): resolve login timeout issue"
-```
+- Generated commit messages for each logical unit
+- Commit hashes and summaries
+- Files included in each commit
+- Guidance on next steps (push, PR creation, etc.)
 
-The commit message will be concise, meaningful, and follow your project's conventions if I can detect them from recent commits.
+## Integration Points
 
-**Note**: Following global AI attribution and git policies. Uses your existing git configuration for authentic commits.
+- **Follows**: /git:branch, code modifications
+- **Followed by**: /git:push, /git:pr
+- **Related**: /workflows:run-git-branch-commit-and-pr
+
+## Quality Standards
+
+- Creates atomic commits focused on single functionality
+- Generates clear, descriptive commit messages following conventions
+- Groups related changes logically (features, fixes, refactoring)
+- Validates no breaking changes are mixed with features
+- Ensures commit messages are under 72 characters for subject line
+- Follows semantic commit format when appropriate (feat:, fix:, docs:)

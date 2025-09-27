@@ -1,8 +1,8 @@
 #!/bin/bash
-"""
-macOS helper script for cross-platform user prompt logging.
-Handles macOS-specific operations and calls the main Python logging script.
-"""
+#
+# macOS helper script for cross-platform user prompt logging.
+# Handles macOS-specific operations and calls the main Python logging script.
+#
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

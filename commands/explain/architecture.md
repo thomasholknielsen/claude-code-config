@@ -6,93 +6,31 @@ tools: ["Glob", "Read", "Grep", "Bash"]
 complexity: "complex"
 ---
 
-# Understand Project
+# Command: Architecture
 
-I'll analyze your entire application to understand its architecture, patterns, and how everything works together.
+## Purpose
 
-**Phase 1: Project Discovery**
-Using native tools for comprehensive analysis:
-- **Glob** to map entire project structure
-- **Read** key files (README, docs, configs)
-- **Grep** to identify technology patterns
-- **Read** entry points and main files
-- **Check** for `.specify/` folder to understand current feature context
+Executes explain operations for architecture functionality.
 
-I'll discover:
-- Project type and main technologies
-- Architecture patterns (MVC, microservices, etc.)
-- Directory structure and organization
-- Dependencies and external integrations
-- Build and deployment setup
+## Usage
 
-**Phase 2: Code Architecture Analysis**
-- **Entry points**: Main files, index files, app initializers
-- **Core modules**: Business logic organization
-- **Data layer**: Database, models, repositories
-- **API layer**: Routes, controllers, endpoints
-- **Frontend**: Components, views, templates
-- **Configuration**: Environment setup, constants
-- **Testing**: Test structure and coverage
+```bash
+/explain:architecture [arguments]
+```yaml
 
-**Phase 3: Pattern Recognition**
-I'll identify established patterns:
-- Naming conventions for files and functions
-- Code style and formatting rules
-- Error handling approaches
-- Authentication/authorization flow
-- State management strategy
-- Communication patterns between modules
+**Arguments**: Optional parameters specific to the operation
 
-**Phase 4: Dependency Mapping**
-- Internal dependencies between modules
-- External library usage patterns
-- Service integrations
-- API dependencies
-- Database relationships
-- Asset and resource management
+## Process
 
-**Phase 5: Documentation Synthesis**
-After analysis, I'll provide:
-- **Architecture diagram** (in text/markdown)
-- **Key components** and their responsibilities
-- **Data flow** through the application
-- **Important patterns** to follow
-- **Tech stack summary**
-- **Development workflow**
-- **Current feature context** (if `.specify/` exists)
+1. Analyze the current state and requirements
+2. Execute the explain operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Integration Points:**
-I'll identify how components interact:
-- API endpoints and their consumers
-- Database queries and their callers
-- Event systems and listeners
-- Shared utilities and helpers
-- Cross-cutting concerns (logging, auth)
+## Agent Integration
 
-**Output Format:**
-```
-PROJECT OVERVIEW
-├── Architecture: [Type]
-├── Main Technologies: [List]
-├── Key Patterns: [List]
-└── Entry Point: [File]
+- **Primary Agent**: code-writer - Handles explain operations and coordination
 
-COMPONENT MAP
-├── Frontend
-│   └── [Structure]
-├── Backend
-│   └── [Structure]
-├── Database
-│   └── [Schema approach]
-└── Tests
-    └── [Test strategy]
+## Examples
 
-KEY INSIGHTS
-- [Important finding 1]
-- [Important finding 2]
-- [Unique patterns]
-```
-
-When the analysis is large, I'll create a todo list to explore specific areas in detail.
-
-This gives you a complete mental model of how your application works.
+```bash

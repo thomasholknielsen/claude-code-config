@@ -6,41 +6,31 @@ tools: ["Glob", "Read", "Grep", "Edit"]
 complexity: "simple"
 ---
 
-# Remove Obvious Comments
+# Command: Code Comments
 
-I'll clean up redundant comments while preserving valuable documentation.
+## Purpose
 
-## Analysis Process
+Executes clean operations for code comments functionality.
 
-I'll identify files with comments using:
-- **Glob** to find source files
-- **Read** to examine comment patterns
-- **Grep** to locate specific comment types
+## Usage
 
-**Comments I'll Remove:**
-- Simply restate what the code does
-- Add no value beyond the code itself
-- State the obvious (like "constructor" above a constructor)
+```bash
+/clean:code-comments [arguments]
+```yaml
 
-**Comments I'll Preserve:**
-- Explain WHY something is done
-- Document complex business logic
-- Contain TODOs, FIXMEs, or HACKs
-- Warn about non-obvious behavior
-- Provide important context
+**Arguments**: Optional parameters specific to the operation
 
-## Review Process
+## Process
 
-For each file with obvious comments, I'll:
-1. Show you the redundant comments I found
-2. Explain why they should be removed
-3. Show the cleaner version
-4. Apply the changes after your confirmation
+1. Analyze the current state and requirements
+2. Execute the clean operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Important**: I will NEVER:
-- Add "Co-authored-by" or any Claude signatures
-- Include "Generated with Claude Code" or similar messages
-- Modify git config or user credentials
-- Add any AI/assistant attribution to the commit
+## Agent Integration
 
-This creates cleaner, more maintainable code where every comment has real value.
+- **Primary Agent**: code-writer - Handles clean operations and coordination
+
+## Examples
+
+```bash

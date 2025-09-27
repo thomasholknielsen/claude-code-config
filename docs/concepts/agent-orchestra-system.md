@@ -1,24 +1,30 @@
 # Multi-Agent System for Claude Code
 
-A task-based multi-agent architecture featuring orchestrators and specialized workers that leverage slash commands for atomic operations. Based on Anthropic's proven patterns for parallel execution and efficient task coordination.
+A task-based multi-agent architecture featuring orchestrators and
+specialized workers that leverage slash commands for atomic operations. Based on Anthropic's proven patterns for parallel
+execution and efficient task coordination.
 
 ## 📥 Installation
 
 1. **Download or clone this repository**
 2. **Copy agents to your Claude Code agents directory:**
+
    ```bash
    cp -r agents/* ~/.claude/agents/
-   ```
+   ```yaml
+
 3. **Restart Claude Code** to load the new agents
 
 ## 🚀 Quick Start
 
 The multi-agent system uses a hierarchy of 8 agents - orchestrators and workers:
+
 1. **Orchestrators** analyze tasks and spawn appropriate workers
 2. **Workers** execute focused tasks using slash commands
 3. **Coordination** through clear task handoffs and communication
 
 ### Example Task Flows
+
 - "Fix login timeout bug" → `task-orchestrator` → `bug-fixer` (uses `/fix:bug-quickly`)
 - "Research API best practices" → `research-orchestrator` → 5 parallel research agents
 - "Implement user auth" → `implementation-orchestrator` → `code-writer` → `test-writer`
@@ -29,7 +35,7 @@ The multi-agent system uses a hierarchy of 8 agents - orchestrators and workers:
 
 ### Task-Based Agent Organization
 
-```
+```yaml
 agents/
 ├── orchestrators/        # Task coordinators (3 agents)
 │   ├── task-orchestrator.md       # General task coordination
@@ -47,7 +53,7 @@ agents/
 │   └── [domain-specific agents]
 │
 └── [legacy MECE agents] # Previous domain-based structure
-```
+```python
 
 ### Agent Communication
 
@@ -58,11 +64,13 @@ agents/
 ## 🎯 Core Agents (New Architecture)
 
 ### Orchestrators
+
 1. **task-orchestrator** - Analyzes complexity, spawns 1-5 workers based on task needs
 2. **research-orchestrator** - Coordinates parallel research across multiple domains
 3. **implementation-orchestrator** - Manages sequential code changes with state tracking
 
 ### Workers
+
 1. **code-writer** - Focused code generation using `/refactor`, `/implement` commands
 2. **test-writer** - Test creation using framework detection and `/test` commands
 3. **bug-fixer** - Systematic debugging using `/fix:bug-quickly`, `/analyze` commands
@@ -72,29 +80,37 @@ agents/
 ## 🔧 How It Works
 
 ### 1. Task Analysis
+
 The `task-orchestrator` receives your request and determines:
+
 - Task complexity (simple/moderate/complex)
 - Required capabilities
 - Optimal execution strategy
 
 ### 2. Agent Spawning
+
 Based on analysis, spawns appropriate workers:
+
 - **Parallel [P]**: Independent tasks run simultaneously
 - **Sequential**: Dependent tasks run in order
 - **Hybrid**: Mix of parallel and sequential phases
 
 ### 3. Slash Command Integration
+
 Workers use slash commands as atomic tools:
-```
+
+```yaml
 code-writer → /refactor:large-scale, /implement
 test-writer → /test, /spec-kit:tasks
 bug-fixer → /fix:bug-quickly, /analyze:potential-issues
 reviewer → /review:code, /review:security
 documenter → /docs:generate, /docs:api
-```
+```yaml
 
 ### 4. Task Coordination
+
 Stateless coordination through:
+
 - Clear task assignments
 - Progress communication
 - Result aggregation
@@ -103,25 +119,28 @@ Stateless coordination through:
 ## 🚀 Example Workflows
 
 ### Bug Fix Workflow
-```
+
+```yaml
 1. task-orchestrator analyzes bug report
 2. Spawns bug-fixer with /fix:bug-quickly
 3. Spawns test-writer to verify fix
 4. Returns consolidated results
-```
+```text
 
 ### Feature Implementation Workflow
-```
+
+```yaml
 1. implementation-orchestrator plans phases
 2. Phase 1: code-writer creates structure
 3. Phase 2: code-writer implements logic
 4. Phase 3: test-writer adds tests
 5. Phase 4: documenter updates docs
 6. Phase 5: reviewer validates quality
-```
+```text
 
 ### Research Workflow
-```
+
+```yaml
 1. research-orchestrator breaks down query
 2. Spawns 5 parallel research agents:
    [P] Agent 1: Search codebase
@@ -143,6 +162,7 @@ Stateless coordination through:
 ## 📋 Legacy Agent List (Previous MECE Structure)
 
 ### Engineering Department (`engineering/`)
+
 - **universal-scaffolder** - Set up projects and components across any tech stack
 - **rapid-prototyper** - Build MVPs and prototypes quickly (stack-agnostic)
 - **backend-architect** - Design scalable server systems and infrastructure
@@ -160,16 +180,19 @@ Stateless coordination through:
 - **dependency-manager** - Manage packages and dependencies (npm, pip, maven, etc.)
 
 ### Testing Department (`testing/`)
+
 - **test-writer-fixer** - Write and maintain tests (Jest, pytest, JUnit, RSpec, etc.)
 - **api-tester** - Test API functionality and performance (any protocol)
 - **performance-benchmarker** - Measure and optimize performance (any platform)
 - **analytics-engine** - Analyze test results and metrics
 
 ### Design Department (`design/`)
+
 - **ui-designer** - Create beautiful, functional interfaces
 - **ux-researcher** - Understand user needs and behaviors
 
 ### Operations Department (`operations/`)
+
 - **devops-automator** - Automate deployments and CI/CD
 - **azure-platform-architect** - Design cloud infrastructure
 - **monitoring-engineer** - Set up observability and alerting
@@ -178,6 +201,7 @@ Stateless coordination through:
 - **security-auditor** - Perform security audits and compliance
 
 ### Product Department (`product/`)
+
 - **mvp-planner** - Define and scope product features
 - **sprint-prioritizer** - Prioritize features and manage roadmaps
 - **task-planner** - Break down work into actionable tasks
@@ -187,6 +211,7 @@ Stateless coordination through:
 - **trend-researcher** - Identify market opportunities
 
 ### Maintenance Department (`maintenance/`)
+
 - **codebase-cleanup-conductor** - Orchestrate systematic code cleanup
 - **code-standards-enforcer** - Enforce coding standards and quality gates
 - **debloat** - Remove dead code and unused imports
@@ -196,6 +221,7 @@ Stateless coordination through:
 - **tool-evaluator** - Evaluate and recommend development tools
 
 ### Specialized Department (`specialized/`)
+
 - **search-tuner** - Optimize search functionality across any technology
 - **documentation-specialist** - Create and maintain technical documentation
 - **financial-guardian** - Manage development costs and budgets
@@ -213,6 +239,7 @@ Stateless coordination through:
   - **task-steward** - Manage individual task execution
 
 ### Domain Experts (`domain-experts/`)
+
 - **food-beverage/** - Specialized agents for food and beverage applications
   - **recipe-specialist** - Handle recipe data, import, and intelligence
 
@@ -226,6 +253,7 @@ All agents are designed to work across technology stacks:
 **Tool Integration**: Work with npm, pip, maven, cargo, composer, and other package managers
 
 **Key Features**:
+
 - **Context Detection**: Agents analyze your project structure before making recommendations
 - **Convention Respect**: Follow existing patterns rather than imposing new ones
 - **Multi-Language Examples**: Agents provide relevant examples for your tech stack
@@ -234,6 +262,7 @@ All agents are designed to work across technology stacks:
 ## 🎯 Proactive Agents
 
 Some agents trigger automatically in specific contexts:
+
 - **code-reviewer** - After significant code changes (any language)
 - **test-writer-fixer** - After implementing features or fixing bugs
 - **security-auditor** - When handling sensitive data or authentication
@@ -250,7 +279,9 @@ Some agents trigger automatically in specific contexts:
 ## 🔧 Technical Details
 
 ### Agent Structure
+
 Each agent includes:
+
 - **name**: Unique identifier
 - **description**: When to use with detailed examples
 - **color**: Visual identification in Claude Code
@@ -258,6 +289,7 @@ Each agent includes:
 - **System prompt**: Comprehensive expertise and instructions
 
 ### Adding Custom Agents
+
 1. Create a new `.md` file in the appropriate department folder
 2. Follow the existing YAML frontmatter format
 3. Include 3-4 detailed usage examples with context
@@ -267,6 +299,7 @@ Each agent includes:
 ## 📊 Agent Performance
 
 Track agent effectiveness through:
+
 - Task completion time and quality
 - Bug reduction and code quality metrics
 - Developer productivity improvements
@@ -276,6 +309,7 @@ Track agent effectiveness through:
 ## 🛠️ Customization
 
 ### Adapting for Your Team
+
 - Modify examples to reflect your technology stack
 - Adjust tool permissions based on your workflow
 - Customize department structure if needed
@@ -283,6 +317,7 @@ Track agent effectiveness through:
 - Create domain-specific agents for your industry
 
 ### Department-Specific Guidelines
+
 - **Engineering**: Focus on code quality, testing, and maintainability
 - **Testing**: Emphasize comprehensive coverage and automation
 - **Design**: Prioritize user experience and accessibility
@@ -293,18 +328,21 @@ Track agent effectiveness through:
 ## 🚀 Recent Improvements (2025)
 
 ### Optimization & Consolidation
+
 - **Reduced agent overlap**: Merged 3 redundant agents for cleaner organization
 - **Enhanced performance**: Added explicit performance metrics and targets to core agents
 - **Improved security**: Integrated comprehensive security patterns across engineering agents
 - **Better language support**: Added specialized JavaScript and TypeScript agents with ES2024+ features
 
 ### New Specialized Agents
+
 - **javascript-developer**: Modern JavaScript patterns, performance optimization, memory management
 - **typescript-developer**: Advanced type system, generics, enterprise TypeScript architecture  
 - **api-developer**: Dedicated API design, documentation, and developer experience
 - **code-standards-enforcer**: Automated quality gates, linting, and team consistency
 
 ### Enhanced Existing Agents
+
 - **frontend-developer**: Added security implementation and advanced performance patterns
 - **backend-architect**: Comprehensive scalability, monitoring, and security architecture
 - **data-analyst**: Merged analytics reporting capabilities for complete data intelligence
@@ -319,6 +357,7 @@ Track agent effectiveness through:
 ## 🤝 Contributing
 
 To improve existing agents or suggest new ones:
+
 1. Follow the agent customization guidelines
 2. Test thoroughly with real projects  
 3. Document performance improvements

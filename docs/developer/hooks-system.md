@@ -2,7 +2,8 @@
 
 ## Overview
 
-The Claude Code Command System includes a sophisticated hooks system that provides automated responses to user interactions and system events. The hooks enable seamless integration with macOS notifications, prompt logging, and intelligent search enhancements.
+The Claude Code Command System includes a sophisticated hooks system that provides automated responses to user interactions and
+system events. The hooks enable seamless integration with macOS notifications, prompt logging, and intelligent search enhancements.
 
 ## Hook Flow Architecture
 
@@ -39,7 +40,7 @@ sequenceDiagram
     S-->>H: Modified query
     H-->>C: Enhanced search query
     C->>C: Execute web search
-```
+```text
 
 ## Hook Types & Implementation
 
@@ -50,6 +51,7 @@ sequenceDiagram
 **Trigger**: Every time a user submits a prompt to Claude Code
 
 **Implementation**:
+
 ```python
 # scripts/hooks/log-prompt.py
 import os
@@ -74,9 +76,10 @@ def log_prompt():
 
     except Exception as e:
         print(f"Logging error: {e}", file=sys.stderr)
-```
+```text
 
 **Configuration**:
+
 ```json
 {
   "hooks": {
@@ -88,7 +91,7 @@ def log_prompt():
     }]
   }
 }
-```
+```text
 
 ### 2. Stop Hook (Smart Notifications)
 
@@ -97,6 +100,7 @@ def log_prompt():
 **Trigger**: When Claude Code finishes processing a user request
 
 **Flow Diagram**:
+
 ```mermaid
 flowchart TD
     A[Task Completes] --> B[Stop Hook Triggers]
@@ -113,9 +117,10 @@ flowchart TD
     J --> L[Display macOS Notification]
     K --> L
     L --> M[Hook Complete]
-```
+```text
 
 **Implementation**:
+
 ```python
 # scripts/hooks/notify.py
 import os
@@ -158,7 +163,7 @@ def extract_completion_message():
     # Implementation extracts key completion details
     # Returns formatted message for notification
     pass
-```
+```text
 
 ### 3. PreToolUse Hook (Search Enhancement)
 
@@ -167,6 +172,7 @@ def extract_completion_message():
 **Trigger**: Before WebSearch tool execution
 
 **Implementation**:
+
 ```python
 # scripts/hooks/update-search-year.py
 import os
@@ -197,7 +203,7 @@ def should_add_year(query):
 def add_current_year(query, year):
     """Add current year to search query"""
     return f"{query} {year}"
-```
+```text
 
 ## Hook Development Patterns
 
@@ -214,9 +220,10 @@ flowchart LR
     D --> H[Hook Fails Safely]
     F --> H
     G --> F
-```
+```yaml
 
 **Security Guidelines**:
+
 - **No Secret Logging**: Never log API keys, passwords, or tokens
 - **Input Validation**: Validate all environment variables and inputs
 - **Error Handling**: Fail gracefully without exposing sensitive information
@@ -226,12 +233,14 @@ flowchart LR
 ### Performance Best Practices
 
 **Execution Speed**:
+
 - Hooks must complete in under 2 seconds
 - Use asynchronous operations for I/O
 - Cache frequently accessed data
 - Minimize external dependencies
 
 **Resource Management**:
+
 ```python
 def hook_with_timeout():
     import signal
@@ -247,7 +256,7 @@ def hook_with_timeout():
         pass
     finally:
         signal.alarm(0)  # Cancel timeout
-```
+```text
 
 ### Error Handling Patterns
 
@@ -269,7 +278,7 @@ def log_error(message):
     error_log = os.path.expanduser('~/.claude/logs/hook-errors.log')
     with open(error_log, 'a') as f:
         f.write(f"[{datetime.now().isoformat()}] {message}\n")
-```
+```yaml
 
 ## Custom Hook Development
 
@@ -281,6 +290,7 @@ def log_error(message):
    - PreToolUse: Before specific tools
 
 2. **Implement Hook Script**:
+
 ```python
 # scripts/custom-hook.py
 import os
@@ -301,9 +311,10 @@ def handle_custom_event():
 
 if __name__ == "__main__":
     execute_custom_hook()
-```
+```text
 
 3. **Register in settings.json**:
+
 ```json
 {
   "hooks": {
@@ -315,9 +326,10 @@ if __name__ == "__main__":
     }]
   }
 }
-```
+```text
 
 4. **Test Hook Execution**:
+
 ```bash
 # Make script executable
 chmod +x scripts/custom-hook.py
@@ -327,20 +339,22 @@ python ~/.claude/scripts/hooks/custom-hook.py
 
 # Test through Claude Code
 claude "test prompt"  # Should trigger hook
-```
+```text
 
 ### Hook Debugging
 
 **Debug Environment Variables**:
+
 ```bash
 # Enable hook debugging
 export CLAUDE_HOOK_DEBUG=1
 
 # View available environment variables in hooks
 env | grep CLAUDE_
-```
+```text
 
 **Common Debug Patterns**:
+
 ```python
 def debug_hook():
     if os.environ.get('CLAUDE_HOOK_DEBUG'):
@@ -355,7 +369,7 @@ def debug_hook():
         debug_file = os.path.expanduser('~/.claude/logs/hook-debug.log')
         with open(debug_file, 'a') as f:
             f.write(f"{json.dumps(debug_info, indent=2)}\n")
-```
+```text
 
 ## Integration with Agent Orchestra
 
@@ -382,9 +396,10 @@ graph TB
     TO --> W1
     W1 --> H2
     H3 --> RO
-```
+```yaml
 
 **Hook-Aware Agents**:
+
 - Agents can check for hook-generated data
 - Hooks can influence agent behavior
 - Coordinated logging and notification strategies
@@ -392,6 +407,7 @@ graph TB
 ### Advanced Hook Patterns
 
 **Conditional Hooks**:
+
 ```json
 {
   "hooks": {
@@ -405,9 +421,10 @@ graph TB
     }]
   }
 }
-```
+```text
 
 **Chain Hooks**:
+
 ```python
 def chain_hook():
     """Execute multiple hooks in sequence"""
@@ -424,31 +441,35 @@ def chain_hook():
         except Exception as e:
             print(f"Chain hook {hook_func} failed: {e}")
             break
-```
+```bash
 
 ## Troubleshooting
 
 ### Common Issues
 
 **Hook Not Executing**:
+
 1. Check script permissions: `ls -la scripts/`
 2. Test Python execution: `python scripts/hook-name.py`
 3. Verify settings.json syntax: Use JSON validator
 4. Check hook registration: Restart Claude Code
 
 **Notification Issues**:
+
 1. Test terminal-notifier: `which terminal-notifier`
 2. Test osascript: `osascript -e 'display notification "test"'`
 3. Check macOS notification permissions
 4. Verify script execution permissions
 
 **Performance Problems**:
+
 1. Add timing to hooks: `time python scripts/hook-name.py`
 2. Check for blocking I/O operations
 3. Profile memory usage
 4. Optimize or async slow operations
 
 **Debug Commands**:
+
 ```bash
 # Test hook execution
 CLAUDE_HOOK_DEBUG=1 python ~/.claude/scripts/hooks/notify.py
@@ -460,4 +481,5 @@ tail -f ~/.claude/logs/hook-errors.log
 python -c "import json; json.load(open('settings.json'))"
 ```
 
-The hooks system provides powerful automation capabilities while maintaining security and performance. Follow these patterns to create robust, maintainable hooks that enhance the Claude Code experience.
+The hooks system provides powerful automation capabilities while maintaining security and
+performance. Follow these patterns to create robust, maintainable hooks that enhance the Claude Code experience.

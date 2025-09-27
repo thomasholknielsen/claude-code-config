@@ -6,59 +6,31 @@ tools: ["Read", "Grep", "Bash"]
 complexity: "moderate"
 ---
 
-# Code Review
+# Command: Code
 
-I'll review your code with context-appropriate depth and spec-kit integration.
+## Purpose
 
-Arguments: `$ARGUMENTS` - files, directories, or specific areas to review
+Executes review operations for code functionality.
 
-## Review Modes
+## Usage
 
-**Quick Review (default):**
-- General code quality assessment
-- Basic bug pattern detection
-- Style and convention checking
-- Quick improvement suggestions
+```bash
+/review:code [arguments]
+```yaml
 
-**Advanced Review (--advanced flag):**
-- Deep technical analysis using specialized subagents
-- Performance bottleneck identification
-- Complex bug pattern analysis
-- Architecture and design pattern assessment
-- Comprehensive test coverage analysis
+**Arguments**: Optional parameters specific to the operation
 
-**Spec-Kit Integration:**
-When `.specify/` folder exists, I'll automatically:
-- Validate against feature requirements (`spec.md`)
-- Check architectural alignment (`plan.md`)
-- Verify task completion criteria (`tasks.md`)
-- Validate API contract compliance (`contracts/`)
+## Process
 
-## Analysis Areas
+1. Analyze the current state and requirements
+2. Execute the review operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-**Code Quality:**
-- Syntax correctness and language compliance
-- Error handling and edge cases
-- Code completeness and maintainability
-- Performance implications
+## Agent Integration
 
-**Architecture:**
-- Design pattern usage
-- Dependency management
-- Module organization
-- Separation of concerns
+- **Primary Agent**: reviewer - Handles review operations and coordination
 
-**Security (Basic):**
-- Common vulnerability patterns
-- Input validation issues
-- Authentication flow problems
+## Examples
 
-## Usage Examples
-
-```
-/review:code UserService.ts
-/review:code src/auth --advanced
-/review:code . --advanced --spec-aware
-```
-
-Adapts review depth and focus based on your needs and project context.
+```bash

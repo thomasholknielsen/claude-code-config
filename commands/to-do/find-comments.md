@@ -6,41 +6,34 @@ tools: ["Grep", "Read", "Write"]
 complexity: "simple"
 ---
 
-# Find Development Tasks
+# Command: Find Comments
 
-I'll locate all TODO comments and unfinished work markers in your codebase.
+## Purpose
 
-I'll use the Grep tool to efficiently search for task markers with context:
-- Pattern: "TODO|FIXME|HACK|XXX|NOTE"
-- Case insensitive search across all source files
-- Show surrounding lines for better understanding
+Executes to-do operations for find comments functionality.
 
-For each marker found, I'll show:
-1. **File location** with line number
-2. **The full comment** with context
-3. **Surrounding code** to understand what needs to be done
-4. **Priority assessment** based on the marker type
+## Usage
 
-When I find multiple items, I'll create a todo list to organize them by priority:
-- **Critical** (FIXME, HACK, XXX): Issues that could cause problems
-- **Important** (TODO): Features or improvements needed
-- **Informational** (NOTE): Context that might need attention
+```bash
+/to-do:find-comments [arguments]
+```yaml
 
-I'll also identify:
-- TODOs that reference missing implementations
-- Placeholder code that needs replacement
-- Incomplete error handling
-- Stubbed functions awaiting implementation
+**Arguments**: Optional parameters specific to the operation
 
-After scanning, I'll ask: "Convert these to GitHub issues?"
-- Yes: I'll create properly categorized issues
-- Todos only: I'll maintain the local todo list
-- Summary: I'll provide organized report
+## Process
 
-**Important**: I will NEVER:
-- Add "Created by Claude" or any AI attribution to issues
-- Include "Generated with Claude Code" in descriptions
-- Modify repository settings or permissions
-- Add any AI/assistant signatures or watermarks
+1. Search for TODO comments in codebase using Grep
+2. **ENFORCE LOCATION CONSTRAINT**: Report findings to `{project_root}/.claude/.todos/TODO.md` only
+3. Analyze found TODOs and requirements
+4. Update consolidated TODO file with findings
+5. Validate results and provide feedback
 
-This helps track and prioritize unfinished work systematically.
+**⚠️ LOCATION CONSTRAINT**: All TODO consolidation MUST use `{project_root}/.claude/.todos/TODO.md` location only.
+
+## Agent Integration
+
+- **Primary Agent**: code-writer - Handles to-do operations and coordination
+
+## Examples
+
+```bash

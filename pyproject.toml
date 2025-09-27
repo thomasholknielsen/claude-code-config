@@ -1,0 +1,91 @@
+# Python project configuration for Claude Code Command System
+# Provides linting and formatting configuration for Python hook scripts
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claude-code-hooks"
+version = "1.0.0"
+description = "Python hooks for Claude Code Command System"
+authors = [
+    {name = "Claude Code Command System", email = "noreply@example.com"},
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
+
+[tool.ruff]
+# Python version targeting
+target-version = "py38"
+
+# File discovery
+include = ["*.py", "**/*.py"]
+exclude = [
+    ".git",
+    ".github",
+    "__pycache__",
+    "*.pyc",
+    ".env",
+    ".venv",
+    "venv",
+    "env",
+]
+
+# Line length (align with markdownlint)
+line-length = 120
+
+[tool.ruff.lint]
+# Enable specific rule categories
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "PIE",  # flake8-pie
+    "SIM",  # flake8-simplify
+    "RET",  # flake8-return
+    "ARG",  # flake8-unused-arguments
+    "PTH",  # flake8-use-pathlib
+]
+
+# Disable specific rules that don't align with project needs
+ignore = [
+    "E501",   # Line too long (handled by line-length setting)
+    "B008",   # Do not perform function calls in argument defaults
+    "N812",   # Lowercase imported as non-lowercase
+    "RET504", # Unnecessary variable assignment before return
+]
+
+[tool.ruff.format]
+# Use double quotes for strings
+quote-style = "double"
+
+# Use 4 spaces for indentation
+indent-style = "space"
+
+# Respect magic trailing commas
+skip-magic-trailing-comma = false
+
+# Auto-detect line endings
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+# Known first-party modules
+known-first-party = ["claude_code"]
+
+# Import order
+force-single-line = false
+force-sort-within-sections = true
+lines-after-imports = 2
+
+[tool.ruff.lint.per-file-ignores]
+# Allow print statements in scripts
+"scripts/**/*.py" = ["T201"]
+"hooks/**/*.py" = ["T201"]

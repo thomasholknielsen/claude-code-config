@@ -19,9 +19,11 @@ complexity: "simple|moderate|complex"
 Single sentence describing the command's primary function.
 
 ## Usage
-```
+```bash
+
 /{category}:{command-name} [arguments]
-```
+
+```yaml
 
 **Arguments**: Description of expected arguments (if any)
 
@@ -44,21 +46,25 @@ Single sentence describing the command's primary function.
 
 # Advanced usage
 /{category}:{command-name} --option value
-```
+```yaml
 
 ## Output
+
 Description of what the user can expect as output.
 
 ## Integration Points
+
 - **Follows**: Commands that should precede this one
 - **Followed by**: Commands that typically come after
 - **Related**: Similar or complementary commands
 
 ## Quality Standards
+
 - Validation criteria the command meets
 - Success indicators
 - Error handling approach
-```
+
+```yaml
 
 ## Standardization Rules
 
@@ -75,9 +81,10 @@ agent: "primary-agent-name"
 tools: ["Tool1", "Tool2"]  # Claude tools used
 complexity: "simple|moderate|complex"
 ---
-```
+```yaml
 
 ### 3. Section Structure (Consistent Order)
+
 1. **Purpose** - Single sentence
 2. **Usage** - Command syntax
 3. **Process** - Numbered steps
@@ -87,23 +94,27 @@ complexity: "simple|moderate|complex"
 7. **Integration Points** - Related commands
 
 ### 4. Description Standards
+
 - **Purpose**: Maximum 1 sentence, clear action
 - **Process**: 3-5 numbered steps maximum
 - **Examples**: Include at least 2 examples
 - **Integration**: Show command relationships
 
 ### 5. Language Consistency
+
 - Use active voice: "Analyzes performance" not "Performance is analyzed"
 - Use present tense: "Generates documentation" not "Will generate documentation"
 - Be specific: "Formats JavaScript and TypeScript" not "Formats code"
 - Avoid redundancy: Don't repeat the same information in multiple sections
 
 ### 6. Agent Integration Standards
+
 - **Primary Agent**: The orchestrator or worker that executes the command
 - **Secondary Agents**: Any agents called during execution
 - **Agent Selection**: Based on Agent Orchestra Framework roles
 
 ### 7. Complexity Classification
+
 - **Simple**: Single agent, single action, predictable output
 - **Moderate**: Multiple steps, some analysis required, may involve multiple tools
 - **Complex**: Multiple agents, coordination required, analysis and decision-making
@@ -111,6 +122,7 @@ complexity: "simple|moderate|complex"
 ## Examples of Standardized Commands
 
 ### Simple Command Example
+
 ```markdown
 ---
 description: "Fixes obvious bugs quickly with minimal analysis"
@@ -126,9 +138,11 @@ complexity: "simple"
 Identifies and fixes obvious bugs with rapid diagnosis and immediate resolution.
 
 ## Usage
-```
+```bash
+
 /fix:bug-quickly "login button not working"
-```
+
+```yaml
 
 **Arguments**: Description of the bug or error message
 
@@ -148,18 +162,21 @@ Identifies and fixes obvious bugs with rapid diagnosis and immediate resolution.
 
 # Fix with error message
 /fix:bug-quickly "TypeError: Cannot read property 'map' of undefined"
-```
+```yaml
 
 ## Output
+
 - Fixed code with explanation of changes made
 - Brief description of root cause
 - Confirmation that fix resolves the issue
 
 ## Integration Points
+
 - **Follows**: /analyze:potential-issues (for complex bugs)
 - **Followed by**: /test (to verify fix)
 - **Related**: /review:code, /docs:update
-```
+
+```text
 
 ### Complex Command Example
 ```markdown
@@ -177,9 +194,11 @@ complexity: "complex"
 Executes parallel code review across security, quality, and design perspectives.
 
 ## Usage
-```
+```bash
+
 /workflows:run-comprehensive-review [scope]
-```
+
+```python
 
 **Arguments**: Optional scope (file pattern, directory, or "all")
 
@@ -205,16 +224,19 @@ Executes parallel code review across security, quality, and design perspectives.
 
 # Review recent changes
 /workflows:run-comprehensive-review "*.js"
-```
+```python
 
 ## Output
+
 - Consolidated review report with findings from all perspectives
 - Prioritized list of issues requiring attention
 - Recommended action plan with timeline
 - Individual detailed reports from each review type
 
 ## Integration Points
+
 - **Follows**: Major code changes, before releases
 - **Followed by**: /fix:*, /refactor:*, /clean:*
 - **Related**: /review:security, /review:code, /review:design
+
 ```

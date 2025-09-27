@@ -2,7 +2,8 @@
 
 ## Overview
 
-The Agent Orchestra Framework is a multi-agent system implementation for Claude Code that follows Anthropic's proven patterns for parallel execution and task coordination. It replaces the previous domain-based MECE agents with task-focused orchestrators and workers.
+The Agent Orchestra Framework is a multi-agent system implementation for Claude Code that follows Anthropic's proven patterns for parallel execution and
+task coordination. It replaces the previous domain-based MECE agents with task-focused orchestrators and workers.
 
 **📚 For detailed parallel execution patterns and examples**, see [Parallel Execution Patterns](parallel-execution-patterns.md).
 
@@ -36,13 +37,14 @@ graph TD
     Coordination --> |Assignments| Tasks
     Coordination --> |Progress| Status
     Coordination --> |Results| Output
-```
+```yaml
 
 ## Core Components
 
 ### 1. Orchestrators (3 agents)
 
 #### task-orchestrator
+
 - **Role**: General task coordinator
 - **Analyzes**: Task complexity (simple/moderate/complex)
 - **Spawns**: 1-5 workers based on needs
@@ -50,10 +52,13 @@ graph TD
 - **Uses**: TodoWrite for tracking, SlashCommand for delegation
 
 #### research-orchestrator
+
 - **Role**: Parallel information gathering across multiple sources
 - **Spawns**: 3-20 agents simultaneously for maximum parallelization
 - **Specialty**: Breadth-first research with `[P]` markers for all tasks
+
 #### implementation-orchestrator
+
 - **Role**: Sequential code changes with parallel validation
 - **Strategy**: Hybrid approach - sequential for dependencies, parallel for reviews
 - **Quality Assurance**: Parallel code, security, design, and performance reviews
@@ -64,26 +69,31 @@ graph TD
 ### 2. Workers (5 specialized agents)
 
 #### code-writer
+
 - **Focus**: Code generation only
 - **Commands**: `/refactor:large-scale`, `/implement`
 - **NO**: Testing, documentation, or review
 
 #### test-writer
+
 - **Focus**: Test creation only
 - **Commands**: `/test`, `/spec-kit:tasks`
 - **Detects**: Framework automatically
 
 #### bug-fixer
+
 - **Focus**: Debugging only
 - **Commands**: `/fix:bug-quickly`, `/analyze:potential-issues`
 - **Process**: Reproduce → Isolate → Fix → Verify
 
 #### reviewer
+
 - **Focus**: Code analysis only
 - **Commands**: `/review:code`, `/review:security`
 - **Parallel**: Can run multiple review types
 
 #### documenter
+
 - **Focus**: Documentation only
 - **Commands**: `/docs:generate`, `/docs:api`
 - **Formats**: README, API, inline comments
@@ -91,26 +101,29 @@ graph TD
 ## Execution Patterns
 
 ### Parallel Pattern [P]
-```
+
+```yaml
 research-orchestrator spawns:
   [P] Agent 1: Search codebase
   [P] Agent 2: Check documentation
   [P] Agent 3: Analyze dependencies
   [P] Agent 4: Review best practices
   [P] Agent 5: Security scan
-```
+```text
 
 ### Sequential Pattern
-```
+
+```yaml
 implementation-orchestrator coordinates:
   1. code-writer → Create structure
   2. code-writer → Implement logic (depends on 1)
   3. test-writer → Add tests (depends on 2)
   4. documenter → Update docs (depends on 3)
-```
+```text
 
 ### Hybrid Pattern
-```
+
+```text
 Phase 1 (Parallel research):
   [P] Research existing patterns
   [P] Analyze requirements
@@ -118,7 +131,7 @@ Phase 2 (Sequential implementation):
   1. Design solution
   2. Implement code
   3. Add tests
-```
+```yaml
 
 ## Agent Coordination
 
@@ -130,6 +143,7 @@ Stateless coordination through:
 - **Quality Validation**: Ensure consistency and correctness
 
 ### State Tracking Example
+
 ```json
 {
   "task_id": "auth-feature-2025",
@@ -143,7 +157,7 @@ Stateless coordination through:
   "workers_active": ["code-writer"],
   "slash_commands_used": ["/implement", "/refactor:large-scale"]
 }
-```
+```yaml
 
 ## Slash Command Integration
 
@@ -160,6 +174,7 @@ Workers use slash commands as atomic tools:
 ## Workflow Examples
 
 ### Bug Fix Workflow
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -175,9 +190,10 @@ sequenceDiagram
     TO->>TW: Verify fix with tests
     TW-->>TO: Tests pass
     TO-->>U: Bug fixed and verified
-```
+```text
 
 ### Feature Implementation
+
 ```mermaid
 sequenceDiagram
     participant U as User

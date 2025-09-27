@@ -6,30 +6,31 @@ tools: ["SlashCommand", "Read", "Write"]
 complexity: "complex"
 ---
 
-# Run Optimization Workflow
+# Command: Run Optimization
 
-I'll execute a comprehensive optimization workflow to improve performance, reduce bundle size, and enhance user experience.
+## Purpose
 
-## Optimization Pipeline
+Executes workflows operations for run optimization functionality.
 
-**Phase 1: Analysis**
-1. `/analyze:performance` - Identify bottlenecks and slow operations
-2. `/analyze:dependencies` - Find unused and outdated packages
-3. `/test:coverage` - Ensure optimization safety
+## Usage
 
-**Phase 2: Code Optimization**
-4. `/fix:import-statements` - Optimize import patterns
-5. `/clean:dead-code` - Remove unused code paths
-6. `/operations:refactor-code-systematically` - Improve algorithmic efficiency
+```bash
+/workflows:run-optimization [arguments]
+```yaml
 
-**Phase 3: Build Optimization**
-7. `/build:application` - Optimize build configuration
-8. Bundle analysis and code splitting recommendations
-9. Asset optimization (images, fonts, static files)
+**Arguments**: Optional parameters specific to the operation
 
-**Phase 4: Validation**
-10. `/test:performance` - Validate improvements
-11. `/test:all` - Ensure no regressions
-12. Performance benchmarking and reporting
+## Process
 
-Systematic optimization with measurable improvements.
+1. Analyze the current state and requirements
+2. Execute the workflows operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
+
+## Agent Integration
+
+- **Primary Agent**: task-orchestrator - Handles workflows operations and coordination
+
+## Examples
+
+```bash

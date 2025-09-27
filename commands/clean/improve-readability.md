@@ -1,77 +1,36 @@
 ---
-description: Manual code beautification - readability improvements, naming, structure optimization
-domain: code
-boundary: Manual aesthetic improvements and refactoring - does not include automated formatting
+description: "Manual code beautification - readability improvements, naming, structure optimization"
+category: "clean"
+agent: "code-writer"
+tools: ["Read", "Edit", "MultiEdit", "Bash"]
+complexity: "simple"
 ---
 
-# Make It Pretty
+# Command: Improve Readability
 
-I'll improve code readability while preserving exact functionality.
+## Purpose
 
-## Strategic Thinking Process
+Executes clean operations for improve readability functionality.
 
-<think>
-Before making any changes, I need to consider:
+## Usage
 
-1. **Code Analysis**
-   - What makes this code "ugly" or hard to read?
-   - Are there complex nested structures that need simplification?
-   - Is the naming unclear or inconsistent?
-   - Are there repeated patterns that could be abstracted?
+```bash
+/clean:improve-readability [arguments]
+```yaml
 
-2. **Safety Considerations**
-   - Which changes are purely cosmetic (safe)?
-   - Which might affect behavior (risky)?
-   - Are there implicit dependencies on current structure?
-   - Could renaming break external references?
+**Arguments**: Optional parameters specific to the operation
 
-3. **Improvement Strategy**
-   - Priority 1: Clear naming (variables, functions, files)
-   - Priority 2: Reduce complexity (extract functions, simplify logic)
-   - Priority 3: Remove redundancy (DRY principle)
-   - Priority 4: Improve type safety (if applicable)
+## Process
 
-4. **Validation Approach**
-   - How can I ensure functionality remains identical?
-   - What tests exist to verify behavior?
-   - Should I add temporary logging to verify flow?
-</think>
+1. Analyze the current state and requirements
+2. Execute the clean operation
+3. Validate results and provide feedback
+4. Update relevant documentation or state
 
-Based on this analysis, I'll proceed safely:
+## Agent Integration
 
-**Safety First:**
-- Create git checkpoint before changes
-- Use **Write** tool to create backups
-- Track all modifications systematically
+- **Primary Agent**: code-writer - Handles clean operations and coordination
 
-I'll identify files to beautify based on:
-- Files you specify, or if none specified, analyze the entire application
-- Recently modified code
-- Our conversation context
+## Examples
 
-**Improvements I'll Make:**
-- Variable and function names for clarity
-- Code organization and structure
-- Remove unused code and clutter
-- Simplify complex expressions
-- Group related functionality
-- Fix loose or generic type declarations
-- Add missing type annotations where supported
-- Make types more specific based on usage
-
-**My Approach:**
-1. Analyze current code patterns and type usage
-2. Apply consistent naming conventions
-3. Improve type safety where applicable
-4. Reorganize for better readability
-5. Remove redundancy without changing logic
-
-**Quality Assurance:**
-- All functionality remains identical
-- Tests continue to pass (if available)
-- No behavior changes occur
-- Clear commit messages for changes
-
-**Note**: Following global AI attribution policy for all operations.
-
-This helps transform working code into maintainable code without risk.
+```bash
