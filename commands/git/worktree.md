@@ -20,6 +20,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 **Arguments**:
 
+
 - `action`: add, add-multiple, add-staging, remove, list, or prune (default: list)
 - For `add`: `[branch-name] [path]` - Single worktree creation
 - For `add-multiple`: `[branch1] [branch2] [branch3...]` - Batch parallel worktrees
@@ -138,12 +139,13 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - Individual branch → PR workflow guidance for each
 - Status dashboard showing parallel development progress
 - Directory structure overview for easy navigation
-
+ 
 ### For Staging Mode (add-staging)
 - Staging branch structure with parent/child relationships
 - Consolidation workflow guidance (merge/rebase helpers)
 - Child worktree integration status
 - Single PR preparation guidance after consolidation
+
 
 ## Integration Points
 
@@ -155,6 +157,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 ### General Operations
 - Validates repository state before all worktree operations
+
 - Ensures proper directory structure and permissions
 - Prevents conflicts between worktree branches
 - Provides clear feedback on worktree status and location
@@ -180,3 +183,4 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - Prevents accidental mode mixing within same directory structure
 - Validates workspace cleanliness before batch operations
 - Maintains consistent naming conventions across both modes
+
