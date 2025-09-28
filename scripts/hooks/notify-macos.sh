@@ -24,12 +24,12 @@ if [ -f "$TRANSCRIPT_PATH" ] && [ -n "$TRANSCRIPT_PATH" ]; then
           tr '\n' ' ' | \
           sed 's/[[:space:]]\+/ /g' | \
           cut -c1-60)
-    
+
     # Clean up the message and add ellipsis if truncated
     if [ -n "$MSG" ] && [ ${#MSG} -eq 60 ]; then
         MSG="${MSG}..."
     fi
-    
+
     # Use default if no message was retrieved
     MSG=${MSG:-$DEFAULT_MSG}
 else

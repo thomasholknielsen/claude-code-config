@@ -1,0 +1,43 @@
+# Markdownlint ignore patterns (mirrors .gitignore)
+# Generated from project .gitignore for linting consistency
+
+# Protected/stale command directories
+commands/spec-kit/
+.specify/
+
+# Gitignored directories containing markdown
+.claude/
+ide/
+logs/
+plugins/
+projects/
+shell-snapshots/
+statsig/
+todos/
+
+# Node.js
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Testing
+coverage/
+
+# IDE and editors
+.vscode/
+.idea/
+
+# Temporary files
+.tmp/
+.temp/
+
+# File history
+file-history/
+
+# Worktrees
+.trees/
+
+# GitHub instructions
+.github/instructions/

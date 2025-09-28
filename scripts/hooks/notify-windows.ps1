@@ -15,12 +15,12 @@ $Message = $DefaultMsg
 try {
     $JsonInput = $InputData | ConvertFrom-Json
     $TranscriptPath = $JsonInput.transcript_path
-    
+
     # Try to get the latest assistant message if transcript exists
     if ($TranscriptPath -and (Test-Path $TranscriptPath)) {
         # Read last 10 lines of transcript
         $LastLines = Get-Content $TranscriptPath -Tail 10 -ErrorAction SilentlyContinue
-        
+
         # Parse each line as JSON and find assistant messages
         $AssistantMessages = @()
         foreach ($Line in $LastLines) {
@@ -33,7 +33,7 @@ try {
                 # Skip lines that aren't valid JSON
             }
         }
-        
+
         # Get the last assistant message
         if ($AssistantMessages.Count -gt 0) {
             $LastMessage = $AssistantMessages[-1]
@@ -63,7 +63,7 @@ try {
         Add-Type -AssemblyName System.Windows.Forms
         [System.Windows.Forms.MessageBox]::Show($Message, $Title, [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
     } -ArgumentList $Message, $NotificationTitle
-    
+
     # Don't wait for the job to complete - let it run in background
     Write-Host "Message box notification started in background"
 } catch {
