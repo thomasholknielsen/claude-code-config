@@ -20,7 +20,6 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 **Arguments**:
 
-
 - `action`: add, add-multiple, add-staging, remove, list, or prune (default: list)
 - For `add`: `[branch-name] [path]` - Single worktree creation
 - For `add-multiple`: `[branch1] [branch2] [branch3...]` - Batch parallel worktrees
@@ -32,6 +31,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ## Process
 
 ### Single Worktree (add)
+
 1. Validate repository state and check for existing worktrees
 2. Execute specified worktree operation with safety checks
 3. Create worktree directory and branch association
@@ -39,6 +39,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 5. Report worktree state and provide next steps guidance
 
 ### Parallel Mode (add-multiple)
+
 1. Validate repository state for batch operations
 2. Loop through each branch name with validation
 3. Auto-generate directory paths (../wt-{branch-suffix})
@@ -46,6 +47,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 5. Report all created worktrees with individual PR guidance
 
 ### Staging Mode (add-staging)
+
 1. Create integration branch from current HEAD
 2. Create base worktree for staging branch
 3. Loop through feature names creating child worktrees
@@ -59,6 +61,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ## Examples
 
 ### Basic Operations
+
 ```bash
 # List all worktrees with mode indicators
 /git:worktree list
@@ -74,6 +77,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ```
 
 ### Parallel Mode: Independent Branches → Multiple PRs (Default)
+
 ```bash
 # Create multiple independent worktrees for parallel development
 /git:worktree add-multiple feature/auth feature/payments bugfix/header
@@ -92,6 +96,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ```
 
 ### Staging Mode: Consolidated Work → Single PR
+
 ```bash
 # Create staging branch + multiple child worktrees
 /git:worktree add-staging integration-q4 feature/auth feature/payments bugfix/header
@@ -113,6 +118,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ```
 
 ### Workflow Decision Guide
+
 ```bash
 # Use Parallel Mode when:
 # ✅ Changes are logically separate
@@ -130,22 +136,24 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ## Output
 
 ### For All Operations
+
 - Current worktrees list with paths, branches, and mode indicators
 - Confirmation of worktree creation/removal operations
 - Working directory status for each worktree
 
 ### For Parallel Mode (add-multiple)
+
 - List of all created independent worktrees
 - Individual branch → PR workflow guidance for each
 - Status dashboard showing parallel development progress
 - Directory structure overview for easy navigation
- 
+
 ### For Staging Mode (add-staging)
+
 - Staging branch structure with parent/child relationships
 - Consolidation workflow guidance (merge/rebase helpers)
 - Child worktree integration status
 - Single PR preparation guidance after consolidation
-
 
 ## Integration Points
 
@@ -156,6 +164,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ## Quality Standards
 
 ### General Operations
+
 - Validates repository state before all worktree operations
 
 - Ensures proper directory structure and permissions
@@ -164,6 +173,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - Handles cleanup of stale worktree references automatically
 
 ### Parallel Mode (add-multiple)
+
 - Auto-generates sensible directory names (../wt-{branch-suffix})
 - Validates branch names don't conflict with existing worktrees
 - Each worktree maintains independence for clean parallel development
@@ -171,6 +181,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - Warns about potential merge conflicts before creation
 
 ### Staging Mode (add-staging)
+
 - Creates proper parent/child relationship hierarchy
 - Validates staging branch name doesn't conflict with existing branches
 - Auto-prefixes child branches to maintain clear association
@@ -179,8 +190,8 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - Provides merge/rebase conflict detection between child worktrees
 
 ### Cross-Mode Safety
+
 - Clearly identifies worktree modes in all status outputs
 - Prevents accidental mode mixing within same directory structure
 - Validates workspace cleanliness before batch operations
 - Maintains consistent naming conventions across both modes
-

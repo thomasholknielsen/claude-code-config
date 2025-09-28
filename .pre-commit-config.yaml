@@ -1,0 +1,106 @@
+# Pre-commit hooks configuration for Claude Code Command System
+# Ensures consistent code quality and formatting before commits
+# Cross-platform compatible with Windows, macOS, and Linux
+
+repos:
+  # General file cleanup hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      # Remove trailing whitespace
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+
+      # Ensure files end with newline
+      - id: end-of-file-fixer
+        exclude: \.min\.(js|css)$
+
+      # Check for merge conflict markers
+      - id: check-merge-conflict
+
+      # Check YAML files for syntax errors
+      - id: check-yaml
+        files: \.(yaml|yml)$
+
+      # Check JSON files for syntax errors
+      - id: check-json
+        files: \.json$
+
+      # Prevent adding large files (>500KB)
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+
+      # Check for executable shell scripts have shebang
+      - id: check-executables-have-shebangs
+
+      # Mixed line endings fix
+      - id: mixed-line-ending
+        args: ["--fix=auto"]
+
+  # Markdown linting and auto-fixing
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        name: markdownlint (auto-fix)
+        args: ["--fix", "--config", ".markdownlint.yml"]
+        files: \.md$
+        exclude: ^(CHANGELOG\.md|\.github/|\.specify/|commands/spec-kit/)
+
+  # Python code formatting and linting with Ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.4
+    hooks:
+      # Ruff linter with auto-fix
+      - id: ruff
+        name: ruff (lint + auto-fix)
+        args: [--fix, --exit-non-zero-on-fix]
+        types: [python]
+
+      # Ruff formatter
+      - id: ruff-format
+        name: ruff (format)
+        types: [python]
+
+  # Shell script linting (cross-platform)
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        name: shellcheck
+        files: \.(sh|bash)$
+        exclude: ^\.specify/
+        args: [--severity=warning]
+
+  # YAML formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        name: prettier (YAML auto-format)
+        files: \.(yaml|yml)$
+        args: [--write]
+
+# Global configuration
+default_language_version:
+  python: python3
+
+# Performance settings
+default_stages: [pre-commit]
+fail_fast: false
+
+# Exclude patterns
+exclude: |
+  (?x)^(
+    \.git/.*|
+    \.github/.*|
+    __pycache__/.*|
+    \.pyc$|
+    \.min\.(js|css)$|
+    node_modules/.*|
+    \.venv/.*|
+    venv/.*|
+    \.env$|
+    \.specify/.*|
+    commands/spec-kit/.*
+  )$

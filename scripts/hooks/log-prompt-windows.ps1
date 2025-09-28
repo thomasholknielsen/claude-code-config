@@ -33,7 +33,7 @@ if (Test-Path $LogsDir) {
         # Remove inheritance and set owner permissions only
         $acl = Get-Acl $LogsDir
         $acl.SetAccessRuleProtection($true, $false)
-        
+
         # Add full control for current user
         $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
             [System.Security.Principal.WindowsIdentity]::GetCurrent().Name,
@@ -68,16 +68,16 @@ foreach ($pythonCmd in $pythonCommands) {
     try {
         # Check if the Python command exists
         $null = Get-Command $pythonCmd -ErrorAction Stop
-        
+
         # Run the Python script
         $process = Start-Process -FilePath $pythonCmd -ArgumentList $PythonScript -NoNewWindow -Wait -PassThru -RedirectStandardInput -
-        
+
         # Send input to the process
         if ($inputString) {
             $process.StandardInput.WriteLine($inputString)
             $process.StandardInput.Close()
         }
-        
+
         $exitCode = $process.ExitCode
         break
     }
