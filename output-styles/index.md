@@ -6,21 +6,25 @@ Each style provides specialized vocabulary, frameworks, and communication patter
 ## 📋 Quick Reference
 
 ### Business & Strategy Styles
+
 - **[product-manager.md](./product-manager.md)** - User-centric product thinking with RICE prioritization and data-driven decisions
 - **[strategic-consultant.md](./strategic-consultant.md)** - Executive-level business analysis using frameworks like SWOT and Porter's Five Forces
 - **[marketing-strategist.md](./marketing-strategist.md)** - Campaign planning with audience segmentation and multi-channel approach
 
 ### Technical & Analysis Styles
+
 - **[data-scientist.md](./data-scientist.md)** - Statistical rigor with hypothesis testing and confidence intervals
 - **[technical-writer.md](./technical-writer.md)** - Clear documentation with user-centric structure and code examples
 - **[system-administrator.md](./system-administrator.md)** - Infrastructure focus with security protocols and operational procedures
 
 ### Creative & Design Styles
+
 - **[brand-voice-curator.md](./brand-voice-curator.md)** - Consistent brand communication with personality and style guide adherence
 - **[presentation-designer.md](./presentation-designer.md)** - Visual storytelling with narrative structure and audience engagement
 - **[ux-researcher.md](./ux-researcher.md)** - Evidence-based design insights with user journey mapping
 
 ### Operations & Compliance Styles
+
 - **[project-coordinator.md](./project-coordinator.md)** - Structured project management with WBS and dependency tracking
 - **[quality-assurance.md](./quality-assurance.md)** - Testing strategy with defect prevention and quality metrics
 - **[compliance-officer.md](./compliance-officer.md)** - Regulatory analysis with risk assessment and documentation standards
@@ -76,14 +80,18 @@ ls ~/.claude/output-styles/
 ## 🎯 Usage Patterns
 
 ### Single Style Session
+
 Best for focused work requiring consistent professional perspective:
+
 ```bash
 /output-style product-manager
 # All responses now use product management framework
 ```
 
 ### Multi-Style Analysis
+
 Gain multiple perspectives on the same problem:
+
 ```bash
 # First, analyze from product perspective
 /output-style product-manager
@@ -99,6 +107,7 @@ Gain multiple perspectives on the same problem:
 ```
 
 ### Style Switching Workflow
+
 ```bash
 /output-style data-scientist     # Analyze metrics
 /output-style strategic-consultant  # Business implications
@@ -122,11 +131,13 @@ Gain multiple perspectives on the same problem:
 ### Creating Custom Styles
 
 1. **Copy existing style as template**:
+
 ```bash
 cp ~/.claude/output-styles/product-manager.md ~/custom-pm.md
 ```
 
-2. **Modify the YAML frontmatter**:
+1. **Modify the YAML frontmatter**:
+
 ```yaml
 ---
 name: Custom Product Manager
@@ -134,12 +145,14 @@ description: Company-specific product management style
 ---
 ```
 
-3. **Adapt communication framework**:
+1. **Adapt communication framework**:
+
 - Add company-specific methodologies
 - Include internal terminology
 - Align with organizational standards
 
-4. **Install custom style**:
+1. **Install custom style**:
+
 ```bash
 cp ~/custom-pm.md ~/.claude/output-styles/
 ```
@@ -156,11 +169,13 @@ cp ~/custom-pm.md ~/.claude/output-styles/
 ## 📈 Performance Impact
 
 ### Token Efficiency
+
 - **Average reduction**: 30-50% in response verbosity
 - **Structured output**: Eliminates unnecessary explanations
 - **Professional focus**: Direct, actionable communication
 
 ### Context Optimization
+
 - **Single style**: Minimal context overhead (~200 tokens)
 - **Style switching**: Clean transition without residual patterns
 - **Custom styles**: Same performance as built-in styles
