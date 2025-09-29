@@ -30,10 +30,29 @@ MD026: # Trailing punctuation in header
 MD029: # Ordered list item prefix
   style: "one_or_ordered"
 MD033: # Allow inline HTML
-  allowed_elements: ['br', 'sub', 'sup', 'kbd', 'details', 'summary']
+  allowed_elements: ["br", "sub", "sup", "kbd", "details", "summary"]
 MD036: false # Emphasis used instead of a header
 MD040: # Fenced code blocks should have a language specified
-  allowed_languages: ['bash', 'sh', 'shell', 'python', 'py', 'yaml', 'yml', 'json', 'javascript', 'js', 'typescript', 'ts', 'markdown', 'md', 'text', 'mermaid', 'powershell']
+  allowed_languages:
+    [
+      "bash",
+      "sh",
+      "shell",
+      "python",
+      "py",
+      "yaml",
+      "yml",
+      "json",
+      "javascript",
+      "js",
+      "typescript",
+      "ts",
+      "markdown",
+      "md",
+      "text",
+      "mermaid",
+      "powershell",
+    ]
   language_only: false
 MD046: # Code block style
   style: "fenced"
