@@ -3,6 +3,20 @@
 A comprehensive development automation system built on the **Agent Orchestra Framework** that
 transforms Claude Code into a powerful, coordinated development environment.
 
+## 🎨 Professional Output Styles
+
+Transform Claude Code into specialized domain experts with our collection of **12 professional output styles**.
+Each style adapts Claude's communication to match industry-specific roles, terminology, and thinking patterns.
+
+👉 **[Professional Output Styles Collection](docs/output-styles.md)** - Complete guide and style library
+
+**Categories Available:**
+
+- **Business & Strategy** (3 styles) - Product Manager, Strategic Consultant, Marketing Strategist
+- **Technical & Analysis** (3 styles) - Data Scientist, Technical Writer, System Administrator
+- **Creative & Design** (3 styles) - Brand Voice Curator, Presentation Designer, UX Researcher
+- **Operations & Compliance** (3 styles) - Project Coordinator, Quality Assurance, Compliance Officer
+
 ## 🚀 Quick Start
 
 ### New User? Start Here
