@@ -7,6 +7,9 @@ Get professional output styles working in 2 minutes.
 Copy the style files to your Claude output styles directory:
 
 ```bash
+# Create the output-styles directory if it doesn't exist
+mkdir -p ~/.claude/output-styles/
+
 # Copy all 12 professional styles
 cp output-styles/*.md ~/.claude/output-styles/
 
