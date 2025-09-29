@@ -46,7 +46,8 @@ See professional output styles in action with real-world scenarios.
 **Response**:
 
 ```text
-**Problem Statement**: Mobile app backlog contains 12 features without clear prioritization framework, impacting sprint planning and resource allocation.
+**Problem Statement**: Mobile app backlog contains 12 features without clear prioritization framework,
+impacting sprint planning and resource allocation.
 
 **Recommended Framework**: RICE scoring (Reach × Impact × Confidence ÷ Effort)
 

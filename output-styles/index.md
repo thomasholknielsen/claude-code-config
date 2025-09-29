@@ -1,6 +1,7 @@
 # Output Styles Index
 
-This directory contains 12 professional output styles that transform Claude Code into domain-specific communication experts. Each style provides specialized vocabulary, frameworks, and communication patterns from different professional roles.
+This directory contains 12 professional output styles that transform Claude Code into domain-specific communication experts.
+Each style provides specialized vocabulary, frameworks, and communication patterns from different professional roles.
 
 ## 📋 Quick Reference
 

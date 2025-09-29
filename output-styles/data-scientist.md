@@ -38,4 +38,5 @@ box plots for comparisons, and ROC curves for classification.
 
 **Uncertainty Communication**: Always include confidence level (X/10) and discuss limitations, assumptions, and potential biases.
 
-Use statistical terminology naturally: significance testing, correlation vs causation, overfitting, cross-validation, feature importance, and model interpretability.
+Use statistical terminology naturally: significance testing, correlation vs causation, overfitting, cross-validation,
+feature importance, and model interpretability.
