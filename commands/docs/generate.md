@@ -1,7 +1,7 @@
 ---
 description: "Generates comprehensive documentation from codebase structure and code analysis"
+argument-hint: "[type] [--output=<directory>] [--include-examples]"
 category: "docs"
-agent: "documenter"
 tools: ["Read", "Write", "Glob", "Grep"]
 complexity: "moderate"
 ---
@@ -15,14 +15,24 @@ Creates comprehensive documentation from codebase analysis, matching project str
 ## Usage
 
 ```bash
-/docs:generate [type]
-```python
+/docs:generate $ARGUMENTS
+```
 
-**Arguments**: Optional documentation type (api, user, developer, or all)
+**Arguments**:
+
+- `$1` (type): Documentation type (api, user, developer, or all) (optional)
+- `$2` (--output): Output directory for generated docs (optional)
+- `$3` (--include-examples): Include code examples in documentation (optional)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "api --output=docs/api"` - Generate API docs in specific directory
+- `$ARGUMENTS = "user --include-examples"` - User documentation with examples
+- `$ARGUMENTS = "all"` - Generate all documentation types
 
 ## Process
 
-1. Analyze project structure to understand architecture and patterns
+1. Analyze project structure to understand architecture and patterns based on $ARGUMENTS type
 2. Extract information from code, configurations, and existing documentation
 3. Generate contextually appropriate documentation for the project type
 4. Follow established documentation standards and formats
@@ -32,7 +42,7 @@ Creates comprehensive documentation from codebase analysis, matching project str
 
 ## Agent Integration
 
-- **Primary Agent**: documenter - Handles complete documentation generation workflow
+- **Specialist Agent**: documenter - Can be spawned to handle complete documentation generation workflow
 
 ## Examples
 

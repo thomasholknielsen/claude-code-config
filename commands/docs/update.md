@@ -1,7 +1,7 @@
 ---
 description: "Intelligently update existing project documentation by analyzing changes and keeping content current"
+argument-hint: "[target] [--scope=<area>] [--validate-links]"
 category: "docs"
-agent: "documenter"
 tools: ["Read", "Edit", "Bash", "Grep"]
 complexity: "moderate"
 ---
@@ -15,14 +15,24 @@ Executes docs operations for update functionality.
 ## Usage
 
 ```bash
-/docs:update [arguments]
-```yaml
+/docs:update $ARGUMENTS
+```
 
-**Arguments**: Optional parameters specific to the operation
+**Arguments**:
+
+- `$1` (target): Specific documentation to update (optional)
+- `$2` (--scope): Area of documentation to update (optional)
+- `$3` (--validate-links): Check and validate documentation links (optional)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "README.md --validate-links"` - Update README with link validation
+- `$ARGUMENTS = "--scope=api"` - Update only API documentation
+- `$ARGUMENTS = "docs/user-guide.md --scope=installation"` - Update specific section
 
 ## Process
 
-1. Analyze the current state and documentation changes needed
+1. Analyze the current state and documentation changes needed based on $ARGUMENTS target
 2. Update existing documentation files with current information
 3. **README.md Synchronization**: Review and update README.md for consistency
 4. Validate documentation links and cross-references
@@ -31,7 +41,7 @@ Executes docs operations for update functionality.
 
 ## Agent Integration
 
-- **Primary Agent**: documenter - Handles docs operations and coordination
+- **Specialist Agent**: documenter - Can be spawned to handle documentation updates and coordination
 
 ## Examples
 

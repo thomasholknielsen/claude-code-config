@@ -3,8 +3,8 @@
 ## Overview
 
 This document illustrates common development workflows using the Claude Code Command System, showing how users interact with
-commands, agents coordinate tasks, and the system delivers results. Each workflow demonstrates the integration between user requests,
-Agent Orchestra coordination, and command execution.
+commands, specialist agents provide advisory consultation, and the system delivers results. Each workflow demonstrates the integration between user requests,
+Agent Specialist Framework consultation, and command execution.
 
 ## Core Workflow Pattern
 
@@ -12,32 +12,32 @@ Agent Orchestra coordination, and command execution.
 sequenceDiagram
     participant User
     participant Claude as Claude Code
-    participant TO as task-orchestrator
-    participant Worker as Worker Agent
+    participant TAS as task-analysis-specialist
+    participant Spec as Specialist (Advisory)
     participant Command as Slash Command
     participant System as File System
 
     User->>Claude: Submit Request
-    Claude->>TO: Delegate to Orchestrator
-    TO->>TO: Analyze Task Complexity
+    Claude->>TAS: Consult Analysis Specialist
+    TAS-->>Claude: Provide Task Assessment
     alt Simple Task
-        TO->>Worker: Direct Assignment
-        Worker->>Command: Execute Slash Command
+        Claude->>Spec: Consult Domain Specialist
+        Spec-->>Claude: Provide Advisory Guidance
+        Claude->>Command: Execute Slash Command
         Command->>System: Perform Operations
         System-->>Command: Results
-        Command-->>Worker: Command Complete
-        Worker-->>TO: Task Complete
+        Command-->>Claude: Command Complete
     else Complex Task
-        TO->>TO: Break Down Task
-        TO->>Worker: Sequential Assignment
+        Claude->>TAS: Consult for Task Breakdown
+        TAS-->>Claude: Provide Strategy Recommendations
         loop For Each Subtask
-            Worker->>Command: Execute Command
+            Claude->>Spec: Consult Relevant Specialist
+            Spec-->>Claude: Provide Domain Guidance
+            Claude->>Command: Execute Command
             Command->>System: Operations
-            System-->>Worker: Results
+            System-->>Claude: Results
         end
-        Worker-->>TO: All Subtasks Complete
     end
-    TO-->>Claude: Task Complete
     Claude-->>User: Present Results
 ```text
 
@@ -51,30 +51,31 @@ sequenceDiagram
 flowchart TD
     Start([User: "Add login button"]) --> Analyze{Complexity Assessment}
 
-    Analyze -->|Simple| Direct[task-orchestrator → code-writer]
-    Direct --> Implement[/implement small]
+    Analyze -->|Simple| Direct[Main Thread consults code-writer]
+    Direct --> Implement[Execute /implement:small]
     Implement --> CodeGen[Generate Code]
     CodeGen --> Review[Auto Review]
     Review --> Done1([Login Button Added])
 
-    Analyze -->|Complex| Research[task-orchestrator → research-orchestrator]
-    Research --> Parallel{Parallel Research}
-    Parallel --> R1[UI Patterns Research]
-    Parallel --> R2[Authentication Flow Analysis]
-    Parallel --> R3[Security Requirements]
+    Analyze -->|Complex| Research[Main Thread consults research-analysis-specialist]
+    Research --> Strategy[Get Research Strategy]
+    Strategy --> Execute[Main Thread executes parallel tools]
+    Execute --> R1[Read UI Patterns]
+    Execute --> R2[Grep Auth Flows]
+    Execute --> R3[WebFetch Security Docs]
 
-    R1 --> Synthesize[Synthesize Requirements]
+    R1 --> Synthesize[Main Thread synthesizes]
     R2 --> Synthesize
     R3 --> Synthesize
 
-    Synthesize --> Plan[implementation-orchestrator]
-    Plan --> Sequence{Sequential Implementation}
+    Synthesize --> Plan[Consult implementation-strategy-specialist]
+    Plan --> Sequence[Execute Sequential Commands]
 
-    Sequence --> S1[code-writer: UI Component]
-    S1 --> S2[code-writer: Event Handlers]
-    S2 --> S3[test-writer: Component Tests]
-    S3 --> S4[reviewer: Security Review]
-    S4 --> S5[documenter: Update Docs]
+    Sequence --> S1[/implement UI Component]
+    S1 --> S2[/implement Event Handlers]
+    S2 --> S3[/test component coverage]
+    S3 --> S4[/review:security]
+    S4 --> S5[/docs:update]
     S5 --> Done2([Complex Feature Complete])
 ```text
 
@@ -145,37 +146,39 @@ graph TB
 ```mermaid
 sequenceDiagram
     participant User
-    participant TO as task-orchestrator
-    participant RO as research-orchestrator
+    participant TAS as task-analysis-specialist
+    participant RAS as research-analysis-specialist
     participant Rev as reviewer
     participant CW as code-writer
 
-    User->>TO: /workflows:run-comprehensive-review
-    TO->>RO: Coordinate parallel reviews
+    User->>Claude: /workflows:run-comprehensive-review
+    Claude->>TAS: Consult for Review Strategy
+    TAS-->>Claude: Recommend Parallel Approach
+    Claude->>RAS: Consult for Review Coordination
+    RAS-->>Claude: Provide Review Plan
 
     par Security Review
-        RO->>Rev: /review:security
-        Rev->>Rev: OWASP Analysis
-        Rev->>Rev: Vulnerability Scan
-        Rev->>Rev: Generate Security Report
+        Claude->>Claude: Execute /review:security
+        Note over Claude: OWASP Analysis
+        Note over Claude: Vulnerability Scan
+        Note over Claude: Generate Security Report
     and Code Quality Review
-        RO->>Rev: /review:code
-        Rev->>Rev: Style Compliance
-        Rev->>Rev: Complexity Analysis
-        Rev->>Rev: Generate Quality Report
+        Claude->>Claude: Execute /review:code
+        Note over Claude: Style Compliance
+        Note over Claude: Complexity Analysis
+        Note over Claude: Generate Quality Report
     and Design Review
-        RO->>Rev: /review:design
-        Rev->>Rev: Architecture Assessment
-        Rev->>Rev: Pattern Validation
-        Rev->>Rev: Generate Design Report
+        Claude->>Claude: Execute /review:design
+        Note over Claude: Architecture Assessment
+        Note over Claude: Pattern Validation
+        Note over Claude: Generate Design Report
     end
 
-    Rev-->>RO: All Reviews Complete
-    RO->>RO: Consolidate Findings
-    RO->>CW: Generate Fix Recommendations
-    CW->>CW: Prioritize Issues
-    CW-->>TO: Comprehensive Review Complete
-    TO-->>User: Present Consolidated Results
+    Claude->>Claude: Consolidate Review Results
+    Claude->>CW: Consult for Fix Recommendations
+    CW-->>Claude: Provide Fix Strategy
+    Claude->>Claude: Prioritize and Execute Fixes
+    Claude-->>User: Present Consolidated Results
 ```text
 
 #### Automated Cleanup Workflow
@@ -183,13 +186,13 @@ sequenceDiagram
 ```mermaid
 flowchart LR
     subgraph "Cleanup Initiation"
-        Start([/workflows:run-cleanup-workflow]) --> Assess[task-orchestrator]
+        Start([/workflows:run-cleanup-workflow]) --> Assess[Consult task-analysis-specialist]
     end
 
     subgraph "Parallel Cleanup Operations"
-        Assess --> P1[/clean:apply-style-rules]
-        Assess --> P2[/clean:improve-readability]
-        Assess --> P3[/clean:development-artifacts]
+        Assess --> P1[Execute /clean:apply-style-rules]
+        Assess --> P2[Execute /clean:improve-readability]
+        Assess --> P3[Execute /clean:development-artifacts]
     end
 
     subgraph "Style Rules"
@@ -231,57 +234,57 @@ stateDiagram-v2
 
     state QuickFix {
         [*] --> Analyze
-        Analyze --> Reproduce : bug-fixer reproduces issue
+        Analyze --> Reproduce : Main thread reproduces issue
         Reproduce --> Isolate : Identify root cause
         Isolate --> Fix : Apply fix
         Fix --> Verify : Test fix works
         Verify --> [*]
     }
 
-    QuickFix --> TestFix : Automated tests run
-    TestFix --> CodeReview : reviewer validates
-    CodeReview --> Documentation : documenter updates
+    QuickFix --> TestFix : Execute automated tests
+    TestFix --> CodeReview : Execute /review:code
+    CodeReview --> Documentation : Execute /docs:update
     Documentation --> [*]
 
-    note right of QuickFix : Single agent handles\nentire fix process
+    note right of QuickFix : Main thread handles\nentire fix process
 ```text
 
 #### Complex Bug Investigation
 
 ```mermaid
 flowchart TD
-    BugReport[Complex Performance Issue] --> TO[task-orchestrator]
-    TO --> RO[research-orchestrator]
+    BugReport[Complex Performance Issue] --> TAS[Consult task-analysis-specialist]
+    TAS --> RAS[Consult research-analysis-specialist]
 
-    subgraph "Parallel Investigation"
-        RO --> I1[Agent 1: Profile Performance]
-        RO --> I2[Agent 2: Analyze Database Queries]
-        RO --> I3[Agent 3: Check Network Calls]
-        RO --> I4[Agent 4: Review Error Logs]
-        RO --> I5[Agent 5: Test User Scenarios]
+    subgraph "Main Thread Parallel Tools"
+        RAS --> I1[Bash: Profile Performance]
+        RAS --> I2[Grep: Analyze Database Queries]
+        RAS --> I3[WebFetch: Check Network Patterns]
+        RAS --> I4[Read: Review Error Logs]
+        RAS --> I5[Bash: Test User Scenarios]
     end
 
-    I1 --> Findings[Consolidate Findings]
+    I1 --> Findings[Main Thread Consolidates]
     I2 --> Findings
     I3 --> Findings
     I4 --> Findings
     I5 --> Findings
 
     Findings --> RootCause{Root Cause Identified?}
-    RootCause -->|Yes| Plan[implementation-orchestrator]
-    RootCause -->|No| DeepDive[/analyze:potential-issues]
+    RootCause -->|Yes| Plan[Consult implementation-strategy-specialist]
+    RootCause -->|No| DeepDive[Execute /analyze:potential-issues]
 
     DeepDive --> MoreInvestigation[Extended Research]
     MoreInvestigation --> RootCause
 
-    Plan --> FixStrategy[Design Fix Strategy]
-    FixStrategy --> Implementation[Sequential Fix Implementation]
+    Plan --> FixStrategy[Get Fix Strategy]
+    FixStrategy --> Implementation[Sequential Command Execution]
 
     subgraph "Fix Implementation"
-        Implementation --> F1[code-writer: Core Fix]
-        F1 --> F2[test-writer: Performance Tests]
-        F2 --> F3[reviewer: Impact Analysis]
-        F3 --> F4[documenter: Post-Mortem]
+        Implementation --> F1[Execute /implement fix]
+        F1 --> F2[Execute /test performance]
+        F2 --> F3[Execute /review:security]
+        F3 --> F4[Execute /docs:update]
     end
 
     F4 --> Verified[Bug Fixed & Documented]
@@ -294,33 +297,35 @@ flowchart TD
 ```mermaid
 sequenceDiagram
     participant User
-    participant TO as task-orchestrator
-    participant RO as research-orchestrator
+    participant TAS as task-analysis-specialist
+    participant RAS as research-analysis-specialist
     participant Doc as documenter
     participant CW as code-writer
 
-    User->>TO: /docs:api
-    TO->>RO: Research existing API structure
+    User->>Claude: /docs:api
+    Claude->>TAS: Consult for API Documentation Strategy
+    TAS-->>Claude: Recommend Analysis Approach
+    Claude->>RAS: Consult for Research Strategy
+    RAS-->>Claude: Provide Research Plan
 
-    par Code Analysis
-        RO->>RO: Scan API endpoints
-        RO->>RO: Extract schemas
-        RO->>RO: Identify patterns
+    par Code Analysis Tools
+        Claude->>Claude: Grep API endpoints
+        Claude->>Claude: Read schema files
+        Claude->>Claude: Glob pattern matching
     and Example Generation
-        RO->>CW: Generate code examples
-        CW->>CW: Create request/response samples
-        CW->>CW: Write integration examples
+        Claude->>CW: Consult for Example Patterns
+        CW-->>Claude: Recommend Example Structure
+        Claude->>Claude: Generate samples
     end
 
-    RO-->>TO: API Analysis Complete
-    CW-->>TO: Examples Ready
+    Claude->>Claude: Analyze Results
+    Claude->>Doc: Consult for Documentation Format
+    Doc-->>Claude: Recommend Structure
 
-    TO->>Doc: Generate documentation
-    Doc->>Doc: Create OpenAPI spec
-    Doc->>Doc: Generate markdown docs
-    Doc->>Doc: Create interactive examples
-    Doc-->>TO: Documentation Complete
-    TO-->>User: API docs generated
+    Claude->>Claude: Create OpenAPI spec
+    Claude->>Claude: Generate markdown docs
+    Claude->>Claude: Create interactive examples
+    Claude-->>User: API docs generated
 ```text
 
 #### Comprehensive Documentation Update
@@ -328,19 +333,19 @@ sequenceDiagram
 ```mermaid
 graph LR
     subgraph "Documentation Audit"
-        Start([/workflows:run-docs-workflow]) --> Audit[/docs:analyze]
+        Start([/workflows:run-docs-workflow]) --> Audit[Execute /docs:analyze]
         Audit --> Gaps[Identify Documentation Gaps]
     end
 
     subgraph "Content Generation"
-        Gaps --> Generate[/docs:generate]
+        Gaps --> Generate[Execute /docs:generate]
         Generate --> G1[API Documentation]
         Generate --> G2[User Guides]
         Generate --> G3[Developer Guides]
     end
 
     subgraph "Content Updates"
-        G1 --> Update[/docs:update]
+        G1 --> Update[Execute /docs:update]
         G2 --> Update
         G3 --> Update
         Update --> U1[Version Updates]
@@ -349,7 +354,7 @@ graph LR
     end
 
     subgraph "Quality Validation"
-        U1 --> Validate[documenter review]
+        U1 --> Validate[Consult documenter for review]
         U2 --> Validate
         U3 --> Validate
         Validate --> V1[Completeness Check]
@@ -408,22 +413,22 @@ flowchart TD
 mindmap
   root((Technical Research Request))
     Parallel Research Streams
-      Agent 1: Framework Analysis
+      Specialist 1: Framework Analysis
         Latest versions
         Performance benchmarks
         Community adoption
         Security track record
-      Agent 2: Alternative Solutions
+      Specialist 2: Alternative Solutions
         Competitor analysis
         Open source options
         Cost comparisons
         Feature matrices
-      Agent 3: Integration Requirements
+      Specialist 3: Integration Requirements
         API compatibility
         Data migration needs
         Deployment complexity
         Team training needs
-      Agent 4: Risk Assessment
+      Specialist 4: Risk Assessment
         Technical risks
         Business risks
         Timeline impacts
@@ -440,33 +445,35 @@ mindmap
 ```mermaid
 sequenceDiagram
     participant User
-    participant TO as task-orchestrator
-    participant RO as research-orchestrator
-    participant Agents as Analysis Agents
+    participant TAS as task-analysis-specialist
+    participant RAS as research-analysis-specialist
+    participant Specialists as Analysis Specialists
 
-    User->>TO: /analyze:performance
-    TO->>RO: Coordinate performance analysis
+    User->>Claude: /analyze:performance
+    Claude->>TAS: Consult for Performance Strategy
+    TAS-->>Claude: Recommend Analysis Approach
+    Claude->>RAS: Consult for Analysis Coordination
+    RAS-->>Claude: Provide Performance Analysis Plan
 
-    par Frontend Analysis
-        RO->>Agents: Analyze bundle sizes
-        RO->>Agents: Check render performance
-        RO->>Agents: Audit Core Web Vitals
-    and Backend Analysis
-        RO->>Agents: Database query analysis
-        RO->>Agents: API response times
-        RO->>Agents: Memory usage patterns
-    and Infrastructure Analysis
-        RO->>Agents: Server resource usage
-        RO->>Agents: Network latency checks
-        RO->>Agents: CDN effectiveness
+    par Frontend Analysis Tools
+        Claude->>Claude: Grep bundle configs
+        Claude->>Claude: Read performance metrics
+        Claude->>Claude: Bash Core Web Vitals audit
+    and Backend Analysis Tools
+        Claude->>Claude: Grep database queries
+        Claude->>Claude: Bash API performance tests
+        Claude->>Claude: Read memory usage logs
+    and Infrastructure Analysis Tools
+        Claude->>Claude: Bash server resource check
+        Claude->>Claude: WebFetch network latency
+        Claude->>Claude: Read CDN configuration
     end
 
-    Agents-->>RO: Analysis Results
-    RO->>RO: Generate Performance Report
-    RO->>RO: Identify Bottlenecks
-    RO->>RO: Recommend Optimizations
-    RO-->>TO: Comprehensive Analysis
-    TO-->>User: Performance Insights & Recommendations
+    Claude->>Claude: Consolidate Analysis Results
+    Claude->>Claude: Generate Performance Report
+    Claude->>Claude: Identify Bottlenecks
+    Claude->>Claude: Generate Optimization Recommendations
+    Claude-->>User: Performance Insights & Recommendations
 ```text
 
 ## Workflow Selection Guide
@@ -500,15 +507,15 @@ flowchart TD
 
 ### Agent Selection Matrix
 
-| Task Type | Primary Agent | Secondary Agents | Commands Used |
-|-----------|---------------|------------------|---------------|
-| **Quick Fixes** | task-orchestrator | bug-fixer | /fix:bug-quickly |
-| **Research Tasks** | research-orchestrator | Multiple parallel | /analyze:*, /explain:* |
-| **Implementation** | implementation-orchestrator | code-writer, test-writer | /implement, /spec-kit:implement |
-| **Code Review** | task-orchestrator | reviewer | /review:*, /workflows:run-comprehensive-review |
-| **Documentation** | task-orchestrator | documenter | /docs:*, /workflows:run-docs-workflow |
-| **Cleanup Operations** | task-orchestrator | Multiple workers | /clean:*, /workflows:run-cleanup-workflow |
-| **Complex Features** | task-orchestrator | All orchestrators | /spec-kit:* (full workflow) |
+| Task Type | Primary Specialist | Secondary Specialists | Commands Used |
+|-----------|-------------------|----------------------|---------------|
+| **Quick Fixes** | task-analysis-specialist | bug-fixer (advisory) | /fix:bug-quickly |
+| **Research Tasks** | research-analysis-specialist | Various specialists (advisory) | /analyze:*, /explain:* |
+| **Implementation** | implementation-strategy-specialist | code-writer, test-writer (advisory) | /implement, /spec-kit:implement |
+| **Code Review** | task-analysis-specialist | reviewer (advisory) | /review:*, /workflows:run-comprehensive-review |
+| **Documentation** | task-analysis-specialist | documenter (advisory) | /docs:*, /workflows:run-docs-workflow |
+| **Cleanup Operations** | task-analysis-specialist | Various specialists (advisory) | /clean:*, /workflows:run-cleanup-workflow |
+| **Complex Features** | task-analysis-specialist | All specialists (advisory) | /spec-kit:* (full workflow) |
 
 ## Best Practices
 
@@ -516,8 +523,8 @@ flowchart TD
 
 1. **Start Simple**: Use single commands for straightforward tasks
 2. **Scale Up**: Move to workflows for complex operations
-3. **Parallel When Possible**: Use research-orchestrator for independent tasks
-4. **Sequential When Dependent**: Use implementation-orchestrator for ordered operations
+3. **Parallel When Possible**: Use main thread parallel tools for independent tasks
+4. **Sequential When Dependent**: Use specialist advisory guidance for ordered operations
 5. **Quality Gates**: Include review and analysis steps in complex workflows
 
 ### Common Anti-Patterns
@@ -536,5 +543,9 @@ flowchart TD
 - **User Satisfaction**: Feedback on workflow effectiveness
 - **Error Reduction**: Decrease in post-workflow issues
 
-These typical workflows demonstrate how the Claude Code Command System orchestrates complex development tasks through
-intelligent agent coordination, providing users with powerful automation while maintaining quality and consistency.
+These typical workflows demonstrate how the Claude Code Command System coordinates complex development tasks through the Agent Specialist
+Framework, where Claude Code orchestrates parallelization and tool execution while specialist agents provide advisory consultation and
+recommendations, ensuring powerful automation with quality and consistency.
+
+**Note**: Only the main Claude Code thread can coordinate parallelization and execute tools. All specialist agents function as advisory
+consultants that provide specialized analysis and strategic recommendations to the main Claude Code coordinator.

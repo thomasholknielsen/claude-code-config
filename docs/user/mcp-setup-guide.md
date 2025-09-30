@@ -205,7 +205,7 @@ Playwright integration enhances browser-related tasks:
 - **code-writer** - For current API patterns and implementations
 - **reviewer** - For latest security practices and guidelines
 - **bug-fixer** - For known issue patterns and solutions
-- **research-orchestrator** - For gathering current best practices
+- **research-analysis-specialist** - For gathering current best practices
 
 ### Agents Using Playwright
 

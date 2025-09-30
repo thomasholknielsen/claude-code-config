@@ -1,7 +1,7 @@
 ---
 description: "Automated workflow that creates branch, commits changes, pushes, and creates PR with URL"
 category: "workflows"
-agent: "task-orchestrator"
+agent: "task-analysis-specialist"
 tools: ["SlashCommand", "Bash", "TodoWrite"]
 complexity: "complex"
 ---
@@ -31,7 +31,7 @@ Automates the complete git workflow from current changes to pull request creatio
 
 ## Agent Integration
 
-- **Primary Agent**: task-orchestrator - Coordinates entire git automation workflow
+- **Primary Agent**: task-analysis-specialist - Coordinates entire git automation workflow
 - **Git Commands**: Uses SlashCommand tool to execute `/git:branch`, `/git:commit`, `/git:push`, `/git:pr`
 - **Delegation**: All git operations delegated to atomic git commands via SlashCommand
 

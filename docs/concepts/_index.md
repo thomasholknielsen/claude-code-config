@@ -4,20 +4,24 @@ Deep dive into the architectural concepts, frameworks, and design principles beh
 
 ## Core Concepts
 
-- **[Agent Orchestra Framework](agent-orchestra-framework.md)** - Multi-agent coordination architecture
-- **[Agent Orchestra System](agent-orchestra-system.md)** - System implementation details
+- **[Agent Specialist Framework](agent-specialist-framework.md)** - Multi-agent advisory architecture
+- **[Agent Specialist System](agent-specialist-system.md)** - System implementation details
 - **[Spec-Kit Workflow](spec-kit-workflow.md)** - 7-step feature development process
 - **[Parallel Execution Patterns](parallel-execution-patterns.md)** - Efficient multi-task coordination
+- **[Parallelization Guide](parallelization-guide.md)** - Comprehensive parallelization strategies
+- **[Parallelization Workflows](../user/parallelization-workflows.md)** - Real-world parallelization examples
+- **[Parallelization Decision Framework](../user/parallelization-decision-framework.md)** - When to parallelize
+- **[Research to Implementation Guide](../user/research-to-implementation-guide.md)** - R→I→Q pattern guide
 
 ## Architectural Principles
 
-### Agent Orchestra Framework
+### Agent Specialist Framework
 
 The system is built on a sophisticated multi-agent architecture:
 
-- **3 Orchestrators**: Complex task coordination and delegation
-- **5 Workers**: Specialized execution with focused responsibilities
-- **Clear Separation**: Orchestrators coordinate, workers execute
+- **3 Strategic Specialists**: Complex task analysis and strategic guidance
+- **5 Technical Specialists**: Specialized advisory expertise with focused domain knowledge
+- **Clear Separation**: Strategic specialists provide planning guidance, technical specialists provide implementation advisory
 - **Parallel Patterns**: Efficient concurrent task execution
 
 ### Command System Design
@@ -36,10 +40,10 @@ The system is built on a sophisticated multi-agent architecture:
 
 ## Design Patterns
 
-### Orchestration Patterns
+### Coordination Patterns
 
 - **Sequential Coordination**: Dependency-aware task ordering
-- **Parallel Execution**: Independent task concurrent processing
+- **Parallel Execution**: Independent task concurrent processing via Task() tool
 - **Resource Sharing**: Efficient context and data management
 - **Error Handling**: Graceful failure recovery and reporting
 
@@ -78,7 +82,7 @@ The system is built on a sophisticated multi-agent architecture:
 
 ### For Architects
 
-- Study [Agent Orchestra Framework](agent-orchestra-framework.md) for coordination patterns
+- Study [Agent Specialist Framework](agent-specialist-framework.md) for advisory patterns
 - Review [Parallel Execution Patterns](parallel-execution-patterns.md) for performance design
 - Understand security architecture through implementation examples
 
@@ -99,11 +103,11 @@ The system is built on a sophisticated multi-agent architecture:
 ### Command Development
 
 Commands are designed following the [Command Template](../developer/command-template.md) standard, ensuring consistency and
-integration with the Agent Orchestra framework.
+integration with the Agent Specialist Framework.
 
 ### Agent Coordination
 
-The [Agent Orchestra Framework](agent-orchestra-framework.md) provides the coordination mechanism, while
+The [Agent Specialist Framework](agent-specialist-framework.md) provides the advisory mechanism, while
 [Parallel Execution Patterns](parallel-execution-patterns.md) optimize performance.
 
 ### Feature Development
@@ -139,7 +143,7 @@ integration with existing system capabilities.
 The conceptual frameworks are implemented throughout the system:
 
 - **54+ Commands** following template standards
-- **8 Agents** implementing Orchestra patterns
+- **8 Agents** implementing Specialist Framework patterns
 - **Comprehensive Documentation** following Diátaxis principles
 - **Security Controls** enforcing architectural constraints
 

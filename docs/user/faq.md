@@ -6,9 +6,9 @@ Common questions and answers about the Claude Code Command System.
 
 ### What is the Claude Code Command System
 
-The Claude Code Command System is a comprehensive development automation framework built on the Agent Orchestra architecture.
+The Claude Code Command System is a comprehensive development automation framework built on the Agent Specialist Framework architecture.
 It
-provides 55+ commands organized across 15 categories, coordinated by 8 specialized agents (3 orchestrators + 5 workers)
+provides 55+ commands organized across 15 categories, coordinated by 8 specialized agents (3 analysis specialists + 5 execution specialists)
 to automate complex development workflows.
 
 ### How is this different from regular Claude Code
@@ -16,7 +16,7 @@ to automate complex development workflows.
 This system extends Claude Code with:
 
 - **Structured command system** with standardized templates
-- **Agent Orchestra coordination** for complex task management
+- **Agent Specialist Framework coordination** for complex task management
 - **Automated workflows** for common development patterns
 - **Security constraints** and validation systems
 - **Cross-platform compatibility** for Windows, macOS, and Linux
@@ -45,15 +45,15 @@ Currently **55 commands** across **15 categories**:
 - git (6), implement (2), plan (1), prompt (1), refactor (6)
 - review (3), spec-kit (7), to-do (5), workflows (7)
 
-### What's the difference between orchestrators and workers
+### What's the difference between analysis specialists and execution specialists
 
-**Orchestrators** (3 total):
+**Analysis Specialists** (3 total):
 
-- **implementation-orchestrator**: Coordinates sequential code changes
-- **task-orchestrator**: General task analysis and coordination
-- **research-orchestrator**: Parallel information gathering
+- **implementation-strategy-specialist**: Coordinates sequential code changes
+- **task-analysis-specialist**: General task analysis and coordination
+- **research-analysis-specialist**: Parallel information gathering
 
-**Workers** (5 total):
+**Execution Specialists** (5 total):
 
 - **reviewer**: Code, security, and design reviews
 - **documenter**: Documentation creation and maintenance
@@ -336,7 +336,7 @@ Yes! Use for automated quality gates:
 3. **Create specialized workflows**: Use `/workflows:*` patterns
 4. **Custom command categories**: Create new command folders
 
-**Important**: Maintain orchestrator/worker separation.
+**Important**: Maintain analysis specialist/execution specialist separation.
 
 ### Can I backup and restore my configuration
 

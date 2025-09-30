@@ -2,8 +2,8 @@
 
 ## Architecture Overview
 
-The Claude Code Command System is built on the **Agent Orchestra Framework**, a task-focused coordination system that
-replaces traditional domain-based agents with specialized orchestrators and workers.
+The Claude Code Command System is built on the **Agent Specialist Framework**, a task-focused coordination system that
+replaces traditional domain-based agents with specialized analysis and execution specialists.
 
 ### System Components
 
@@ -14,9 +14,9 @@ graph TB
         Claude[CLAUDE.md]
         Scripts[scripts/]
 
-        subgraph "Agent Orchestra"
-            Orchestrators[3 Orchestrators]
-            Workers[5 Workers]
+        subgraph "Agent Specialist Framework"
+            AnalysisSpecialists[3 Strategic Specialists]
+            ExecutionSpecialists[5 Technical Specialists]
         end
 
         subgraph "Commands"
@@ -38,74 +38,76 @@ graph TB
     end
 
     User --> Settings
-    Settings --> Orchestrators
-    Orchestrators --> Workers
-    Workers --> Commands
+    Settings --> AnalysisSpecialists
+    AnalysisSpecialists --> ExecutionSpecialists
+    ExecutionSpecialists --> Commands
     Commands --> Hooks
 ```python
 
-## Agent Orchestra Framework
+## Agent Specialist Framework
 
-### Orchestrators (Coordination Layer)
+### Analysis Specialists (Advisory Layer)
 
-#### 1. task-orchestrator
+**Note**: Only the main Claude Code thread can orchestrate parallelization. Strategic specialists are advisory consultants that provide recommendations and strategic planning guidance.
 
-**Purpose**: General task coordination and delegation
+#### 1. task-analysis-specialist
+
+**Purpose**: General task analysis and strategic recommendations
 
 - Analyzes task complexity
-- Delegates to appropriate workers
-- Manages TodoWrite tracking
-- Uses SlashCommand for delegation
+- Recommends appropriate technical specialists for consultation
+- Provides TodoWrite planning guidance
+- Advises on SlashCommand selection
 
-#### 2. research-orchestrator
+#### 2. research-analysis-specialist
 
-**Purpose**: Parallel information gathering
+**Purpose**: Information gathering strategy and planning
 
-- Spawns multiple research agents
-- Coordinates breadth-first search patterns
-- Aggregates findings from parallel streams
-- No interference between parallel agents
+- Designs research strategies for main thread execution
+- Plans breadth-first search patterns using parallel tools
+- Provides guidance for aggregating findings from parallel operations
+- Advises on optimal tool selection for parallel information gathering
 
-#### 3. implementation-orchestrator
+#### 3. implementation-strategy-specialist
 
-**Purpose**: Sequential code changes
+**Purpose**: Implementation strategy and execution planning
 
-- Manages file dependencies
-- Ensures proper execution order
-- Maintains state consistency
-- Handles complex multi-file changes
+- Analyzes file dependencies
+- Provides guidance on proper execution order
+- Advises on state consistency approaches
+- Recommends strategies for complex multi-file changes
 
-### Workers (Execution Layer)
+### Technical Specialists (Advisory Layer)
 
 #### 1. code-writer
 
-- **Focus**: Code generation only
-- **Commands**: `/refactor:large-scale`, `/implement`
-- **Constraints**: No testing, documentation, or review
+- **Focus**: Code generation advice and patterns
+- **Advises on**: `/refactor:large-scale`, `/implement` command usage
+- **Specializes in**: Implementation patterns, code structure, architectural guidance
 
 #### 2. test-writer
 
-- **Focus**: Test creation only
-- **Commands**: `/test`, `/spec-kit:tasks`
-- **Capabilities**: Auto-detects test frameworks
+- **Focus**: Testing strategy and implementation guidance
+- **Advises on**: `/test`, `/spec-kit:tasks` command usage
+- **Specializes in**: Test framework selection, coverage strategies, testing patterns
 
 #### 3. bug-fixer
 
-- **Focus**: Debugging only
-- **Commands**: `/fix:bug-quickly`, `/analyze:potential-issues`
-- **Process**: Reproduce → Isolate → Fix → Verify
+- **Focus**: Debugging strategy and troubleshooting guidance
+- **Advises on**: `/fix:bug-quickly`, `/analyze:potential-issues` command usage
+- **Specializes in**: Root cause analysis approaches, systematic debugging strategies
 
 #### 4. reviewer
 
-- **Focus**: Code analysis only
-- **Commands**: `/review:code`, `/review:security`
-- **Capabilities**: Can run multiple review types in parallel
+- **Focus**: Code quality and security analysis guidance
+- **Advises on**: `/review:code`, `/review:security` command usage
+- **Specializes in**: Review strategies, quality assessment patterns, security best practices
 
 #### 5. documenter
 
-- **Focus**: Documentation only
-- **Commands**: `/docs:generate`, `/docs:api`
-- **Formats**: README, API docs, inline comments
+- **Focus**: Documentation strategy and format guidance
+- **Advises on**: `/docs:generate`, `/docs:api` command usage
+- **Specializes in**: Documentation patterns, format selection, content organization
 
 ## Development Standards
 
@@ -172,15 +174,20 @@ Single clear sentence describing what this command does.
 
 #### 1. Agent Types
 
-- **Orchestrators**: Coordinate complex tasks
-- **Workers**: Execute specific functions
-- **Specialists**: Domain-specific expertise
+- **Strategic Specialists**: Provide strategic planning and coordination guidance for complex tasks
+- **Technical Specialists**: Provide domain-specific advisory guidance
+- **Domain Specialists**: Specialized domain expertise (rare, for specific use cases)
 
 #### 2. Agent File Structure
 
 ```text
 agents/{type}/{agent-name}.md
-```text
+```
+
+**Directory Structure:**
+
+- `agents/strategic-specialists/` - Strategic planning and coordination advisors
+- `agents/technical-specialists/` - Domain-specific advisory specialists
 
 #### 3. Agent Definition Format
 
@@ -218,7 +225,7 @@ agents/{type}/{agent-name}.md
 - **Single Responsibility**: Each agent has one clear focus
 - **No Overlap**: Agents should not duplicate functionality
 - **Clear Boundaries**: Well-defined interaction points
-- **Tool Integration**: Use SlashCommand for delegation
+- **Tool Integration**: Provide guidance on SlashCommand selection and usage
 
 ### Hook Development
 
@@ -286,7 +293,7 @@ if __name__ == "__main__":
 #### 2. Git Operations Constraints
 
 - **CRITICAL**: Only `/git/*` commands can perform Git operations
-- **All other agents**: Must use SlashCommand to delegate Git operations
+- **All specialists**: Provide advisory guidance on Git operations, actual execution via SlashCommand in main thread
 - **No direct Git**: Agents cannot call git commands directly
 - **Explicit consent**: All Git operations require user approval
 
@@ -326,18 +333,18 @@ grep -E "Commands:" agents/{type}/{agent}.md
 
 #### 3. Integration Testing
 
-- Test Agent Orchestra coordination
-- Verify command delegation works
-- Ensure Git constraints are enforced
+- Test Agent Specialist Framework consultation patterns
+- Verify specialist advisory guidance is properly integrated
+- Ensure Git constraints are enforced in main thread
 - Validate hook execution
 
 ## Advanced Customization
 
 ### Model Selection Strategy
 
-- **Opus**: Planning-heavy orchestrators (task, research, implementation)
-- **Sonnet**: Balanced workers (code-writer, reviewer)
-- **Haiku**: Simple workers (bug-fixer for obvious issues)
+- **Opus**: Planning-heavy strategic specialists (task-analysis, research-analysis, implementation-strategy)
+- **Sonnet**: Balanced technical specialists (code-writer, reviewer)
+- **Haiku**: Simple technical specialists (bug-fixer for obvious issues)
 
 ### Think Commands Integration
 
@@ -348,17 +355,17 @@ grep -E "Commands:" agents/{type}/{agent}.md
 - **ultra think**: Comprehensive planning, architectural decisions, complex debugging
 ```text
 
-### Orchestrator Delegation Logic
+### Specialist Advisory Logic
 
 ```python
-# Pseudocode for orchestrator decision-making
-def delegate_task(task_complexity, task_type):
+# Pseudocode for specialist advisory recommendations
+def recommend_task_strategy(task_complexity, task_type):
     if complexity == "simple":
-        return direct_worker_assignment()
+        return direct_technical_specialist_consultation()
     elif complexity == "moderate":
-        return sequential_worker_coordination()
+        return sequential_command_execution_with_specialist_guidance()
     elif complexity == "complex":
-        return parallel_orchestrator_coordination()
+        return parallel_tool_execution_with_multiple_specialist_consultation()
 ```
 
 ### Extension Points
@@ -373,7 +380,7 @@ def delegate_task(task_complexity, task_type):
 #### 2. New Agent Types
 
 1. Define in appropriate folder: `agents/{type}/`
-2. Follow Agent Orchestra patterns
+2. Follow Agent Specialist Framework patterns
 3. Ensure no overlap with existing agents
 4. Document integration points
 
@@ -409,13 +416,13 @@ def delegate_task(task_complexity, task_type):
 
 ## Migration Patterns
 
-### From MECE to Agent Orchestra
+### From MECE to Agent Specialist Framework
 
-1. **Identify domain agent**: Map old MECE agent to new pattern
-2. **Extract responsibilities**: Break into orchestrator/worker tasks
-3. **Update references**: Change agent calls to orchestrator calls
-4. **Test integration**: Ensure coordination works
-5. **Update documentation**: Reflect new patterns
+1. **Identify domain agent**: Map old MECE agent to new specialist pattern
+2. **Extract responsibilities**: Break into strategic/technical specialist advisory roles
+3. **Update references**: Change agent execution calls to specialist consultation calls
+4. **Test integration**: Ensure advisory consultation works properly
+5. **Update documentation**: Reflect new advisory patterns
 
 ### Command Evolution
 

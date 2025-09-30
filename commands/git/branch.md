@@ -1,7 +1,7 @@
 ---
 description: "Branch management operations with safety checks and team workflows"
+argument-hint: "[branch-name]"
 category: "git"
-agent: "implementation-orchestrator"
 tools: ["Bash", "Read", "Grep"]
 complexity: "moderate"
 ---
@@ -15,22 +15,33 @@ Creates, manages, and switches git branches with intelligent naming and safety v
 ## Usage
 
 ```bash
-/git:branch [branch-name]
+/git:branch $ARGUMENTS
 ```
 
-**Arguments**: Optional branch name (auto-generated from changes if not provided)
+**Arguments**:
+
+- `$1` (branch-name): Branch name (optional, auto-generated from changes if not provided)
+- `$2` (--from): Base branch to create from (optional, defaults to current HEAD)
+- `$3` (--switch): Switch to branch after creation (optional, default behavior)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "feature/user-authentication"` - Create and switch to feature branch
+- `$ARGUMENTS = "hotfix/login-bug --from=main"` - Create hotfix from main branch
+- `$ARGUMENTS = ""` - Auto-generate branch name from changes
 
 ## Process
 
-1. Validate working directory state and check for uncommitted changes
-2. Generate intelligent branch name from git diff analysis if not provided
-3. Create new feature branch from current HEAD
-4. Switch to the new branch and confirm successful creation
-5. Report branch creation status and next steps
+1. Parse $ARGUMENTS for branch name and base branch
+2. Validate working directory state and check for uncommitted changes
+3. Generate intelligent branch name from git diff analysis if not provided
+4. Create new feature branch from current HEAD
+5. Switch to the new branch and confirm successful creation
+6. Report branch creation status and next steps
 
 ## Agent Integration
 
-- **Primary Agent**: implementation-orchestrator - Handles git operations and coordination
+- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
 
 ## Examples
 
@@ -39,10 +50,12 @@ Creates, manages, and switches git branches with intelligent naming and safety v
 /git:branch
 
 # Create branch with specific name
-/git:branch "feature/user-authentication"
+/git:branch $ARGUMENTS
+# where $ARGUMENTS = "feature/user-authentication"
 
 # Create hotfix branch
-/git:branch "hotfix/login-bug"
+/git:branch $ARGUMENTS
+# where $ARGUMENTS = "hotfix/login-bug"
 ```
 
 ## Output

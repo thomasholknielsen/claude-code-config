@@ -1,7 +1,7 @@
 ---
 description: "Create and manage pull requests with GitHub CLI integration"
+argument-hint: "[title]"
 category: "git"
-agent: "implementation-orchestrator"
 tools: ["Bash", "Read", "Grep"]
 complexity: "moderate"
 ---
@@ -15,22 +15,33 @@ Creates pull requests with auto-generated descriptions and returns the PR URL fo
 ## Usage
 
 ```bash
-/git:pr [title]
+/git:pr $ARGUMENTS
 ```
 
-**Arguments**: Optional PR title (auto-generated from commits if not provided)
+**Arguments**:
+
+- `$1` (title): PR title (optional, auto-generated from commits if not provided)
+- `$2` (--draft): Create as draft PR (optional)
+- `$3` (--base): Base branch for PR (optional, defaults to main)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "Add user authentication system"` - PR with custom title
+- `$ARGUMENTS = "--draft"` - Create draft PR with auto-generated title
+- `$ARGUMENTS = "Fix login bug --base=develop"` - PR targeting develop branch
 
 ## Process
 
-1. Analyze commit history and changes for PR description generation
-2. Generate meaningful PR title and description from commit messages
-3. Create pull request using GitHub CLI with proper formatting
-4. Set appropriate labels, reviewers, and milestones if configured
-5. Return PR URL for immediate access and review
+1. Parse $ARGUMENTS for title, draft status, and base branch
+2. Analyze commit history and changes for PR description generation
+3. Generate meaningful PR title and description from commit messages
+4. Create pull request using GitHub CLI with proper formatting
+5. Set appropriate labels, reviewers, and milestones if configured
+6. Return PR URL for immediate access and review
 
 ## Agent Integration
 
-- **Primary Agent**: implementation-orchestrator - Handles git operations and coordination
+- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
 
 ## Examples
 
@@ -39,10 +50,12 @@ Creates pull requests with auto-generated descriptions and returns the PR URL fo
 /git:pr
 
 # Create PR with custom title
-/git:pr "Add user authentication system"
+/git:pr $ARGUMENTS
+# where $ARGUMENTS = "Add user authentication system"
 
 # Create draft PR for work in progress
-/git:pr --draft "WIP: Refactor payment processing"
+/git:pr $ARGUMENTS
+# where $ARGUMENTS = "--draft \"WIP: Refactor payment processing\""
 ```
 
 ## Output

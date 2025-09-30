@@ -224,9 +224,9 @@ This guide documents how commands work together, their relationships, and integr
 ### Orchestrator → Worker Delegation
 
 ```text
-task-orchestrator → code-writer (for implementation)
-research-orchestrator → reviewer (for analysis)
-implementation-orchestrator → multiple workers (for complex features)
+task-analysis-specialist → code-writer (for implementation)
+research-analysis-specialist → reviewer (for analysis)
+implementation-strategy-specialist → multiple execution specialists (for complex features)
 ```text
 
 ### Parallel Execution Patterns
@@ -249,12 +249,12 @@ implementation-orchestrator → multiple workers (for complex features)
 
 ```bash
 # Feature implementation chain
-1. /spec-kit:specify (implementation-orchestrator)
-2. /spec-kit:plan (implementation-orchestrator)
-3. /implement:spec-kit-tasks (implementation-orchestrator → code-writer)
+1. /spec-kit:specify (implementation-strategy-specialist)
+2. /spec-kit:plan (implementation-strategy-specialist)
+3. /implement:spec-kit-tasks (implementation-strategy-specialist → code-writer)
 4. /review:code (reviewer)
 5. /docs:update (documenter)
-6. /git:pr (implementation-orchestrator)
+6. /git:pr (implementation-strategy-specialist)
 ```yaml
 
 ## Command Dependency Matrix
@@ -305,10 +305,10 @@ implementation-orchestrator → multiple workers (for complex features)
 ### 4. Leverage Agent Orchestration
 
 ```bash
-# ✅ Use orchestrators for complex tasks
+# ✅ Use analysis specialists for complex tasks
 /workflows:run-complete-overhaul
 
-# ❌ Manual worker coordination
+# ❌ Manual execution specialist coordination
 /clean:* → /refactor:* → /review:* → /docs:*
 ```text
 
@@ -378,9 +378,9 @@ implementation-orchestrator → multiple workers (for complex features)
 
 ### Agent Assignment Errors
 
-1. Check agent exists in orchestrators/ or workers/
+1. Check agent exists in analysis-specialists/ or execution-specialists/
 2. Verify agent has required tools and permissions
-3. Review Agent Orchestra Framework documentation
+3. Review Agent Specialist Framework documentation
 
 ### Workflow Failures
 
@@ -450,6 +450,6 @@ maintaining the Agent Orchestra coordination patterns.
 
 ### Agent Patterns
 
-- Orchestrators coordinate, workers execute
+- Analysis specialists coordinate, execution specialists execute
 - Parallel execution for independent tasks
 - Sequential execution for dependent tasks
