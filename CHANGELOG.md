@@ -56,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Fix**: `bug-quickly`, `import-statements`
 - **Git**: `branch`, `commit`, `merge`, `pr`, `push`, `workflow`
 - **Implement**: `feature`, `spec-kit-tasks`, `small`
-- **Plan**: `save-plan-to-markdown`
+- **Artifact**: `save` (captures plans, reviews, research, analysis, specs, docs, reports)
 - **Prompt**: `enhanced`
 - **Refactor**: `extract-functions`, `large-scale`, `quick`, `remove-duplication`, `rename-variables`, `simplify-logic`
 - **Review**: `code`, `design`, `security`

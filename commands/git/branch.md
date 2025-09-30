@@ -32,12 +32,30 @@ Creates, manages, and switches git branches with intelligent naming and safety v
 
 ## Process
 
-1. Parse $ARGUMENTS for branch name and base branch
-2. Validate working directory state and check for uncommitted changes
-3. Generate intelligent branch name from git diff analysis if not provided
-4. Create new feature branch from current HEAD
-5. Switch to the new branch and confirm successful creation
-6. Report branch creation status and next steps
+1. **Analyze uncommitted files for type:**
+   - Run `git diff HEAD --name-status` to get all uncommitted changes
+   - Analyze staged and unstaged file changes only
+   - Determine primary type from uncommitted file analysis
+   - Never analyze commit history for type detection
+   - Extract scope from consistent directory patterns
+2. **Parse or generate branch name:**
+   - If name provided: Extract type, validate format
+   - If no name: Auto-generate from uncommitted file analysis
+   - Format: `<type>/<description>` or `<type>/<scope>/<description>`
+   - Validate type is conventional: feat, fix, docs, style, refactor, test, chore, perf, ci, build
+3. **Generate branch name components:**
+   - Type: From detection or explicit argument
+   - Scope: From file paths if consistent (e.g., "api", "auth", "payments")
+   - Description: From file changes or explicit argument
+   - Convert to kebab-case, remove special characters
+4. **Validate branch name:**
+   - Check type is valid conventional commit type
+   - Verify format matches: `<type>/<description>` or `<type>/<scope>/<description>`
+   - Validate description uses kebab-case
+   - Ensure uniqueness against existing branches
+5. Validate working directory state
+6. Create branch from current HEAD and switch to it
+7. Report branch creation status and next steps
 
 ## Agent Integration
 
@@ -71,10 +89,34 @@ Creates, manages, and switches git branches with intelligent naming and safety v
 - **Followed by**: /git:commit, code modifications
 - **Related**: /git:push, /git:pr, /workflows:run-git-branch-commit-and-pr
 
+## Type Auto-Detection from Uncommitted Files
+
+Analyzes `git diff HEAD --name-status` to determine branch type (same priority as commits):
+
+1. **All documentation files** → `docs/`
+2. **All test files** → `test/`
+3. **Dependency files** → `chore/`
+4. **CI configuration** → `ci/`
+5. **Build configuration** → `build/`
+6. **New files added** → `feat/`
+7. **Files with fix/bug keywords** → `fix/`
+8. **Performance files** → `perf/`
+9. **Only formatting changes** → `style/`
+10. **Default for code modifications** → `refactor/`
+
+**Scope Detection:** Extracts scope from consistent directory patterns:
+
+- `src/api/users.ts`, `src/api/auth.ts` → `feat/api/...`
+- `src/auth/login.ts`, `src/auth/jwt.ts` → `feat/auth/...`
+- Multiple different dirs → No scope → `feat/...`
+
 ## Quality Standards
 
+- **Enforces conventional branch naming** - Uses type prefixes matching commit conventions
+- **Auto-detects type from uncommitted files** - Analyzes file changes, not commit history
 - Validates clean working state before branch creation
 - Generates meaningful branch names from file analysis
-- Follows repository naming conventions (feature/, hotfix/, etc.)
+- Follows conventional format: `<type>/<description>` or `<type>/<scope>/<description>`
 - Ensures branch creation doesn't conflict with existing branches
+- Validates branch names use kebab-case format
 - Provides clear feedback on branch status and next actions

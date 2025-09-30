@@ -110,7 +110,7 @@ graph TD
 
     E --> M{Feature Complexity?}
     M -->|Simple| N[/implement:small/]
-    M -->|Medium| O[/plan:save-plan-to-markdown/]
+    M -->|Medium| O[/artifact:save plan/]
     M -->|Complex| P[/spec-kit:specify/]
 
     F --> Q[/fix:bug-quickly/]
@@ -542,7 +542,7 @@ graph TD
     G --> H[/review:code/]
     H --> I[/docs:update/]
 
-    D --> J[/plan:save-plan-to-markdown/]
+    D --> J[/artifact:save plan/]
     J --> K[/implement:small/ x3]
     K --> L[/workflows:run-cleanup-workflow/]
 
@@ -594,7 +594,7 @@ graph LR
 
 ```mermaid
 graph TD
-    A[Medium Feature] --> B[/plan:save-plan-to-markdown/]
+    A[Medium Feature] --> B[/artifact:save plan/]
     B --> C[Implementation Cycle]
     C --> D[/implement:small/]
     D --> E[/implement:small/]
@@ -607,8 +607,8 @@ graph TD
 ```text
 
 ```bash
-# plan/ category - Planning phase (1 command total)
-/plan:save-plan-to-markdown "Search functionality with filters"
+# artifact/ category - Capture planning outputs (1 command total)
+/artifact:save plan --title="Search functionality with filters"
 
 # implement/ category - Iterative development
 /implement:small "basic search input component"
@@ -749,7 +749,7 @@ graph TD
     B -->|High Risk<br/>Security/Integration| E[Full Specification]
 
     C --> F["/implement:small<br/>/test:write<br/>/review:code"]
-    D --> G["/plan:save-plan-to-markdown<br/>Multiple /implement:small<br/>/workflows:run-cleanup-workflow"]
+    D --> G["/artifact:save plan<br/>Multiple /implement:small<br/>/workflows:run-cleanup-workflow"]
     E --> H["/spec-kit:specify → clarify → plan → tasks → implement<br/>/review:security<br/>/docs:api"]
 
     F --> I[5-7 Commands]
@@ -1207,13 +1207,13 @@ graph TD
 
 ```mermaid
 graph LR
-    A[Feature Planning] --> B[/plan:save-plan-to-markdown/]
+    A[Feature Planning] --> B[/artifact:save plan/]
     B --> C[Structured Plan Document]
 ```text
 
 ```bash
 # Planning workflow
-/plan:save-plan-to-markdown "microservices migration strategy"
+/artifact:save plan --title="microservices migration strategy"
 ```text
 
 #### Refactor Commands (6/6) - Code Improvement
