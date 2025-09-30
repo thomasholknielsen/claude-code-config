@@ -51,11 +51,12 @@ Provide focused domain advisory expertise for specific development functions:
 
 ## 📁 Command System Structure
 
-### Actual Command Categories (54 total)
+### Actual Command Categories (55 total)
 
 ```text
 commands/
 ├── analyze/      # 3 commands
+├── artifact/     # 1 command
 ├── clean/        # 4 commands
 ├── docs/         # 6 commands
 ├── explain/      # 2 commands
@@ -180,6 +181,54 @@ All paths and configurations work regardless of username:
 - **Agent limitation**: Agents cannot call Git commands directly
 - **Enforcement**: Use SlashCommand tool for all Git delegation
 
+### Git Naming Conventions
+
+**Unified Convention System:** All git operations (commits, branches, PRs) follow conventional commit-style naming based on **uncommitted file analysis**.
+
+**Type Prefixes:**
+- `feat` - New features (new files added)
+- `fix` - Bug fixes (files with fix/bug in path)
+- `docs` - Documentation only (*.md, docs/)
+- `style` - Code style (formatting only)
+- `refactor` - Code restructuring (modified code files)
+- `test` - Tests (test files only)
+- `chore` - Maintenance (dependencies, config)
+- `perf` - Performance (optimization files)
+- `ci` - CI/CD (GitHub Actions, etc.)
+- `build` - Build system (webpack, tsconfig)
+- `revert` - Revert changes
+
+**Format Patterns:**
+- **Commits:** `<type>(<scope>): <description>`
+  - Example: `feat(auth): add JWT authentication`
+- **Branches:** `<type>/<scope>/<description>`
+  - Example: `feat/auth/add-jwt-authentication`
+- **PRs:** `<type>(<scope>): <Title Case Description>`
+  - Example: `feat(auth): Add JWT Authentication`
+
+**Auto-Detection from Uncommitted Files:**
+
+Commands analyze **only uncommitted files** (staged + unstaged) to determine type:
+- `/git:commit` - Analyzes `git diff HEAD --name-status`
+- `/git:branch` - Analyzes `git diff HEAD --name-status`
+- `/git:pr` - Analyzes `git diff origin/<base>...HEAD --name-status`
+
+**Priority Order (uncommitted file analysis):**
+1. All documentation files → `docs:`
+2. All test files → `test:`
+3. Dependency files → `chore:`
+4. CI configuration → `ci:`
+5. Build configuration → `build:`
+6. New files added → `feat:`
+7. Files with fix/bug keywords → `fix:`
+8. Performance files → `perf:`
+9. Only formatting changes → `style:`
+10. Default for modifications → `refactor:`
+
+**Scope Detection:** Extracted from consistent directory patterns (e.g., `src/api/` → `api`, `src/auth/` → `auth`)
+
+**Validation:** All commands validate type prefixes and enforce format before git operations.
+
 ### Permission Configuration
 
 Located in `settings.json`:
@@ -194,6 +243,52 @@ Located in `settings.json`:
 - Block access to secrets: `.env`, `*.key`, `*.pem`, credentials
 - Restrict dangerous operations: `rm -rf`, `sudo`, network tools
 - Allow safe development operations: npm/yarn commands, standard Git ops
+
+## 📦 Artifact Management System
+
+### Purpose
+
+The artifact system provides a centralized, organized way to capture and preserve valuable Claude outputs across different types of work.
+
+### Directory Structure
+
+```text
+.artifacts/
+├── plans/           # Planning outputs from plan mode
+├── reviews/         # Code, security, and design reviews
+├── research/        # Research and investigation outputs
+├── analysis/        # System diagnostics and analysis
+├── specifications/  # Feature specs and requirements
+├── documentation/   # Generated docs and guides
+└── reports/         # Status reports and summaries
+```
+
+### Usage
+
+```bash
+# Auto-detect artifact type from context
+/artifact:save
+
+# Explicitly specify type
+/artifact:save review
+
+# Custom title
+/artifact:save research --title="Database Comparison Study"
+```
+
+### File Naming
+
+Format: `{type}-{YYYY-MM-DD}-{title-slug}.md`
+
+Examples:
+
+- `plans/plan-2025-09-30-authentication-feature.md`
+- `reviews/review-2025-09-30-security-audit.md`
+- `research/research-2025-09-30-database-options.md`
+
+### Migration Note
+
+Replaces `/plan:save-plan-to-markdown`. Old plans in `.claude/.plans/` remain accessible.
 
 ## 📚 Documentation Structure
 
@@ -288,6 +383,18 @@ When `.specify/` folder exists, commands automatically:
 - Align work with current feature context
 
 This ensures all development work stays aligned with planned features.
+
+### Spec-Kit Cross-Repository Modifications
+
+**CRITICAL**: Spec-kit commands have been modified to use `~/.claude/.specify/scripts/` and
+`~/.claude/.specify/templates/` instead of project-relative paths. This enables commands to work from any
+repository when Claude config is user-scoped.
+
+**Reapply modifications:**
+
+```bash
+/utility:apply-spec-kit-mods
+```
 
 ## 🔄 CRUD Operations Guide
 
