@@ -1,7 +1,6 @@
 ---
 description: "Clean up development artifacts while preserving working code"
 category: "clean"
-agent: "task-orchestrator"
 tools: ["Bash", "Glob", "Read"]
 complexity: "moderate"
 ---
@@ -29,7 +28,7 @@ Executes clean operations for development artifacts functionality.
 
 ## Agent Integration
 
-- **Primary Agent**: code-writer - Handles clean operations and coordination
+- **Primary Agent**: code-writer - Can be spawned to handle clean operations and coordination
 
 ## Examples
 

@@ -1,7 +1,7 @@
 ---
 description: "Push with safety checks, force-push protection, and team coordination"
+argument-hint: "[remote] [branch]"
 category: "git"
-agent: "implementation-orchestrator"
 tools: ["Bash"]
 complexity: "moderate"
 ---
@@ -15,22 +15,32 @@ Safely pushes commits to remote repository with tracking setup and team coordina
 ## Usage
 
 ```bash
-/git:push [remote] [branch]
+/git:push $ARGUMENTS
 ```
 
-**Arguments**: Optional remote and branch names (defaults to origin and current branch)
+**Arguments**:
+
+- `$1` (remote): Remote repository name (optional, defaults to origin)
+- `$2` (branch): Branch name to push (optional, defaults to current branch)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "origin feature/auth"` - Push feature branch to origin
+- `$ARGUMENTS = "upstream main"` - Push main branch to upstream
+- `$ARGUMENTS = ""` - Push current branch to origin (default)
 
 ## Process
 
-1. Validate local branch state and commit history
-2. Check remote repository status and conflicts
-3. Set up branch tracking if this is the first push
-4. Push commits with appropriate flags and safety checks
-5. Confirm successful push and provide remote branch information
+1. Parse $ARGUMENTS for remote and branch parameters
+2. Validate local branch state and commit history
+3. Check remote repository status and conflicts
+4. Set up branch tracking if this is the first push
+5. Push commits with appropriate flags and safety checks
+6. Confirm successful push and provide remote branch information
 
 ## Agent Integration
 
-- **Primary Agent**: implementation-orchestrator - Handles git operations and coordination
+- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
 
 ## Examples
 
@@ -39,10 +49,12 @@ Safely pushes commits to remote repository with tracking setup and team coordina
 /git:push
 
 # Push specific branch to origin
-/git:push origin feature/new-feature
+/git:push $ARGUMENTS
+# where $ARGUMENTS = "origin feature/new-feature"
 
 # Push to different remote
-/git:push upstream main
+/git:push $ARGUMENTS
+# where $ARGUMENTS = "upstream main"
 ```
 
 ## Output

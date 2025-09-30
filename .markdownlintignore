@@ -1,0 +1,13 @@
+# Markdownlint Ignore Patterns
+
+# Spec-kit commands are intentionally excluded from linting
+# These are stale files that should not be updated without explicit consent
+# Per CLAUDE.md: "never allow changes to occur within the commands/spec kit folder without explicit consent"
+commands/spec-kit/*.md
+
+# Spec-kit workflow files (.specify folder)
+# Feature specification and planning files managed by spec-kit workflow
+.specify/**/*.md
+
+# Research and temporary files
+.claude/.research/**/*.md

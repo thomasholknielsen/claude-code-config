@@ -1,6 +1,6 @@
 # Claude Code Command System
 
-A comprehensive development automation system built on the **Agent Orchestra Framework** that
+A comprehensive development automation system built on the **Agent Specialist Framework** that
 transforms Claude Code into a powerful, coordinated development environment.
 
 ## 🎨 Professional Output Styles
@@ -33,19 +33,19 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 
 ## 🏗️ Architecture Overview
 
-This system is built on the **Agent Orchestra Framework** - a task-focused coordination system that uses specialized orchestrators and
-workers to handle complex development tasks efficiently.
+This system is built on the **Agent Specialist Framework** - a task-focused coordination system that uses 8 specialized agents
+as advisory subagents to handle complex development tasks efficiently. Only the main Claude Code thread can orchestrate parallel execution.
 
-### Agent Orchestra Components
+### Agent Specialist Components
 
-- **3 Orchestrators**: Coordinate complex, multi-step tasks
-  - `task-orchestrator` - General task coordination
-  - `research-orchestrator` - Parallel information gathering
-  - `implementation-orchestrator` - Sequential code changes
-- **5 Workers**: Execute specific functions
+- **3 Analysis Specialists**: Provide strategic analysis and guidance
+  - `task-analysis-specialist` - Complexity analysis and execution recommendations
+  - `research-analysis-specialist` - Multi-domain research and synthesis
+  - `implementation-strategy-specialist` - Dependency analysis and sequential guidance
+- **5 Execution Specialists**: Provide focused domain expertise
   - `code-writer`, `test-writer`, `bug-fixer`, `reviewer`, `documenter`
 
-### Command Categories (47 Commands)
+### Command Categories (54 Commands)
 
 - **`/analyze/*`** - Performance and dependency analysis
 - **`/clean/*`** - Code cleanup and formatting
@@ -82,7 +82,7 @@ workers to handle complex development tasks efficiently.
 ### Concepts and Architecture
 
 - **[Conceptual Documentation](docs/concepts/)** - Deep architecture insights
-  - [Agent Orchestra Framework](docs/concepts/agent-orchestra-framework.md) - Multi-agent coordination
+  - [Agent Specialist Framework](docs/concepts/agent-orchestra-framework.md) - Specialist agent coordination
   - [Spec-Kit Workflow](docs/concepts/spec-kit-workflow.md) - Feature development process
   - [Parallel Execution Patterns](docs/concepts/parallel-execution-patterns.md) - Performance optimization
 
@@ -135,10 +135,10 @@ claude /workflows:run-docs-workflow
 ## 📁 System Structure
 
 ```text
-├── agents/                    # Agent Orchestra definitions
-│   ├── orchestrators/        # Task coordination agents
-│   └── workers/              # Execution specialists
-├── commands/                 # 47 organized commands
+├── agents/                    # Agent Specialist definitions
+│   ├── analysis-specialists/  # Strategic analysis agents
+│   └── execution-specialists/ # Domain expertise agents
+├── commands/                 # 54 organized commands
 │   ├── analyze/, clean/, docs/, fix/, git/
 │   ├── review/, spec-kit/, workflows/
 │   └── [11 other categories]
@@ -189,7 +189,7 @@ All complex workflows include **Mermaid diagrams** for clear understanding:
 This system follows strict development standards:
 
 - **Template-based development** for consistency
-- **Agent Orchestra compliance** for coordination
+- **Agent Specialist Framework compliance** for coordination
 - **Security-first design** with Git operation constraints
 - **Quality gates** for all changes
 - **Visual documentation** for complex processes
@@ -199,19 +199,19 @@ See [CLAUDE.md](CLAUDE.md) for complete development rules.
 ## 🤝 Contributing
 
 1. **Follow the templates** in `docs/command-template.md`
-2. **Use Agent Orchestra patterns** from the developer guide
+2. **Use Agent Specialist Framework patterns** from the developer guide
 3. **Include visual documentation** for complex features
 4. **Test Git operation constraints** thoroughly
 5. **Update relevant documentation** with all changes
 
 ## 📖 Learn More
 
-- **[Agent Orchestra Framework](docs/agent-orchestra-framework.md)** - Deep dive into the architecture
+- **[Agent Specialist Framework](docs/concepts/agent-orchestra-framework.md)** - Deep dive into the architecture
 - **[Hooks System](docs/hooks-system.md)** - Event-driven automation details
 - **[Spec-Kit Workflow](docs/spec-kit-workflow.md)** - Complete feature development process
 - **[Developer Guide](docs/developer-guide.md)** - Extend and customize the system
 
 ---
 
-**Ready to supercharge your development workflow?** Start with the [User Guide](docs/user-guide.md) and
-discover what the Agent Orchestra can do for you! 🎼✨
+**Ready to supercharge your development workflow?** Start with the [User Guide](docs/user/user-guide.md) and
+discover what the Agent Specialist Framework can do for you! 🎼✨

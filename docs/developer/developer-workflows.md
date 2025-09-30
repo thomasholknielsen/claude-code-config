@@ -1,6 +1,6 @@
-# Developer Workflows with Agent Orchestra
+# Developer Workflows with Agent Specialist Framework
 
-This guide provides practical workflows for developers using the Agent Orchestra framework and
+This guide provides practical workflows for developers using the Agent Specialist Framework and
 command system across different project scenarios. All 49 commands across 13 categories are demonstrated in real workflow contexts.
 
 ## Table of Contents
@@ -1031,9 +1031,9 @@ graph TD
 
 ### Agent Utilization
 
-- **research-orchestrator**: For multi-source analysis
-- **implementation-orchestrator**: For complex feature builds
-- **task-orchestrator**: For workflow coordination
+- **research-analysis-specialist**: For multi-source analysis
+- **implementation-strategy-specialist**: For complex feature builds
+- **task-analysis-specialist**: For workflow coordination
 - **reviewer**: For quality assurance
 - **documenter**: For knowledge capture
 

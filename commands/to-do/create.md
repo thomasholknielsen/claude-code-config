@@ -1,7 +1,7 @@
 ---
 description: "Captures work items into TODO.md with industry-standard TODO tagging"
+argument-hint: "\"task description\""
 category: "to-do"
-agent: "documenter"
 tools: ["Read", "Write", "Edit"]
 complexity: "simple"
 ---
@@ -18,10 +18,21 @@ Captures work items and ideas into a standardized TODO.md file using industry-st
 ## Usage
 
 ```bash
-/to-do:create "task description"
-```yaml
+/to-do:create $ARGUMENTS
+```
 
-**Arguments**: Description of the work item or task to capture
+**Arguments**:
+
+- `$1` (task-description): Description of the work item or task to capture (required)
+- `$2` (--priority): Priority level (high|medium|low) (optional, default: medium)
+- `$3` (--category): TODO category (bug|feature|refactor|docs|test) (optional)
+- `$4` (--due-date): Due date in YYYY-MM-DD format (optional)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "Fix login validation error"` - Basic TODO creation
+- `$ARGUMENTS = "Add user profile page --priority=high --category=feature"` - High-priority feature TODO
+- `$ARGUMENTS = "Update API documentation --category=docs --due-date=2024-12-01"` - Documentation TODO with deadline
 
 ## Process
 
@@ -32,15 +43,16 @@ Captures work items and ideas into a standardized TODO.md file using industry-st
 1. **ENFORCE LOCATION CONSTRAINT**: Ensure TODO file is located at `{project_root}/.claude/.todos/TODO.md` only
 2. Read existing {project_root}/.claude/.todos/TODO.md (create directory structure if doesn't exist)
 3. Parse input and clarify TODO description for readability
-4. Add new TODO entry using industry-standard tagging format
-5. Save updated {project_root}/.claude/.todos/TODO.md file
-6. **STOP IMMEDIATELY** - No further actions permitted
+4. Parse $ARGUMENTS for task description, priority, category, and due date
+5. Add new TODO entry using industry-standard tagging format with parsed metadata
+6. Save updated {project_root}/.claude/.todos/TODO.md file
+7. **STOP IMMEDIATELY** - No further actions permitted
 
 **⚠️ LOCATION CONSTRAINT**: TODOs MUST ONLY be created in `{project_root}/.claude/.todos/TODO.md`. Reject any attempts to create TODO files in other locations.
 
 ## Agent Integration
 
-- **Primary Agent**: documenter - Handles task capture and file management
+- **Specialist Options**: documenter specialist can be spawned to handle task capture and file management
 
 ## Examples
 

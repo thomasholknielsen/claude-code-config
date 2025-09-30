@@ -383,11 +383,11 @@ graph TB
         H3[PreToolUse]
     end
 
-    subgraph "Agent Orchestra"
-        TO[task-orchestrator]
-        RO[research-orchestrator]
-        IO[implementation-orchestrator]
-        W1[Workers]
+    subgraph "Agent Specialist Framework"
+        TO[task-analysis-specialist]
+        RO[research-analysis-specialist]
+        IO[implementation-strategy-specialist]
+        W1[Execution Specialists]
     end
 
     H1 --> TO

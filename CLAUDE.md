@@ -5,49 +5,49 @@ comprehensive instructions for CRUD operations on repository artifacts.
 
 ## 🎯 Repository Overview
 
-The Claude Code Command System is a comprehensive development automation system built on the **Agent Orchestra Framework**. This repository contains:
+The Claude Code Command System is a comprehensive development automation system built on the **Agent Specialist Framework**. This repository contains:
 
-- **8 Agents**: 3 orchestrators + 5 workers for task coordination and execution
+- **8 Agents**: 3 strategic specialists + 5 technical specialists providing advisory domain expertise
 - **54 Commands**: Atomic operations organized across 15 categories
 - **Complete Documentation**: User guides, technical docs, and visual workflows
 - **Hooks System**: Cross-platform Python-based automation
 - **MCP Integration**: Context7 and Playwright tools for enhanced capabilities
 
-## 🏗️ Agent Orchestra Framework
+## 🏗️ Agent Specialist Framework
 
-### Orchestrators (3 agents)
+### Strategic Specialists (3 advisory agents)
 
-Coordinate complex, multi-step tasks and delegate to workers:
+Provide strategic analysis and planning guidance for complex development scenarios:
 
-1. **implementation-orchestrator** - Coordinates sequential code changes ensuring consistency and preventing conflicts
-2. **task-orchestrator** - General task coordinator that analyzes complexity and spawns appropriate specialized workers
-3. **research-orchestrator** - Coordinates parallel information gathering across multiple sources and domains
+1. **implementation-strategy-specialist** - Provides advisory analysis for sequential code changes ensuring consistency and preventing conflicts
+2. **task-analysis-specialist** - General task analysis specialist that evaluates complexity and provides recommendations for specialized approaches
+3. **research-analysis-specialist** - Provides advisory guidance for comprehensive information gathering and analysis across multiple sources and domains
 
-### Workers (5 agents)
+### Technical Specialists (5 advisory agents)
 
-Execute specific functions with focused responsibilities:
+Provide focused domain advisory expertise for specific development functions:
 
-1. **reviewer** - Specialized code review agent performing parallel quality, security, and design checks
-2. **documenter** - Specialized documentation agent creating and maintaining all forms of technical documentation
-3. **code-writer** - Focused code generation specialist using slash commands for structured operations
-4. **bug-fixer** - Specialized debugging and bug resolution agent using fix-focused slash commands
-5. **test-writer** - Specialized test creation and maintenance agent using test-focused slash commands
+1. **reviewer** - Specialized code review advisory specialist providing quality, security, and design guidance
+2. **documenter** - Specialized documentation advisory specialist providing guidance on technical documentation creation and maintenance
+3. **code-writer** - Focused code generation advisory specialist providing guidance on structured development operations
+4. **bug-fixer** - Specialized debugging and bug resolution advisory specialist providing troubleshooting guidance
+5. **test-writer** - Specialized test creation and maintenance advisory specialist providing testing strategy guidance
 
-### Agent Coordination Patterns
+### Agent Specialist Patterns
 
-**Use orchestrators for:**
+**Use strategic specialists for:**
 
-- Complex tasks requiring planning and coordination
-- Multi-step workflows with dependencies
-- Tasks requiring parallel execution
-- Cross-domain work requiring multiple workers
+- Complex strategic planning and analysis guidance
+- Multi-step workflow recommendations
+- Comprehensive research and evaluation strategies
+- Cross-domain advisory expertise
 
-**Use workers for:**
+**Use technical specialists for:**
 
-- Single-responsibility atomic operations
-- Specific expertise areas (coding, testing, documentation)
-- Tasks that can be executed independently
-- Operations that don't require coordination
+- Domain-specific implementation advisory guidance
+- Focused technical area consultation (coding, testing, documentation)
+- Specialized tool and technique recommendations
+- Targeted problem-solving advisory approaches
 
 ## 📁 Command System Structure
 
@@ -76,8 +76,8 @@ commands/
 **Atomic Operations**: All commands (except workflows) are atomic, single-purpose operations that can be:
 
 - Used directly by Claude Code users
-- Called by orchestrators for complex workflows
-- Executed by subagents as part of larger tasks
+- Recommended by strategic specialists for complex workflows
+- Informed by technical specialist guidance as part of larger tasks
 - Combined with other commands for sophisticated automation
 
 **Clear Responsibility**: Each command has one primary function and clear expected outcomes.
@@ -97,11 +97,11 @@ Provides access to current library and framework documentation:
 
 **Used By:**
 
-- **research-orchestrator**: For gathering current best practices
-- **documenter**: For up-to-date documentation standards
-- **code-writer**: For current API patterns and implementations
-- **reviewer**: For latest security practices and guidelines
-- **bug-fixer**: For known issue patterns and solutions
+- **research-analysis-specialist**: For advisory guidance on gathering current best practices
+- **documenter**: For advisory guidance on up-to-date documentation standards
+- **code-writer**: For advisory guidance on current API patterns and implementations
+- **reviewer**: For advisory guidance on latest security practices and guidelines
+- **bug-fixer**: For advisory guidance on known issue patterns and solutions
 
 **Commands Enhanced:**
 
@@ -175,7 +175,7 @@ All paths and configurations work regardless of username:
 
 **MANDATORY**: Only `/git/*` commands can perform Git operations.
 
-- **All other agents/commands**: Must use SlashCommand tool to delegate Git operations
+- **All other agents/commands**: Must use SlashCommand tool for Git operations (main thread executes)
 - **Explicit consent required**: All Git operations outside `/git/*` must ask user permission
 - **Agent limitation**: Agents cannot call Git commands directly
 - **Enforcement**: Use SlashCommand tool for all Git delegation
@@ -207,7 +207,7 @@ The repository includes comprehensive documentation in `docs/`:
 **Developer Documentation:**
 
 - `docs/developer-guide.md` - Architecture and extension patterns
-- `docs/agent-orchestra-framework.md` - Technical framework details
+- `docs/agent-specialist-framework.md` - Technical framework details
 - `docs/command-template.md` - Standard format for new commands
 
 **System Documentation:**
@@ -230,7 +230,7 @@ The repository includes comprehensive documentation in `docs/`:
 ---
 description: "Single clear sentence describing command purpose"
 category: "folder_name"
-agent: "primary-agent-from-orchestra"
+agent: "primary-agent-from-specialist-framework"
 tools: ["Tool1", "Tool2"]
 complexity: "simple|moderate|complex"
 ---
@@ -261,8 +261,8 @@ Single sentence describing primary function.
 
 - **Single Responsibility**: One clear, focused purpose
 - **No Overlap**: Must not duplicate existing agent functionality
-- **Orchestra Compliance**: Follow orchestrator/worker pattern
-- **Model Selection**: Opus for orchestrators, Sonnet for workers
+- **Specialist Compliance**: Follow analysis/execution specialist pattern
+- **Model Selection**: Opus for analysis specialists, Sonnet for execution specialists
 - **Tool Integration**: Use SlashCommand for delegation, direct tools for execution
 
 **Required YAML Frontmatter:**
@@ -306,14 +306,14 @@ This ensures all development work stays aligned with planned features.
 
 1. Use command template from `docs/command-template.md`
 2. Place in appropriate category folder: `commands/{category}/{name}.md`
-3. Assign to existing Agent Orchestra agent
+3. Assign to existing Agent Specialist Framework agent
 4. Include MCP tools if relevant (Context7 for docs, Playwright for UI)
 5. Ensure atomic operation design
 
 **New Agents:**
 
 1. Follow agent template pattern from existing agents
-2. Place in `agents/orchestrators/` or `agents/workers/`
+2. Place in `agents/analysis-specialists/` or `agents/execution-specialists/`
 3. Single responsibility only
 4. Include model specification (Opus/Sonnet)
 5. Document MCP tool usage if applicable
@@ -361,7 +361,7 @@ This ensures all development work stays aligned with planned features.
 **Removing Agents:**
 
 1. Reassign all commands using the agent
-2. Update Agent Orchestra documentation
+2. Update Agent Specialist Framework documentation
 3. Remove from workflow patterns
 
 ## 🎯 Quality Standards
@@ -376,7 +376,7 @@ This ensures all development work stays aligned with planned features.
 ### Agent Quality
 
 - **Responsibility**: Single, focused capability
-- **Coordination**: Proper orchestrator/worker relationship
+- **Specialization**: Proper analysis/execution specialist relationship
 - **Tools**: Appropriate tool selection and MCP usage
 - **Documentation**: Clear purpose and usage patterns
 
@@ -392,7 +392,7 @@ This ensures all development work stays aligned with planned features.
 Track system effectiveness by monitoring:
 
 - **Command Usage**: Which commands are most/least used
-- **Agent Coordination**: Orchestrator → worker delegation patterns
+- **Agent Collaboration**: Analysis specialist → execution specialist advisory patterns
 - **Documentation Quality**: User feedback and completion rates
 - **System Performance**: Command execution speed and reliability
 - **Error Rates**: Failed commands and common issues
@@ -409,7 +409,7 @@ Track system effectiveness by monitoring:
 
 ### Required Practices
 
-- **Use Agent Orchestra**: Always assign commands to existing agents
+- **Use Agent Specialist Framework**: Always assign commands to existing agents
 - **Follow templates**: Use provided templates for consistency
 - **Cross-platform thinking**: Test on multiple operating systems
 - **Document thoroughly**: Include examples and integration points
