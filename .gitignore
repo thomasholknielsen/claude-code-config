@@ -55,6 +55,15 @@ history.jsonl
 .tmp/
 .temp/
 
+# File history
+file-history/
+
+# Worktrees
+.trees/
+
+# Spec-kit artifacts (stale, protected)
+.specify/
+
 # Ignore credentials and sensitive files
 .credentials.json
 settings.local.json

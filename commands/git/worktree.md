@@ -16,7 +16,6 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 ```bash
 /git:worktree $ARGUMENTS
-
 ```
 
 **Arguments**:
@@ -52,7 +51,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 1. Validate repository state for batch operations
 2. Loop through each branch name with validation
-3. Auto-generate directory paths (../wt-{branch-suffix})
+3. Auto-generate directory paths (.trees/{branch-suffix}/)
 4. Create independent worktrees for parallel development
 5. Report all created worktrees with individual PR guidance
 
@@ -206,6 +205,63 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 /git:worktree add-staging experiment-2024q4 feature/ui-refresh feature/new-flow feature/analytics
 ```
 
+### Parallel Mode: Independent Branches → Multiple PRs (Default)
+
+```bash
+# Create multiple independent worktrees for parallel development
+/git:worktree add-multiple feature/auth feature/payments bugfix/header
+
+# Creates:
+# .trees/auth/     (feature/auth branch)
+# .trees/payments/ (feature/payments branch)
+# .trees/header/   (bugfix/header branch)
+# Each worktree independent → separate PRs
+
+# List shows parallel mode worktrees
+/git:worktree list
+# [parallel] .trees/auth (feature/auth)
+# [parallel] .trees/payments (feature/payments)
+# [parallel] .trees/header (bugfix/header)
+```
+
+### Staging Mode: Consolidated Work → Single PR
+
+```bash
+# Create staging branch + multiple child worktrees
+/git:worktree add-staging integration-q4 feature/auth feature/payments bugfix/header
+
+# Creates:
+# integration-q4 branch (staging branch)
+# .trees/integration/      (integration-q4 base)
+# .trees/integration-auth/ (integration-q4-auth branch)
+# .trees/integration-pay/  (integration-q4-payments branch)
+# .trees/integration-head/ (integration-q4-header branch)
+# All child worktrees branch from integration-q4
+
+# List shows staging structure
+/git:worktree list
+# [staging-parent] .trees/integration (integration-q4)
+# [staging-child]  .trees/integration-auth (integration-q4-auth)
+# [staging-child]  .trees/integration-pay (integration-q4-payments)
+# [staging-child]  .trees/integration-head (integration-q4-header)
+```
+
+### Workflow Decision Guide
+
+```bash
+# Use Parallel Mode when:
+# ✅ Changes are logically separate
+# ✅ Want clean history and atomic PRs
+# ✅ Need independent code review cycles
+/git:worktree add-multiple feature/login feature/dashboard feature/api
+
+# Use Staging Mode when:
+# ✅ Experimenting with related changes
+# ✅ Want to consolidate before review
+# ✅ Prefer single bundled PR over multiple small ones
+/git:worktree add-staging experiment-2024q4 feature/ui-refresh feature/new-flow feature/analytics
+```
+
 ## Output
 
 ### For All Operations
@@ -247,7 +303,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 ### Parallel Mode (add-multiple)
 
-- Auto-generates sensible directory names (../wt-{branch-suffix})
+- Auto-generates sensible directory names (.trees/{branch-suffix}/)
 - Validates branch names don't conflict with existing worktrees
 - Each worktree maintains independence for clean parallel development
 - Provides status tracking across all parallel worktrees

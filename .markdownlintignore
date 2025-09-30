@@ -1,13 +1,44 @@
-# Markdownlint Ignore Patterns
+# Markdownlint ignore patterns (mirrors .gitignore)
+# Generated from project .gitignore for linting consistency
 
-# Spec-kit commands are intentionally excluded from linting
-# These are stale files that should not be updated without explicit consent
-# Per CLAUDE.md: "never allow changes to occur within the commands/spec kit folder without explicit consent"
-commands/spec-kit/*.md
+# Protected/stale command directories
+commands/spec-kit/
+.specify/
 
-# Spec-kit workflow files (.specify folder)
-# Feature specification and planning files managed by spec-kit workflow
-.specify/**/*.md
+# Gitignored directories containing markdown
+.claude/
+ide/
+logs/
+plugins/
+projects/
+shell-snapshots/
+statsig/
+todos/
 
-# Research and temporary files
-.claude/.research/**/*.md
+# Node.js
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Testing
+coverage/
+
+# IDE and editors
+.vscode/
+.idea/
+
+# Temporary files
+.tmp/
+.temp/
+
+# File history
+file-history/
+
+# Worktrees
+.trees/
+
+# GitHub instructions
+.github/instructions/
+

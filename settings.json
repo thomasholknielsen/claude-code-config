@@ -1,8 +1,4 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "python3 .claude/scripts/context-monitor.py"
-  },
   "permissions": {
     "allow": [
       "Bash(npm run lint)",
@@ -98,7 +94,6 @@
       "Bash(sudo:*)"
     ]
   },
-  "model": "opusplan",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -131,5 +126,9 @@
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "python3 .claude/scripts/context-monitor.py"
   }
 }

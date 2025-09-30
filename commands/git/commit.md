@@ -32,12 +32,17 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 ## Process
 
-1. Parse $ARGUMENTS for commit message and options
-2. Analyze staged and unstaged changes for logical groupings
-3. Generate meaningful commit messages based on file modifications
-4. Create atomic commits for each logical unit of work
-5. Validate commit quality and message clarity
-6. Report commit summary and next steps
+1. **Pre-Commit Linting**: Run `/workflows:lint-and-correct-all` to ensure code quality
+   - Auto-fix linting errors across all languages
+   - Stage auto-fixed files automatically
+   - Report any unfixable issues requiring manual intervention
+   - Abort commit if critical linting errors remain
+2. Parse $ARGUMENTS for commit message and options
+3. Analyze staged and unstaged changes for logical groupings
+4. Generate meaningful commit messages based on file modifications
+5. Create atomic commits for each logical unit of work
+6. Validate commit quality and message clarity
+7. Report commit summary and next steps
 
 ## Agent Integration
 
@@ -73,9 +78,12 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 ## Quality Standards
 
+- **Runs automated linting and fixes before commit** - Ensures code style consistency
+- **Aborts commit if critical linting errors remain** - Maintains code quality gate
 - Creates atomic commits focused on single functionality
 - Generates clear, descriptive commit messages following conventions
 - Groups related changes logically (features, fixes, refactoring)
 - Validates no breaking changes are mixed with features
 - Ensures commit messages are under 72 characters for subject line
 - Follows semantic commit format when appropriate (feat:, fix:, docs:)
+- **Stages auto-fixed files automatically** - Includes linting fixes in commit
