@@ -1,8 +1,8 @@
-# Multi-Agent System for Claude Code
+# Agent Specialist System for Claude Code
 
-A task-based multi-agent architecture featuring orchestrators and
-specialized workers that leverage slash commands for atomic operations. Based on Anthropic's proven patterns for parallel
-execution and efficient task coordination.
+A flat specialist architecture featuring 8 specialized agents that provide advisory domain expertise and leverage slash commands for atomic
+operations. The main thread coordinates all task distribution and parallel execution, while specialists focus on strategic guidance and
+implementation.
 
 ## 📥 Installation
 
@@ -17,87 +17,84 @@ execution and efficient task coordination.
 
 ## 🚀 Quick Start
 
-The multi-agent system uses a hierarchy of 8 agents - orchestrators and workers:
+The multi-agent system uses 8 peer-level specialists:
 
-1. **Orchestrators** analyze tasks and spawn appropriate workers
-2. **Workers** execute focused tasks using slash commands
-3. **Coordination** through clear task handoffs and communication
+1. **Analysis Specialists** (3) provide insights and recommendations
+2. **Execution Specialists** (5) perform focused implementation tasks
+3. **Main Thread Coordination** handles all task distribution and parallel execution
 
 ### Example Task Flows
 
-- "Fix login timeout bug" → `task-orchestrator` → `bug-fixer` (uses `/fix:bug-quickly`)
-- "Research API best practices" → `research-orchestrator` → 5 parallel research agents
-- "Implement user auth" → `implementation-orchestrator` → `code-writer` → `test-writer`
-- "Full code review" → `task-orchestrator` → `reviewer` (uses `/review:code`, `/review:security`)
-- "Document the API" → `task-orchestrator` → `documenter` (uses `/docs:api`)
+- "Fix login timeout bug" → `bug-fixer` specialist (uses `/fix:bug-quickly`)
+- "Research API best practices" → `research-analysis-specialist` gathers information
+- "Implement user auth" → Main thread spawns `code-writer` + `test-writer` tasks in parallel
+- "Full code review" → `reviewer` specialist (uses `/review:code`, `/review:security`)
+- "Document the API" → `documenter` specialist (uses `/docs:api`)
 
 ## 📁 New Architecture
 
-### Task-Based Agent Organization
+### Flat Specialist Organization
 
 ```yaml
 agents/
-├── orchestrators/        # Task coordinators (3 agents)
-│   ├── task-orchestrator.md       # General task coordination
-│   ├── research-orchestrator.md   # Parallel information gathering
-│   └── implementation-orchestrator.md # Sequential code changes
+├── analysis-specialists/     # Analysis and insights (3 agents)
+│   ├── task-analysis-specialist.md           # Task analysis and planning
+│   ├── research-analysis-specialist.md       # Information gathering and research
+│   └── implementation-strategy-specialist.md # Implementation analysis and sequencing
 │
-├── workers/             # Specialized executors (5 agents)
-│   ├── code-writer.md   # Code generation using /refactor, /implement
-│   ├── test-writer.md   # Test creation using /test commands
-│   ├── bug-fixer.md     # Debugging using /fix, /analyze
-│   ├── reviewer.md      # Reviews using /review:* commands
-│   └── documenter.md    # Documentation using /docs:* commands
+├── execution-specialists/    # Implementation execution (5 agents)
+│   ├── code-writer.md     # Code generation using /refactor, /implement
+│   ├── test-writer.md     # Test creation using /test commands
+│   ├── bug-fixer.md       # Debugging using /fix, /analyze
+│   ├── reviewer.md        # Reviews using /review:* commands
+│   └── documenter.md      # Documentation using /docs:* commands
 │
-├── specialists/         # Domain experts (optional)
-│   └── [domain-specific agents]
-│
-└── [legacy MECE agents] # Previous domain-based structure
-```python
+└── [legacy MECE agents]   # Previous domain-based structure
+```
 
 ### Agent Communication
 
-- **Task Handoffs**: Clear instructions between orchestrators and workers
-- **Progress Tracking**: Monitor completion status across parallel tasks
-- **Result Aggregation**: Collect and synthesize outputs from multiple agents
+- **Specialist Consultation**: Main thread consults specialists for analysis and execution
+- **Parallel Execution**: Main thread coordinates parallel specialist tasks using Task() calls
+- **Result Integration**: Main thread aggregates specialist outputs into cohesive solutions
 
-## 🎯 Core Agents (New Architecture)
+## 🎯 Core Specialists (Flat Architecture)
 
-### Orchestrators
+### Analysis Specialists
 
-1. **task-orchestrator** - Analyzes complexity, spawns 1-5 workers based on task needs
-2. **research-orchestrator** - Coordinates parallel research across multiple domains
-3. **implementation-orchestrator** - Manages sequential code changes with state tracking
+1. **task-analysis-specialist** - Provides task complexity analysis and planning recommendations
+2. **research-analysis-specialist** - Gathers information and research across multiple domains
+3. **implementation-strategy-specialist** - Analyzes implementation approaches and sequencing
 
-### Workers
+### Execution Specialists
 
 1. **code-writer** - Focused code generation using `/refactor`, `/implement` commands
 2. **test-writer** - Test creation using framework detection and `/test` commands
 3. **bug-fixer** - Systematic debugging using `/fix:bug-quickly`, `/analyze` commands
-4. **reviewer** - Parallel reviews using `/review:code`, `/review:security` commands
+4. **reviewer** - Code reviews using `/review:code`, `/review:security` commands
 5. **documenter** - Documentation using `/docs:generate`, `/docs:api` commands
 
 ## 🔧 How It Works
 
 ### 1. Task Analysis
 
-The `task-orchestrator` receives your request and determines:
+The main thread consults `task-analysis-specialist` specialist for:
 
-- Task complexity (simple/moderate/complex)
-- Required capabilities
-- Optimal execution strategy
+- Task complexity assessment (simple/moderate/complex)
+- Required specialist capabilities
+- Optimal execution strategy recommendations
 
-### 2. Agent Spawning
+### 2. Specialist Coordination
 
-Based on analysis, spawns appropriate workers:
+The main thread coordinates specialist execution:
 
-- **Parallel [P]**: Independent tasks run simultaneously
-- **Sequential**: Dependent tasks run in order
+- **Parallel**: Independent specialists run simultaneously via Task() calls
+- **Sequential**: Dependent specialists run in order
 - **Hybrid**: Mix of parallel and sequential phases
 
 ### 3. Slash Command Integration
 
-Workers use slash commands as atomic tools:
+Execution specialists use slash commands as atomic tools:
 
 ```yaml
 code-writer → /refactor:large-scale, /implement
@@ -107,57 +104,57 @@ reviewer → /review:code, /review:security
 documenter → /docs:generate, /docs:api
 ```yaml
 
-### 4. Task Coordination
+### 4. Main Thread Coordination
 
-Stateless coordination through:
+The main thread provides stateless coordination through:
 
-- Clear task assignments
-- Progress communication
-- Result aggregation
-- Quality validation
+- Clear specialist assignments
+- Parallel execution management with Task() tool calls
+- Result aggregation from specialists
+- Quality validation across specialist outputs
 
 ## 🚀 Example Workflows
 
 ### Bug Fix Workflow
 
-```yaml
-1. task-orchestrator analyzes bug report
-2. Spawns bug-fixer with /fix:bug-quickly
-3. Spawns test-writer to verify fix
-4. Returns consolidated results
-```text
+```markdown
+1. Main thread consults task-analysis-specialist for analysis
+2. Main thread assigns bug-fixer with /fix:bug-quickly
+3. Main thread assigns test-writer to verify fix
+4. Main thread consolidates results
+```
 
 ### Feature Implementation Workflow
 
-```yaml
-1. implementation-orchestrator plans phases
+```markdown
+1. Main thread consults implementation-strategy-specialist for sequencing
 2. Phase 1: code-writer creates structure
 3. Phase 2: code-writer implements logic
 4. Phase 3: test-writer adds tests
 5. Phase 4: documenter updates docs
 6. Phase 5: reviewer validates quality
-```text
+```
 
 ### Research Workflow
 
-```yaml
-1. research-orchestrator breaks down query
-2. Spawns 5 parallel research agents:
-   [P] Agent 1: Search codebase
-   [P] Agent 2: Check documentation
-   [P] Agent 3: Analyze dependencies
-   [P] Agent 4: Review best practices
-   [P] Agent 5: Security implications
-3. Synthesizes findings into report
+```markdown
+1. Main thread consults research-analysis-specialist for research strategy
+2. Main thread coordinates parallel research tasks:
+   Task("Search codebase for relevant patterns")
+   Task("Check documentation for guidelines")
+   Task("Analyze dependencies and requirements")
+   Task("Review best practices and standards")
+   Task("Investigate security implications")
+3. Main thread synthesizes findings into report
 ```
 
 ## 📊 Benefits
 
-- **50% faster task completion** through parallel execution
-- **Better consistency** via slash command reuse
-- **Cleaner separation** with focused workers
-- **Improved reliability** through memory persistence
-- **Reduced token usage** by avoiding context duplication
+- **50% faster task completion** through parallel specialist execution
+- **Better consistency** via slash command reuse across specialists
+- **Cleaner separation** with focused specialist domains
+- **Improved reliability** through main thread coordination
+- **Reduced complexity** by eliminating hierarchical agent spawning
 
 ## 📋 Legacy Agent List (Previous MECE Structure)
 

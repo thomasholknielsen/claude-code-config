@@ -1,7 +1,7 @@
 ---
 description: "Analyze project documentation coverage, quality, and freshness to identify improvement opportunities"
+argument-hint: "[scope] [--detailed] [--output-report]"
 category: "docs"
-agent: "documenter"
 tools: ["Glob", "Read", "Grep", "Bash"]
 complexity: "complex"
 ---
@@ -15,14 +15,24 @@ Executes docs operations for analyze functionality.
 ## Usage
 
 ```bash
-/docs:analyze [arguments]
-```yaml
+/docs:analyze $ARGUMENTS
+```
 
-**Arguments**: Optional parameters specific to the operation
+**Arguments**:
+
+- `$1` (scope): Documentation scope to analyze (optional)
+- `$2` (--detailed): Provide detailed analysis report (optional)
+- `$3` (--output-report): Generate output report file (optional)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "docs/ --detailed"` - Detailed analysis of docs directory
+- `$ARGUMENTS = "--output-report"` - Generate analysis report
+- `$ARGUMENTS = "README.md --detailed --output-report"` - Comprehensive README analysis
 
 ## Process
 
-1. Analyze documentation coverage, quality, and freshness across the project
+1. Analyze documentation coverage, quality, and freshness based on $ARGUMENTS scope
 2. Check README.md links and verify they match actual documentation structure
 3. Identify gaps, outdated content, and improvement opportunities
 4. **README.md Validation**: Ensure README accurately represents current docs structure
@@ -31,7 +41,7 @@ Executes docs operations for analyze functionality.
 
 ## Agent Integration
 
-- **Primary Agent**: documenter - Handles docs operations and coordination
+- **Specialist Agent**: documenter - Can be spawned to handle documentation analysis and quality assessment
 
 ## Examples
 

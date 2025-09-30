@@ -1,264 +1,324 @@
-# Parallel Execution Patterns with [P] Markers
+# Parallel Execution Patterns in Claude Code
 
-This guide explains how to effectively use parallel execution patterns in the Agent Orchestra Framework to dramatically speed up complex workflows.
+This guide explains how to effectively use parallel execution patterns in Claude Code to dramatically speed up complex workflows through the
+Agent Specialist Framework.
 
 ## Overview
 
-The `[P]` marker system enables orchestrators to spawn multiple worker
-agents simultaneously, reducing execution time for independent tasks from sequential processing to parallel processing.
+Claude Code supports parallel execution through the main thread's Task tool, which can consult up to 10 concurrent specialist agents for advisory
+guidance. This enables dramatic performance improvements for independent research and analysis tasks.
 
 **Key Benefits:**
 
-- **3-5x faster** execution for complex workflows
-- Better resource utilization across multiple agents
-- Improved throughput for independent operations
-- Maintained sequential safety for dependent operations
+- **3-5x faster** execution for research-heavy workflows
+- Better context management through isolated specialist consultation
+- Improved throughput for independent analysis operations
+- Clean main thread context while specialists burn tokens on research
+
+**Important:** Only the main Claude Code thread can orchestrate parallelization. Specialist agents provide advisory consultation and cannot
+create, spawn, or execute other agents or tools themselves.
 
 ## Core Principles
 
-### When to Use Parallel Execution
+### When to Use Parallel Execution (Main Thread Only)
 
-✅ **Always Use Parallel For:**
+✅ **Use Task() for Specialist Consultation:**
 
-- Independent code reviews (security, quality, design)
-- Separate file analysis or modification
-- Different types of testing (unit, integration, performance)
-- Research across different domains
-- Documentation generation for different components
+- Consulting multiple domain specialists for independent expertise
+- Parallel research across different technical domains (security, performance, architecture)
+- Multi-source information gathering through specialist knowledge
+- Independent diagnostic analysis by specialized agents
+- Complex task analysis requiring multiple perspectives
+
+✅ **Use SlashCommand() for Command Delegation:**
+
+- Delegating to specific commands in the system (e.g., `/review:code`, `/fix:bug-quickly`)
+- Executing atomic operations through the command system
+- Leveraging existing workflow automations
+- Accessing specialized command functionality
 
 ❌ **Never Use Parallel For:**
 
-- Editing the same file
-- Sequential dependencies (API → tests that use API)
+- File editing (always sequential in main thread)
+- Tasks with dependencies (API implementation → tests)
 - Shared state modifications
-- Database schema changes that affect each other
+- Sequential implementation phases
 
-### [P] Marker Syntax
+### Main Thread Tool Usage Patterns
 
 ```markdown
-# Single parallel task
-[P] Task description → agent-type with tools
+# Main thread consults specialists in parallel
+Task("research-analysis-specialist: Investigate authentication patterns")
+Task("implementation-strategy-specialist: Analyze security requirements")
+Task("code-writer: Explore performance implications")
+Task("reviewer: Assess existing implementations")
 
-# Multiple parallel tasks
-[P] Task A → agent-type-1 with tools
-[P] Task B → agent-type-2 with tools
-[P] Task C → agent-type-3 with tools
+# Main thread delegates to commands sequentially
+SlashCommand("/review:code")  # Delegate to atomic command
+SlashCommand("/fix:bug-quickly")  # Delegate to specific workflow
+
+# Each specialist consultation runs in parallel with isolated context
+# Results return to main thread for sequential implementation
 ```yaml
 
-## Orchestrator-Specific Patterns
+## Correct Parallelization Patterns
 
-### Task Orchestrator Patterns
+### Main Thread Specialist Consultation Pattern
 
-The task-orchestrator should **prioritize parallel execution** whenever possible:
+The main thread should consult specialists in parallel to gather expert advice before implementation:
 
-#### Standard Code Review (5 agents parallel)
-
-```markdown
-[P] Code Quality Review → reviewer with /review:code
-[P] Security Scan → reviewer with /review:security
-[P] Performance Analysis → reviewer with /analyze:performance
-[P] Design Review → reviewer with /review:design
-[P] Dependencies Check → Task with /analyze:dependencies
-```text
-
-#### Multi-Component Implementation (4 agents parallel)
+#### Comprehensive Analysis (Specialist Consultation Phase)
 
 ```markdown
-[P] Component A → code-writer with specific scope
-[P] Component B → code-writer with specific scope
-[P] Utilities → code-writer with helper functions
-[P] Tests → test-writer for all components
-```text
+# Main thread consults specialists in parallel:
+Task("research-analysis-specialist: Analyze code quality and patterns in existing codebase")
+Task("reviewer: Investigate security requirements and vulnerabilities")
+Task("implementation-strategy-specialist: Research performance implications and bottlenecks")
+Task("code-writer: Explore architectural impact and design patterns")
+Task("task-analysis-specialist: Check dependencies and integration points")
 
-#### Comprehensive Analysis (6+ agents parallel)
+# Each specialist burns tokens in isolation, returns distilled expert advice
+# Main thread then implements based on consolidated specialist recommendations
+```
 
-```markdown
-[P] Existing Code Analysis → research-orchestrator
-[P] External Best Practices → research-orchestrator with WebSearch
-[P] Security Requirements → Task with /review:security
-[P] Performance Requirements → Task with /analyze:performance
-[P] Architecture Impact → Task with /explain:architecture
-[P] Documentation Analysis → Task with /docs:analyze
-```yaml
-
-### Research Orchestrator Patterns
-
-The research-orchestrator should **maximize parallel agents** for information gathering:
-
-#### Standard Feature Research (9 agents parallel)
+#### Multi-Domain Investigation Pattern
 
 ```markdown
-# Core Implementation Research
-[P] Similar implementations in codebase → Glob + Grep
-[P] External best practices → WebSearch + Context7
-[P] Security considerations → /review:security + WebSearch
-[P] Performance implications → /analyze:performance + benchmarks
-[P] Framework-specific patterns → Context7 docs
+# Specialist Consultation Phase (Parallel)
+Task("research-analysis-specialist: Research authentication best practices from external sources")
+Task("code-writer: Analyze existing authentication patterns in codebase")
+Task("reviewer: Investigate security requirements for auth implementation")
+Task("implementation-strategy-specialist: Explore performance considerations for auth systems")
 
-# Supporting Research
-[P] Testing strategies → WebSearch + existing tests
-[P] Documentation examples → /docs:analyze
-[P] Error handling patterns → Grep error handling
-[P] Configuration requirements → Glob config files
-```text
+# Implementation Phase (Sequential in main thread)
+# Based on specialist recommendations, implement step by step
+```
 
-#### Deep Bug Investigation (10 agents parallel)
+#### Deep Diagnostic Pattern
 
 ```markdown
-# Primary Investigation
-[P] Error log analysis → Grep error patterns
-[P] Code path tracing → specific modules/functions
-[P] Recent changes review → git log + git blame
-[P] Similar issues search → WebSearch + GitHub issues
-[P] Environment analysis → config + dependencies
-[P] Test failure patterns → Grep test outputs
+# Problem Analysis (Parallel Specialist Consultation)
+Task("bug-fixer: Analyze error logs and failure patterns")
+Task("research-analysis-specialist: Investigate recent code changes and git history")
+Task("research-analysis-specialist: Research similar issues and solutions online")
+Task("implementation-strategy-specialist: Examine performance metrics at time of failure")
+Task("task-analysis-specialist: Check configuration and environment factors")
 
-# Secondary Investigation
-[P] Performance metrics at failure → /analyze:performance
-[P] Security implications → /review:security
-[P] Database state analysis → Grep database logs
-[P] External service issues → WebSearch service status
-```yaml
+# Solution Implementation (Sequential in main thread)
+# Apply fixes based on consolidated specialist diagnostic findings
+```
 
-### Implementation Orchestrator Patterns
+### Specialist Agent Advisory Patterns
 
-The implementation-orchestrator uses **hybrid approach** - sequential for dependencies, parallel for independent validation:
+Specialist agents provide focused advisory consultation in their domains of expertise:
 
-#### Feature Development with Parallel Reviews
+#### Research Analysis Specialist Advisory Role
+
+The research-analysis-specialist provides expert research and analysis within its specialized domain:
 
 ```markdown
-Phase 1: Core Implementation (Sequential - File Dependencies)
-  1. Data models → code-writer
-  2. Business logic → code-writer (depends on models)
-  3. API endpoints → code-writer (depends on business logic)
+# Research Analysis Specialist conducts comprehensive investigation:
+1. Analyze existing implementations in codebase (Glob + Grep)
+2. Research external best practices (WebSearch + Context7)
+3. Investigate security considerations (security analysis)
+4. Examine performance implications (performance research)
+5. Study framework-specific patterns (documentation review)
+6. Explore testing strategies (test analysis)
+7. Review error handling patterns (code analysis)
+8. Identify configuration requirements (config analysis)
 
-Phase 2: Testing & Documentation (Parallel - Independent)
-  [P] Unit tests → test-writer
-  [P] Integration tests → test-writer
-  [P] Documentation → documenter
-  [P] API documentation → documenter with /docs:api
+# Returns: Consolidated research findings and expert recommendations to main thread
+# Main thread makes implementation decisions based on specialist expertise
+```
 
-Phase 3: Quality Assurance (Parallel - Independent Reviews)
-  [P] Code review → reviewer with /review:code
-  [P] Security review → reviewer with /review:security
-  [P] Design review → reviewer with /review:design
-  [P] Performance analysis → Task with /analyze:performance
-  [P] Final cleanup → Task with /clean:improve-readability
-```text
+#### Deep Investigation Advisory Pattern
+
+For complex problem analysis, specialists provide thorough advisory analysis:
+
+```markdown
+# Bug-Fixer Specialist systematic advisory investigation:
+1. Error log analysis and pattern identification
+2. Code path tracing through relevant modules
+3. Recent changes review and git history analysis
+4. Similar issues search and solution research
+5. Environment and configuration analysis
+6. Test failure pattern examination
+7. Performance metrics correlation
+8. External service dependency analysis
+
+# Returns: Comprehensive diagnostic report with expert recommendations
+# Main thread implements targeted fixes based on specialist advisory findings
+```
+
+### Implementation Strategy Advisory Patterns
+
+The implementation-strategy-specialist provides strategic implementation guidance and dependency analysis:
+
+#### Sequential Implementation Planning Advisory
+
+The implementation strategy specialist analyzes dependencies and provides execution recommendations:
+
+```markdown
+# Implementation Strategy Specialist advisory analysis:
+1. Analyze implementation dependencies and order
+2. Identify shared file modifications and conflicts
+3. Plan rollback and checkpoint strategies
+4. Design testing integration points
+5. Map quality assurance requirements
+6. Recommend coordination protocols between phases
+
+# Returns: Detailed implementation strategy recommendations with:
+# - Sequential steps for dependent operations
+# - Recommended parallel specialist consultation opportunities for main thread
+# - Quality gates and validation checkpoints
+# - Risk mitigation strategies
+```
+
+#### Implementation Strategy Advisory Guidance
+
+For complex features, provides comprehensive implementation strategy recommendations:
+
+```markdown
+# Implementation Strategy Specialist strategic advisory planning:
+1. Dependency analysis (data models → business logic → APIs)
+2. Risk assessment and mitigation planning
+3. Testing strategy recommendations
+4. Documentation requirements planning
+5. Quality assurance checkpoint design
+6. Rollback and error handling strategy
+
+# Returns: Strategic implementation roadmap recommendations
+# Main thread executes based on specialist advice using parallel consultation + sequential implementation
+```
 
 ## Workflow Examples
 
-### Example 1: Feature Implementation (Hybrid Pattern)
+### Example 1: Feature Implementation (Correct Pattern)
 
 **Task**: "Implement user authentication with JWT"
 
 **Optimal Execution**:
 
 ```markdown
-Phase 1: Parallel Research (4 agents, ~2 minutes)
-  [P] JWT best practices → research-orchestrator with WebSearch
-  [P] Security requirements → Task with /review:security
-  [P] Existing auth patterns → research-orchestrator with codebase
-  [P] Performance considerations → Task with /analyze:performance
+Phase 1: Parallel Specialist Consultation (Main thread consults 4 specialists, ~2 minutes)
+  Task("research-analysis-specialist: Research JWT best practices and implementation patterns")
+  Task("reviewer: Analyze security requirements for authentication systems")
+  Task("code-writer: Investigate existing auth patterns in current codebase")
+  Task("implementation-strategy-specialist: Research performance considerations for JWT implementation")
 
-Phase 2: Sequential Implementation (3 steps, ~5 minutes)
-  1. Auth models → code-writer
-  2. JWT service → code-writer (depends on models)
-  3. Auth middleware → code-writer (depends on service)
+Phase 2: Sequential Implementation (Main thread, ~5 minutes)
+  # Based on consolidated specialist recommendations:
+  1. Implement auth models (Edit tool)
+  2. Create JWT service (depends on models)
+  3. Add auth middleware (depends on service)
 
-Phase 3: Parallel Testing & Review (5 agents, ~3 minutes)
-  [P] Unit tests → test-writer
-  [P] Integration tests → test-writer
-  [P] Security review → reviewer with /review:security
-  [P] Code review → reviewer with /review:code
-  [P] Documentation → documenter
-```text
+Phase 3: Parallel Quality Assurance via Commands (Main thread delegates, ~3 minutes)
+  SlashCommand("/implement:small auth tests")  # Delegate test creation
+  SlashCommand("/review:security")  # Delegate security review
+  SlashCommand("/docs:api")  # Delegate API documentation generation
+```
 
-**Performance Gain**: ~10 minutes parallel vs ~20 minutes sequential (50% faster)
+**Performance Gain**: ~10 minutes with parallelization vs ~20 minutes sequential (50% faster)
 
-### Example 2: Bug Investigation (Maximum Parallel)
+### Example 2: Bug Investigation (Correct Parallel Pattern)
 
 **Task**: "Database connection timeouts in production"
 
 **Optimal Execution**:
 
 ```markdown
-Parallel Investigation (8 agents, ~3 minutes)
-  [P] Database logs analysis → Grep + specific patterns
-  [P] Connection pool analysis → code analysis
-  [P] Recent deployment changes → git history
-  [P] Similar timeout issues → WebSearch + GitHub
-  [P] Database performance metrics → monitoring analysis
-  [P] Network connectivity → infrastructure analysis
-  [P] Application performance → /analyze:performance
-  [P] Error correlation → log pattern analysis
-```text
+Parallel Specialist Investigation (Main thread consults 6 specialists, ~3 minutes)
+  Task("bug-fixer: Analyze database logs for timeout patterns and error messages")
+  Task("implementation-strategy-specialist: Investigate connection pool configuration and recent changes")
+  Task("research-analysis-specialist: Review recent deployment changes and git history for related modifications")
+  Task("research-analysis-specialist: Research similar timeout issues and solutions in external sources")
+  Task("task-analysis-specialist: Examine database performance metrics and monitoring data")
+  Task("reviewer: Analyze application performance patterns around timeout events")
 
-**Performance Gain**: ~3 minutes parallel vs ~24 minutes sequential (87% faster)
+Sequential Resolution (Main thread, ~2 minutes)
+  # Based on consolidated specialist diagnostic findings:
+  1. Apply targeted fix based on root cause analysis
+  2. Implement monitoring improvements
+  3. Update documentation with troubleshooting guidance
+```
 
-### Example 3: Code Review (Standard Parallel)
+**Performance Gain**: ~5 minutes with parallelization vs ~24 minutes sequential (80% faster)
+
+### Example 3: Code Review (Correct Parallel Pattern)
 
 **Task**: "Review pull request with 15 file changes"
 
 **Optimal Execution**:
 
 ```markdown
-Parallel Review (6 agents, ~4 minutes)
-  [P] Code quality & style → reviewer with /review:code
-  [P] Security vulnerabilities → reviewer with /review:security
-  [P] Performance impact → reviewer with /analyze:performance
-  [P] Design patterns → reviewer with /review:design
-  [P] Test coverage → test-writer with coverage analysis
-  [P] Documentation updates → documenter with /docs:analyze
-```yaml
+Option A: Parallel Specialist Review (Main thread consults 4 specialists, ~4 minutes)
+  Task("code-writer: Analyze code quality, style, and design patterns across all changed files")
+  Task("reviewer: Perform comprehensive security vulnerability assessment")
+  Task("implementation-strategy-specialist: Evaluate performance impact and potential bottlenecks")
+  Task("documenter: Review test coverage and documentation completeness")
 
-**Performance Gain**: ~4 minutes parallel vs ~18 minutes sequential (78% faster)
+Option B: Command Delegation (Main thread delegates to workflow, ~5 minutes)
+  SlashCommand("/workflows:run-comprehensive-review")  # Executes atomic review commands
+
+Consolidation & Response (Main thread, ~1 minute)
+  # Synthesize findings from all parallel specialist consultations or command output
+  # Provide unified feedback with prioritized recommendations
+```
+
+**Performance Gain**: ~5-6 minutes with parallelization vs ~18 minutes sequential (67-72% faster)
 
 ## Best Practices
 
-### 1. Maximize Parallel Opportunities
+### 1. Maximize Parallel Specialist Consultation
 
-- **Default to parallel** unless dependencies exist
-- Look for independent subtasks within complex operations
-- Split reviews by concern (security, performance, quality)
-- Separate research by domain or information source
+- **Default to parallel specialist consultation** for independent expert advice
+- Use main thread Task tool for up to 10 concurrent specialist consultations
+- Split consultation by domain expertise (security, performance, architecture, etc.)
+- Consolidate specialist recommendations before sequential implementation
 
-### 2. Optimal Agent Counts
+### 2. Choose Appropriate Tools
 
-- **Simple tasks**: 1-3 agents parallel
-- **Moderate tasks**: 3-6 agents parallel
-- **Complex tasks**: 5-10 agents parallel
-- **Research tasks**: 10+ agents parallel (research-orchestrator specialty)
+- **Task()**: For consulting specialist agents (research-analysis-specialist, code-writer, etc.)
+- **SlashCommand()**: For delegating to atomic commands (/review:code, /fix:bug-quickly, etc.)
+- **Direct tools**: For file operations (Read, Edit, Write) in main thread
 
-### 3. Clear Task Boundaries
+### 3. Optimal Specialist Consultation Counts (Main Thread Only)
 
-```markdown
-# Good - Specific, non-overlapping
-[P] Security vulnerabilities in auth module → reviewer with /review:security
-[P] Performance bottlenecks in API layer → Task with /analyze:performance
+- **Simple tasks**: 1-2 specialist consultations
+- **Moderate analysis**: 3-5 specialist consultations
+- **Complex investigation**: 5-8 specialist consultations
+- **Maximum parallelization**: 10 consultations (Claude Code limit)
 
-# Bad - Overlapping scope
-[P] Overall security review → reviewer
-[P] General code review → reviewer
-```text
-
-### 4. Tool Assignment Strategy
-
-- Give each parallel agent **specific tools** for their domain
-- Avoid generic tool assignments that create overlap
-- Use slash commands to focus agent scope
-
-### 5. Dependency Management
+### 4. Clear Specialist Domains
 
 ```markdown
-# Correct - Sequential when dependent
-1. Create API endpoints → code-writer
-2. Write tests that use those endpoints → test-writer
+# Good - Specific specialist expertise, non-overlapping domains
+Task("reviewer: Analyze security vulnerabilities in authentication module")
+Task("implementation-strategy-specialist: Evaluate performance bottlenecks in API layer")
 
-# Incorrect - Parallel when dependent
-[P] Create API endpoints → code-writer
-[P] Write tests for endpoints → test-writer  # Will fail - endpoints don't exist yet
-```yaml
+# Bad - Overlapping scope, unclear specialist assignment
+Task("Overall security review")
+Task("General code review")
+```
+
+### 5. Consultation-Implementation Separation
+
+- **Consultation Phase**: Parallel specialist consultation for expert advice
+- **Implementation Phase**: Sequential file editing in main thread
+- **Command Phase**: SlashCommand delegation for atomic operations
+
+### 6. Dependency Management
+
+```markdown
+# Correct - Consultation parallel, implementation sequential
+Task("code-writer: Research API design patterns")   # Parallel specialist consultation
+Task("test-writer: Analyze testing requirements")   # Parallel specialist consultation
+# Then: Sequential implementation based on specialist recommendations
+
+# Incorrect - Implementation dependencies ignored
+Task("Create API endpoints")          # Would conflict with
+Task("Write tests for endpoints")     # these running in parallel
+```
 
 ## Performance Metrics
 
@@ -273,65 +333,82 @@ Based on typical workflow analysis:
 
 ## Common Anti-Patterns
 
-### ❌ Sequential When Parallel Possible
+### ❌ Sequential Research When Parallel Possible
 
 ```markdown
-# Bad
-1. Security review → reviewer
-2. Code review → reviewer
-3. Performance review → reviewer
+# Bad - Missing parallel research opportunities
+1. Security review (sequential)
+2. Code review (sequential)
+3. Performance review (sequential)
 
-# Good
-[P] Security review → reviewer with /review:security
-[P] Code review → reviewer with /review:code
-[P] Performance review → reviewer with /analyze:performance
-```text
+# Good - Parallel research in main thread
+Task("Perform comprehensive security vulnerability assessment")
+Task("Analyze code quality, patterns, and maintainability")
+Task("Evaluate performance bottlenecks and optimization opportunities")
+```
 
-### ❌ Parallel When Dependencies Exist
+### ❌ Parallel Implementation With Dependencies
 
 ```markdown
-# Bad
-[P] Create database schema → code-writer
-[P] Create models using schema → code-writer
+# Bad - Parallel tasks with dependencies
+Task("Create database schema")         # These have dependencies
+Task("Create models using schema")     # and will cause conflicts
 
-# Good
-1. Create database schema → code-writer
-2. Create models using schema → code-writer (depends on 1)
-```text
+# Good - Sequential implementation after parallel research
+Task("Research database design patterns")     # Parallel research
+Task("Analyze model requirements")            # Parallel research
+# Then sequential implementation based on findings
+```
 
 ### ❌ Vague Task Boundaries
 
 ```markdown
-# Bad
-[P] Review the code → reviewer
-[P] Check for issues → reviewer
+# Bad - Overlapping, unclear scope
+Task("Review the code")
+Task("Check for issues")
 
-# Good
-[P] Security vulnerabilities → reviewer with /review:security
-[P] Code quality & patterns → reviewer with /review:code
+# Good - Specific, non-overlapping domains
+Task("Analyze security vulnerabilities and authentication flaws")
+Task("Evaluate code quality, patterns, and maintainability")
 ```
 
 ## Integration with Commands
 
-Many workflow commands can leverage parallel execution:
+The main thread can leverage both specialist consultation and command delegation:
 
-- `/workflows:run-comprehensive-review` → 5-8 parallel reviewers
-- `/analyze:*` commands → parallel analysis across different domains
-- `/review:*` commands → parallel reviews by concern type
-- `/implement:*` commands → parallel implementation + testing + documentation
+### Specialist Consultation Pattern
+
+- Main thread uses Task() to consult specialists for expert advice
+- Specialists provide domain expertise and recommendations
+- Main thread makes implementation decisions based on specialist consultation
+
+### Command Delegation Pattern
+
+- Main thread uses SlashCommand() to delegate to atomic operations
+- `/workflows:*` commands → Execute orchestrated sequences of atomic commands
+- `/analyze:*` commands → Individual analysis operations
+- `/review:*` commands → Individual review operations
+- `/implement:*` commands → Sequential implementation with built-in research phases
+
+**Key Principle**:
+
+- **Task()** → Consult specialist agents for expert advice and recommendations
+- **SlashCommand()** → Delegate to atomic commands in the system
+- **Main thread** → Orchestrates both specialist consultation and command execution
 
 ## Cross-Platform Considerations
 
 All parallel execution patterns work identically across:
 
-- **Windows**: Full parallel agent support
-- **macOS**: Full parallel agent support
-- **Linux**: Full parallel agent support
+- **Windows**: Full parallel Task tool support (up to 10 concurrent)
+- **macOS**: Full parallel Task tool support (up to 10 concurrent)
+- **Linux**: Full parallel Task tool support (up to 10 concurrent)
 
-The Agent Orchestra Framework handles platform differences transparently, ensuring consistent parallel execution performance across all environments.
+Claude Code handles platform differences transparently, ensuring consistent parallel execution performance across all
+environments.
 
 ---
 
-Remember: **Parallel execution is your secret weapon for dramatically faster workflows**. Default to parallel patterns whenever tasks are independent,
-and
-watch your development velocity soar!
+Remember: **Main thread orchestration through specialist consultation and command delegation is your secret weapon for dramatically faster
+workflows**. Use Task() to consult specialists in parallel for expert advice, use SlashCommand() to delegate to atomic operations, then implement
+sequentially based on consolidated recommendations. This approach maximizes both speed and context quality!

@@ -151,11 +151,11 @@ grep -A 5 "agent:" ~/.claude/commands/category/command.md
 python3 scripts/fix_command_templates.py
 
 # Verify agents exist
-ls ~/.claude/agents/orchestrators/
-ls ~/.claude/agents/workers/
+ls ~/.claude/agents/analysis-specialists/
+ls ~/.claude/agents/execution-specialists/
 
 # Check agent frontmatter
-head -20 ~/.claude/agents/workers/reviewer.md
+head -20 ~/.claude/agents/execution-specialists/reviewer.md
 ```yaml
 
 #### Issue: Git operations blocked or fail

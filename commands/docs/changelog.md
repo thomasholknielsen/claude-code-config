@@ -1,7 +1,7 @@
 ---
 description: "Manage project CHANGELOG.md by analyzing changes and maintaining professional version history"
+argument-hint: "[version] [--add-entry] [--release] [--format=<style>]"
 category: "docs"
-agent: "documenter"
 tools: ["Bash", "Read", "Edit", "Grep"]
 complexity: "moderate"
 ---
@@ -15,21 +15,33 @@ Executes docs operations for changelog functionality.
 ## Usage
 
 ```bash
-/docs:changelog [arguments]
-```yaml
+/docs:changelog $ARGUMENTS
+```
 
-**Arguments**: Optional parameters specific to the operation
+**Arguments**:
+
+- `$1` (version): Version number for release (optional)
+- `$2` (--add-entry): Add new changelog entry (optional)
+- `$3` (--release): Mark version as released (optional)
+- `$4` (--format): Changelog format style (optional)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "v1.2.0 --release"` - Release version 1.2.0
+- `$ARGUMENTS = "--add-entry"` - Add new unreleased entry
+- `$ARGUMENTS = "--format=keepachangelog"` - Use specific format
 
 ## Process
 
-1. Analyze the current state and requirements
-2. Execute the docs operation
-3. Validate results and provide feedback
-4. Update relevant documentation or state
+1. Analyze the current state and requirements based on $ARGUMENTS
+2. Execute the changelog operation with specified parameters
+3. Generate or update CHANGELOG.md following version history standards
+4. Validate results and provide feedback
+5. Update relevant documentation or state
 
 ## Agent Integration
 
-- **Primary Agent**: documenter - Handles docs operations and coordination
+- **Specialist Agent**: documenter - Can be spawned to handle changelog management and version history maintenance
 
 ## Examples
 

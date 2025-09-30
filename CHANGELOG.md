@@ -37,9 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Agent Orchestra Framework** with 8 specialized agents
-  - 3 orchestrators: implementation-orchestrator, task-orchestrator, research-orchestrator
-  - 5 workers: reviewer, documenter, code-writer, bug-fixer, test-writer
+- **Agent Specialist Framework** with 8 specialized agents
+  - 3 analysis specialists: implementation-strategy-specialist, task-analysis-specialist, research-analysis-specialist
+  - 5 execution specialists: reviewer, documenter, code-writer, bug-fixer, test-writer
 - **54 Commands** across 15 categories for comprehensive development automation
 - **Complete Documentation System** with user and developer guides
 - **Cross-Platform Support** for Windows, macOS, and Linux
@@ -68,9 +68,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Orchestrators:**
 
-- **implementation-orchestrator**: Coordinates sequential code changes ensuring consistency
-- **task-orchestrator**: Analyzes complexity and spawns appropriate specialized workers
-- **research-orchestrator**: Coordinates parallel information gathering across domains
+- **implementation-strategy-specialist**: Coordinates sequential code changes ensuring consistency
+- **task-analysis-specialist**: Analyzes complexity and spawns appropriate specialized execution specialists
+- **research-analysis-specialist**: Coordinates parallel information gathering across domains
 
 **Workers:**
 
@@ -103,7 +103,7 @@ This initial release establishes the foundation for the Claude Code Command Syst
 a comprehensive automation framework for software development workflows. The system is designed with security,
 cross-platform compatibility, and extensibility as core principles.
 
-The Agent Orchestra Framework enables sophisticated task coordination while maintaining clear separation of concerns. Each agent has a specific role and
+The Agent Specialist Framework enables sophisticated task coordination while maintaining clear separation of concerns. Each agent has a specific role and
 responsibility, preventing overlap and ensuring efficient execution.
 
 All commands follow standardized templates ensuring consistent user experience and

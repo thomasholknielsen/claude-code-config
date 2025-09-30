@@ -4,7 +4,7 @@
 
 The Spec-Kit workflow is a comprehensive feature development system that
 guides projects from initial concept to implementation. It provides structured templates, validation frameworks,
-and integration with the Agent Orchestra to ensure consistent, high-quality feature development.
+and integration with the Agent Specialist Framework to ensure consistent, high-quality feature development.
 
 ## Complete Workflow Architecture
 
@@ -104,8 +104,8 @@ stateDiagram-v2
 
 ```mermaid
 graph LR
-    Input[Natural Language Description] --> TO[task-orchestrator]
-    TO --> RO[research-orchestrator]
+    Input[Natural Language Description] --> TO[task-analysis-specialist]
+    TO --> RO[research-analysis-specialist]
     RO --> |Parallel| R1[Domain Research]
     RO --> |Parallel| R2[Technical Analysis]
     RO --> |Parallel| R3[Constraint Validation]
@@ -163,7 +163,7 @@ graph LR
 sequenceDiagram
     participant User
     participant PlanCommand as /spec-kit:plan
-    participant IO as implementation-orchestrator
+    participant IO as implementation-strategy-specialist
     participant Templates as .specify/templates
     participant Memory as .specify/memory
 
@@ -334,7 +334,7 @@ mindmap
 
 ### 7. Implement (`/spec-kit:implement`)
 
-**Purpose**: Execute implementation plan with Agent Orchestra coordination
+**Purpose**: Execute implementation plan with Agent Specialist Framework coordination
 
 **Implementation Orchestration**:
 
@@ -342,7 +342,7 @@ mindmap
 sequenceDiagram
     participant User
     participant IC as /spec-kit:implement
-    participant IO as implementation-orchestrator
+    participant IO as implementation-strategy-specialist
     participant CW as code-writer
     participant TW as test-writer
     participant Rev as reviewer
@@ -421,19 +421,19 @@ graph LR
     M3 --> M4
 ```yaml
 
-## Integration with Agent Orchestra
+## Integration with Agent Specialist Framework
 
 ### Agent Workflow Mapping
 
 | Spec-Kit Command | Primary Agent | Secondary Agents | Purpose |
 |------------------|---------------|------------------|---------|
-| constitution | task-orchestrator | documenter | Principle establishment |
-| specify | research-orchestrator | Multiple parallel | Requirement gathering |
-| plan | implementation-orchestrator | code-writer | Architecture design |
-| clarify | task-orchestrator | research-orchestrator | Gap resolution |
-| tasks | implementation-orchestrator | - | Task breakdown |
+| constitution | task-analysis-specialist | documenter | Principle establishment |
+| specify | research-analysis-specialist | Multiple parallel | Requirement gathering |
+| plan | implementation-strategy-specialist | code-writer | Architecture design |
+| clarify | task-analysis-specialist | research-analysis-specialist | Gap resolution |
+| tasks | implementation-strategy-specialist | - | Task breakdown |
 | analyze | reviewer | documenter | Quality validation |
-| implement | implementation-orchestrator | All workers | Feature creation |
+| implement | implementation-strategy-specialist | All execution specialists | Feature creation |
 
 ### Coordination Patterns
 
@@ -441,7 +441,7 @@ graph LR
 
 ```python
 # Parallel information gathering
-research_orchestrator.spawn([
+research_analysis_specialist.spawn([
     research_agent_1("domain_analysis"),
     research_agent_2("technical_requirements"),
     research_agent_3("constraint_validation"),
@@ -453,7 +453,7 @@ research_orchestrator.spawn([
 
 ```python
 # Sequential implementation
-implementation_orchestrator.execute([
+implementation_strategy_specialist.execute([
     code_writer("core_feature_implementation"),
     test_writer("comprehensive_test_suite"),
     reviewer("code_quality_review"),
@@ -615,7 +615,7 @@ claude /spec-kit:plan --reference-feature "user-auth"
 2. **Iterative Refinement**: Use multiple clarify rounds for complex features
 3. **Quality Gates**: Don't skip analysis phase
 4. **Memory Preservation**: Keep all artifacts for reference
-5. **Agent Coordination**: Let orchestrators handle complex workflows
+5. **Agent Coordination**: Let analysis specialists handle complex workflows
 
 The Spec-Kit workflow provides a structured, validated approach to feature development that
-integrates seamlessly with the Agent Orchestra framework for comprehensive, high-quality software delivery.
+integrates seamlessly with the Agent Specialist Framework for comprehensive, high-quality software delivery.

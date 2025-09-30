@@ -8,9 +8,10 @@ This template should be used for all new commands and as a reference for standar
 ---
 description: "Single clear sentence describing what this command does"
 category: "primary_category"
-agent: "primary-agent-that-executes-this"
 tools: ["Tool1", "Tool2", "Tool3"]
 complexity: "simple|moderate|complex"
+argument-hint: "Brief description of expected arguments (optional)"
+model: "opus|sonnet (optional - only if command requires specific model)"
 ---
 
 # Command: {Action Verb} {Object}
@@ -20,23 +21,29 @@ Single sentence describing the command's primary function.
 
 ## Usage
 ```bash
+/{category}:{command-name} $ARGUMENTS
+```
 
-/{category}:{command-name} [arguments]
-
-```yaml
-
-**Arguments**: Description of expected arguments (if any)
+**Arguments**: $ARGUMENTS placeholder will be replaced with user input
 
 ## Process
+
 1. Step 1: What the command does first
 2. Step 2: What happens next
 3. Step 3: Final outcome
 
 ## Agent Integration
-- **Primary Agent**: {agent-name} - {brief role description}
-- **Secondary Agents**: {if-any} - {brief role description}
+
+- **Primary Agent**: {agent-name} - Specialist that can be spawned to execute this command
+- **Secondary Agents**: {if-any} - Additional specialists that may be spawned during execution
+
+## Implementation
+
+- **Tool Usage**: Use Task() for consulting specialist agents, SlashCommand() for executing other commands
+- **Argument Handling**: $ARGUMENTS placeholder is automatically replaced with user input
 
 ## Examples
+
 ```bash
 # Basic usage
 /{category}:{command-name}
@@ -64,7 +71,28 @@ Description of what the user can expect as output.
 - Success indicators
 - Error handling approach
 
-```yaml
+## $ARGUMENTS Placeholder System
+
+Commands use the `$ARGUMENTS` placeholder which is automatically replaced with user input:
+
+- **Purpose**: Standardized way to handle user input in command templates
+- **Usage**: Include `$ARGUMENTS` in Usage section: `/{category}:{command-name} $ARGUMENTS`
+- **Replacement**: The system automatically replaces `$ARGUMENTS` with actual user input
+- **Benefits**: Consistent argument handling across all commands
+
+**Example:**
+- Template: `/fix:bug-quickly $ARGUMENTS`
+- User input: `login button not working`
+- Executed: `/fix:bug-quickly login button not working`
+
+## Tool Usage Patterns
+
+### Task() vs SlashCommand()
+
+- **Task()**: Use to consult specialist agents for advisory guidance
+  - `Task("consult bug-fixer specialist for debugging approach", specialists=["bug-fixer"])`
+- **SlashCommand()**: Use to delegate to other commands
+  - `SlashCommand("/review:code")`
 
 ## Standardization Rules
 
@@ -77,21 +105,23 @@ Description of what the user can expect as output.
 ---
 description: "Single clear sentence under 100 characters"
 category: "folder_name_where_command_exists"
-agent: "primary-agent-name"
 tools: ["Tool1", "Tool2"]  # Claude tools used
 complexity: "simple|moderate|complex"
+argument-hint: "Brief description of expected arguments (optional)"
+model: "opus|sonnet (optional - only if command requires specific model)"
 ---
-```yaml
+```
 
 ### 3. Section Structure (Consistent Order)
 
 1. **Purpose** - Single sentence
-2. **Usage** - Command syntax
+2. **Usage** - Command syntax with $ARGUMENTS placeholder
 3. **Process** - Numbered steps
-4. **Agent Integration** - Primary/secondary agents
-5. **Examples** - Real usage examples
-6. **Output** - Expected results
-7. **Integration Points** - Related commands
+4. **Agent Integration** - Primary/secondary agents that can be spawned
+5. **Implementation** - Tool usage patterns and argument handling
+6. **Examples** - Real usage examples
+7. **Output** - Expected results
+8. **Integration Points** - Related commands
 
 ### 4. Description Standards
 
@@ -109,9 +139,10 @@ complexity: "simple|moderate|complex"
 
 ### 6. Agent Integration Standards
 
-- **Primary Agent**: The orchestrator or worker that executes the command
-- **Secondary Agents**: Any agents called during execution
+- **Primary Agent**: The specialist that can be spawned to execute the command
+- **Secondary Agents**: Additional specialists that may be spawned during execution
 - **Agent Selection**: Based on Agent Orchestra Framework roles
+- **Spawning Pattern**: Commands describe which specialists CAN be spawned, not which they run IN
 
 ### 7. Complexity Classification
 
@@ -127,9 +158,9 @@ complexity: "simple|moderate|complex"
 ---
 description: "Fixes obvious bugs quickly with minimal analysis"
 category: "fix"
-agent: "bug-fixer"
 tools: ["Read", "Edit", "Bash"]
 complexity: "simple"
+argument-hint: "Description of the bug or error message"
 ---
 
 # Command: Fix Bug Quickly
@@ -139,30 +170,36 @@ Identifies and fixes obvious bugs with rapid diagnosis and immediate resolution.
 
 ## Usage
 ```bash
+/fix:bug-quickly $ARGUMENTS
+```
 
-/fix:bug-quickly "login button not working"
-
-```yaml
-
-**Arguments**: Description of the bug or error message
+**Arguments**: $ARGUMENTS placeholder will be replaced with user input
 
 ## Process
+
 1. Reproduce the issue to understand the problem
 2. Isolate the root cause using targeted analysis
 3. Apply the fix with minimal code changes
 4. Verify the fix resolves the issue
 
 ## Agent Integration
-- **Primary Agent**: bug-fixer - Handles complete bug resolution workflow
+
+- **Primary Agent**: bug-fixer - Specialist that can be spawned to handle complete bug resolution workflow
+
+## Implementation
+
+- **Tool Usage**: Use Task() to consult bug-fixer specialist for advisory guidance
+- **Argument Handling**: $ARGUMENTS placeholder is automatically replaced with user bug description
 
 ## Examples
+
 ```bash
 # Fix specific bug
 /fix:bug-quickly "404 error on user profile page"
 
 # Fix with error message
 /fix:bug-quickly "TypeError: Cannot read property 'map' of undefined"
-```yaml
+```
 
 ## Output
 
@@ -176,16 +213,16 @@ Identifies and fixes obvious bugs with rapid diagnosis and immediate resolution.
 - **Followed by**: /test (to verify fix)
 - **Related**: /review:code, /docs:update
 
-```text
-
 ### Complex Command Example
+
 ```markdown
 ---
 description: "Orchestrates comprehensive multi-perspective code review process"
 category: "workflows"
-agent: "task-orchestrator"
 tools: ["Task", "SlashCommand", "TodoWrite"]
 complexity: "complex"
+argument-hint: "Optional scope (file pattern, directory, or 'all')"
+model: "opus"
 ---
 
 # Command: Run Comprehensive Review
@@ -195,26 +232,32 @@ Executes parallel code review across security, quality, and design perspectives.
 
 ## Usage
 ```bash
+/workflows:run-comprehensive-review $ARGUMENTS
+```
 
-/workflows:run-comprehensive-review [scope]
-
-```python
-
-**Arguments**: Optional scope (file pattern, directory, or "all")
+**Arguments**: $ARGUMENTS placeholder will be replaced with user input
 
 ## Process
-1. Coordinate parallel review streams using research-orchestrator
+
+1. Coordinate parallel review streams using research-analysis-specialist
 2. Execute security, code quality, and design reviews simultaneously
 3. Consolidate findings from all review types
 4. Generate prioritized recommendations
 5. Create action plan for addressing issues
 
 ## Agent Integration
-- **Primary Agent**: task-orchestrator - Coordinates entire review process
-- **Secondary Agents**: research-orchestrator - Manages parallel reviews
-- **Workers**: reviewer - Executes individual review types
+
+- **Primary Agent**: task-analysis-specialist - Advisory specialist for coordinating entire review strategy
+- **Secondary Agents**: research-analysis-specialist - Advisory specialist for parallel review planning
+- **Technical Specialists**: reviewer - Advisory specialist for individual review guidance
+
+## Implementation
+
+- **Tool Usage**: Use Task() to consult specialist agents, SlashCommand() to execute review commands
+- **Argument Handling**: $ARGUMENTS placeholder is automatically replaced with user scope specification
 
 ## Examples
+
 ```bash
 # Review entire codebase
 /workflows:run-comprehensive-review
@@ -224,7 +267,7 @@ Executes parallel code review across security, quality, and design perspectives.
 
 # Review recent changes
 /workflows:run-comprehensive-review "*.js"
-```python
+```
 
 ## Output
 
@@ -239,4 +282,5 @@ Executes parallel code review across security, quality, and design perspectives.
 - **Followed by**: /fix:*, /refactor:*, /clean:*
 - **Related**: /review:security, /review:code, /review:design
 
+```text
 ```

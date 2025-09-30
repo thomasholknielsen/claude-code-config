@@ -1,7 +1,7 @@
 ---
 description: "Controlled merge operations with conflict resolution and safety checks"
+argument-hint: "[arguments]"
 category: "git"
-agent: "implementation-orchestrator"
 tools: ["Bash"]
 complexity: "moderate"
 ---
@@ -15,21 +15,32 @@ Executes git operations for merge functionality.
 ## Usage
 
 ```bash
-/git:merge [arguments]
-```bash
+/git:merge $ARGUMENTS
+```
 
-**Arguments**: Optional parameters specific to the operation
+**Arguments**:
+
+- `$1` (branch): Branch to merge (optional, defaults to current branch)
+- `$2` (--strategy): Merge strategy (merge, squash, rebase) (optional)
+- `$3` (--no-ff): Force merge commit even for fast-forward (optional)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "feature/auth"` - Merge feature branch
+- `$ARGUMENTS = "develop --strategy=squash"` - Squash merge develop branch
+- `$ARGUMENTS = "hotfix/bug --no-ff"` - Force merge commit for hotfix
 
 ## Process
 
-1. Analyze the current state and requirements
-2. Execute the git operation
-3. Validate results and provide feedback
-4. Update relevant documentation or state
+1. Parse $ARGUMENTS for merge branch and strategy
+2. Analyze the current state and merge requirements
+3. Execute the git merge operation with conflict resolution
+4. Validate results and provide feedback
+5. Update relevant documentation or state
 
 ## Agent Integration
 
-- **Primary Agent**: implementation-orchestrator - Handles git operations and coordination
+- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
 
 ## Examples
 

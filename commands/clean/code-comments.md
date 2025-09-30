@@ -1,7 +1,6 @@
 ---
 description: "Clean up redundant comments while preserving valuable documentation"
 category: "clean"
-agent: "code-writer"
 tools: ["Glob", "Read", "Grep", "Edit"]
 complexity: "simple"
 ---
@@ -29,7 +28,7 @@ Executes clean operations for code comments functionality.
 
 ## Agent Integration
 
-- **Primary Agent**: code-writer - Handles clean operations and coordination
+- **Primary Agent**: code-writer - Can be spawned to handle clean operations and coordination
 
 ## Examples
 

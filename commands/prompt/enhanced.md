@@ -1,7 +1,7 @@
 ---
 description: "Enhance user prompts with knowledge of available commands and agents"
+argument-hint: "\"user prompt text\""
 category: "prompt"
-agent: "task-orchestrator"
 tools: ["Read", "Grep", "Glob", "TodoWrite"]
 complexity: "moderate"
 ---
@@ -15,22 +15,34 @@ Analyzes user prompts and enhances them by leveraging knowledge of available sla
 ## Usage
 
 ```bash
-/prompt:enhanced "user prompt text"
-```python
+/prompt:enhanced $ARGUMENTS
+```
 
-**Arguments**: Raw user prompt or task description to enhance
+**Arguments**:
+
+- `$1` (user-prompt): Raw user prompt or task description to enhance (required)
+- `$2` (--complexity): Expected complexity level for enhancement (simple, moderate, complex) (optional)
+- `$3` (--focus): Focus area for enhancement (commands, agents, parallelization) (optional)
+
+**$ARGUMENTS Examples**:
+
+- `$ARGUMENTS = "My login form isn't working"` - Basic bug report enhancement
+- `$ARGUMENTS = "Make my code better --complexity=complex"` - Complex code improvement enhancement
+- `$ARGUMENTS = "Add user authentication --focus=parallelization"` - Feature with parallelization focus
 
 ## Process
 
-1. Parse user intent from the provided prompt
-2. Map intent to available slash commands (54 total commands)
-3. Identify optimal agent assignments from Agent Orchestra (8 agents)
-4. Design execution strategy (parallel vs sequential)
-5. Generate enhanced prompt with specific recommendations
+1. Extract and parse user prompt from $ARGUMENTS
+2. Parse user intent from the provided prompt
+3. Map intent to available slash commands (54 total commands)
+4. Identify optimal agent assignments from Agent Orchestra (8 agents)
+5. Design execution strategy (main thread parallelization vs sequential)
+6. Recommend Task tool usage for parallel research opportunities
+7. Generate enhanced prompt with specific parallelization-aware recommendations
 
 ## Agent Integration
 
-- **Primary Agent**: task-orchestrator - Analyzes complexity and coordinates enhancement strategy
+- **Specialist Options**: task-analysis-specialist can be spawned to analyze complexity and coordinate enhancement strategy
 - **Analysis Tools**: Read, Grep, Glob for discovering available commands and agents
 
 ## Examples
@@ -38,8 +50,9 @@ Analyzes user prompts and enhances them by leveraging knowledge of available sla
 ### Example 1: Basic Bug Fix
 
 ```bash
-/prompt:enhanced "My login form isn't working"
-```text
+/prompt:enhanced $ARGUMENTS
+# where $ARGUMENTS = "My login form isn't working"
+```
 
 **Enhanced Output:**
 
@@ -62,58 +75,77 @@ I'll help you fix the login form issue. Here's an optimized approach:
 ### Example 2: Code Quality Improvement
 
 ```bash
-/prompt:enhanced "Make my code better"
-```text
+/prompt:enhanced $ARGUMENTS
+# where $ARGUMENTS = "Make my code better"
+```
 
 **Enhanced Output:**
 
-```yaml
-I'll help improve your code quality comprehensively. Here's a structured approach:
+```markdown
+I'll help improve your code quality comprehensively. Here's a parallelization-optimized approach:
 
-1. **Comprehensive Review**: `/workflows:run-comprehensive-review` for parallel analysis
-2. **Targeted Improvements**: Based on review findings:
+1. **Parallel Research Phase**: Use main thread Task tool to spawn multiple analysis tasks:
+   Task("Analyze code quality and design patterns across codebase")
+   Task("Perform security vulnerability assessment")
+   Task("Evaluate performance bottlenecks and optimization opportunities")
+   Task("Review test coverage and identify testing gaps")
+
+2. **Sequential Implementation Phase**: Based on parallel research findings:
    - `/refactor:simplify-logic` for complex code
    - `/clean:improve-readability` for formatting
    - `/refactor:remove-duplication` for DRY principles
 
 **Recommended Execution:**
-- Primary Agent: task-orchestrator (coordinates multiple improvements)
-- Pattern: Parallel review → Sequential improvements
-- TodoWrite: Track each improvement area
+- Research: Main thread parallelization (4 concurrent tasks)
+- Coordination: task-analysis-specialist provides strategic recommendations
+- Implementation: Sequential refactoring based on consolidated findings
+- Pattern: Parallel research → Sequential improvements
 
 **Enhanced Prompt:**
-"Execute a comprehensive code improvement workflow using parallel review agents, then apply targeted refactoring based on findings."
-```text
+"Execute comprehensive code quality improvement using main thread parallelization for research, then apply targeted refactoring sequentially based on consolidated findings."
+```
 
 ### Example 3: Feature Implementation
 
 ```bash
-/prompt:enhanced "Add user authentication to my app"
-```text
+/prompt:enhanced $ARGUMENTS
+# where $ARGUMENTS = "Add user authentication to my app"
+```
 
 **Enhanced Output:**
 
-```yaml
-I'll help implement user authentication systematically. Here's the recommended approach:
+```markdown
+I'll help implement user authentication systematically. Here's a parallelization-optimized approach:
 
-1. **Planning Phase**:
+1. **Parallel Research Phase**: Use main thread Task tool for comprehensive analysis:
+   Task("Research authentication best practices and security requirements")
+   Task("Analyze existing codebase architecture and integration points")
+   Task("Investigate performance implications of authentication systems")
+   Task("Explore testing strategies for authentication flows")
+
+2. **Planning Phase**: Based on research findings:
    - `/spec-kit:specify` to define authentication requirements
    - `/spec-kit:plan` to create implementation strategy
-2. **Implementation Phase**:
+
+3. **Sequential Implementation Phase**:
    - `/implement:spec-kit-tasks` for structured development
-   - `/review:security` for authentication security validation
-3. **Documentation Phase**:
-   - `/docs:api` for authentication endpoints
-   - `/docs:update` for user guides
+   - Implementation-strategy-specialist provides dependency coordination
+
+4. **Parallel Quality Assurance**:
+   Task("Perform comprehensive security review of authentication")
+   Task("Execute testing and validation of auth flows")
+   Task("Generate API documentation and user guides")
 
 **Recommended Execution:**
-- Primary Agent: implementation-orchestrator (coordinates full feature)
-- Pattern: Sequential phases with parallel sub-tasks
-- TodoWrite: Track planning → implementation → documentation
+- Research: Main thread parallelization (4 concurrent tasks)
+- Planning: Sequential spec-kit workflow
+- Implementation: Sequential with dependency coordination
+- Quality: Main thread parallelization (3 concurrent tasks)
+- Pattern: Parallel research → Sequential planning → Sequential implementation → Parallel QA
 
 **Enhanced Prompt:**
-"Implement user authentication using the spec-kit workflow for systematic feature development, ensuring security review and comprehensive documentation."
-```yaml
+"Implement user authentication using main thread parallelization for research and quality phases, with sequential implementation coordinated by implementation-strategy-specialist."
+```
 
 ## Output
 
@@ -133,10 +165,12 @@ I'll help implement user authentication systematically. Here's the recommended a
 ## Quality Standards
 
 - Provides actionable, specific command recommendations
-- Leverages full Agent Orchestra capabilities
-- Optimizes for parallel execution when possible
+- Leverages full Agent Specialist Framework capabilities correctly (analysis specialists provide strategic guidance)
+- Optimizes for main thread parallelization using Task tool when appropriate
+- Recommends parallel research phases followed by sequential implementation
 - Includes progress tracking via TodoWrite
-- Maps user intent to available system capabilities
+- Maps user intent to available system capabilities with parallelization awareness
+- Distinguishes between parallel research opportunities and sequential implementation requirements
 
 ## Additional Information
 
@@ -180,7 +214,7 @@ I'll help improve your code quality comprehensively. Here's a structured approac
    - `/refactor:remove-duplication` for DRY principles
 
 **Recommended Execution:**
-- Primary Agent: task-orchestrator (coordinates multiple improvements)
+- Primary Agent: task-analysis-specialist (coordinates multiple improvements)
 - Pattern: Parallel review → Sequential improvements
 - TodoWrite: Track each improvement area
 
@@ -208,7 +242,7 @@ I'll help implement user authentication systematically. Here's the recommended a
    - `/docs:update` for user guides
 
 **Recommended Execution:**
-- Primary Agent: implementation-orchestrator (coordinates full feature)
+- Primary Agent: implementation-strategy-specialist (coordinates full feature)
 - Pattern: Sequential phases with parallel sub-tasks
 - TodoWrite: Track planning → implementation → documentation
 

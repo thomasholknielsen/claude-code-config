@@ -40,7 +40,7 @@
 - **`settings.json`** - Main configuration with hooks, permissions, and MCP servers
 - **`CLAUDE.md`** - Project-specific instructions and agent configuration
 - **`scripts/`** - Hook scripts for notifications and logging
-- **`agents/`** - Agent Orchestra Framework definitions
+- **`agents/`** - Agent Specialist Framework definitions
 - **`commands/`** - Custom command definitions organized by category
 
 ### MCP Integration
@@ -121,17 +121,17 @@ The system includes three automatic hooks:
 - **Action**: Updates search queries with current year
 - **Purpose**: Get current information
 
-## Agent Orchestra Framework
+## Agent Specialist Framework
 
-The system uses specialized agents:
+The system uses 8 specialized agents as advisory subagents. Only the main Claude Code thread can orchestrate parallel execution:
 
-### Orchestrators (Coordinate Tasks)
+### Analysis Specialists (Strategic Guidance)
 
-- **task-orchestrator** - General task coordination
-- **research-orchestrator** - Information gathering
-- **implementation-orchestrator** - Code implementation
+- **task-analysis-specialist** - Complexity analysis and execution recommendations
+- **research-analysis-specialist** - Multi-domain research and synthesis
+- **implementation-strategy-specialist** - Dependency analysis and sequential guidance
 
-### Workers (Execute Tasks)
+### Execution Specialists (Domain Expertise)
 
 - **code-writer** - Code generation
 - **test-writer** - Test creation
@@ -190,9 +190,9 @@ claude /analyze:potential-issues
 
 Agents are pre-configured but can be extended:
 
-1. Add new workers in `agents/workers/`
-2. Update orchestrators in `agents/orchestrators/`
-3. Follow the Agent Orchestra patterns
+1. Add new execution specialists in `agents/execution-specialists/`
+2. Add new analysis specialists in `agents/analysis-specialists/`
+3. Follow the Agent Specialist Framework patterns
 
 ## Troubleshooting
 
@@ -216,7 +216,7 @@ Agents are pre-configured but can be extended:
 **Agent not responding**
 
 - Check agent definitions in `agents/` directory
-- Verify Agent Orchestra framework is properly configured
+- Verify Agent Specialist Framework is properly configured
 
 ### Getting Help
 
@@ -232,4 +232,4 @@ Agents are pre-configured but can be extended:
 4. **Explore advanced commands** in each category
 5. **Customize agents** for your specific needs
 
-For advanced usage and customization, see the [Developer Guide](developer-guide.md).
+For advanced usage and customization, see the [Developer Guide](../developer/developer-guide.md).

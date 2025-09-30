@@ -1,7 +1,7 @@
 ---
 description: "Manages git worktrees for parallel development with shared repository history"
+argument-hint: "[action] [arguments...]"
 category: "git"
-agent: "implementation-orchestrator"
 tools: ["Bash", "Read", "Grep"]
 complexity: "moderate"
 ---
@@ -15,37 +15,38 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ## Usage
 
 ```bash
-/git:worktree [action] [arguments...]
+/git:worktree $ARGUMENTS
 ```
 
 **Arguments**:
 
-- `action`: add, add-multiple, add-staging, remove, list, or prune (default: list)
-- For `add`: `[branch-name] [path]` - Single worktree creation
-- For `add-multiple`: `[branch1] [branch2] [branch3...]` - Batch parallel worktrees
-- For `add-staging`: `[staging-branch] [feature1] [feature2...]` - Staging branch + children
-- For `remove`: `[path]` - Remove specific worktree
-- For `list`: No arguments - Show all worktrees with mode indicators
-- For `prune`: No arguments - Clean stale references
+- `$1` (action): add, add-multiple, add-staging, remove, list, or prune (default: list)
+- For `add`: `$2` (branch-name), `$3` (path) - Single worktree creation
+- For `add-multiple`: `$2..$N` (branch names) - Batch parallel worktrees
+- For `add-staging`: `$2` (staging-branch), `$3..$N` (feature names) - Staging branch + children
+- For `remove`: `$2` (path) - Remove specific worktree
+- For `list`: No additional arguments - Show all worktrees with mode indicators
+- For `prune`: No additional arguments - Clean stale references
 
-## Directory Naming Convention
+**$ARGUMENTS Examples**:
 
-Worktree directories follow the pattern: `.trees/{worktree-name}/`
+- `$ARGUMENTS = "add feature/auth ../wt-auth"` - Single worktree
+- `$ARGUMENTS = "add-multiple feature/auth feature/payments"` - Multiple parallel worktrees
+- `$ARGUMENTS = "add-staging integration feature/auth feature/payments"` - Staging workflow
+- `$ARGUMENTS = "remove ../wt-auth"` - Remove worktree
+- `$ARGUMENTS = "list"` - Show all worktrees
 
-- **Location**: All worktrees are created in the `.trees/` directory at repository root
-- **Example**: Worktree for "feature/auth" → `.trees/auth/`
-- **Branch paths**: Slashes in branch names (feature/auth) become hyphens (auth)
-- **Benefits**: Self-contained, predictable location, easy to script, consistent across developers
 
 ## Process
 
 ### Single Worktree (add)
 
 1. Validate repository state and check for existing worktrees
-2. Execute specified worktree operation with safety checks
-3. Create worktree directory and branch association
-4. Update worktree tracking and provide status confirmation
-5. Report worktree state and provide next steps guidance
+2. Parse $ARGUMENTS to determine action and parameters
+3. Execute specified worktree operation with safety checks
+4. Create worktree directory and branch association
+5. Update worktree tracking and provide status confirmation
+6. Report worktree state and provide next steps guidance
 
 ### Parallel Mode (add-multiple)
 
@@ -65,7 +66,7 @@ Worktree directories follow the pattern: `.trees/{worktree-name}/`
 
 ## Agent Integration
 
-- **Primary Agent**: implementation-orchestrator - Handles git worktree operations and directory coordination
+- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git worktree operations and directory coordination
 
 ## Examples
 
@@ -73,16 +74,136 @@ Worktree directories follow the pattern: `.trees/{worktree-name}/`
 
 ```bash
 # List all worktrees with mode indicators
-/git:worktree list
+/git:worktree $ARGUMENTS
+# where $ARGUMENTS = "list"
 
 # Single worktree creation (existing functionality)
-/git:worktree add feature/api-improvements .trees/api-work
+/git:worktree $ARGUMENTS
+# where $ARGUMENTS = "add feature/api-improvements ../api-work"
 
 # Remove worktree
-/git:worktree remove .trees/api-work
+/git:worktree $ARGUMENTS
+# where $ARGUMENTS = "remove ../api-work"
 
 # Prune stale worktree references
-/git:worktree prune
+/git:worktree $ARGUMENTS
+# where $ARGUMENTS = "prune"
+```
+
+### Parallel Mode: Independent Branches → Multiple PRs (Default)
+
+```bash
+# Create multiple independent worktrees for parallel development
+/git:worktree $ARGUMENTS
+# where $ARGUMENTS = "add-multiple feature/auth feature/payments bugfix/header"
+
+# Creates:
+# ../wt-auth/     (feature/auth branch)
+# ../wt-payments/ (feature/payments branch)
+# ../wt-header/   (bugfix/header branch)
+# Each worktree independent → separate PRs
+
+# List shows parallel mode worktrees
+/git:worktree list
+# [parallel] ../wt-auth (feature/auth)
+# [parallel] ../wt-payments (feature/payments)
+# [parallel] ../wt-header (bugfix/header)
+```
+
+### Staging Mode: Consolidated Work → Single PR
+
+```bash
+# Create staging branch + multiple child worktrees
+/git:worktree $ARGUMENTS
+# where $ARGUMENTS = "add-staging integration-q4 feature/auth feature/payments bugfix/header"
+
+# Creates:
+# integration-q4 branch (staging branch)
+# ../wt-integration/      (integration-q4 base)
+# ../wt-integration-auth/ (integration-q4-auth branch)
+# ../wt-integration-pay/  (integration-q4-payments branch)
+# ../wt-integration-head/ (integration-q4-header branch)
+# All child worktrees branch from integration-q4
+
+# List shows staging structure
+/git:worktree list
+# [staging-parent] ../wt-integration (integration-q4)
+# [staging-child]  ../wt-integration-auth (integration-q4-auth)
+# [staging-child]  ../wt-integration-pay (integration-q4-payments)
+# [staging-child]  ../wt-integration-head (integration-q4-header)
+```
+
+### Workflow Decision Guide
+
+```bash
+# Use Parallel Mode when:
+# ✅ Changes are logically separate
+# ✅ Want clean history and atomic PRs
+# ✅ Need independent code review cycles
+/git:worktree add-multiple feature/login feature/dashboard feature/api
+
+# Use Staging Mode when:
+# ✅ Experimenting with related changes
+# ✅ Want to consolidate before review
+# ✅ Prefer single bundled PR over multiple small ones
+/git:worktree add-staging experiment-2024q4 feature/ui-refresh feature/new-flow feature/analytics
+```
+
+### Parallel Mode: Independent Branches → Multiple PRs (Default)
+
+```bash
+# Create multiple independent worktrees for parallel development
+/git:worktree add-multiple feature/auth feature/payments bugfix/header
+
+# Creates:
+# ../wt-auth/     (feature/auth branch)
+# ../wt-payments/ (feature/payments branch)
+# ../wt-header/   (bugfix/header branch)
+# Each worktree independent → separate PRs
+
+# List shows parallel mode worktrees
+/git:worktree list
+# [parallel] ../wt-auth (feature/auth)
+# [parallel] ../wt-payments (feature/payments)
+# [parallel] ../wt-header (bugfix/header)
+```
+
+### Staging Mode: Consolidated Work → Single PR
+
+```bash
+# Create staging branch + multiple child worktrees
+/git:worktree add-staging integration-q4 feature/auth feature/payments bugfix/header
+
+# Creates:
+# integration-q4 branch (staging branch)
+# ../wt-integration/      (integration-q4 base)
+# ../wt-integration-auth/ (integration-q4-auth branch)
+# ../wt-integration-pay/  (integration-q4-payments branch)
+# ../wt-integration-head/ (integration-q4-header branch)
+# All child worktrees branch from integration-q4
+
+# List shows staging structure
+/git:worktree list
+# [staging-parent] ../wt-integration (integration-q4)
+# [staging-child]  ../wt-integration-auth (integration-q4-auth)
+# [staging-child]  ../wt-integration-pay (integration-q4-payments)
+# [staging-child]  ../wt-integration-head (integration-q4-header)
+```
+
+### Workflow Decision Guide
+
+```bash
+# Use Parallel Mode when:
+# ✅ Changes are logically separate
+# ✅ Want clean history and atomic PRs
+# ✅ Need independent code review cycles
+/git:worktree add-multiple feature/login feature/dashboard feature/api
+
+# Use Staging Mode when:
+# ✅ Experimenting with related changes
+# ✅ Want to consolidate before review
+# ✅ Prefer single bundled PR over multiple small ones
+/git:worktree add-staging experiment-2024q4 feature/ui-refresh feature/new-flow feature/analytics
 ```
 
 ### Parallel Mode: Independent Branches → Multiple PRs (Default)

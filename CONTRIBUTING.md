@@ -5,9 +5,9 @@ Code Command System! This document provides guidelines for contributing to this 
 
 ## 🎯 Overview
 
-The Claude Code Command System is built on the **Agent Orchestra Framework** with:
+The Claude Code Command System is built on the **Agent Specialist Framework** with:
 
-- **8 Agents**: 3 orchestrators + 5 workers for task coordination
+- **8 Agents**: 3 analysis specialists + 5 execution specialists for task coordination
 - **54+ Commands**: Atomic operations across 15 categories
 - **Cross-Platform Compatibility**: Windows, macOS, and Linux support
 - **MCP Integration**: Context7 and Playwright tools
@@ -19,7 +19,7 @@ The Claude Code Command System is built on the **Agent Orchestra Framework** wit
 We welcome several types of contributions:
 
 1. **New Commands** - Atomic operations following our command template
-2. **Agent Improvements** - Enhancements to orchestrators or workers
+2. **Agent Improvements** - Enhancements to analysis specialists or execution specialists
 3. **Documentation** - User guides, technical docs, and examples
 4. **Bug Fixes** - Corrections to existing functionality
 5. **Security Improvements** - Enhanced security patterns and controls
@@ -28,7 +28,7 @@ We welcome several types of contributions:
 ### Before You Start
 
 1. **Search existing issues** to avoid duplicates
-2. **Review the architecture** in `docs/agent-orchestra-framework.md`
+2. **Review the architecture** in `docs/concepts/agent-specialist-framework.md`
 3. **Read the developer guide** at `docs/developer-guide.md`
 4. **Check command standards** in `docs/command-template.md`
 
@@ -40,7 +40,7 @@ We welcome several types of contributions:
 
 - Follow the template in `docs/command-template.md`
 - Include complete YAML frontmatter
-- Be assigned to an existing Agent Orchestra agent
+- Be assigned to an existing Agent Specialist Framework agent
 - Include practical examples and integration points
 - Support cross-platform execution
 
@@ -70,8 +70,8 @@ complexity: "simple|moderate|complex"
 **New agents must:**
 
 - Have single, focused responsibility
-- Follow orchestrator/worker pattern
-- Use appropriate model (Opus for orchestrators, Sonnet for workers)
+- Follow analysis specialist/execution specialist pattern
+- Use appropriate model (Opus for analysis specialists, Sonnet for execution specialists)
 - Not duplicate existing agent functionality
 - Include complete YAML specification
 

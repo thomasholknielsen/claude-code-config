@@ -1,7 +1,6 @@
 ---
 description: "Saves Claude plan mode output to versioned markdown files in project/.claude/.plans"
 category: "plan"
-agent: "task-orchestrator"
 tools: ["Bash", "Write"]
 complexity: "simple"
 ---
@@ -30,7 +29,7 @@ Saves plans generated from Claude's plan mode (Shift+Tab twice) to versioned mar
 
 ## Agent Integration
 
-- **Primary Agent**: task-orchestrator - Coordinates plan generation and file management
+- **Specialist Options**: task-analysis-specialist can be spawned to analyze plan requirements and coordinate file management strategy
 - **Secondary Agents**: None (uses plan mode directly)
 
 ## Examples
