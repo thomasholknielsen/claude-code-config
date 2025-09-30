@@ -28,6 +28,15 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - For `list`: No arguments - Show all worktrees with mode indicators
 - For `prune`: No arguments - Clean stale references
 
+## Directory Naming Convention
+
+Worktree directories follow the pattern: `.trees/{worktree-name}/`
+
+- **Location**: All worktrees are created in the `.trees/` directory at repository root
+- **Example**: Worktree for "feature/auth" → `.trees/auth/`
+- **Branch paths**: Slashes in branch names (feature/auth) become hyphens (auth)
+- **Benefits**: Self-contained, predictable location, easy to script, consistent across developers
+
 ## Process
 
 ### Single Worktree (add)
@@ -42,7 +51,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 1. Validate repository state for batch operations
 2. Loop through each branch name with validation
-3. Auto-generate directory paths (../wt-{branch-suffix})
+3. Auto-generate directory paths (.trees/{branch-suffix}/)
 4. Create independent worktrees for parallel development
 5. Report all created worktrees with individual PR guidance
 
@@ -67,10 +76,10 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 /git:worktree list
 
 # Single worktree creation (existing functionality)
-/git:worktree add feature/api-improvements ../api-work
+/git:worktree add feature/api-improvements .trees/api-work
 
 # Remove worktree
-/git:worktree remove ../api-work
+/git:worktree remove .trees/api-work
 
 # Prune stale worktree references
 /git:worktree prune
@@ -83,16 +92,16 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 /git:worktree add-multiple feature/auth feature/payments bugfix/header
 
 # Creates:
-# ../wt-auth/     (feature/auth branch)
-# ../wt-payments/ (feature/payments branch)
-# ../wt-header/   (bugfix/header branch)
+# .trees/auth/     (feature/auth branch)
+# .trees/payments/ (feature/payments branch)
+# .trees/header/   (bugfix/header branch)
 # Each worktree independent → separate PRs
 
 # List shows parallel mode worktrees
 /git:worktree list
-# [parallel] ../wt-auth (feature/auth)
-# [parallel] ../wt-payments (feature/payments)
-# [parallel] ../wt-header (bugfix/header)
+# [parallel] .trees/auth (feature/auth)
+# [parallel] .trees/payments (feature/payments)
+# [parallel] .trees/header (bugfix/header)
 ```
 
 ### Staging Mode: Consolidated Work → Single PR
@@ -103,18 +112,18 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 # Creates:
 # integration-q4 branch (staging branch)
-# ../wt-integration/      (integration-q4 base)
-# ../wt-integration-auth/ (integration-q4-auth branch)
-# ../wt-integration-pay/  (integration-q4-payments branch)
-# ../wt-integration-head/ (integration-q4-header branch)
+# .trees/integration/      (integration-q4 base)
+# .trees/integration-auth/ (integration-q4-auth branch)
+# .trees/integration-pay/  (integration-q4-payments branch)
+# .trees/integration-head/ (integration-q4-header branch)
 # All child worktrees branch from integration-q4
 
 # List shows staging structure
 /git:worktree list
-# [staging-parent] ../wt-integration (integration-q4)
-# [staging-child]  ../wt-integration-auth (integration-q4-auth)
-# [staging-child]  ../wt-integration-pay (integration-q4-payments)
-# [staging-child]  ../wt-integration-head (integration-q4-header)
+# [staging-parent] .trees/integration (integration-q4)
+# [staging-child]  .trees/integration-auth (integration-q4-auth)
+# [staging-child]  .trees/integration-pay (integration-q4-payments)
+# [staging-child]  .trees/integration-head (integration-q4-header)
 ```
 
 ### Workflow Decision Guide
@@ -174,7 +183,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 ### Parallel Mode (add-multiple)
 
-- Auto-generates sensible directory names (../wt-{branch-suffix})
+- Auto-generates sensible directory names (.trees/{branch-suffix}/)
 - Validates branch names don't conflict with existing worktrees
 - Each worktree maintains independence for clean parallel development
 - Provides status tracking across all parallel worktrees
