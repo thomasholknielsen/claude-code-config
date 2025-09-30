@@ -37,7 +37,6 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - `$ARGUMENTS = "remove ../wt-auth"` - Remove worktree
 - `$ARGUMENTS = "list"` - Show all worktrees
 
-
 ## Process
 
 ### Single Worktree (add)
@@ -48,23 +47,6 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 4. Create worktree directory and branch association
 5. Update worktree tracking and provide status confirmation
 6. Report worktree state and provide next steps guidance
-
-### Parallel Mode (add-multiple)
-
-1. Validate repository state for batch operations
-2. Loop through each branch name with validation
-3. Auto-generate directory paths (../wt-{branch-suffix})
-4. Create independent worktrees for parallel development
-5. Report all created worktrees with individual PR guidance
-
-### Staging Mode (add-staging)
-
-1. Create integration branch from current HEAD
-2. Create base worktree for staging branch
-3. Loop through feature names creating child worktrees
-4. Each child branches from the staging branch
-5. Report staging structure with consolidation workflow guidance
-
 
 ### Parallel Mode (add-multiple)
 
