@@ -32,7 +32,6 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 ## Process
 
-
 1. **Pre-Commit Linting**: Run `/workflows:lint-and-correct-all` to ensure code quality
    - Auto-fix linting errors across all languages
    - Stage auto-fixed files automatically

@@ -36,7 +36,6 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 - `$ARGUMENTS = "remove ../wt-auth"` - Remove worktree
 - `$ARGUMENTS = "list"` - Show all worktrees
 
-
 ## Process
 
 ### Single Worktree (add)
