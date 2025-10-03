@@ -8,7 +8,7 @@ User input:
 
 $ARGUMENTS
 
-1. Run `~/.claude/.specify/scripts/bash/check-prerequisites.sh --json` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute.
+1. Run `.specify/scripts/bash/check-prerequisites.sh --json` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute.
 2. Load and analyze available design documents:
    - Always read plan.md for tech stack and libraries
    - IF EXISTS: Read data-model.md for entities
@@ -22,13 +22,13 @@ $ARGUMENTS
    - Generate tasks based on what's available
 
 3. Generate tasks following the template:
-   - Use `~/.claude/.specify/templates/tasks-template.md` as the base
+   - Use `.specify/templates/tasks-template.md` as the base
    - Replace example tasks with actual tasks based on:
-     - **Setup tasks**: Project init, dependencies, linting
-     - **Test tasks [P]**: One per contract, one per integration scenario
-     - **Core tasks**: One per entity, service, CLI command, endpoint
-     - **Integration tasks**: DB connections, middleware, logging
-     - **Polish tasks [P]**: Unit tests, performance, docs
+     * **Setup tasks**: Project init, dependencies, linting
+     * **Test tasks [P]**: One per contract, one per integration scenario
+     * **Core tasks**: One per entity, service, CLI command, endpoint
+     * **Integration tasks**: DB connections, middleware, logging
+     * **Polish tasks [P]**: Unit tests, performance, docs
 
 4. Task generation rules:
    - Each contract file → contract test task marked [P]
