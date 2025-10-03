@@ -126,12 +126,12 @@ def parse_review_output(markdown_content):
 
 def post_inline_comment(pr_number, issue):
     """Post inline comment to GitHub PR"""
-    comment_body = f"""**{issue['severity']}**: {issue['issue']}
+    comment_body = f"""**{issue["severity"]}**: {issue["issue"]}
 
-**Reasoning:** {issue['reasoning']}
+**Reasoning:** {issue["reasoning"]}
 
 **Suggested Fix:**
-{issue['fix']}
+{issue["fix"]}
 
 ---
 *Posted by AI Code Review*
@@ -171,13 +171,13 @@ def generate_summary_comment(full_review, issues):
 
     summary = f"""## 🤖 AI Code Review Summary
 
-**Review completed at:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}
+**Review completed at:** {datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")}
 
 ### Findings Overview
-- 🔴 **Critical:** {severity_counts['Critical']} issues
-- 🟠 **Major:** {severity_counts['Major']} issues
-- 🟡 **Minor:** {severity_counts['Minor']} issues
-- 🟢 **Enhancement:** {severity_counts['Enhancement']} suggestions
+- 🔴 **Critical:** {severity_counts["Critical"]} issues
+- 🟠 **Major:** {severity_counts["Major"]} issues
+- 🟡 **Minor:** {severity_counts["Minor"]} issues
+- 🟢 **Enhancement:** {severity_counts["Enhancement"]} suggestions
 
 ### Highlights
 {highlights}
