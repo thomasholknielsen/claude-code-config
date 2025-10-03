@@ -73,6 +73,7 @@ commands/
 ├── workflows/
 ```
 
+
 ### Command Design Principles
 
 **Atomic Operations**: All commands (except workflows) are atomic, single-purpose operations that can be:
@@ -232,9 +233,37 @@ This ensures all development work stays aligned with planned features.
 
 ### Spec-Kit Cross-Repository Modifications
 
+
 **CRITICAL**: Spec-kit commands have been modified to use `~/.claude/.specify/scripts/` and
 `~/.claude/.specify/templates/` instead of project-relative paths. This enables commands to work from any
 repository when Claude config is user-scoped.
+
+**Reapply modifications:**
+
+```bash
+/utility:apply-spec-kit-mods
+```
+
+## 🔄 CRUD Operations Guide
+
+### 🚨 TODO File Location Constraint
+
+**CRITICAL REQUIREMENT**: All TODO operations MUST use the standardized location:
+
+- **Required Location**: `{project_root}/.claude/.todos/TODO.md`
+- **Prohibited**: TODO files in any other location (project root, docs/, etc.)
+- **Enforcement**: All `/to-do:*` commands validate and enforce this constraint
+- **Rationale**: Centralized task tracking, consistent file management, prevents scattered TODO files
+
+### Create Operations
+
+**New Commands:**
+
+1. Use command template from `docs/command-template.md`
+2. Place in appropriate category folder: `commands/{category}/{name}.md`
+3. Assign to existing Agent Specialist Framework agent
+4. Include MCP tools if relevant (Context7 for docs, Playwright for UI)
+5. Ensure atomic operation design
 
 **Reapply modifications:**
 
