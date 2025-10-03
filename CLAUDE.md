@@ -232,6 +232,7 @@ This ensures all development work stays aligned with planned features.
 
 ### Spec-Kit Cross-Repository Modifications
 
+
 **CRITICAL**: Spec-kit commands have been modified to use `~/.claude/.specify/scripts/` and
 `~/.claude/.specify/templates/` instead of project-relative paths. This enables commands to work from any
 repository when Claude config is user-scoped.

@@ -1,0 +1,257 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.artifacts/**'
+
+jobs:
+  ai-review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for diff analysis
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run AI Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allow-tool=bash
+            --allow-tool=read
+            --allow-tool=grep
+            --allow-tool=glob
+          prompt: |
+            You are an expert code reviewer. Review PR #${{ github.event.pull_request.number }}.
+
+            **Process:**
+            1. Analyze changed files in this PR
+            2. Determine applicable review perspectives based on file types:
+               - Always run: readability, style, testing, documentation, observability
+               - Conditional: performance (DB/API), architecture (services), security (auth/API), design (UI)
+            3. Evaluate changes against comprehensive criteria for each perspective
+            4. Organize findings by severity: Critical, Major, Minor, Enhancement
+
+            **Review Criteria by Perspective:**
+
+            **READABILITY:**
+            - Variable/function naming clarity
+            - Code structure and organization
+            - Duplicate code (DRY violations)
+            - Complex logic requiring simplification
+            - Magic numbers without explanation
+
+            **PERFORMANCE:**
+            - N+1 query patterns
+            - Inefficient algorithms (O(n²) when O(n) possible)
+            - Missing caching opportunities
+            - Memory leaks or excessive allocations
+            - Blocking I/O in hot paths
+
+            **TESTING:**
+            - Unit test coverage for new code
+            - Edge case testing (null, empty, boundary)
+            - Integration test completeness
+            - Test naming and clarity
+            - Missing regression tests for bug fixes
+
+            **STYLE:**
+            - Code formatting consistency
+            - Import ordering
+            - Naming conventions adherence
+            - Linter/formatter compliance
+
+            **ARCHITECTURE:**
+            - SOLID principles adherence
+            - Design pattern appropriateness
+            - Module coupling and cohesion
+            - Circular dependencies
+            - Separation of concerns
+
+            **DOCUMENTATION:**
+            - Public API documentation
+            - Complex logic explanations
+            - README updates for new features
+            - Outdated or misleading comments
+
+            **OBSERVABILITY:**
+            - Error handling completeness
+            - Logging at appropriate levels
+            - Sensitive data in logs (PII, credentials)
+            - Monitoring/metrics integration
+            - Correlation IDs for distributed tracing
+
+            **SECURITY:**
+            - Input validation and sanitization
+            - Authentication/authorization checks
+            - SQL injection vulnerabilities
+            - XSS vulnerabilities
+            - Secrets exposure
+            - OWASP Top 10 compliance
+
+            **Output Requirements:**
+            - Organize by severity: Critical, Major, Minor, Enhancement
+            - Include reasoning for each suggestion
+            - Provide concrete fix suggestions with code examples
+            - Highlight 2-3 positive patterns
+            - Post inline comments for Critical/Major issues
+            - Post summary comment with all findings
+
+            **Base branch:** ${{ github.event.pull_request.base.ref }}
+            **Feature branch:** ${{ github.event.pull_request.head.ref }}
+
+  security-review:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.pull_request.changed_files, 'auth/') ||
+      contains(github.event.pull_request.changed_files, 'api/security/') ||
+      contains(github.event.pull_request.changed_files, 'middleware/auth/')
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Deep Security Review (Critical Paths)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            **DEEP SECURITY REVIEW** for security-critical files.
+
+            Focus on OWASP Top 10:
+            1. Injection vulnerabilities (SQL, NoSQL, Command, LDAP)
+            2. Broken authentication (weak passwords, session management)
+            3. Sensitive data exposure (encryption, secure transmission)
+            4. XML external entities (XXE)
+            5. Broken access control (authorization bypasses)
+            6. Security misconfiguration (default credentials, verbose errors)
+            7. Cross-site scripting (XSS)
+            8. Insecure deserialization
+            9. Using components with known vulnerabilities
+            10. Insufficient logging and monitoring
+
+            **Additional Security Checks:**
+            - Input validation on all user inputs
+            - Output encoding to prevent XSS
+            - Parameterized queries to prevent SQL injection
+            - Proper password hashing (bcrypt, Argon2)
+            - Secure session management
+            - HTTPS enforcement
+            - CSRF protection
+            - Rate limiting on authentication endpoints
+            - Secrets management (no hardcoded keys)
+            - Principle of least privilege
+
+            Flag ALL Critical security issues with severity level.
+
+  performance-review:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.pull_request.changed_files, 'database/') ||
+      contains(github.event.pull_request.changed_files, 'queries/') ||
+      contains(github.event.pull_request.changed_files, '.sql')
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Deep Performance Review (Performance-Critical Paths)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            **DEEP PERFORMANCE REVIEW** for performance-critical files.
+
+            Check for:
+            - N+1 query patterns (loading relations in loops)
+            - Missing database indexes on frequently queried columns
+            - Inefficient joins (CROSS JOIN, multiple LEFT JOINs)
+            - Large data loading without pagination
+            - Missing query caching for expensive operations
+            - Connection pool management issues
+            - Blocking synchronous operations in async contexts
+            - Memory-intensive operations on large datasets
+            - Missing batch operations for bulk updates
+            - Suboptimal algorithm complexity (O(n²) vs O(n log n))
+
+            Flag performance issues that will cause:
+            - Timeouts (> 30 seconds)
+            - High memory usage (> 1GB for single operation)
+            - Database connection exhaustion
+            - Slow API responses (> 5 seconds)
+
+  external-contributor-review:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.fork == true
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Enhanced Review (External Contributors)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            **ENHANCED REVIEW** for external contributor.
+
+            Apply stricter criteria:
+            1. **Security vulnerabilities** (CRITICAL priority - must be flagged)
+               - Any potential security issue is blocking
+               - Thorough review of all user inputs
+               - Check for common vulnerabilities (XSS, SQLi, CSRF)
+
+            2. **Code quality and adherence to project standards**
+               - Follow existing code patterns
+               - Match project's naming conventions
+               - Consistent with project architecture
+
+            3. **Test coverage requirements** (ALL new code must have tests)
+               - Unit tests for all new functions
+               - Integration tests for new features
+               - Edge case coverage
+
+            4. **Documentation completeness** (public APIs must be documented)
+               - JSDoc/docstrings for public functions
+               - README updates for user-facing changes
+               - Inline comments for complex logic
+
+            5. **No breaking changes without explicit discussion**
+               - Check for API compatibility
+               - Verify backward compatibility
+               - Flag any breaking changes
+
+            Flag ANY security concerns as Critical.
+            Flag missing tests or docs as Major.
