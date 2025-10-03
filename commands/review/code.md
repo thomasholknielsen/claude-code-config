@@ -10,7 +10,8 @@ complexity: "moderate"
 
 ## Purpose
 
-Performs comprehensive code quality analysis with parallel assessment of multiple quality dimensions including syntax, patterns, maintainability, and performance.
+Performs comprehensive code quality analysis with parallel assessment of multiple quality dimensions
+including syntax, patterns, maintainability, and performance.
 
 ## Usage
 
