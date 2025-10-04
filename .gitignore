@@ -1,6 +1,5 @@
 # Ignore specific directories and files
 .DS_Store
-.claude/
 ide/
 logs/
 plugins/
@@ -61,9 +60,6 @@ file-history/
 # Worktrees
 .trees/
 
-# Spec-kit artifacts (stale, protected)
-.specify/
-
 # Ignore credentials and sensitive files
 .credentials.json
 settings.local.json
@@ -74,6 +70,3 @@ settings.local.json
 .env.*.local
 
 # Allow agents, commands, and scripts directories (explicitly not ignored)
-
-#Ignore vscode AI rules
-.github/instructions/codacy.instructions.md
