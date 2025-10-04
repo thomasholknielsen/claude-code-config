@@ -4,6 +4,7 @@ argument-hint: "[path] [--max-complexity=<number>] [--max-nesting=<level>] [--fo
 category: "refactor"
 tools: ["Read", "Edit", "Bash"]
 complexity: "moderate"
+allowed-tools: Read, Edit, Bash
 ---
 
 # Command: Simplify Logic

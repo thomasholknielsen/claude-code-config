@@ -4,6 +4,7 @@ category: "workflows"
 agent: "task-orchestrator"
 tools: ["SlashCommand", "Read", "Write"]
 complexity: "complex"
+allowed-tools: SlashCommand(/review:*), Read, Write
 ---
 
 # Command: Run Comprehensive Review

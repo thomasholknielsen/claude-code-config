@@ -3,6 +3,7 @@ description: "Clean up development artifacts while preserving working code"
 category: "clean"
 tools: ["Bash", "Glob", "Read"]
 complexity: "moderate"
+allowed-tools: Bash, Glob, Read
 ---
 
 # Command: Development Artifacts

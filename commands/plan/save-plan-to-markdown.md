@@ -3,6 +3,7 @@ description: "Saves Claude plan mode output to versioned markdown files in proje
 category: "plan"
 tools: ["Bash", "Write"]
 complexity: "simple"
+allowed-tools: Bash, Write
 ---
 
 # Command: Save Plan To Markdown

@@ -4,6 +4,7 @@ argument-hint: "[version] [--add-entry] [--release] [--format=<style>]"
 category: "docs"
 tools: ["Bash", "Read", "Edit", "Grep"]
 complexity: "moderate"
+allowed-tools: Bash, Read, Edit, Grep
 ---
 
 # Command: Changelog

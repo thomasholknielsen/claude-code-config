@@ -4,6 +4,7 @@ argument-hint: "[--focus security|updates|compatibility] or [--manager npm|pip|c
 category: "analyze"
 tools: ["Bash", "Read", "Grep", "WebFetch"]
 complexity: "moderate"
+allowed-tools: Bash, Read, Grep, WebFetch
 ---
 
 # Command: Dependencies

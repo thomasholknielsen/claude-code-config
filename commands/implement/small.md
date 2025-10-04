@@ -4,6 +4,7 @@ argument-hint: "[arguments]"
 category: "implement"
 tools: ["Task", "SlashCommand", "TodoWrite"]
 complexity: "moderate"
+allowed-tools: Task, SlashCommand, TodoWrite
 ---
 
 # Command: Small

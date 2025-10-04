@@ -4,6 +4,7 @@ argument-hint: "[scope] [--severity=level] [--fix] [--report]"
 category: "review"
 tools: ["Read", "Write", "Grep", "Glob", "MultiEdit"]
 complexity: "complex"
+allowed-tools: Read, Write, Grep, Glob, MultiEdit
 ---
 
 # Command: Review Security

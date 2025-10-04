@@ -4,6 +4,7 @@ category: "git"
 agent: "implementation-orchestrator"
 tools: ["Bash", "Read", "Grep", "TodoWrite"]
 complexity: "complex"
+allowed-tools: Bash, Read, Grep, TodoWrite
 ---
 
 # Command: Worktree Consolidate

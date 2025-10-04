@@ -4,6 +4,7 @@ category: "workflows"
 agent: "task-orchestrator"
 tools: ["SlashCommand"]
 complexity: "complex"
+allowed-tools: SlashCommand(/docs:*)
 ---
 
 # Command: Run Docs Workflow

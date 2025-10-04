@@ -4,6 +4,7 @@ argument-hint: "[path] [--tool=<formatter>] [--config=<config_file>] [--check-on
 category: "clean"
 tools: ["Read", "Edit", "MultiEdit", "Bash"]
 complexity: "simple"
+allowed-tools: Read, Edit, MultiEdit, Bash
 ---
 
 # Command: Apply Style Rules

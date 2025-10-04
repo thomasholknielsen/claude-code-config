@@ -4,6 +4,7 @@ argument-hint: "[component] [--aspect=focus] [--device=type] [--fix]"
 category: "review"
 tools: ["mcp__playwright__browser_snapshot", "mcp__playwright__browser_navigate", "Read", "Grep"]
 complexity: "complex"
+allowed-tools: mcp__playwright__browser_snapshot, mcp__playwright__browser_navigate, Read, Grep
 ---
 
 # Command: Review Design

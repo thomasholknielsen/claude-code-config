@@ -4,6 +4,7 @@ argument-hint: "\"task description\""
 category: "to-do"
 tools: ["Read", "Write", "Edit"]
 complexity: "simple"
+allowed-tools: Read, Write, Edit
 ---
 
 # Command: Create

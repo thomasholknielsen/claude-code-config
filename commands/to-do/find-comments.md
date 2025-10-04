@@ -4,6 +4,7 @@ argument-hint: "[arguments]"
 category: "to-do"
 tools: ["Grep", "Read", "Write"]
 complexity: "simple"
+allowed-tools: Grep, Read, Write
 ---
 
 # Command: Find Comments

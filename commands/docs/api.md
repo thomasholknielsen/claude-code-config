@@ -4,6 +4,7 @@ argument-hint: "[path] [--format=<type>] [--include-examples] [--update-schemas]
 category: "docs"
 tools: ["Glob", "Read", "Grep", "Write", "mcp__context7__get-library-docs"]
 complexity: "complex"
+allowed-tools: Glob, Read, Grep, Write, mcp__context7__get-library-docs
 ---
 
 # Command: Api

@@ -4,6 +4,7 @@ category: "workflows"
 agent: "task-orchestrator"
 tools: ["SlashCommand", "Glob", "TodoWrite", "Bash"]
 complexity: "moderate"
+allowed-tools: SlashCommand(/clean:*), SlashCommand(/workflows:*), Glob, TodoWrite, Bash
 ---
 
 # Command: Lint and Correct All

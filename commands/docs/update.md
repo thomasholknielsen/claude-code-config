@@ -4,6 +4,7 @@ argument-hint: "[target] [--scope=<area>] [--validate-links]"
 category: "docs"
 tools: ["Read", "Edit", "Bash", "Grep"]
 complexity: "moderate"
+allowed-tools: Read, Edit, Bash, Grep
 ---
 
 # Command: Update

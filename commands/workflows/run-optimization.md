@@ -4,6 +4,7 @@ category: "workflows"
 agent: "task-orchestrator"
 tools: ["SlashCommand"]
 complexity: "complex"
+allowed-tools: SlashCommand(/analyze:*), SlashCommand(/refactor:*)
 ---
 
 # Command: Run Optimization

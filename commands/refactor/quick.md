@@ -4,6 +4,7 @@ argument-hint: "[path] [--pattern=<pattern>] [--type=<refactor_type>]"
 category: "refactor"
 tools: ["Read", "Edit", "Bash"]
 complexity: "simple"
+allowed-tools: Read, Edit, Bash
 ---
 
 # Command: Quick
