@@ -1,8 +1,10 @@
 blank_issues_enabled: false
 contact_links:
   - name: GitHub Discussions
+    # Note: Update repository URL with your GitHub username when forking
     url: https://github.com/thomasholknielsen/claude-code-config/discussions
     about: Ask questions and discuss ideas with the community
   - name: Security Issues
+    # Note: Update repository URL with your GitHub username when forking
     url: https://github.com/thomasholknielsen/claude-code-config/security/advisories/new
     about: Report security vulnerabilities privately

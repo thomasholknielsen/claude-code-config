@@ -11,8 +11,8 @@ allowed-tools: Read, Write, Grep, Glob, MultiEdit
 
 ## Purpose
 
-Performs comprehensive security vulnerability assessment with parallel analysis of authentication, authorization, data protection, and
-infrastructure security vectors.
+Performs comprehensive security vulnerability assessment with parallel analysis of authentication,
+authorization, data protection, and infrastructure security vectors.
 
 ## Usage
 
@@ -53,6 +53,7 @@ Task("Review authorization patterns, role-based access, and privilege escalation
 Task("Assess input validation, SQL injection, and XSS vulnerability patterns")
 Task("Evaluate cryptographic implementations, key management, and data protection")
 Task("Analyze network security, HTTPS implementation, and communication channels")
+Task("Review API gateway security including CORS configuration, rate limiting, timeout policies, and upstream service protection")
 ```
 
 **Dependency and Infrastructure Security**: Parallel external threat analysis:

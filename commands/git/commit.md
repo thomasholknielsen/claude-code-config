@@ -38,11 +38,27 @@ Creates logical, atomic commits with intelligent message generation and quality 
    - Stage auto-fixed files automatically
    - Report any unfixable issues requiring manual intervention
    - Abort commit if critical linting errors remain
-2. Parse $ARGUMENTS for commit message and options
-3. Analyze staged and unstaged changes for logical groupings
-4. Generate meaningful commit messages based on file modifications
-5. Create atomic commits for each logical unit of work
-6. Validate commit quality and message clarity
+2. **Analyze uncommitted files for type detection:**
+   - Run `git diff HEAD --name-status` to get all uncommitted changes
+   - Analyze file paths and content changes (staged + unstaged)
+   - Determine primary change type from uncommitted file analysis only
+   - Never analyze commit history for type detection
+3. **Parse or generate commit type:**
+   - If message provided: Extract and validate type prefix (feat:, fix:, docs:, etc.)
+   - If no message: Auto-detect type from uncommitted file analysis
+   - Validate type against conventional commit types
+   - Extract optional scope from message format: `<type>(<scope>):`
+4. **Validate commit format:**
+   - Ensure type prefix is valid: `<type>: <description>`
+   - Or with scope: `<type>(<scope>): <description>`
+   - Verify description starts with lowercase
+   - Check subject line ≤ 72 characters
+   - Validate type is one of: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
+5. **Generate commit message if needed:**
+   - Use detected type + description from file changes
+   - Format: `<type>: <generated description>`
+   - Or with scope: `<type>(<scope>): <generated description>`
+6. Create atomic commits with validated conventional format
 7. Report commit summary and next steps
 
 ## Agent Integration
@@ -77,14 +93,33 @@ Creates logical, atomic commits with intelligent message generation and quality 
 - **Followed by**: /git:push, /git:pr
 - **Related**: /workflows:run-git-branch-commit-and-pr
 
+## Type Auto-Detection from Uncommitted Files
+
+Analyzes `git diff HEAD --name-status` to determine type (priority order):
+
+1. **All documentation files** (`*.md`, `docs/**`) → `docs:`
+2. **All test files** (`*.test.*`, `*.spec.*`, `tests/**`, `__tests__/**`) → `test:`
+3. **Dependency files** (`package.json`, `requirements.txt`, `Cargo.toml`, `go.mod`) → `chore:`
+4. **CI configuration** (`.github/**`, `.gitlab-ci.yml`, `.circleci/**`) → `ci:`
+5. **Build configuration** (`webpack.config.js`, `tsconfig.json`, `Makefile`, `vite.config.*`) → `build:`
+6. **New files added** (git status: A) → `feat:`
+7. **Files with fix/bug keywords** (path contains "fix", "bug", "patch", "hotfix") → `fix:`
+8. **Performance files** (path contains "perf", "optimize", "cache", "speed") → `perf:`
+9. **Only formatting changes** (whitespace/semicolons, no logic) → `style:`
+10. **Default for code modifications** → `refactor:`
+
+**Scope Detection:** Extract from consistent directory patterns (e.g., `src/api/` → `api`, `src/auth/` → `auth`)
+
 ## Quality Standards
 
 - **Runs automated linting and fixes before commit** - Ensures code style consistency
 - **Aborts commit if critical linting errors remain** - Maintains code quality gate
+- **Enforces conventional commit format** - Validates type prefix and message structure
+- **Auto-detects type from uncommitted files** - Analyzes file changes, not commit history
 - Creates atomic commits focused on single functionality
 - Generates clear, descriptive commit messages following conventions
 - Groups related changes logically (features, fixes, refactoring)
 - Validates no breaking changes are mixed with features
 - Ensures commit messages are under 72 characters for subject line
-- Follows semantic commit format when appropriate (feat:, fix:, docs:)
+- Follows conventional commit format: `<type>(<scope>): <description>`
 - **Stages auto-fixed files automatically** - Includes linting fixes in commit

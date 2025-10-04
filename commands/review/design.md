@@ -11,8 +11,8 @@ allowed-tools: mcp__playwright__browser_snapshot, mcp__playwright__browser_navig
 
 ## Purpose
 
-Performs comprehensive UI/UX compliance review with parallel analysis of design system adherence, accessibility standards, visual consistency,
-and user experience patterns.
+Performs comprehensive UI/UX compliance review with parallel analysis of design system adherence,
+accessibility standards, visual consistency, and user experience patterns.
 
 ## Usage
 
