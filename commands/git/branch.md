@@ -4,6 +4,7 @@ argument-hint: "[branch-name]"
 category: "git"
 tools: ["Bash", "Read", "Grep"]
 complexity: "moderate"
+allowed-tools: Bash, Read, Grep
 ---
 
 # Command: Branch

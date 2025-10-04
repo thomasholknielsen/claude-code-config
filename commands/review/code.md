@@ -4,6 +4,7 @@ argument-hint: "[file_pattern] [--focus=area] [--fix]"
 category: "review"
 tools: ["Read", "Grep", "Bash"]
 complexity: "moderate"
+allowed-tools: Read, Grep, Bash
 ---
 
 # Command: Review Code

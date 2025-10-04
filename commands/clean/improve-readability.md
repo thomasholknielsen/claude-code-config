@@ -4,6 +4,7 @@ argument-hint: "[path] [--focus=<area>] [--preserve-functionality] [--interactiv
 category: "clean"
 tools: ["Read", "Edit", "MultiEdit", "Bash"]
 complexity: "simple"
+allowed-tools: Read, Edit, MultiEdit, Bash
 ---
 
 # Command: Improve Readability

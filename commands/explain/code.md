@@ -4,6 +4,7 @@ argument-hint: "[target] [--depth=<level>] [--focus=<aspect>] [--include-example
 category: "explain"
 tools: ["Read", "Grep", "Glob"]
 complexity: "simple"
+allowed-tools: Read, Grep, Glob
 ---
 
 # Command: Code

@@ -4,6 +4,7 @@ category: "workflows"
 agent: "reviewer"
 tools: ["Grep", "Glob", "Bash", "Read", "Write", "Task", "SlashCommand"]
 complexity: "complex"
+allowed-tools: SlashCommand(/review:*), Read, Write
 github_integration: true
 ---
 

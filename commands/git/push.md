@@ -4,6 +4,7 @@ argument-hint: "[remote] [branch]"
 category: "git"
 tools: ["Bash"]
 complexity: "moderate"
+allowed-tools: Bash
 ---
 
 # Command: Push

@@ -3,6 +3,7 @@ description: "Clean up redundant comments while preserving valuable documentatio
 category: "clean"
 tools: ["Glob", "Read", "Grep", "Edit"]
 complexity: "simple"
+allowed-tools: Glob, Read, Grep, Edit
 ---
 
 # Command: Code Comments

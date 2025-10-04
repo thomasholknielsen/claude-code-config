@@ -4,6 +4,7 @@ argument-hint: "[path] [--min-similarity=<percentage>] [--min-lines=<number>] [-
 category: "refactor"
 tools: ["Grep", "Read", "Edit"]
 complexity: "moderate"
+allowed-tools: Grep, Read, Edit
 ---
 
 # Command: Remove Duplication

@@ -1,117 +1,213 @@
 <!--
 Sync Impact Report:
-Version: 1.0.0 (initial constitution)
-Modified principles: N/A (initial creation)
-Added sections: All core principles and governance
-Removed sections: N/A
+Version: 2.0.0 (Updated to reflect actual project practices)
+Modified principles: Complete rewrite based on CLAUDE.md project-specific configuration
+Added sections: Agent Specialist Framework, Command System Architecture, MCP Integration, Cross-Platform Compatibility
+Removed sections: Generic testing and quality standards (replaced with project-specific patterns)
 Templates requiring updates:
-  ✅ plan-template.md - Constitution Check section aligns with principles
-  ✅ spec-template.md - Requirements align with agent-driven development
-  ✅ tasks-template.md - Task ordering follows TDD and dependency principles
-Follow-up TODOs: None
+  ✅ plan-template.md - Constitution Check section updated to reflect Agent Specialist Framework
+  ✅ spec-template.md - Updated to reference command system patterns
+  ✅ tasks-template.md - Task ordering follows atomic command principles
+Follow-up TODOs: Update existing specs to reference v2.0.0
 -->
 
-# Claude Code Configuration Constitution
+# Claude Code Command System Constitution
 
 ## Core Principles
 
-### I. Agent-First Architecture
+### I. Agent Specialist Framework Architecture
 
-Every development task must be delegated to the most appropriate specialized agent based on domain expertise. Manual implementation is only acceptable when no suitable agent exists or when the task requires human creativity and judgment. Agent selection must be proactive and context-aware, leveraging parallel execution when tasks are independent.
+The repository is built on the **Agent Specialist Framework** with 8 specialized agents providing advisory domain expertise:
 
-**Rationale**: Specialized agents provide domain expertise, reduce errors, and improve code quality through focused competency. This principle ensures optimal resource utilization and maintains consistency across different types of development work.
+**Strategic Specialists (3):**
+- `task-analysis-specialist` - Evaluates complexity and recommends specialized approaches
+- `research-analysis-specialist` - Comprehensive information gathering and multi-domain analysis
+- `implementation-strategy-specialist` - Sequential code change analysis and conflict prevention
 
-### II. Specification-Driven Development
+**Technical Specialists (5):**
+- `code-writer` - Structured development operations guidance
+- `test-writer` - Testing strategy and maintenance guidance
+- `bug-fixer` - Debugging and troubleshooting guidance
+- `reviewer` - Quality, security, and design review guidance
+- `documenter` - Technical documentation creation and maintenance guidance
 
-All features must begin with a comprehensive specification that defines user requirements, acceptance criteria, and testable outcomes before any implementation begins. Specifications must be business-focused (WHAT and WHY) and explicitly exclude implementation details (HOW). Any ambiguities must be marked as [NEEDS CLARIFICATION] and resolved before proceeding.
+**Usage Patterns:**
+- Strategic specialists for complex planning, multi-step workflows, and cross-domain research
+- Technical specialists for domain-specific implementation, focused consultation, and targeted problem-solving
+- All agents are **advisory** - they provide guidance, not direct execution
 
-**Rationale**: Clear specifications prevent scope creep, ensure stakeholder alignment, and provide a foundation for test-driven development. This approach reduces rework and ensures features meet actual user needs.
+**Rationale**: Specialized agents provide focused domain expertise while maintaining clear separation of concerns. This ensures optimal resource utilization and consistent quality across development work.
 
-### III. Pragmatic Testing Approach
+### II. Atomic Command Design
 
-Testing should be appropriate to the context: critical functionality requires comprehensive tests, while prototypes and experiments may use lighter testing. Tests should be written based on risk assessment and user impact. Test coverage should prioritize high-value scenarios over arbitrary metrics.
+All commands (except workflows) must be atomic, single-purpose operations:
 
-**Rationale**: Flexible testing approach balances quality with development velocity. This allows teams to adapt testing investment based on actual risk and business value.
+**Command Characteristics:**
+- Single, clear responsibility with predictable outcomes
+- Can be used directly by users or recommended by strategic specialists
+- Include integration points showing relationships to other commands
+- Follow standardized template structure with required sections
 
-### IV. Practical Quality Standards
+**Workflow Commands Exception:**
+- Workflows orchestrate other atomic commands using SlashCommand tool
+- Use `task-orchestrator` agent instead of specialized agents
+- Document sequential execution strategy
 
-Code changes should meet reasonable quality standards through automated tooling (linting, type checking) and peer review. Complex changes benefit from additional testing, but simplicity is preferred over rigid compliance. Quality investments should be proportional to the feature's importance and risk profile.
+**Rationale**: Atomic design enables composability, maintainability, and clear understanding of system capabilities. Workflows provide sophisticated automation by combining atomic operations.
 
-**Rationale**: Maintains code quality while allowing flexibility for different project phases and requirements. Focuses resources where they provide the most value.
+### III. Specification-Driven Feature Development
 
-### V. Incremental Context Management
+Features follow the spec-kit workflow when `.specify/` folder exists:
 
-Agent context files (CLAUDE.md, AGENTS.md, etc.) must be updated incrementally using the provided scripts. Manual context between markers must be preserved. Files must remain under 150 lines for token efficiency. Only recent changes (last 3) should be maintained to prevent context bloat.
+**Required Artifacts:**
+- `spec.md` - User requirements and acceptance criteria (WHAT/WHY, not HOW)
+- `plan.md` - Technical design and implementation strategy
+- `tasks.md` - Ordered, dependency-aware task breakdown
+- `contracts/` - API and validation contracts
 
-**Rationale**: Effective context management ensures agents have relevant information while maintaining performance. Incremental updates prevent information loss and maintain system efficiency.
+**Clarification Protocol:**
+- Mark ambiguities as [NEEDS CLARIFICATION]
+- Run `/spec-kit:clarify` to resolve uncertainties before planning
+- Ensure requirements are testable and unambiguous
+
+**Rationale**: Structured specification process prevents scope creep, ensures alignment, and provides clear acceptance criteria. This reduces rework and validates features meet actual needs.
+
+### IV. Cross-Platform Compatibility
+
+All automation must work on macOS, Windows, and Linux:
+
+**Implementation Requirements:**
+- Use Python with `pathlib.Path` for all file operations
+- Use `Path.home()` for user directory references
+- No shell-specific scripts or commands
+- User-agnostic paths: `~/.claude/` instead of `/Users/specific-user/.claude/`
+
+**Rationale**: Cross-platform compatibility ensures the command system works consistently across all development environments without platform-specific modifications.
+
+### V. MCP Integration Patterns
+
+Leverage Model Context Protocol servers for enhanced capabilities:
+
+**Context7 MCP** - External documentation access:
+- Use for current library/framework documentation
+- Tools: `mcp__context7__resolve-library-id`, `mcp__context7__get-library-docs`
+- Commands: `/docs:extract-external`, `/review:security`, `/analyze:dependencies`
+
+**Playwright MCP** - Browser automation:
+- Use for UI testing, visual regression, user interaction simulation
+- Full navigation, interaction, and analysis capabilities
+- Integration: Design review, testing workflows
+
+**Rationale**: MCP integration provides access to current external information and advanced testing capabilities that enhance command functionality.
 
 ## Development Workflow Standards
 
-### Code Quality Requirements
+### Command Development Protocol
 
-- All code changes must pass linting and type checking before completion
-- Follow existing code patterns and conventions discovered through codebase analysis
-- Security-sensitive changes require security-scanner agent review
-- UI changes require ui-compliance-checker for accessibility and design compliance
-- Performance-critical code requires performance-benchmarker validation
+**Template Compliance:**
+- Follow `docs/command-template.md` for atomic commands
+- Use workflow template for orchestration commands
+- Required frontmatter: description, argument-hint, category, tools, complexity
+- Document $ARGUMENTS parsing patterns
+- Include agent integration and examples
 
-### File Management Protocol
+**Agent Assignment:**
+- Assign to existing Agent Specialist Framework agent
+- Single responsibility per command
+- No duplicate functionality across commands
+
+### Git Operations Constraint
+
+**CRITICAL SECURITY RULE**: Only `/git/*` commands can perform Git operations
+
+**Enforcement:**
+- All other agents/commands must use SlashCommand tool for Git delegation
+- Explicit user consent required for Git operations outside `/git/*`
+- Agents cannot call Git commands directly
+
+**Rationale**: Centralized Git control prevents accidental or unauthorized repository modifications.
+
+### File Management Standards
 
 - Prefer editing existing files over creating new files
-- Never create documentation files unless explicitly requested
-- Always use Read tool before editing any file
-- Verify parent directory existence before creating new directories
-- Quote file paths containing spaces in shell commands
+- Always use Read tool before editing
+- Verify parent directory existence before creating directories
+- Quote file paths with spaces in shell commands
+- Use appropriate branch naming: `###-feature-name` format
 
-### Git and Version Control
+## Quality Standards
 
-- Only commit changes when explicitly requested by users
-- Follow repository's existing commit message patterns
-- Include co-author attribution for AI assistance
-- Never push to remote repositories without explicit permission
-- Use appropriate branch naming conventions (###-feature-name format)
+### Command Quality Requirements
 
-## Quality Assurance Framework
+- **Atomic Design**: Single, clear purpose with predictable outcomes
+- **Complete Documentation**: Follow template structure with all required sections
+- **Integration Clarity**: Document relationships to other commands
+- **Functional Verification**: Ensure command works as documented
 
-### Balanced Review Process
+### Agent Quality Requirements
 
-Apply reviews based on change risk and impact:
+- **Single Responsibility**: One clear, focused capability per agent
+- **Specialization Compliance**: Follow analysis/execution specialist pattern
+- **Tool Appropriateness**: Select tools matching agent domain expertise
+- **Documentation Clarity**: Clear purpose, usage patterns, and examples
 
-1. **Code Review**: Focus on maintainability, security, and functionality
-2. **Security Review**: Required for authentication, data handling, and external integrations
-3. **Design Review**: Applied to user-facing changes and accessibility-critical features
+### System Quality Requirements
 
-### Flexible Quality Checkpoints
+- **Cross-Platform**: Works on Windows, macOS, Linux without modification
+- **User-Agnostic**: No hardcoded user-specific paths
+- **Security Enforcement**: Git constraints respected, no unauthorized operations
+- **Performance**: Efficient execution with minimal resource usage
 
-- **High-risk changes**: Comprehensive review and testing
-- **Standard changes**: Automated tooling plus peer review
-- **Low-risk changes**: Automated checks with optional review
-- **Experimental features**: Lightweight validation focused on learning
+### TODO Management Constraint
 
-### Continuous Improvement Loop
+**CRITICAL**: All TODO operations use standardized location only:
+- **Required**: `{project_root}/.claude/.todos/TODO.md`
+- **Prohibited**: TODO files in any other location
+- **Enforcement**: All `/to-do:*` commands validate this constraint
 
-Track effectiveness metrics: task completion quality, time to completion, error reduction rates, and user satisfaction. Use analytics-engine for comprehensive data analysis and trend identification.
+**Rationale**: Centralized task tracking prevents scattered TODO files and ensures consistent file management.
+
+## Success Metrics
+
+Track system effectiveness through:
+
+- **Command Usage**: Most/least used commands, adoption patterns
+- **Agent Collaboration**: Analysis specialist → execution specialist advisory workflows
+- **Documentation Quality**: User feedback, template compliance rates
+- **System Performance**: Command execution speed and reliability
+- **Error Rates**: Failed commands, common issues, resolution patterns
 
 ## Governance
 
 ### Amendment Process
 
-Constitution changes require:
+Constitution updates require:
 
-1. Version bump following semantic versioning (MAJOR for breaking changes, MINOR for additions, PATCH for clarifications)
-2. Documentation of impact on templates and dependent files
-3. Sync Impact Report documenting all affected artifacts
-4. Validation that all template references align with new principles
+1. **Version Bump** - Semantic versioning (MAJOR: breaking, MINOR: additions, PATCH: clarifications)
+2. **Impact Analysis** - Document affected templates, specs, and commands
+3. **Sync Report** - List all artifacts requiring updates
+4. **Validation** - Ensure template references align with new principles
+5. **Communication** - Update CLAUDE.md and related documentation
 
-### Practical Governance
+### Critical Constraints
 
-- Follow constitution principles as guidelines, not rigid rules
-- Document significant architectural decisions and their rationale
-- Regular retrospectives on what's working and what needs adjustment
-- Evolve practices based on team feedback and project realities
+**What NOT to do:**
+- Don't bypass Git constraints (only `/git/*` commands perform Git operations)
+- Don't hardcode user-specific paths (use `~/.claude/` patterns)
+- Don't duplicate agent responsibilities (each agent has unique purpose)
+- Don't ignore MCP integration opportunities (Context7, Playwright)
+- Don't break atomic design (keep commands single-purpose)
 
-### Version Control and Tracking
+**Required Practices:**
+- Use Agent Specialist Framework for all development work
+- Follow provided templates for consistency
+- Test cross-platform compatibility (Windows, macOS, Linux)
+- Document thoroughly with examples and integration points
+- Validate security constraints are respected
+- Maintain CLAUDE.md synchronization after changes
 
-Constitution supersedes all other development practices. The latest version always takes precedence. Track amendments with dates and rationale. Maintain backward compatibility unless explicitly documented as breaking change.
+### Version Control
 
-**Version**: 1.1.0 | **Ratified**: 2025-09-24 | **Last Amended**: 2025-09-25
+Constitution supersedes other development practices. Latest version always takes precedence. Track amendments with dates and rationale. Maintain backward compatibility unless explicitly documented as breaking change.
+
+**Version**: 2.0.0 | **Ratified**: 2025-10-03 | **Last Amended**: 2025-10-03 | **Based On**: Project CLAUDE.md actual practices

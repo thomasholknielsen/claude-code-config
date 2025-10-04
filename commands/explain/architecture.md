@@ -4,6 +4,7 @@ argument-hint: "[focus] [--depth=<level>] [--format=<output>] [--include-depende
 category: "explain"
 tools: ["Glob", "Read", "Grep", "Bash"]
 complexity: "complex"
+allowed-tools: Glob, Read, Grep, Bash
 ---
 
 # Command: Architecture

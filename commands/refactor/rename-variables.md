@@ -4,6 +4,7 @@ argument-hint: "[path] [--target=<type>] [--convention=<style>] [--suggest-only]
 category: "refactor"
 tools: ["Grep", "Edit", "Bash"]
 complexity: "simple"
+allowed-tools: Grep, Edit, Bash
 ---
 
 # Command: Rename Variables

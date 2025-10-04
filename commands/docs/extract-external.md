@@ -4,6 +4,7 @@ argument-hint: "[libraries] [--output=<location>] [--format=<type>] [--update-ex
 category: "docs"
 tools: ["mcp__context7__resolve-library-id", "mcp__context7__get-library-docs", "Write", "Read"]
 complexity: "moderate"
+allowed-tools: mcp__context7__resolve-library-id, mcp__context7__get-library-docs, Write, Read
 ---
 
 # Command: Extract External

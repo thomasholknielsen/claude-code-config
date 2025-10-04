@@ -4,6 +4,7 @@ argument-hint: "[arguments]"
 category: "git"
 tools: ["Bash"]
 complexity: "moderate"
+allowed-tools: Bash
 ---
 
 # Command: Workflow

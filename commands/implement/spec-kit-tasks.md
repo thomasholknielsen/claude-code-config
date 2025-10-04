@@ -4,6 +4,7 @@ argument-hint: "[arguments]"
 category: "implement"
 tools: ["Task", "SlashCommand", "TodoWrite"]
 complexity: "complex"
+allowed-tools: Task, SlashCommand, TodoWrite
 ---
 
 # Command: Spec Kit Tasks

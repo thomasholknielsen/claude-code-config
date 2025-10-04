@@ -4,6 +4,7 @@ argument-hint: "[arguments]"
 category: "to-do"
 tools: ["Grep", "Bash", "Read"]
 complexity: "moderate"
+allowed-tools: Grep, Bash, Read
 ---
 
 # Command: Convert To Github

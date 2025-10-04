@@ -4,6 +4,7 @@ argument-hint: "[path] [--scope=<area>] [--strategy=<approach>] [--dry-run]"
 category: "fix"
 tools: ["Grep", "Edit", "Bash", "Read"]
 complexity: "moderate"
+allowed-tools: Grep, Edit, Bash, Read
 ---
 
 # Command: Import Statements

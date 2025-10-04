@@ -4,6 +4,7 @@ category: "workflows"
 agent: "task-orchestrator"
 tools: ["SlashCommand"]
 complexity: "complex"
+allowed-tools: SlashCommand(/review:security), SlashCommand(/analyze:dependencies)
 ---
 
 # Command: Run Security Audit

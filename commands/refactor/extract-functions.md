@@ -4,6 +4,7 @@ argument-hint: "[path] [--min-lines=<number>] [--complexity=<threshold>] [--dry-
 category: "refactor"
 tools: ["Read", "Edit", "Bash"]
 complexity: "moderate"
+allowed-tools: Read, Edit, Bash
 ---
 
 # Command: Extract Functions

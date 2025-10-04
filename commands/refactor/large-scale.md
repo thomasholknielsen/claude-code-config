@@ -4,6 +4,7 @@ argument-hint: "[--target=<pattern>] [--strategy=<approach>] [--validate-each-st
 category: "refactor"
 tools: ["Read", "Write", "Edit", "MultiEdit", "Glob", "Grep", "Bash"]
 complexity: "moderate"
+allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep, Bash
 ---
 
 # Command: Large Scale

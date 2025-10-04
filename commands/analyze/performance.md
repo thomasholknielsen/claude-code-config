@@ -4,6 +4,7 @@ argument-hint: "[component] (optional: frontend|backend|database|infrastructure)
 category: "analyze"
 tools: ["Bash", "Read", "Grep", "Task"]
 complexity: "complex"
+allowed-tools: Bash, Read, Grep, Task
 ---
 
 # Command: Performance

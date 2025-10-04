@@ -4,6 +4,7 @@ argument-hint: "[arguments]"
 category: "to-do"
 tools: ["SlashCommand", "Read", "Write"]
 complexity: "moderate"
+allowed-tools: SlashCommand, Read, Write
 ---
 
 # Command: Fix Items

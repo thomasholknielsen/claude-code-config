@@ -4,6 +4,7 @@ argument-hint: "[issue] [--scope=<area>] [--strategy=<approach>] [--test-first]"
 category: "fix"
 tools: ["Read", "Edit", "MultiEdit", "Bash"]
 complexity: "moderate"
+allowed-tools: Read, Edit, MultiEdit, Bash
 ---
 
 # Command: Bug Quickly

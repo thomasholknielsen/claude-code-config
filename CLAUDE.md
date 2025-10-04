@@ -165,15 +165,35 @@ in `.markdownlintignore` protect spec-kit commands and gitignored directories.
 
 ### Command Development
 
-**Required Format** (follow `docs/command-template.md`):
+**Required Format** (follow templates):
+
+- **Atomic commands**: Use `templates/command.md`
+- **Workflow commands**: Use `templates/command-workflow.md`
+
+**Required frontmatter fields**:
+
+- `description`: Single clear sentence describing command purpose
+- `argument-hint`: Parameter guidance for CLI
+- `category`: Command category folder name
+- `tools`: Array of Claude Code tools used
+- `complexity`: simple | moderate | complex
+- `allowed-tools`: Permission specification (e.g., `Tool1, Tool2, Bash(command:*)`)
+
+**Template Selection**:
+
+- Use base template (`templates/command.md`) for atomic, single-purpose operations
+- Use workflow template (`templates/command-workflow.md`) for commands that orchestrate other slash commands using SlashCommand tool
+
+**Example Format** (base template):
 
 ```markdown
 ---
 description: "Single clear sentence describing command purpose"
+argument-hint: "[arg1] [--flag=value]"
 category: "folder_name"
-agent: "primary-agent-from-specialist-framework"
 tools: ["Tool1", "Tool2"]
 complexity: "simple|moderate|complex"
+allowed-tools: Tool1, Tool2, Bash(command:*)
 ---
 
 # Command: {Action Verb} {Object}
@@ -182,7 +202,7 @@ complexity: "simple|moderate|complex"
 Single sentence describing primary function.
 
 ## Usage
-/{category}:{command-name} [arguments]
+/{category}:{command-name} $ARGUMENTS
 
 ## Process
 1. Step 1: Clear action
@@ -193,7 +213,7 @@ Single sentence describing primary function.
 - **Primary Agent**: agent-name - role description
 
 ## Examples
-[Real usage examples]
+[Real usage examples with $ARGUMENTS]
 ```bash
 
 ### Agent Development

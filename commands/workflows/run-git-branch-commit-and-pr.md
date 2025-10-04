@@ -4,6 +4,7 @@ category: "workflows"
 agent: "task-analysis-specialist"
 tools: ["SlashCommand", "Bash", "TodoWrite"]
 complexity: "complex"
+allowed-tools: SlashCommand(/git:*), SlashCommand(/workflows:lint-and-correct-all), Bash, TodoWrite
 ---
 
 # Command: Run Git Branch Commit And PR

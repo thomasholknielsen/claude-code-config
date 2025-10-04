@@ -4,6 +4,7 @@ argument-hint: "\"user prompt text\""
 category: "prompt"
 tools: ["Read", "Grep", "Glob", "TodoWrite"]
 complexity: "moderate"
+allowed-tools: Read, Grep, Glob, TodoWrite
 ---
 
 # Command: Enhanced

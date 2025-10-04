@@ -5,6 +5,9 @@
 commands/spec-kit/
 .specify/
 
+# Template files with placeholder HTML tags
+templates/
+
 # Gitignored directories containing markdown
 .claude/
 ide/
@@ -41,4 +44,3 @@ file-history/
 
 # GitHub instructions
 .github/instructions/
-

@@ -4,6 +4,7 @@ argument-hint: "[type] [--output=<directory>] [--include-examples]"
 category: "docs"
 tools: ["Read", "Write", "Glob", "Grep"]
 complexity: "moderate"
+allowed-tools: Read, Write, Glob, Grep
 ---
 
 # Command: Generate

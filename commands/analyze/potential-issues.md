@@ -4,6 +4,7 @@ argument-hint: "[domain] (optional: security|performance|code-quality) or [--com
 category: "analyze"
 tools: ["Glob", "Read", "Grep", "Bash"]
 complexity: "complex"
+allowed-tools: Glob, Read, Grep, Bash
 ---
 
 # Command: Potential Issues

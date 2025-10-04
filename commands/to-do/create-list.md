@@ -4,6 +4,7 @@ argument-hint: "[arguments]"
 category: "to-do"
 tools: ["SlashCommand", "Write", "Read"]
 complexity: "moderate"
+allowed-tools: SlashCommand, Write, Read
 ---
 
 # Command: Create List
