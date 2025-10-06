@@ -31,7 +31,7 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 
 👉 **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic workflows with review-lint-commit pattern
 
-- **7 visual diagrams** showing workflow patterns, timing comparisons, and command orchestration
+- **Visual diagrams** showing workflow patterns, timing comparisons, and command orchestration
 - Real-world workflow examples with realistic task complexity
 - Performance analysis: Significantly faster with local review
 
