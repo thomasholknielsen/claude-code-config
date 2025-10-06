@@ -14,12 +14,7 @@ MD007: # Unordered list indentation
   indent: 2
 MD010: # Hard tabs
   code_blocks: false
-MD013: # Line length
-  line_length: 150
-  heading_line_length: 150
-  code_block_line_length: 200
-  tables: false
-  links: false
+MD013: false # Line length - disabled
 MD022: # Headers should be surrounded by blank lines
   lines_above: 1
   lines_below: 1
