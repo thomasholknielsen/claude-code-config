@@ -61,9 +61,9 @@ file-history/
 .trees/
 
 # Agent context files (session-specific, not committed)
-.agent/**/*.md
-.agent/**/*.json
-.agent/**/*.log
+.agent/context/*.md
+.agent/context/*.json
+.agent/context/*.log
 
 # Ignore credentials and sensitive files
 .credentials.json
