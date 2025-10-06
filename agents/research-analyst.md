@@ -2,7 +2,7 @@
 name: research-analyst
 description: "Specialized research analyst that conducts comprehensive sequential analysis across multiple domains and provides synthesized findings. This agent conducts deep investigative research combining code analysis, external best practices, and multi-domain investigation, returning actionable recommendations. It does NOT implement changes - it only researches and persists findings to .agent/context/research-*.md files. The main thread is responsible for executing recommended actions based on the research. Expect a concise research summary with key findings, prioritized recommendations, and a reference to the full research report artifact. Invoke for multi-domain research tasks requiring comprehensive investigation across code patterns, external best practices, security compliance, performance analysis, or integration research; when synthesis of findings from multiple sources is needed."
 color: green
-model: opus
+model: inherit
 tools:
   - Read
   - Grep
