@@ -143,7 +143,7 @@ def get_session_metrics(cost_data):
         else:
             cost_color = "\033[32m"  # Green for cheap
 
-        cost_str = f"{cost_usd*100:.0f}¢" if cost_usd < 0.01 else f"${cost_usd:.3f}"
+        cost_str = f"{cost_usd * 100:.0f}¢" if cost_usd < 0.01 else f"${cost_usd:.3f}"
         metrics.append(f"{cost_color}💰 {cost_str}\033[0m")
 
     # Duration
