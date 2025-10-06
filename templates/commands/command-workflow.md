@@ -52,7 +52,7 @@ Task("<analyst-3>: Specific analysis instructions for this domain")
    - 70-85% performance improvement over sequential patterns
    - Analysts run in isolated contexts with independent token budgets
 
-2. **Context Elision**: Analysts burn 90%+ tokens on research, return concise summaries
+2. **Context Elision**: Analysts conduct extensive research, return concise summaries
    - Detailed findings persisted to `.artifacts/context/{domain}-analysis-*.md`
    - Main thread receives 2-3 sentence summaries (76% signal vs 91% noise)
    - Main thread reads artifacts as needed for synthesis

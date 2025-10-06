@@ -88,7 +88,7 @@ Read(.artifacts/context/architecture-analysis-*.md)
 **Expected workflow execution:**
 
 ```text
-Phase 1: Parallel Analysis (3-4 minutes)
+Phase 1: Parallel Analysis (quick parallel analysis)
 → Task("refactoring-analyst: Identify code smells and refactoring opportunities")
 → Task("quality-analyst: Analyze complexity and maintainability metrics")
 → Task("architecture-analyst: Review design patterns and structural improvements")
@@ -132,12 +132,12 @@ Phase 3: Validation
 
 - Refactoring analysis: 5-7 minutes
 - Quality analysis: 4-6 minutes
-- Architecture review: 3-5 minutes
+- Architecture review: much faster concurrent execution
 - Total: 12-18 minutes
 
 **Parallel Analysis Approach:**
 
-- 3 analysts run concurrently: 3-4 minutes
+- 3 analysts run concurrently: quick parallel analysis
 - Main thread implementation: 4-6 minutes
 - Total: 7-10 minutes
 - **Performance Gain: 40-50% faster**

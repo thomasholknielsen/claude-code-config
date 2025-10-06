@@ -132,7 +132,7 @@ Task("Examine external factors including network latency, database server perfor
 This comprehensive parallel investigation will help identify the root cause of your timeout issues.
 ```
 
-### What Happens Next (3-4 minutes)
+### What Happens Next (quick parallel analysisutes)
 
 - 5 parallel diagnostic tasks execute simultaneously
 - Each investigates different aspects of the timeout problem

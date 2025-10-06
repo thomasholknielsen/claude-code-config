@@ -86,12 +86,12 @@ Read(.artifacts/context/frontend-analysis-*.md)
 **Expected workflow execution:**
 
 ```text
-Phase 1: Parallel Analysis (3-4 minutes)
+Phase 1: Parallel Analysis (quick parallel analysis)
 → Task("performance-analyst: Analyze application performance bottlenecks")
 → Task("database-analyst: Review query performance and indexing")
 → Task("frontend-analyst: Evaluate bundle size and asset optimization")
 
-Analysts complete concurrently (vs 15-20 minutes sequential)
+Analysts complete concurrently (vs much longer sequential)
 
 Phase 2: Main Thread Synthesis
 → Consolidate findings from all analysts
@@ -125,7 +125,7 @@ Phase 3: Validation
 
 **Parallel Analysis Approach:**
 
-- 3 analysts run concurrently: 3-4 minutes
+- 3 analysts run concurrently: quick parallel analysis
 - Main thread implementation: 2-3 minutes
 - Total: 5-7 minutes
 - **Performance Gain: 65-70% faster**

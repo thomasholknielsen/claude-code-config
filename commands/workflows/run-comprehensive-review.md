@@ -117,7 +117,7 @@ frontend_critical_paths = ['components/', 'store/', 'state/', 'hooks/', 'composa
 Execute selected reviews concurrently using Task tool for maximum speed:
 
 ```python
-# Phase 1: Parallel Domain Analysis (6-12 analysts simultaneously)
+# Phase 1: Parallel Domain Analysis (multiple analysts simultaneously)
 Task("quality-analyst: Analyze code quality, complexity, and maintainability issues")
 Task("security-analyst: Perform OWASP Top 10 vulnerability assessment and threat modeling")
 Task("performance-analyst: Identify bottlenecks, optimization opportunities, and resource usage")
@@ -134,7 +134,7 @@ Task("typescript-analyst: Assess type safety and TypeScript best practices") # i
 Task("python-analyst: Evaluate Pythonic patterns and PEP 8 compliance") # if Python files changed
 
 # Each analyst:
-# - Burns 90%+ tokens on comprehensive domain-specific analysis
+# - Performs comprehensive domain-specific analysis
 # - Persists detailed findings to .artifacts/context/{domain}-analysis-{timestamp}.md
 # - Returns 2-3 sentence summary to main thread
 ```
@@ -143,9 +143,9 @@ Task("python-analyst: Evaluate Pythonic patterns and PEP 8 compliance") # if Pyt
 
 **Execution Time:**
 
-- Sequential reviews: 30-40 minutes (10 reviews × 3-4 min each)
-- Parallel analysis: 3-5 minutes (6-12 analysts running concurrently)
-- **Performance Gain: 85-90% faster**
+- Sequential reviews: significantly longer execution time (multiple reviews × quick parallel analysis each)
+- Parallel analysis: much faster concurrent execution (multiple analysts running concurrently)
+- **Performance Gain: substantially faster**
 
 ### Step 4: Synthesis
 
@@ -266,7 +266,7 @@ Read(.artifacts/context/documentation-analysis-*.md)
 1. Git diff detects: `.tsx` (UI), `.ts` (API), `.sql` (queries)
 2. Selected reviews: readability, performance, testing, security, style, architecture, documentation,
    observability, design, database, api, frontend-architecture (12 reviews)
-3. Parallel execution: All 12 run simultaneously (3-5 minutes)
+3. Parallel execution: All 12 run simultaneously (much faster concurrent execution)
 4. Synthesis: Unified report with deduplicated findings
 5. Output: Comprehensive report saved to `.artifacts/reviews/`
 
@@ -311,7 +311,7 @@ This change implements a new checkout flow with Stripe payment integration...
 
 1. Git diff detects: `.py` (API), `.sql` (migrations)
 2. Selected reviews: readability, performance, testing, security, style, architecture, documentation,
-   observability, database, api (10 reviews, skips design and frontend-architecture)
+   observability, database, api (multiple reviews, skips design and frontend-architecture)
 3. Security-critical path detected (`auth/`) → Deep security scan
 4. Database-critical path detected (`migrations/`) → Deep database review with migration safety analysis
 5. API-critical path detected → Deep API design and contract review
@@ -354,13 +354,13 @@ git checkout feature/my-changes
 
 **Traditional Sequential Review:**
 
-- 10 reviews × 3 minutes each = 30 minutes total
+- multiple reviews × 3 minutes each = 30 minutes total
 - Single-threaded execution
 - High developer waiting time
 
 **Optimized Parallel Review:**
 
-- 10 reviews simultaneously = 3-5 minutes total
+- multiple reviews simultaneously = much faster concurrent execution total
 - Multi-threaded with Task tool
 - 85% time reduction
 - Real-time progress tracking

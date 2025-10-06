@@ -87,12 +87,12 @@ Read(.artifacts/context/database-analysis-*.md)
 **Expected workflow execution:**
 
 ```text
-Phase 1: Parallel Security Analysis (3-4 minutes)
+Phase 1: Parallel Security Analysis (quick parallel analysis)
 → Task("security-analyst: OWASP Top 10 and threat modeling assessment")
 → Task("api-analyst: API security and authentication review")
 → Task("database-analyst: SQL injection and database security analysis")
 
-Analysts complete concurrently (vs 15-20 minutes sequential)
+Analysts complete concurrently (vs much longer sequential)
 
 Phase 2: Main Thread Synthesis
 → Consolidate findings from all analysts
@@ -133,12 +133,12 @@ Phase 3: Validation
 
 - Security code review: 8-10 minutes
 - API security analysis: 4-6 minutes
-- Database security review: 3-5 minutes
+- Database security review: much faster concurrent execution
 - Total: 15-21 minutes
 
 **Parallel Analysis Approach:**
 
-- 3 analysts run concurrently: 3-4 minutes
+- 3 analysts run concurrently: quick parallel analysis
 - Main thread synthesis: 1-2 minutes
 - Total: 4-6 minutes
 - **Performance Gain: 70-75% faster**

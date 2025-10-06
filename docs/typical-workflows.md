@@ -87,7 +87,7 @@ graph TD
 
 # 2. Local PR review (3-5 min)
 /workflows:run-comprehensive-review
-→ Spawns 6-12 analysts in parallel
+→ Spawns multiple analysts in parallel
 → Returns findings: Critical, High, Medium, Low
 
 # 3. Fix review findings (5-10 min)
@@ -118,7 +118,7 @@ npm test  # or pytest, cargo test, etc.
 
 ## Bug Fix Workflow
 
-### Realistic Timeline: 15-20 minutes
+### Realistic Timeline: much longer
 
 ```mermaid
 sequenceDiagram
@@ -134,7 +134,7 @@ sequenceDiagram
     Note over Dev,Fix: 5-8 min
 
     Dev->>Review: Run comprehensive review
-    Review->>Review: Spawn 6-12 analysts in parallel
+    Review->>Review: Spawn multiple analysts in parallel
     Review->>Dev: "2 medium issues in validation logic"
     Note over Dev,Review: 3-5 min
 
@@ -237,7 +237,7 @@ Task("database-analyst: Review schema design for user credentials")
 # Review BEFORE committing - catches issues early
 /workflows:run-comprehensive-review
 
-→ Spawns 6-12 analysts in parallel:
+→ Spawns multiple analysts in parallel:
   - quality-analyst (code quality, complexity)
   - security-analyst (vulnerabilities, OWASP Top 10)
   - performance-analyst (bottlenecks, inefficiencies)
@@ -329,7 +329,7 @@ npm test
 
 ```mermaid
 graph TD
-    A[Start Refactoring] --> B[Comprehensive Analysis<br/>3-4 min PARALLEL]
+    A[Start Refactoring] --> B[Comprehensive Analysis<br/>quick parallel analysis PARALLEL]
     B --> C1[refactoring-analyst]
     B --> C2[quality-analyst]
     B --> C3[architecture-analyst]
@@ -346,7 +346,7 @@ graph TD
 ```
 
 ```bash
-# Step 1: Comprehensive analysis (3-4 min, parallel)
+# Step 1: Comprehensive analysis (quick parallel analysis, parallel)
 /workflows:run-refactor-workflow
 
 → Spawns 3 analysts concurrently:

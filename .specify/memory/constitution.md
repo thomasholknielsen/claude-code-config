@@ -50,7 +50,7 @@ The repository is built on the **Domain Analyst Framework** with 15 specialized 
 
 **Usage Patterns:**
 - Research analyst for multi-domain sequential research and synthesized findings
-- Domain analysts for deep domain-specific analysis with context elision (burn 90%+ tokens on research, return 2-3 sentence summaries)
+- Domain analysts for deep domain-specific analysis with context elision (conduct extensive research, return 2-3 sentence summaries)
 - All domain analysts persist findings to `.artifacts/context/{domain}-analysis-*.md` for main thread access
 - Domain analysts are **advisory** - they provide recommendations and guidance, not direct execution
 
