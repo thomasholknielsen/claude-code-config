@@ -13,28 +13,6 @@ The Claude Code Command System provides development automation through domain an
 - **Hooks**: Python-based automation for logging, notifications, and context management
 - **MCP Integration**: External tool access for documentation (Context7), browser automation (Playwright), and UI components (Shadcn)
 
-## 📋 Anti-Drift Principles
-
-**CRITICAL**: Avoid documentation that drifts from reality when the codebase changes.
-
-**Prohibited**:
-
-- ❌ Hard-coded counts ("15 domain analysts", "47 commands")
-- ❌ Percentage statistics ("32% reduction after refactoring")
-- ❌ Performance timings ("3-5min", "75-85% faster")
-- ❌ Timeline estimates ("first week", "30-60 minutes", "1-3 months")
-- ❌ Token burn percentages ("burn 90%+ tokens")
-- ❌ Specific time comparisons ("5-8min vs 25-35min")
-
-**Preferred**:
-
-- ✅ Structural descriptions ("Multiple domain analysts", "Comprehensive command library")
-- ✅ Qualitative improvements ("Significantly faster", "Improved performance")
-- ✅ Priority levels ("Critical/High/Medium", "Immediate/Short-term/Long-term")
-- ✅ Relative descriptions ("Main thread can parallelize", "Agents run sequentially")
-
-**Rationale**: Statistics become outdated immediately upon system changes. Focus on principles, patterns, and architecture over precise metrics.
-
 ## 🎨 Frontmatter Standards
 
 **Single Source of Truth**: Frontmatter syntax and structure are defined ONLY in templates.
