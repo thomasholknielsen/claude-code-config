@@ -58,21 +58,18 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 
 ### Command Categories
 
-- **`/workflows/*`** (8) - Orchestrate parallel analyst execution for comprehensive analysis
-- **`/git/*`** (8) - Git operations (only /git/* commands can perform git operations)
-- **`/spec-kit/*`** (7) - Complete feature development workflow
-- **`/docs/*`** (6) - Documentation generation and maintenance
-- **`/clean/*`** (4) - Code cleanup and formatting
-- **`/to-do/*`** (3) - TODO management and tracking
-- **`/refactor/*`** (2) - Code improvement (apply + large-scale)
-- **`/explain/*`** (2) - Code and architecture explanation
-- **`/fix/*`** (2) - Bug fixes and issue resolution
-- **`/implement/*`** (2) - Feature implementation
-- **`/review/*`** (1) - Intelligent code review orchestrator
-- **`/artifact/*`** (1) - Save Claude outputs
-- **`/prompt/*`** (1) - Enhance user prompts
-- **`/subagent/*`** (1) - Create agents from templates
-- **`/slashcommand/*`** (1) - Create commands from templates
+- **`/workflows/*`** - Orchestrate parallel analyst execution for comprehensive analysis
+- **`/git/*`** - Complete Git operation toolset (only /git/* commands can perform git operations)
+- **`/spec-kit/*`** - Feature development workflow automation
+- **`/docs/*`** - Documentation generation and maintenance
+- **`/clean/*`** - Code cleanup and formatting automation
+- **`/to-do/*`** - TODO management and tracking
+- **`/refactor/*`** - Code improvement (apply + large-scale)
+- **`/explain/*`** - Code and architecture explanation
+- **`/fix/*`** - Bug fixes and issue resolution
+- **`/implement/*`** - Feature implementation workflows
+- **`/review/*`** - Intelligent code review orchestrator
+- **`/utility/*`** - Utility commands (save artifacts, prompts, creation tools)
 
 ## 📚 Documentation
 
