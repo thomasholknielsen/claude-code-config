@@ -27,6 +27,7 @@ MD029: # Ordered list item prefix
 MD033: # Allow inline HTML
   allowed_elements: ["br", "sub", "sup", "kbd", "details", "summary"]
 MD036: false # Emphasis used instead of a header
+MD041: false # First line in file should be a top level header (conflicts with YAML frontmatter)
 MD040: # Fenced code blocks should have a language specified
   allowed_languages:
     [

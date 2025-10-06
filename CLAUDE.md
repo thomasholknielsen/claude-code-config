@@ -64,12 +64,11 @@ The Claude Code Command System provides development automation through domain an
 
 ### Domain Analysts
 
-**Framework/Technology:** react-analyst, typescript-analyst, python-analyst, api-analyst
+**Framework/Technology:** react-analyst, typescript-analyst, python-analyst, api-analyst, shadcn-analyst
 **Quality/Architecture:** quality-analyst, architecture-analyst (opus+ultrathink), refactoring-analyst
 **Security/Performance:** security-analyst, performance-analyst
 **Testing/Accessibility:** testing-analyst, accessibility-analyst
 **Documentation/Data:** documentation-analyst, database-analyst, frontend-analyst
-**UI/Design:** shadcn-analyst
 
 **Pattern**: Conduct comprehensive research → persist detailed findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` → return concise summary (context elision)
 

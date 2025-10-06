@@ -32,7 +32,7 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 👉 **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic workflows with review-lint-commit pattern
 
 - **7 visual diagrams** showing workflow patterns, timing comparisons, and command orchestration
-- Real-world timing expectations (15-90 min per task)
+- Real-world workflow examples with realistic task complexity
 - Performance analysis: Significantly faster with local review
 
 ## 🏗️ Architecture Overview
@@ -42,13 +42,13 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 
 ### Domain Analyst Framework
 
-**Research Analyst (1)**:
+**Research Analyst**:
 
 - `research-analyst` - Comprehensive sequential research across domains (uses Context7)
 
-**Domain Specialists (14)**:
+**Domain Specialists**:
 
-- **Framework/Tech**: react-analyst, typescript-analyst, python-analyst, api-analyst
+- **Framework/Tech**: react-analyst, typescript-analyst, python-analyst, api-analyst, shadcn-analyst
 - **Quality/Architecture**: quality-analyst, architecture-analyst, refactoring-analyst
 - **Security/Performance**: security-analyst, performance-analyst
 - **Testing/Accessibility**: testing-analyst, accessibility-analyst
@@ -203,7 +203,7 @@ All complex workflows include **Mermaid diagrams** for clear understanding:
 - **Multiple workflow diagrams** in [Developer Workflows Guide](docs/typical-workflows.md):
   - Review-Lint-Commit pattern flowchart with decision points
   - Bug fix sequence diagram showing command interactions
-  - Performance comparison Gantt chart (Old Way 82 min vs New Way 28 min)
+  - Performance comparison showing significant improvement with parallel execution
   - Daily development timelines (morning feature work, afternoon bug fixes)
   - Command chaining patterns visualization
   - Large-scale refactoring parallel execution flow

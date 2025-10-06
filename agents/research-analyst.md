@@ -4,11 +4,10 @@ description: "Specialized research analyst that conducts comprehensive sequentia
 color: green
 model: opus
 tools:
-  - WebSearch
+  - Read
   - Grep
   - Glob
-  - Read
-  - TodoWrite
+  - WebSearch
   - mcp__context7
 ---
 
