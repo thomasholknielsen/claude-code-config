@@ -14,7 +14,7 @@ Guides users through interactive slash command creation using standardized templ
 
 ```bash
 /slashcommand:create-from-template
-```
+```text
 
 **Arguments**: None (fully interactive)
 
@@ -53,5 +53,5 @@ Guides users through interactive slash command creation using standardized templ
 
 ### Example: Creating an Atomic Command
 
-```
+```text
 User: /slashcommand:create-from-template

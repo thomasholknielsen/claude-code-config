@@ -121,7 +121,7 @@ Glob: **/src/**/*.{tsx,jsx,vue,svelte}
 Grep: "useState|useEffect|useContext|computed|reactive"
 Grep: "import.*from|require\\("
 Read: package.json, vite.config, webpack.config, next.config
-```
+```text
 
 ### 2. Component Architecture Analysis
 
@@ -159,9 +159,9 @@ Read: package.json, vite.config, webpack.config, next.config
 
 Save comprehensive analysis to:
 
-```
+```text
 .agent/context/frontend-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
-```
+```text
 
 ### 7. Summary Phase
 
@@ -177,7 +177,7 @@ Return to main thread:
 **Top Recommendation**: {Specific improvement}
 
 **Full Analysis**: `.agent/context/frontend-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ## Output Format
 
@@ -203,7 +203,7 @@ Return to main thread:
 3. {Third priority}
 
 **Full Analysis**: `.agent/context/frontend-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ### To Artifact File (Comprehensive)
 
@@ -247,7 +247,7 @@ function Dashboard() {
     </div>
   );
 }
-```
+```text
 
 ## State Management Analysis
 
@@ -271,7 +271,7 @@ const useUsersStore = create((set) => ({
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(1); // Local!
 }
-```
+```text
 
 ### Unnecessary Re-renders: {count}
 
@@ -287,7 +287,7 @@ function UserItem({ user }) {
 const UserItem = React.memo(({ user }) => {
   return <div>{user.name}</div>;
 });
-```
+```text
 
 ### Server State Management: {Present/Missing}
 
@@ -328,7 +328,7 @@ function App() {
     </Suspense>
   );
 }
-```
+```text
 
 ### Tree Shaking: {percentage}%
 
@@ -354,7 +354,7 @@ useEffect(() => {
 useEffect(() => {
   fetchUser(userId).then(setUser);
 }, [userId]);
-```
+```text
 
 ## Recommendations
 
@@ -384,4 +384,4 @@ useEffect(() => {
 4. **Refactor Large Components**: Break into smaller pieces
 5. **Monitor Performance**: Establish baseline metrics
 
-```
+```text

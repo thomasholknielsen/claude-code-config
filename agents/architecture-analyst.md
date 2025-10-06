@@ -80,7 +80,7 @@ Grep: "class |interface |extends |implements "
 
 # Design patterns
 Grep: "Factory|Builder|Singleton|Observer|Strategy"
-```
+```text
 
 ### 2. Deep Analysis Phase
 
@@ -133,7 +133,7 @@ Persist to `.agent/context/architecture-analysis-{session-id}-{timestamp}.md` an
 **Top Recommendation**: {highest-impact improvement}
 
 **Full Analysis**: `.agent/context/architecture-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ### To Artifact File (Comprehensive)
 
@@ -179,7 +179,7 @@ class EmailService {
 class AnalyticsService {
   trackSignup(user) { /* ... */ }
 }
-```
+```text
 
 ### Open/Closed Principle (OCP)
 
@@ -211,7 +211,7 @@ class PaymentProcessor {
     return this.strategy.process(payment);
   }
 }
-```
+```text
 
 ### Liskov Substitution Principle (LSP)
 
@@ -284,7 +284,7 @@ class PaymentProcessor {
 2. Implement domain-driven design
 3. Establish architectural governance
 
-```
+```text
 
 ## Your Architecture Identity
 

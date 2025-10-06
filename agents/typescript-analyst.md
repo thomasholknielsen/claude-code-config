@@ -109,7 +109,7 @@ Grep: "tsconfig.json"
 # Type patterns
 Grep: "interface|type |enum |<T>|as |any|unknown"
 Grep: "Partial<|Required<|Pick<|Omit<|Record<"
-```
+```text
 
 ### 2. Deep Analysis Phase
 
@@ -146,9 +146,9 @@ Use WebSearch for TypeScript best practices and Context7 for library documentati
 
 ### 5. Persistence Phase
 
-```
+```text
 .agent/context/typescript-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
-```
+```text
 
 ### 6. Summary Phase
 
@@ -162,7 +162,7 @@ Use WebSearch for TypeScript best practices and Context7 for library documentati
 **Top Recommendation**: {Highest-impact type improvement}
 
 **Full Analysis**: .agent/context/typescript-analysis-{session-id}-{timestamp}.md
-```
+```text
 
 ## Output Format
 
@@ -178,7 +178,7 @@ Use WebSearch for TypeScript best practices and Context7 for library documentati
 **Top Recommendation**: {Specific type safety improvement}
 
 **Full Analysis**: `.agent/context/typescript-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ### To Artifact File (Comprehensive)
 
@@ -241,7 +241,7 @@ function processData(data: any) {
 function processData<T extends { value: string }>(data: T) {
   return data.value; // Type safe
 }
-```
+```text
 
 #### Issue: Unsafe Type Assertions
 
@@ -396,20 +396,20 @@ function processData<T extends { value: string }>(data: T) {
 type Result<T, E = Error> =
   | { success: true; data: T }
   | { success: false; error: E };
-```
+```text
 
 ### Pattern 2: Branded Types
 
 ```typescript
 type Brand<T, B> = T & { [brand]: B };
 type PositiveNumber = Brand<number, 'Positive'>;
-```
+```text
 
 ### Pattern 3: Generic Constraints
 
 ```typescript
 function groupBy<T, K extends keyof T>(array: T[], key: K): Record<T[K] & PropertyKey, T[]>
-```
+```text
 
 ## Your TypeScript Identity
 

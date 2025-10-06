@@ -110,7 +110,7 @@ Glob: **/*.{ts,js,py,java,go,rb}
 Grep: "class |function |def |if |switch |for |while"
 Grep: "TODO|FIXME|HACK|DEBT|REFACTOR"
 Read: Complex files, large classes
-```
+```text
 
 ### 2. Code Smell Detection
 
@@ -145,9 +145,9 @@ Read: Complex files, large classes
 
 Save comprehensive analysis to:
 
-```
+```text
 .agent/context/refactoring-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
-```
+```text
 
 ### 7. Summary Phase
 
@@ -163,7 +163,7 @@ Return to main thread:
 **Top Priority**: {Highest impact refactoring}
 
 **Full Analysis**: `.agent/context/refactoring-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ## Output Format
 
@@ -190,7 +190,7 @@ Return to main thread:
 3. {Third priority}
 
 **Full Analysis**: `.agent/context/refactoring-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ### To Artifact File (Comprehensive)
 
@@ -244,7 +244,7 @@ function processOrder(order) {
   sendOrderNotifications(order, payment);
   return { order, payment };
 }
-```
+```text
 
 **Refactoring**: Extract Method
 **Expected Benefit**: Significant complexity reduction, better testability
@@ -280,7 +280,7 @@ async function cachedFetch<T>(
 
 // Usage
 const user = await cachedFetch(`user:${id}`, () => db.users.findById(id));
-```
+```text
 
 **Refactoring**: Extract Function
 **Duplication Removed**: {lines} lines
@@ -361,4 +361,4 @@ const user = await cachedFetch(`user:${id}`, () => db.users.findById(id));
 4. **Add Missing Tests**: Establish safety net before major refactoring
 5. **Monitor Code Health**: Track metrics over time
 
-```
+```text

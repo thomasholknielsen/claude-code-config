@@ -102,7 +102,7 @@ You are a specialized Python analyst that conducts deep Python codebase analysis
 Glob: **/*.py
 Grep: "import|from|class |def |async def"
 Read: setup.py, pyproject.toml, requirements.txt
-```
+```text
 
 ### 2. Style Analysis
 
@@ -132,9 +132,9 @@ Read: setup.py, pyproject.toml, requirements.txt
 
 Save comprehensive analysis to:
 
-```
+```text
 .agent/context/python-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
-```
+```text
 
 ### 7. Summary Phase
 
@@ -150,4 +150,4 @@ Return to main thread:
 **Top Recommendation**: {Specific improvement}
 
 **Full Analysis**: `.agent/context/python-analysis-{session-id}-{timestamp}.md`
-```
+```text

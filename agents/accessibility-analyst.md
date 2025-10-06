@@ -137,7 +137,7 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 3. {Third priority}
 
 **Full Analysis**: `.agent/context/accessibility-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ### To Artifact File (Comprehensive)
 
@@ -172,7 +172,7 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 // ✅ Solution
 <img src={product.image} alt={product.name} />
 <button style={{ color: '#212121' }}>Click</button> // 7.1:1 contrast
-```
+```text
 
 ### Principle 2: Operable
 
@@ -188,7 +188,7 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 <a href="#main-content" className="skip-link">Skip to main content</a>
 <button onClick={handleClick}>Click me</button>
 <main id="main-content">...</main>
-```
+```text
 
 ### Principle 3: Understandable
 
@@ -204,7 +204,7 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 <label htmlFor="email">Email</label>
 <input id="email" type="email" aria-describedby="email-error" />
 <span id="email-error" role="alert">Please enter a valid email</span>
-```
+```text
 
 ### Principle 4: Robust
 
@@ -220,7 +220,7 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 <div role="checkbox" aria-checked={checked} aria-labelledby="label" tabIndex={0}>
   {checked && <CheckIcon aria-hidden="true" />}
 </div>
-```
+```text
 
 ## ARIA Pattern Analysis
 
@@ -238,7 +238,7 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 <header><nav aria-label="Main">...</nav></header>
 <main>...</main>
 <div role="status" aria-live="polite">Status: {status}</div>
-```
+```text
 
 ## Keyboard Navigation Flow
 
@@ -259,7 +259,7 @@ function Modal({ onClose, triggerRef }) {
   const handleClose = () => { onClose(); triggerRef.current?.focus(); };
   return <div role="dialog"><button onClick={handleClose}>Close</button></div>;
 }
-```
+```text
 
 ## Screen Reader Compatibility
 
@@ -271,7 +271,7 @@ function Modal({ onClose, triggerRef }) {
 
 // ✅ Semantic HTML
 <button onClick={handleClick}>Submit</button>
-```
+```text
 
 ## Recommendations
 
@@ -303,4 +303,4 @@ function Modal({ onClose, triggerRef }) {
 4. Test with Screen Readers - NVDA/JAWS/VoiceOver
 5. Establish Accessibility Testing - axe DevTools, Pa11y, Lighthouse
 
-```
+```text

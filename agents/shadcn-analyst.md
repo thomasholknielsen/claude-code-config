@@ -95,7 +95,7 @@ Grep: "from '@/components/ui/", "shadcn", "cn\("
 
 # Check configuration
 Read: components.json, tailwind.config.ts, globals.css
-```
+```text
 
 ### 2. Component Research Phase
 
@@ -123,7 +123,7 @@ Read: tailwind.config.ts  # Check theme configuration
 # Research theme options via WebSearch
 WebSearch: "shadcn ui themes 2025"
 WebSearch: "shadcn ui [specific-component] best practices"
-```
+```text
 
 ### 5. Implementation Strategy
 
@@ -177,7 +177,7 @@ Create comprehensive analysis in `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid
   --secondary: {value};
   /* ... */
 }
-```
+```text
 
 ## Implementation Recommendations
 
@@ -221,7 +221,7 @@ export function Example() {
     </Button>
   )
 }
-```
+```text
 
 ### Theme Integration
 
@@ -230,7 +230,7 @@ export function Example() {
 <div className="bg-primary text-primary-foreground">
   Themed content
 </div>
-```
+```text
 
 ## Risk Assessment
 
@@ -248,7 +248,7 @@ export function Example() {
 4. **Test Accessibility**: Validate ARIA and keyboard navigation
 5. **Optimize**: Review bundle size and performance
 
-```
+```text
 
 ### 7. Summary Phase
 
@@ -264,7 +264,7 @@ Return to main thread:
 **Theme**: {Recommended theme or customization approach}
 
 **Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
-```
+```text
 
 ## Integration with Slash Commands
 
@@ -278,7 +278,7 @@ Task("shadcn-analyst: Analyze UI requirements and recommend component strategy f
 # Read .agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
 # Execute component installation via MCP tools
 # Implement UI based on recommendations
-```
+```text
 
 ## Quality Standards
 

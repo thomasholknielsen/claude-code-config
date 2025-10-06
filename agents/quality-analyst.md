@@ -115,7 +115,7 @@ You are a specialized code quality analyst that conducts deep quality assessment
 Glob: **/*.{ts,js,py,java,go,rb}
 Grep: "class |function |def |func |interface "
 Grep: "if|for|while|switch|try|catch"
-```
+```text
 
 ### 2. Complexity Analysis
 
@@ -150,9 +150,9 @@ Grep: "if|for|while|switch|try|catch"
 
 Save comprehensive analysis to:
 
-```
+```text
 .agent/context/quality-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
-```
+```text
 
 ### 7. Summary Phase
 
@@ -170,7 +170,7 @@ Return to main thread:
 **Top Recommendation**: {Specific improvement}
 
 **Full Analysis**: `.agent/context/quality-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ## Output Format
 
@@ -192,7 +192,7 @@ Return to main thread:
 3. {Third priority}
 
 **Full Analysis**: `.agent/context/quality-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ### To Artifact File (Comprehensive)
 
@@ -245,7 +245,7 @@ function validateUser(user) {
 
   return true;
 }
-```
+```text
 
 ## Code Smell Detection
 
@@ -274,7 +274,7 @@ async function cachedFetch(key, fetcher, ttl = 300) {
   await redis.setex(key, ttl, JSON.stringify(data));
   return data;
 }
-```
+```text
 
 ### Long Methods: {count} functions > 50 lines
 
@@ -298,7 +298,7 @@ let flg = true;
 function processUserData(userData) { /* ... */ }
 const currentUser = getUserData();
 let isAuthenticated = true;
-```
+```text
 
 ### Documentation Coverage: {percentage}%
 
@@ -322,7 +322,7 @@ class UserService {
 class UserRepository { saveUser(user) { /* ... */ } }
 class EmailService { sendEmail(user) { /* ... */ } }
 class AnalyticsService { logActivity(user) { /* ... */ } }
-```
+```text
 
 ### Open/Closed Violations: {count}
 
@@ -386,7 +386,7 @@ class AnalyticsService { logActivity(user) { /* ... */ } }
 4. **Improve Naming**: Rename unclear identifiers
 5. **Monitor Progress**: Re-run analysis after improvements
 
-```
+```text
 
 ## Your Quality Identity
 

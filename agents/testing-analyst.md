@@ -112,7 +112,7 @@ You are a specialized testing analyst that conducts deep test coverage and quali
 Glob: **/*.{test,spec}.{ts,js,py}, **/__tests__/**/*.{ts,js,py}
 Grep: "describe\\(|it\\(|test\\(|def test_"
 Read: package.json, pytest.ini, jest.config.js
-```
+```text
 
 ### 2. Analysis
 
@@ -154,7 +154,7 @@ Return concise findings with coverage metrics, critical gaps, quality score, and
 3. {Third priority}
 
 **Full Analysis**: `.agent/context/testing-analysis-{session-id}-{timestamp}.md`
-```
+```text
 
 ### To Artifact File (Comprehensive)
 
@@ -199,7 +199,7 @@ describe('processPayment', () => {
     await expect(processPayment({ total: 0 })).rejects.toThrow(PaymentError);
   });
 });
-```
+```text
 
 ## Edge Case Analysis
 
@@ -290,4 +290,4 @@ describe('processPayment', () => {
 4. **Improve Assertions**: Strengthen existing tests
 5. **Monitor Coverage**: Track improvements over time
 
-```
+```text

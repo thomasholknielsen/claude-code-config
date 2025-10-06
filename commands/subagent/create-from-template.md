@@ -14,7 +14,7 @@ Guides users through interactive agent creation using the standardized agent tem
 
 ```bash
 /subagent:create-from-template
-```
+```text
 
 **Arguments**: None (fully interactive)
 
@@ -41,5 +41,5 @@ Guides users through interactive agent creation using the standardized agent tem
 
 ### Example Interaction
 
-```
+```text
 User: /subagent:create-from-template

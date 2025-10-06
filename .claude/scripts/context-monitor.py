@@ -5,18 +5,18 @@ Real-time context usage monitoring with visual indicators and session analytics
 """
 
 import json
-import os
+from pathlib import Path
 import re
 import sys
 
 
 def parse_context_from_transcript(transcript_path):
     """Parse context usage from transcript file."""
-    if not transcript_path or not os.path.exists(transcript_path):
+    if not transcript_path or not Path(transcript_path).exists():
         return None
 
     try:
-        with open(transcript_path) as f:
+        with Path(transcript_path).open() as f:
             lines = f.readlines()
 
         # Check last 15 lines for context information
@@ -117,15 +117,13 @@ def get_directory_display(workspace_data):
     if current_dir and project_dir:
         if current_dir.startswith(project_dir):
             rel_path = current_dir[len(project_dir) :].lstrip("/")
-            return rel_path or os.path.basename(project_dir)
-        else:
-            return os.path.basename(current_dir)
-    elif project_dir:
-        return os.path.basename(project_dir)
-    elif current_dir:
-        return os.path.basename(current_dir)
-    else:
-        return "unknown"
+            return rel_path or Path(project_dir).name
+        return Path(current_dir).name
+    if project_dir:
+        return Path(project_dir).name
+    if current_dir:
+        return Path(current_dir).name
+    return "unknown"
 
 
 def get_session_metrics(cost_data):
@@ -152,16 +150,8 @@ def get_session_metrics(cost_data):
     duration_ms = cost_data.get("total_duration_ms", 0)
     if duration_ms > 0:
         minutes = duration_ms / 60000
-        if minutes >= 30:
-            duration_color = "\033[33m"  # Yellow for long sessions
-        else:
-            duration_color = "\033[32m"  # Green
-
-        if minutes < 1:
-            duration_str = f"{duration_ms//1000}s"
-        else:
-            duration_str = f"{minutes:.0f}m"
-
+        duration_color = "\033[33m" if minutes >= 30 else "\033[32m"
+        duration_str = f"{duration_ms // 1000}s" if minutes < 1 else f"{minutes:.0f}m"
         metrics.append(f"{duration_color}⏱ {duration_str}\033[0m")
 
     # Lines changed
@@ -223,9 +213,7 @@ def main():
 
     except Exception as e:
         # Fallback display on any error
-        print(
-            f"\033[94m[Claude]\033[0m \033[93m📁 {os.path.basename(os.getcwd())}\033[0m 🧠 \033[31m[Error: {str(e)[:20]}]\033[0m"
-        )
+        print(f"\033[94m[Claude]\033[0m \033[93m📁 {Path.cwd().name}\033[0m 🧠 \033[31m[Error: {str(e)[:20]}]\033[0m")
 
 
 if __name__ == "__main__":

@@ -103,7 +103,7 @@ You are a specialized API design analyst that conducts deep API analysis and ret
 Grep: "app\\.(get|post|put|delete|patch)|@app\\.route|router\\.|type Query|type Mutation"
 Grep: "swagger|openapi|graphql"
 Read: API specification files (openapi.yaml, schema.graphql)
-```
+```text
 
 ### 2. Endpoint Analysis
 
@@ -128,9 +128,9 @@ Read: API specification files (openapi.yaml, schema.graphql)
 
 Save comprehensive analysis to:
 
-```
+```text
 .agent/context/api-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
-```
+```text
 
 ### 6. Summary Phase
 
@@ -146,4 +146,4 @@ Return to main thread:
 **Top Recommendation**: {Specific improvement}
 
 **Full Analysis**: `.agent/context/api-analysis-{session-id}-{timestamp}.md`
-```
+```text
