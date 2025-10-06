@@ -15,7 +15,7 @@ python3 scripts/validate_commands.py
 
 # Pre-commit validation
 python3 scripts/pre_commit_validation.py
-```yaml
+```
 
 ## Common Issues and Solutions
 
@@ -40,7 +40,7 @@ ls ~/.claude
 
 # Check Python availability
 python3 --version
-```text
+```
 
 **Solutions:**
 
@@ -55,7 +55,7 @@ $env:PATH -split ';' | Select-String claude
 
 # Reinstall Claude Code if needed
 # Download from official source and reinstall
-```text
+```
 
 **For macOS/Linux:**
 
@@ -71,7 +71,7 @@ chmod +x ~/.claude/scripts/*.py
 
 # Add to PATH if needed
 echo 'export PATH="$HOME/.claude/scripts:$PATH"' >> ~/.zshrc
-```yaml
+```
 
 #### Issue: Permission denied errors
 
@@ -89,7 +89,7 @@ ls -la ~/.claude/scripts/
 
 # Check ownership
 ls -la ~/.claude/
-```text
+```
 
 **Solutions:**
 
@@ -106,7 +106,7 @@ sudo chown -R $(whoami):$(whoami) ~/.claude
 # Check for restrictive umask
 umask
 # Should be 022 or similar
-```text
+```
 
 **Windows:**
 
@@ -119,7 +119,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Run as administrator if needed
 Start-Process powershell -Verb RunAs
-```yaml
+```
 
 ### Command Execution Issues
 
@@ -142,7 +142,7 @@ python3 scripts/validate_commands.py | grep agent
 
 # Check specific command
 grep -A 5 "agent:" ~/.claude/commands/category/command.md
-```text
+```
 
 **Solutions:**
 
@@ -156,7 +156,7 @@ ls ~/.claude/agents/execution-specialists/
 
 # Check agent frontmatter
 head -20 ~/.claude/agents/execution-specialists/reviewer.md
-```yaml
+```
 
 #### Issue: Git operations blocked or fail
 
@@ -177,7 +177,7 @@ python3 hooks/security_enforcement.py --test-git "git status" "unauthorized-agen
 
 # Check settings
 grep -A 10 "git_constraints" ~/.claude/settings.json
-```text
+```
 
 **Solutions:**
 
@@ -192,7 +192,7 @@ cat ~/.claude/settings.json | jq '.security.git_constraints'
 
 # Verify you're using authorized commands
 python3 scripts/validate_commands.py | grep git
-```yaml
+```
 
 #### Issue: Template validation failures
 
@@ -213,7 +213,7 @@ head -20 ~/.claude/commands/category/problematic-command.md
 
 # Look for pattern issues
 grep -l "^---" ~/.claude/commands/**/*.md | wc -l
-```text
+```
 
 **Solutions:**
 
@@ -233,7 +233,7 @@ python3 scripts/fix_command_templates.py
 
 # Re-validate after fixes
 python3 scripts/validate_commands.py
-```yaml
+```
 
 ### Performance Issues
 
@@ -257,7 +257,7 @@ top -p $(pgrep -f claude)
 
 # Windows:
 Get-Process | Where-Object {$_.ProcessName -like "*claude*"}
-```text
+```
 
 **Solutions:**
 
@@ -271,7 +271,7 @@ python3 scripts/fix_command_templates.py
 
 # Check for infinite loops in scripts
 ps aux | grep python
-```yaml
+```
 
 #### Issue: High memory usage
 
@@ -291,7 +291,7 @@ free -h
 
 # Windows:
 Get-Process | Where-Object {$_.ProcessName -like "*claude*"} | Select-Object WorkingSet64
-```text
+```
 
 **Solutions:**
 
@@ -305,7 +305,7 @@ rm -rf ~/.claude/logs/*.tmp
 
 # Monitor with health check
 python3 scripts/system_health_monitor.py --watch 60
-```yaml
+```
 
 ### Documentation and Integration Issues
 
@@ -326,7 +326,7 @@ find ~/.claude/docs -name "*.md" -exec grep -l "\[.*\](.*)" {} \;
 # Validate documentation structure
 ls -la ~/.claude/docs/user/
 ls -la ~/.claude/docs/developer/
-```text
+```
 
 **Solutions:**
 
@@ -340,7 +340,7 @@ ls ~/.claude/docs/*/index.md
 
 # Update README links
 # Edit ~/.claude/README.md to use new structure
-```bash
+```
 
 #### Issue: MCP tool integration failures
 
@@ -361,7 +361,7 @@ python3 hooks/security_enforcement.py --test-mcp "mcp__context7__get-library-doc
 
 # Check Claude Code MCP setup
 # Refer to setup guide
-```text
+```
 
 **Solutions:**
 
@@ -375,7 +375,7 @@ cat ~/.claude/settings.json | jq '.mcp_tools.allowed'
 
 # Test individual MCP tools
 # Use Claude Code interface to test connectivity
-```text
+```
 
 ## Platform-Specific Troubleshooting
 
@@ -391,7 +391,7 @@ Get-ExecutionPolicy
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 # OR
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-```text
+```
 
 #### Path Separator Issues
 
@@ -401,14 +401,14 @@ $env:CLAUDE_ROOT = "$env:USERPROFILE\.claude"
 
 # Convert paths for Python scripts
 python scripts\validate_commands.py --claude-root "$env:USERPROFILE/.claude"
-```text
+```
 
 #### Windows Defender Issues
 
 ```powershell
 # Add exclusion for Claude directory
 Add-MpPreference -ExclusionPath "$env:USERPROFILE\.claude"
-```text
+```
 
 ### macOS-Specific Issues
 
@@ -421,7 +421,7 @@ sudo spctl --master-disable  # Temporarily disable
 
 # For specific scripts
 sudo xattr -rd com.apple.quarantine ~/.claude/scripts/
-```text
+```
 
 #### Python Path Issues
 
@@ -432,7 +432,7 @@ which python3
 
 # Or use system Python with proper path
 export PATH="/usr/bin/python3:$PATH"
-```text
+```
 
 ### Linux-Specific Issues
 
@@ -450,7 +450,7 @@ sudo dnf install python3 python3-pip git
 
 # Arch Linux
 sudo pacman -S python git
-```text
+```
 
 #### Permission Issues
 
@@ -460,7 +460,7 @@ sudo setsebool -P allow_execheap 1
 
 # AppArmor issues (Ubuntu)
 sudo aa-complain /usr/bin/python3
-```text
+```
 
 ## Advanced Troubleshooting
 
@@ -482,7 +482,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 # Your debugging code here
 "
-```text
+```
 
 ### Network and Connectivity Issues
 
@@ -496,7 +496,7 @@ nslookup github.com
 # Check proxy settings
 echo $HTTP_PROXY
 echo $HTTPS_PROXY
-```text
+```
 
 ### File System Issues
 
@@ -509,7 +509,7 @@ find ~/.claude -name "*.md" -exec head -1 {} \; | grep -v "^#"
 
 # Verify file integrity
 find ~/.claude -type f -name "*.py" -exec python3 -m py_compile {} \;
-```yaml
+```
 
 ## Getting Additional Help
 
@@ -541,7 +541,7 @@ tail -n 50 ~/.claude/logs/git.log
 
 # Health monitoring
 ls ~/.claude/logs/health_report_*.json | tail -1 | xargs cat
-```yaml
+```
 
 ### Creating Effective Bug Reports
 
@@ -553,7 +553,7 @@ When reporting issues, include:
    uname -a  # Unix
    Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion  # Windows
    python3 --version
-   ```yaml
+   ```
 
 1. **Error Messages:**
    - Complete error text

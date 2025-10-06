@@ -34,9 +34,9 @@ Analyzes entire application to understand architecture, patterns, and how compon
 1. **Parallel Architecture Analysis**: Use Task() to examine different architectural dimensions:
 
    ```python
-   Task("analyze-structure", "Map directory structure, modules, and component organization"),
-   Task("analyze-patterns", "Identify design patterns, architectural styles, and conventions"),
-   Task("analyze-data-flow", "Trace data flow and communication patterns between components"),
+   Task("analyze-structure", "Map directory structure, modules, and component organization")
+   Task("analyze-patterns", "Identify design patterns, architectural styles, and conventions")
+   Task("analyze-data-flow", "Trace data flow and communication patterns between components")
    Task("analyze-dependencies", "Map internal and external dependencies and relationships")
    ```
 
@@ -139,3 +139,4 @@ sequenceDiagram
 # Include external dependencies
 /explain:architecture $ARGUMENTS
 # where $ARGUMENTS = "--include-dependencies"
+```

@@ -1,6 +1,6 @@
 ---
 description: "Execute comprehensive optimization workflow using parallel domain analysis to improve performance, reduce bundle size, and enhance user experience"
-allowed-tools: Task
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
 ---
 
 # Command: Run Optimization
@@ -42,7 +42,7 @@ Task("frontend-analyst: Evaluate bundle size, identify unused dependencies, asse
 
 # Each analyst:
 # - Burns tokens on comprehensive optimization domain analysis
-# - Persists findings to .artifacts/context/{domain}-analysis-{timestamp}.md
+# - Persists lean findings to .agent/context/{session-id}/{agent-name}.md
 # - Returns 2-3 sentence summary to main thread
 ```
 
@@ -50,9 +50,9 @@ Task("frontend-analyst: Evaluate bundle size, identify unused dependencies, asse
 
 ```python
 # Read all analyst artifacts
-Read(.artifacts/context/performance-analysis-*.md)
-Read(.artifacts/context/database-analysis-*.md)
-Read(.artifacts/context/frontend-analysis-*.md)
+Read(.agent/context/${session_id}/performance-analyst.md)
+Read(.agent/context/${session_id}/database-analyst.md)
+Read(.agent/context/${session_id}/frontend-analyst.md)
 
 # Based on consolidated findings, implement optimizations:
 # 1. Refactor inefficient algorithms and data structures
@@ -91,7 +91,7 @@ Phase 1: Parallel Analysis (quick parallel analysis)
 → Task("database-analyst: Review query performance and indexing")
 → Task("frontend-analyst: Evaluate bundle size and asset optimization")
 
-Analysts complete concurrently (vs much longer sequential)
+Analysts complete concurrently (significantly faster than sequential execution)
 
 Phase 2: Main Thread Synthesis
 → Consolidate findings from all analysts
@@ -100,8 +100,8 @@ Phase 2: Main Thread Synthesis
 → Clean up artifacts and reduce bundle size
 
 Phase 3: Validation
-→ Run benchmarks: 40% performance improvement
-→ Bundle size reduced: 1.2MB → 0.8MB (33% reduction)
+→ Run benchmarks showing substantial performance improvement
+→ Bundle size significantly reduced
 → All tests passing
 → No functionality regressions
 ```
@@ -132,21 +132,21 @@ Phase 3: Validation
 
 ## Domain Analyst Outputs
 
-**performance-analyst** persists to `.artifacts/context/performance-analysis-{timestamp}.md`:
+**performance-analyst** persists to `.agent/context/performance-analysis-{timestamp}.md`:
 
 - Performance bottleneck locations and severity
 - Algorithmic efficiency improvements
 - Memory leak detection and resolution strategies
 - Resource usage optimization opportunities
 
-**database-analyst** persists to `.artifacts/context/database-analysis-{timestamp}.md`:
+**database-analyst** persists to `.agent/context/database-analysis-{timestamp}.md`:
 
 - Slow query identification with execution plans
 - N+1 query detection and resolution
 - Missing index recommendations
 - Connection pooling and caching strategies
 
-**frontend-analyst** persists to `.artifacts/context/frontend-analysis-{timestamp}.md`:
+**frontend-analyst** persists to `.agent/context/frontend-analysis-{timestamp}.md`:
 
 - Bundle size analysis and unused dependencies
 - Code splitting opportunities

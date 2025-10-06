@@ -46,7 +46,7 @@ flowchart TD
         Memory --> Templates[Templates]
         Memory --> Agents[Agent Context]
     end
-```yaml
+```
 
 ## Workflow Steps Detailed
 
@@ -70,7 +70,7 @@ stateDiagram-v2
 
     note right of InteractivePrinciples : User provides core principles
     note right of ValidationFramework : Ensure consistency across templates
-```text
+```
 
 **Output**: `constitution.md` with project principles, constraints, and validation rules
 
@@ -94,7 +94,7 @@ stateDiagram-v2
 ## Validation Rules
 - [Rule 1]
 - [Rule 2]
-```python
+```
 
 ### 2. Specify (`/spec-kit:specify`)
 
@@ -114,7 +114,7 @@ graph LR
     R3 --> Synthesize
     Synthesize --> Validate[Constitution Compliance]
     Validate --> Output[spec.md]
-```text
+```
 
 **Output**: `spec.md` with comprehensive feature specification
 
@@ -151,7 +151,7 @@ graph LR
 ## Dependencies
 - [Internal dependencies]
 - [External dependencies]
-```yaml
+```
 
 ### 3. Plan (`/spec-kit:plan`)
 
@@ -176,7 +176,7 @@ sequenceDiagram
     IO->>IO: Define validation approach
     IO->>Memory: Save plan.md
     Memory-->>User: Implementation plan ready
-```text
+```
 
 **Output**: `plan.md` with detailed implementation approach
 
@@ -213,7 +213,7 @@ sequenceDiagram
 ## Validation Strategy
 - [Testing approach]
 - [Quality gates]
-```yaml
+```
 
 ### 4. Clarify (`/spec-kit:clarify`)
 
@@ -233,7 +233,7 @@ graph TD
     H --> I[Validate Consistency]
     I --> C
     E --> J[Finalize Specification]
-```yaml
+```
 
 **Question Categories**:
 
@@ -281,7 +281,7 @@ flowchart LR
     Validate --> Tasks
     Validate --> Dependencies
     Validate --> Checklist
-```yaml
+```
 
 **Task Categories**:
 
@@ -323,7 +323,7 @@ mindmap
       Risk Mitigations
       Quality Enhancements
       Process Optimizations
-```yaml
+```
 
 **Analysis Outputs**:
 
@@ -363,7 +363,7 @@ sequenceDiagram
     end
     IO->>IO: Validate implementation
     IO-->>User: Implementation complete
-```text
+```
 
 ## Memory System Architecture
 
@@ -389,7 +389,7 @@ sequenceDiagram
     ├── diagrams/           # Generated diagrams
     ├── documentation/      # Generated docs
     └── validation/         # Quality reports
-```text
+```
 
 ### Memory Persistence Patterns
 
@@ -419,7 +419,7 @@ graph LR
     M1 --> M2
     M2 --> M3
     M3 --> M4
-```yaml
+```
 
 ## Integration with Agent Specialist Framework
 
@@ -447,7 +447,7 @@ research_analysis_specialist.spawn([
     research_agent_3("constraint_validation"),
     research_agent_4("user_story_development")
 ])
-```text
+```
 
 **Implementation Phase** (implement):
 
@@ -459,7 +459,7 @@ implementation_strategy_specialist.execute([
     reviewer("code_quality_review"),
     documenter("user_documentation")
 ])
-```text
+```
 
 ## Quality Gates & Validation
 
@@ -515,7 +515,7 @@ flowchart TD
     Implement --> G4A
     Implement --> G4B
     Implement --> G4C
-```text
+```
 
 ### Automated Validation
 
@@ -540,7 +540,7 @@ def gate_validation(phase, artifacts):
         results.append(result)
 
     return all(results)
-```text
+```
 
 ## Advanced Usage Patterns
 
@@ -562,7 +562,7 @@ claude /spec-kit:plan
 claude /spec-kit:tasks
 claude /spec-kit:analyze
 claude /spec-kit:implement
-```text
+```
 
 ### Partial Workflow Usage
 
@@ -575,7 +575,7 @@ claude /implement  # Direct implementation
 # Use only quality components
 claude /spec-kit:analyze
 claude /review:comprehensive
-```text
+```
 
 ### Cross-Feature Integration
 

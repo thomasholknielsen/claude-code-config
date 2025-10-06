@@ -54,7 +54,7 @@ agent: "primary-agent-name"
 tools: ["Tool1", "Tool2"]
 complexity: "simple|moderate|complex"
 ---
-```yaml
+```
 
 **Required sections:**
 
@@ -129,7 +129,7 @@ markdownlint "**/*.md" --ignore node_modules --config .markdownlint.yml
 
 # Auto-fix basic markdown formatting issues
 markdownlint "**/*.md" --fix --ignore node_modules --config .markdownlint.yml
-```text
+```
 
 ### Python Linting (for hook scripts)
 
@@ -145,7 +145,7 @@ ruff format --check .
 
 # Auto-fix formatting issues
 ruff format .
-```text
+```
 
 ### Shell Script Linting
 
@@ -156,7 +156,7 @@ ruff format .
 
 # Run shellcheck on shell scripts
 shellcheck scripts/**/*.sh
-```yaml
+```
 
 **Configuration files:**
 
@@ -173,7 +173,7 @@ For convenience, use the comprehensive auto-fix script:
 ```bash
 # Run all linting and auto-fixes
 ./scripts/lint-fix.sh
-```text
+```
 
 ## 📝 Pull Request Process
 
@@ -186,7 +186,7 @@ git checkout -b feature/your-feature-name
 
 # Make your changes following guidelines
 # Test thoroughly on your platform
-```yaml
+```
 
 ### 2. Submission Requirements
 
@@ -200,7 +200,7 @@ git checkout -b feature/your-feature-name
 
 **PR title format:**
 
-```yaml
+```text
 [category]: Brief description of change
 
 Examples:

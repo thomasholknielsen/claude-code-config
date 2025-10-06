@@ -21,7 +21,7 @@ I need to implement user authentication with JWT tokens for my Node.js Express a
 
 ### Claude Code Response
 
-```text
+```python
 I'll research user authentication comprehensively using parallel analysis. Let me gather information from multiple domains simultaneously:
 
 Task("Research JWT authentication best practices, security standards, and implementation patterns for Node.js applications")
@@ -120,7 +120,7 @@ My application is experiencing random database connection timeouts in production
 
 ### Claude Code Response
 
-```text
+```python
 I'll investigate the database timeout issue using parallel diagnostic analysis across multiple domains:
 
 Task("Analyze database logs and connection patterns to identify timeout triggers, frequency patterns, and error correlations")
@@ -181,6 +181,8 @@ Please fix the connection leak issue immediately.
 I'll fix the connection leak issue with surgical precision:
 
 **Immediate Fix Applied**:
+```
+
 ```javascript
 // Fixed: services/user-service.js
 // Added proper connection cleanup in error conditions
@@ -194,6 +196,7 @@ try {
   // FIXED: Added missing connection release
   if (connection) connection.release();
 }
+
 ```
 
 **Verification**:
@@ -207,9 +210,6 @@ try {
 - Monitor connection usage for 24 hours
 - Implement connection pool alerts
 - Review other services for similar patterns
-
-```text
-```
 
 **Performance Gain**: 5 minutes investigation + fix vs 30 minutes sequential debugging (83% faster)
 
@@ -226,8 +226,7 @@ models, and frontend components.
 
 ### Claude Code Response
 
-```text
-
+```python
 I'll conduct a comprehensive code review using parallel analysis across multiple quality dimensions:
 
 Task("Analyze code quality, design patterns, and maintainability across all 18 changed files including adherence to project standards")
@@ -236,7 +235,6 @@ Task("Evaluate performance implications including database queries, API response
 Task("Review test coverage completeness, testing strategies, and identify any gaps in payment processing test scenarios")
 
 This parallel review will ensure thorough quality assessment across all critical dimensions.
-
 ```
 
 ### What Happens Next (4-6 minutes)
@@ -253,25 +251,30 @@ This parallel review will ensure thorough quality assessment across all critical
 ### Security Review ⚠️ (2 Critical, 1 High Priority Issues)
 
 **CRITICAL - Payment Data Exposure**:
+
 - `payment-controller.js:67` - Credit card data logged in plain text
 - Fix: Remove sensitive data from logs, implement data masking
 
 **CRITICAL - SQL Injection Risk**:
+
 - `payment-model.js:34` - User input directly concatenated in query
 - Fix: Use parameterized queries for all database operations
 
 **HIGH - Missing Input Validation**:
+
 - `api/payments.js:12-25` - No validation on payment amounts
 - Fix: Add strict validation for currency amounts and payment methods
 
 ### Code Quality Review ✅ (Overall Good, 3 Improvement Areas)
 
 **Positive Findings**:
+
 - Consistent code style throughout
 - Good separation of concerns
 - Proper error handling patterns used
 
 **Improvements Needed**:
+
 - Extract payment validation logic into service layer
 - Reduce complexity in `processPayment` function (complexity: 12)
 - Add JSDoc documentation for public APIs
@@ -279,36 +282,43 @@ This parallel review will ensure thorough quality assessment across all critical
 ### Performance Review ⚠️ (1 Critical, 2 Medium Issues)
 
 **CRITICAL - N+1 Query Pattern**:
+
 - `payment-history.js:45` - Loading user data in loop
 - Impact: 10x slower response times
 - Fix: Use eager loading or batch queries
 
 **MEDIUM - Frontend Bundle Size**:
+
 - Payment components add 150KB to bundle
 - Fix: Implement code splitting for payment features
 
 ### Test Coverage Review 📊 (68% coverage, gaps identified)
 
 **Well Tested**:
+
 - Payment validation logic: 95% coverage
 - API endpoints: 85% coverage
 
 **Missing Tests**:
+
 - Error handling scenarios: 30% coverage
 - Payment webhook processing: 0% coverage
 - Frontend component testing: 45% coverage
 
 ## Summary
+
 **Blocking Issues**: 2 critical security vulnerabilities must be fixed before merge
 **Performance**: 1 critical performance issue needs immediate attention
 **Quality**: Good overall quality with minor improvements needed
 **Testing**: Significant test gaps in error handling and webhooks
 
 ## Recommended Actions
+
 1. Fix critical security issues immediately
 2. Address N+1 query performance problem
 3. Add comprehensive error handling tests
 4. Consider payment webhook test coverage before production
+
 ```
 
 ### User Continues
@@ -323,6 +333,8 @@ Please help fix the critical security vulnerabilities you identified.
 I'll fix the critical security vulnerabilities immediately:
 
 **Fix 1: Remove Credit Card Data from Logs**
+```
+
 ```javascript
 // BEFORE (payment-controller.js:67)
 logger.info('Processing payment', { cardNumber: req.body.cardNumber, amount: req.body.amount });
@@ -355,9 +367,6 @@ const result = await db.query(query, [userId]);
 
 **Ready for Re-review**: Security vulnerabilities eliminated
 
-```text
-```
-
 **Performance Gain**: 6 minutes comprehensive review vs 25 minutes sequential review (76% faster)
 
 ---
@@ -372,8 +381,7 @@ My application is getting slower as we add more users. Can you analyze the entir
 
 ### Claude Code Response
 
-```text
-
+```python
 I'll conduct a comprehensive architecture analysis using parallel investigation across all system layers:
 
 Task("Analyze database architecture including query performance, indexing strategies, and schema optimization opportunities")
@@ -383,7 +391,6 @@ Task("Review infrastructure architecture including caching strategies, load bala
 Task("Analyze external service integrations including third-party APIs, monitoring, and dependency performance")
 
 This parallel architecture analysis will identify optimization opportunities across your entire system.
-
 ```
 
 ### What Happens Next (8-10 minutes)

@@ -1,6 +1,6 @@
 ---
 description: "Comprehensive documentation workflow that analyzes, generates, updates, and validates all project documentation"
-allowed-tools: Task
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
 ---
 
 # Command: Run Docs Workflow
@@ -42,7 +42,7 @@ Task("quality-analyst: Verify code examples work correctly, check formatting sta
 
 # Each analyst:
 # - Burns tokens on comprehensive documentation domain analysis
-# - Persists findings to .artifacts/context/{domain}-analysis-{timestamp}.md
+# - Persists lean findings to .agent/context/{session-id}/{agent-name}.md
 # - Returns 2-3 sentence summary to main thread
 ```
 
@@ -50,9 +50,9 @@ Task("quality-analyst: Verify code examples work correctly, check formatting sta
 
 ```python
 # Read all analyst artifacts
-Read(.artifacts/context/documentation-analysis-*.md)
-Read(.artifacts/context/architecture-analysis-*.md)
-Read(.artifacts/context/quality-analysis-*.md)
+Read(.agent/context/${session_id}/documentation-analyst.md)
+Read(.agent/context/${session_id}/architecture-analyst.md)
+Read(.agent/context/${session_id}/quality-analyst.md)
 
 # Based on consolidated findings:
 # 1. Extract external documentation for frameworks/libraries (if gaps identified)
@@ -81,7 +81,7 @@ Read(.artifacts/context/quality-analysis-*.md)
 # Execute complete documentation workflow
 /workflows:run-docs-workflow
 
-# Result: Parallel analysis in quick parallel analysis (vs much longer sequential)
+# Result: Quick parallel analysis (significantly faster than sequential execution)
 # Phase 1: 3 analysts run concurrently (documentation, architecture, quality)
 # Phase 2: Main thread synthesizes findings and implements improvements
 # Phase 3: Validation ensures quality and GitHub compatibility
@@ -116,35 +116,35 @@ Read(.artifacts/context/quality-analysis-*.md)
 
 **Traditional Sequential Approach:**
 
-- Documentation analysis: 5-7 minutes
-- Architecture review: 4-6 minutes
-- Quality validation: 4-6 minutes
-- Total: much longer
+- Documentation analysis executed sequentially
+- Architecture review follows
+- Quality validation completes last
+- Total execution time scales linearly with analyst count
 
 **Parallel Analysis Approach:**
 
-- 3 analysts run concurrently: quick parallel analysis
-- Main thread synthesis: 1-2 minutes
-- Total: 4-6 minutes
-- **Performance Gain: 70-75% faster**
+- 3 analysts run concurrently (quick parallel analysis)
+- Main thread synthesis completes analysis
+- Execution time approaches slowest analyst (Amdahl's Law)
+- **Performance Gain: Substantially faster through concurrent execution**
 
 ## Domain Analyst Outputs
 
-**documentation-analyst** persists to `.artifacts/context/documentation-analysis-{timestamp}.md`:
+**documentation-analyst** persists to `.agent/context/documentation-analysis-{timestamp}.md`:
 
 - Coverage gaps and missing sections
 - Outdated content identification
 - API documentation completeness assessment
 - Changelog update requirements
 
-**architecture-analyst** persists to `.artifacts/context/architecture-analysis-{timestamp}.md`:
+**architecture-analyst** persists to `.agent/context/architecture-analysis-{timestamp}.md`:
 
 - Technical accuracy validation
 - System design documentation review
 - Diagram and visualization assessment
 - Architectural consistency checks
 
-**quality-analyst** persists to `.artifacts/context/quality-analysis-{timestamp}.md`:
+**quality-analyst** persists to `.agent/context/quality-analysis-{timestamp}.md`:
 
 - Code example validation results
 - Formatting and style compliance

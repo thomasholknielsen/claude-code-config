@@ -174,7 +174,7 @@ def validate_safe_path(path_str):
     if not path.is_relative_to(claude_root):
         raise SecurityError(f"Path outside allowed scope: {path}")
     return path
-```text
+```
 
 **Git Operation Enforcement:**
 

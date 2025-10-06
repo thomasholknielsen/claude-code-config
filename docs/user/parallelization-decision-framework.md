@@ -35,7 +35,7 @@ flowchart TD
 
 **Examples:**
 
-```markdown
+```text
 ✅ "Implement user authentication with security, performance, and integration research"
 ✅ "Investigate production bug with unknown root cause"
 ✅ "Review large PR across security, performance, and quality dimensions"
@@ -56,7 +56,7 @@ flowchart TD
 
 **Examples:**
 
-```markdown
+```text
 🤔 "Add new API endpoint with security and testing considerations"
 🤔 "Optimize specific component for performance"
 🤔 "Update library dependencies with compatibility check"
@@ -76,7 +76,7 @@ flowchart TD
 
 **Examples:**
 
-```markdown
+```text
 ❌ "Fix typo in configuration file"
 ❌ "Update version number in package.json"
 ❌ "Add single CSS style to existing class"
@@ -134,7 +134,7 @@ These areas should be researched sequentially as they build on each other:
 
 **Parallelization Strategy:** 6-10 parallel research tasks
 
-```markdown
+```python
 # Example: Full feature implementation
 Task("Security research and compliance requirements")
 Task("Architecture analysis and integration planning")
@@ -150,7 +150,7 @@ Task("Data modeling and storage optimization")
 
 **Parallelization Strategy:** 3-5 parallel research tasks
 
-```markdown
+```python
 # Example: Component optimization
 Task("Performance bottleneck analysis and metrics")
 Task("Code quality and maintainability assessment")
@@ -162,7 +162,7 @@ Task("Security vulnerability and compliance review")
 
 **Parallelization Strategy:** 2-3 parallel research tasks
 
-```markdown
+```python
 # Example: Library update
 Task("Compatibility analysis with existing dependencies")
 Task("Security assessment and vulnerability review")
@@ -194,7 +194,7 @@ Task("Performance impact and optimization opportunities")
 
 ### High ROI Scenarios (Definitely Parallelize)
 
-```markdown
+```text
 Research Time Saved: 60-85%
 Examples:
 - Complex feature development (25 min → 6 min)
@@ -205,7 +205,7 @@ Examples:
 
 ### Medium ROI Scenarios (Consider Parallelizing)
 
-```markdown
+```text
 Research Time Saved: 30-50%
 Examples:
 - API endpoint with validation (15 min → 8 min)
@@ -215,7 +215,7 @@ Examples:
 
 ### Low ROI Scenarios (Skip Parallelization)
 
-```markdown
+```text
 Overhead > Benefits
 Examples:
 - Simple fixes (2 min → 3 min with overhead)
@@ -284,7 +284,7 @@ Before starting any task, ask:
 
 ### ❌ Over-Parallelizing Simple Tasks
 
-```markdown
+```python
 # Don't do this for simple changes:
 Task("Research how to update a CSS color")
 Task("Analyze security implications of changing button color")
@@ -295,7 +295,7 @@ Task("Investigate performance impact of blue vs red button")
 
 ### ❌ Under-Utilizing Complex Opportunities
 
-```markdown
+```text
 # Don't do this for complex features:
 "Let me add authentication... first I'll research security... then performance... then testing..."
 
@@ -304,7 +304,7 @@ Task("Investigate performance impact of blue vs red button")
 
 ### ❌ Parallelizing Dependent Research
 
-```markdown
+```python
 # Don't do this - these are dependent:
 Task("Design the API structure")
 Task("Implement the API based on the design")  # Depends on design

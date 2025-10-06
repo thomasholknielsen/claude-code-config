@@ -35,7 +35,7 @@ The multi-agent system uses 8 peer-level specialists:
 
 ### Flat Specialist Organization
 
-```yaml
+```text
 agents/
 ├── analysis-specialists/     # Analysis and insights (3 agents)
 │   ├── task-analysis-specialist.md           # Task analysis and planning
@@ -96,13 +96,13 @@ The main thread coordinates specialist execution:
 
 Execution specialists use slash commands as atomic tools:
 
-```yaml
+```text
 code-writer → /refactor:large-scale, /implement
 test-writer → /test, /spec-kit:tasks
 bug-fixer → /fix:bug-quickly, /analyze:potential-issues
 reviewer → /review:code, /review:security
 documenter → /docs:generate, /docs:api
-```yaml
+```
 
 ### 4. Main Thread Coordination
 
@@ -137,7 +137,7 @@ The main thread provides stateless coordination through:
 
 ### Research Workflow
 
-```markdown
+```python
 1. Main thread consults research-analysis-specialist for research strategy
 2. Main thread coordinates parallel research tasks:
    Task("Search codebase for relevant patterns")

@@ -100,7 +100,7 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 ### Concepts and Architecture
 
 - **[Conceptual Documentation](docs/concepts/)** - Deep architecture insights
-  - [Agent Specialist Framework](docs/concepts/agent-orchestra-framework.md) - Specialist agent coordination
+  - [Agent Specialist Framework](docs/concepts/agent-specialist-framework.md) - Specialist agent coordination
   - [Spec-Kit Workflow](docs/concepts/spec-kit-workflow.md) - Feature development process
   - [Parallel Execution Patterns](docs/concepts/parallel-execution-patterns.md) - Performance optimization
 
@@ -148,7 +148,7 @@ claude /workflows:run-optimization
 # Documentation generation
 claude /docs:generate
 claude /workflows:run-docs-workflow
-```text
+```
 
 ## 📁 System Structure
 
@@ -230,7 +230,7 @@ See [CLAUDE.md](CLAUDE.md) for complete development rules.
 
 ## 📖 Learn More
 
-- **[Agent Specialist Framework](docs/concepts/agent-orchestra-framework.md)** - Deep dive into the architecture
+- **[Agent Specialist Framework](docs/concepts/agent-specialist-framework.md)** - Deep dive into the architecture
 - **[Hooks System](docs/hooks-system.md)** - Event-driven automation details
 - **[Spec-Kit Workflow](docs/spec-kit-workflow.md)** - Complete feature development process
 - **[Developer Guide](docs/developer-guide.md)** - Extend and customize the system

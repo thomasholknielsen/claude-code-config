@@ -27,7 +27,7 @@ npm install -g @context7/mcp-server
 
 # Or install locally in your project
 npm install @context7/mcp-server
-```text
+```
 
 ### 2. Configure Context7 in Claude Code
 
@@ -45,7 +45,7 @@ Add Context7 to your Claude Code configuration:
     }
   }
 }
-```python
+```
 
 ### 3. Get Context7 API Key
 
@@ -60,7 +60,7 @@ export CONTEXT7_API_KEY="your-api-key-here"
 
 # Or create a .env file in your project root
 echo "CONTEXT7_API_KEY=your-api-key-here" >> .env
-```text
+```
 
 ### 4. Verify Context7 Setup
 
@@ -69,7 +69,7 @@ Test the Context7 integration:
 ```bash
 # In Claude Code, try resolving a library
 claude "Use Context7 to find React documentation"
-```yaml
+```
 
 The system will automatically use these tools:
 
@@ -88,7 +88,7 @@ npm install -g @playwright/mcp-server
 
 # Install Playwright browsers
 npx playwright install
-```text
+```
 
 ### 2. Configure Playwright in Claude Code
 
@@ -106,7 +106,7 @@ Add Playwright to your Claude Code configuration:
     }
   }
 }
-```text
+```
 
 ### 3. Browser Setup
 
@@ -118,7 +118,7 @@ npx playwright install
 
 # Or install specific browsers
 npx playwright install chromium firefox webkit
-```text
+```
 
 ### 4. Verify Playwright Setup
 
@@ -127,7 +127,7 @@ Test the Playwright integration:
 ```bash
 # In Claude Code, try a browser automation task
 claude "Use Playwright to take a screenshot of example.com"
-```bash
+```
 
 Available Playwright tools include:
 
@@ -175,7 +175,7 @@ Here's a complete Claude Code configuration with both MCP servers:
     ]
   }
 }
-```yaml
+```
 
 ## Command Integration
 
@@ -225,7 +225,7 @@ echo $CONTEXT7_API_KEY
 
 # Test the key directly
 curl -H "Authorization: Bearer $CONTEXT7_API_KEY" https://api.context7.com/health
-```yaml
+```
 
 **Library Not Found:**
 
@@ -243,7 +243,7 @@ npx playwright install --force
 
 # Check installed browsers
 npx playwright install --dry-run
-```text
+```
 
 **Permission Errors:**
 
@@ -253,7 +253,7 @@ sudo npx playwright install-deps
 
 # On macOS, grant accessibility permissions
 # System Preferences > Security & Privacy > Accessibility
-```text
+```
 
 **Headless Mode Issues:**
 

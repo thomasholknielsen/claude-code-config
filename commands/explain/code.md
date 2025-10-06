@@ -34,8 +34,8 @@ Provides clear code explanations with context-appropriate depth, helping underst
 1. **Parallel Code Analysis**: Use Task() to examine different aspects of the code:
 
    ```python
-   Task("analyze-structure", "Break down code structure, classes, functions, and their relationships"),
-   Task("analyze-logic", "Trace execution flow and understand algorithmic approaches"),
+   Task("analyze-structure", "Break down code structure, classes, functions, and their relationships")
+   Task("analyze-logic", "Trace execution flow and understand algorithmic approaches")
    Task("analyze-context", "Understand code purpose within larger system and business domain")
    ```
 
@@ -87,3 +87,4 @@ Provides clear code explanations with context-appropriate depth, helping underst
 # Comprehensive explanation with examples
 /explain:code $ARGUMENTS
 # where $ARGUMENTS = "auth-service.py --depth=comprehensive --include-examples"
+```

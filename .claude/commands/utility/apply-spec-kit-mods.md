@@ -59,13 +59,13 @@ This modification pattern enables spec-kit commands to work in any repository co
 
 **Verify current modification status:**
 
-```bash
+```
 /utility:apply-spec-kit-mods --verify-only
 ```
 
 **Apply modifications to spec-kit commands:**
 
-```bash
+```
 /utility:apply-spec-kit-mods
 ```
 

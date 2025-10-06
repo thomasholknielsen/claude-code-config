@@ -1,6 +1,6 @@
 ---
 description: "Orchestrate multi-perspective code review with dynamic selection and parallel execution"
-allowed-tools: Task
+allowed-tools: Task, Read, Write, Grep, Glob, WebFetch, WebSearch
 github_integration: true
 ---
 
@@ -135,8 +135,9 @@ Task("python-analyst: Evaluate Pythonic patterns and PEP 8 compliance") # if Pyt
 
 # Each analyst:
 # - Performs comprehensive domain-specific analysis
-# - Persists detailed findings to .artifacts/context/{domain}-analysis-{timestamp}.md
-# - Returns 2-3 sentence summary to main thread
+# - Persists lean, actionable findings to .agent/context/{session-id}/{agent-name}.md
+# - Updates incrementally if file exists
+# - Returns concise summary with task counts to main thread
 ```
 
 **Parallelization Benefits:**
@@ -153,13 +154,17 @@ Main thread synthesizes all analyst findings:
 
 ```python
 # Phase 2: Main Thread Synthesis
+# Get session context directory
+session_id = $(python3 ~/.claude/.agent/scripts/session_manager.py current)
+context_dir = .agent/context/${session_id}
+
 # Read all analyst artifacts
-Read(.artifacts/context/quality-analysis-*.md)
-Read(.artifacts/context/security-assessment-*.md)
-Read(.artifacts/context/performance-analysis-*.md)
-Read(.artifacts/context/testing-analysis-*.md)
-Read(.artifacts/context/accessibility-analysis-*.md)
-Read(.artifacts/context/documentation-analysis-*.md)
+Read(${context_dir}/quality-analyst.md)
+Read(${context_dir}/security-analyst.md)
+Read(${context_dir}/performance-analyst.md)
+Read(${context_dir}/testing-analyst.md)
+Read(${context_dir}/accessibility-analyst.md)
+Read(${context_dir}/documentation-analyst.md)
 # ... plus conditional analysts
 
 # Synthesize unified report:
@@ -230,15 +235,15 @@ Read(.artifacts/context/documentation-analysis-*.md)
    Task("api-analyst: Analyze API design and contracts for feature/x vs develop")
    Task("react-analyst: Review React patterns and hooks for feature/x vs develop")
 
-   # All execute simultaneously, persist to .artifacts/context/, return summaries
+   # All execute simultaneously, persist to .agent/context/{session-id}/, return summaries
    ```
 
 4. **Synthesis:**
 
    ```python
-   # Main thread reads all analyst artifacts
-   Read(.artifacts/context/quality-analysis-*.md)
-   Read(.artifacts/context/security-assessment-*.md)
+   # Main thread reads all analyst artifacts from session directory
+   Read(.agent/context/${session_id}/quality-analyst.md)
+   Read(.agent/context/${session_id}/security-analyst.md)
    # ... etc for all analysts
 
    # Synthesize unified report
@@ -298,7 +303,7 @@ This change implements a new checkout flow with Stripe payment integration...
 - Well-documented API endpoints (documentation)
 
 ## Review Coverage
-✓ 8 perspectives analyzed in 3.2 minutes
+✓ 8 perspectives analyzed through quick parallel execution
 ```
 
 ### Example 2: Backend API Changes
@@ -375,7 +380,7 @@ git checkout feature/my-changes
 - Frontend changes skip database/API reviews
 - Database-only changes skip frontend/UI reviews
 - API-only changes run API-specific deep reviews
-- Saves additional 20-30% time through smart filtering
+- Additional time savings through smart filtering
 
 ## Quality Standards
 

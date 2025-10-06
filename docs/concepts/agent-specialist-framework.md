@@ -35,7 +35,7 @@ graph TD
     Tools --> |Write| FileOps
     Tools --> |Bash| ShellOps
     Tools --> |Grep| SearchOps
-```yaml
+```
 
 ## Core Components
 
@@ -105,7 +105,7 @@ graph TD
 
 ### Main Thread Parallel Tool Execution
 
-```yaml
+```text
 Main Thread executes tools in parallel:
   Bash: Search codebase patterns
   Grep: Analyze documentation
@@ -116,7 +116,7 @@ Main Thread executes tools in parallel:
 
 ### Sequential Advisory Pattern
 
-```yaml
+```text
 Main Thread consults specialists sequentially:
   1. task-analysis-specialist → Assess complexity and strategy
   2. research-analysis-specialist → Recommend information gathering approach
@@ -198,7 +198,7 @@ sequenceDiagram
     MT->>TW: Advisory Consult: How to verify fix?
     TW-->>MT: Advisory Recommendation: Integration test pattern
     MT-->>U: Bug fixed and verified
-```text
+```
 
 ### Feature Implementation
 

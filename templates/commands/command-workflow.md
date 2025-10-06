@@ -12,7 +12,7 @@ allowed-tools: Task
 
 ## Usage
 
-```bash
+```
 /workflows:<workflow-name> $ARGUMENTS
 ```
 
@@ -28,7 +28,7 @@ allowed-tools: Task
 
 The workflow launches parallel analyst tasks using the Task tool:
 
-```python
+```
 # Phase 1: Parallel Domain Analysis
 Task("<analyst-1>: Specific analysis instructions for this domain")
 Task("<analyst-2>: Specific analysis instructions for this domain")
@@ -49,12 +49,12 @@ Task("<analyst-3>: Specific analysis instructions for this domain")
 
 1. **Parallel Execution**: Task tool enables true concurrent execution of domain analysts
    - Launch 3-6 analysts in parallel for comprehensive multi-perspective analysis
-   - 70-85% performance improvement over sequential patterns
+   - Significantly faster execution through concurrent processing
    - Analysts run in isolated contexts with independent token budgets
 
 2. **Context Elision**: Analysts conduct extensive research, return concise summaries
    - Detailed findings persisted to `.artifacts/context/{domain}-analysis-*.md`
-   - Main thread receives 2-3 sentence summaries (76% signal vs 91% noise)
+   - Main thread receives focused summaries with actionable insights
    - Main thread reads artifacts as needed for synthesis
 
 3. **Advisory Pattern**: Analysts provide recommendations, not implementations
@@ -65,12 +65,13 @@ Task("<analyst-3>: Specific analysis instructions for this domain")
 **SlashCommand Pattern (Special Cases Only):**
 
 Use SlashCommand ONLY for:
+
 - **Git Operations**: Only `/git:*` commands can perform git operations (repository constraint)
 - **Final Consolidation**: Optional ONE SlashCommand as absolute final step (no post-processing after)
 
 **Git Workflow Exception Example:**
 
-```python
+```
 # Git operations MUST use SlashCommand (only /git:* commands can do git ops)
 SlashCommand("/git:branch")  # Creates branch
 SlashCommand("/git:commit")  # Commits changes
@@ -90,7 +91,7 @@ SlashCommand("/git:pr")      # Creates PR
 
 ### Basic Usage
 
-```bash
+```
 /workflows:<workflow-name> $ARGUMENTS
 ```
 
@@ -98,7 +99,7 @@ SlashCommand("/git:pr")      # Creates PR
 
 ### Output Structure
 
-```markdown
+```
 ## <Workflow Name> Summary
 
 **Analysis Scope**: N domain specialists (<list analysts>)
@@ -130,6 +131,7 @@ SlashCommand("/git:pr")      # Creates PR
 ## Dependencies
 
 **Domain Analysts**:
+
 - <analyst-1> (coordination and synthesis)
 - <analyst-2> (<domain expertise>)
 - <analyst-n> (<domain expertise>)

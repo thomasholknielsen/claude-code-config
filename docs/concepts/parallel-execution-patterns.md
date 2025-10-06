@@ -46,7 +46,7 @@ create, spawn, or execute other agents or tools themselves.
 
 ### Main Thread Tool Usage Patterns
 
-```markdown
+```python
 # Main thread consults specialists in parallel
 Task("research-analysis-specialist: Investigate authentication patterns")
 Task("implementation-strategy-specialist: Analyze security requirements")
@@ -59,7 +59,7 @@ SlashCommand("/fix:bug-quickly")  # Delegate to specific workflow
 
 # Each specialist consultation runs in parallel with isolated context
 # Results return to main thread for sequential implementation
-```yaml
+```
 
 ## Correct Parallelization Patterns
 
@@ -69,7 +69,7 @@ The main thread should consult specialists in parallel to gather expert advice b
 
 #### Comprehensive Analysis (Specialist Consultation Phase)
 
-```markdown
+```python
 # Main thread consults specialists in parallel:
 Task("research-analysis-specialist: Analyze code quality and patterns in existing codebase")
 Task("reviewer: Investigate security requirements and vulnerabilities")
@@ -83,7 +83,7 @@ Task("task-analysis-specialist: Check dependencies and integration points")
 
 #### Multi-Domain Investigation Pattern
 
-```markdown
+```python
 # Specialist Consultation Phase (Parallel)
 Task("research-analysis-specialist: Research authentication best practices from external sources")
 Task("code-writer: Analyze existing authentication patterns in codebase")
@@ -96,7 +96,7 @@ Task("implementation-strategy-specialist: Explore performance considerations for
 
 #### Deep Diagnostic Pattern
 
-```markdown
+```python
 # Problem Analysis (Parallel Specialist Consultation)
 Task("bug-fixer: Analyze error logs and failure patterns")
 Task("research-analysis-specialist: Investigate recent code changes and git history")
@@ -116,7 +116,7 @@ Specialist agents provide focused advisory consultation in their domains of expe
 
 The research-analysis-specialist provides expert research and analysis within its specialized domain:
 
-```markdown
+```python
 # Research Analysis Specialist conducts comprehensive investigation:
 1. Analyze existing implementations in codebase (Glob + Grep)
 2. Research external best practices (WebSearch + Context7)
@@ -135,7 +135,7 @@ The research-analysis-specialist provides expert research and analysis within it
 
 For complex problem analysis, specialists provide thorough advisory analysis:
 
-```markdown
+```python
 # Bug-Fixer Specialist systematic advisory investigation:
 1. Error log analysis and pattern identification
 2. Code path tracing through relevant modules
@@ -158,7 +158,7 @@ The implementation-strategy-specialist provides strategic implementation guidanc
 
 The implementation strategy specialist analyzes dependencies and provides execution recommendations:
 
-```markdown
+```python
 # Implementation Strategy Specialist advisory analysis:
 1. Analyze implementation dependencies and order
 2. Identify shared file modifications and conflicts
@@ -178,7 +178,7 @@ The implementation strategy specialist analyzes dependencies and provides execut
 
 For complex features, provides comprehensive implementation strategy recommendations:
 
-```markdown
+```python
 # Implementation Strategy Specialist strategic advisory planning:
 1. Dependency analysis (data models → business logic → APIs)
 2. Risk assessment and mitigation planning
@@ -199,7 +199,7 @@ For complex features, provides comprehensive implementation strategy recommendat
 
 **Optimal Execution**:
 
-```markdown
+```python
 Phase 1: Parallel Specialist Consultation (Main thread consults 4 specialists, ~2 minutes)
   Task("research-analysis-specialist: Research JWT best practices and implementation patterns")
   Task("reviewer: Analyze security requirements for authentication systems")
@@ -226,7 +226,7 @@ Phase 3: Parallel Quality Assurance via Commands (Main thread delegates, ~3 minu
 
 **Optimal Execution**:
 
-```markdown
+```python
 Parallel Specialist Investigation (Main thread consults 6 specialists, ~3 minutes)
   Task("bug-fixer: Analyze database logs for timeout patterns and error messages")
   Task("implementation-strategy-specialist: Investigate connection pool configuration and recent changes")
@@ -250,7 +250,7 @@ Sequential Resolution (Main thread, ~2 minutes)
 
 **Optimal Execution**:
 
-```markdown
+```python
 Option A: Parallel Specialist Review (Main thread consults 4 specialists, ~4 minutes)
   Task("code-writer: Analyze code quality, style, and design patterns across all changed files")
   Task("reviewer: Perform comprehensive security vulnerability assessment")
@@ -291,7 +291,7 @@ Consolidation & Response (Main thread, ~1 minute)
 
 ### 4. Clear Specialist Domains
 
-```markdown
+```python
 # Good - Specific specialist expertise, non-overlapping domains
 Task("reviewer: Analyze security vulnerabilities in authentication module")
 Task("implementation-strategy-specialist: Evaluate performance bottlenecks in API layer")
@@ -309,7 +309,7 @@ Task("General code review")
 
 ### 6. Dependency Management
 
-```markdown
+```python
 # Correct - Consultation parallel, implementation sequential
 Task("code-writer: Research API design patterns")   # Parallel specialist consultation
 Task("test-writer: Analyze testing requirements")   # Parallel specialist consultation
@@ -335,7 +335,7 @@ Based on typical workflow analysis:
 
 ### ❌ Sequential Research When Parallel Possible
 
-```markdown
+```python
 # Bad - Missing parallel research opportunities
 1. Security review (sequential)
 2. Code review (sequential)
@@ -349,7 +349,7 @@ Task("Evaluate performance bottlenecks and optimization opportunities")
 
 ### ❌ Parallel Implementation With Dependencies
 
-```markdown
+```python
 # Bad - Parallel tasks with dependencies
 Task("Create database schema")         # These have dependencies
 Task("Create models using schema")     # and will cause conflicts
@@ -362,7 +362,7 @@ Task("Analyze model requirements")            # Parallel research
 
 ### ❌ Vague Task Boundaries
 
-```markdown
+```python
 # Bad - Overlapping, unclear scope
 Task("Review the code")
 Task("Check for issues")

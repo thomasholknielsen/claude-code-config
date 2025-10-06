@@ -65,6 +65,9 @@ file-history/
 .agent/context/*.json
 .agent/context/*.log
 
+# Session management
+.current_session
+
 # Ignore credentials and sensitive files
 .credentials.json
 settings.local.json

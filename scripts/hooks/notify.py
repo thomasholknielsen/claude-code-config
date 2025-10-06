@@ -10,8 +10,22 @@ import subprocess
 import sys
 
 
-def get_script_dir():
-    """Get the directory where this script is located."""
+# Constants
+NOTIFICATION_TIMEOUT_SECONDS = 30  # Maximum time to wait for notification script
+
+
+def get_script_dir() -> Path:
+    """
+    Get the directory where this script is located.
+
+    Returns:
+        Path: Directory containing this script
+
+    Example:
+        >>> script_dir = get_script_dir()
+        >>> print(script_dir.exists())
+        True
+    """
     # Handle case where __file__ is not defined (when using exec())
     if "__file__" in globals():
         return Path(__file__).parent
@@ -19,8 +33,18 @@ def get_script_dir():
     return Path.home() / ".claude" / "scripts"
 
 
-def detect_os():
-    """Detect the operating system and return appropriate identifier."""
+def detect_os() -> str:
+    """
+    Detect the operating system and return appropriate identifier.
+
+    Returns:
+        str: OS identifier ('macos', 'windows', 'wsl', 'linux', or 'unknown')
+
+    Example:
+        >>> os_type = detect_os()
+        >>> print(os_type in ['macos', 'windows', 'linux', 'wsl', 'unknown'])
+        True
+    """
     system = platform.system().lower()
 
     if system == "darwin":
@@ -39,29 +63,75 @@ def detect_os():
     return "unknown"
 
 
-def run_notification(os_type, script_dir, stdin_data):
-    """Run the appropriate notification script based on OS."""
+def run_notification(os_type: str, script_dir: Path, stdin_data: str) -> None:
+    """
+    Run the appropriate notification script based on OS.
 
-    if os_type == "macos":
-        # Use bash to run the macOS shell script
-        script_path = script_dir / "notify-macos.sh"
-        cmd = ["bash", str(script_path)]
+    Args:
+        os_type: Operating system identifier
+        script_dir: Directory containing notification scripts
+        stdin_data: Data to pass to notification script
 
-    elif os_type in ["windows", "wsl"]:
-        # Use PowerShell to run the Windows script
-        script_path = script_dir / "notify-windows.ps1"
-        cmd = ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script_path)]
-
-    else:
-        # Unsupported OS - just print to console
+    Example:
+        >>> run_notification('macos', Path('/path/to/scripts'), 'Task completed')
+    """
+    # Early return for unsupported OS
+    if os_type not in ["macos", "windows", "wsl"]:
         print(f"Claude Code notification: Task completed (OS: {os_type} - notifications not supported)")
         return
 
-    try:
-        # Run the appropriate script with stdin data
-        result = subprocess.run(cmd, input=stdin_data, text=True, capture_output=True, timeout=30)
+    # Determine command based on OS
+    cmd = _get_notification_command(os_type, script_dir)
 
-        # Print any output from the script
+    # Execute notification script
+    _execute_notification(cmd, stdin_data)
+
+
+def _get_notification_command(os_type: str, script_dir: Path) -> list[str]:
+    """
+    Get the appropriate notification command for the OS.
+
+    Args:
+        os_type: Operating system identifier
+        script_dir: Directory containing notification scripts
+
+    Returns:
+        list[str]: Command array for subprocess.run()
+
+    Example:
+        >>> cmd = _get_notification_command('macos', Path('/scripts'))
+        >>> print(cmd[0])
+        'bash'
+    """
+    if os_type == "macos":
+        script_path = script_dir / "notify-macos.sh"
+        return ["bash", str(script_path)]
+
+    # Windows or WSL
+    script_path = script_dir / "notify-windows.ps1"
+    return ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script_path)]
+
+
+def _execute_notification(cmd: list[str], stdin_data: str) -> None:
+    """
+    Execute the notification script and handle errors.
+
+    Args:
+        cmd: Command array for subprocess.run()
+        stdin_data: Data to pass to notification script via stdin
+
+    Raises:
+        subprocess.TimeoutExpired: If notification script exceeds timeout (handled internally)
+        FileNotFoundError: If notification script not found (handled internally)
+
+    Example:
+        >>> _execute_notification(['echo', 'test'], 'data')
+    """
+    try:
+        result = subprocess.run(
+            cmd, input=stdin_data, text=True, capture_output=True, timeout=NOTIFICATION_TIMEOUT_SECONDS
+        )
+
         if result.stdout:
             print(result.stdout, end="")
         if result.stderr:
@@ -71,37 +141,23 @@ def run_notification(os_type, script_dir, stdin_data):
         print("Notification script timed out", file=sys.stderr)
     except FileNotFoundError:
         print(f"Notification script not found: {cmd[0]}", file=sys.stderr)
-        # Fallback: just print to console
         print("Claude Code notification: Task completed")
     except Exception as e:
         print(f"Error running notification: {e}", file=sys.stderr)
-        # Fallback: just print to console
         print("Claude Code notification: Task completed")
 
 
 def main():
     """Main function to handle cross-platform notifications."""
-    # Debug: Print that the hook was triggered
-    print("[DEBUG] Claude Code stop hook triggered!", flush=True)
-
     # Read stdin data
     stdin_data = sys.stdin.read()
 
-    # Debug: Print input data
-    print(f"[DEBUG] Hook input data: {stdin_data[:100]}{'...' if len(stdin_data) > 100 else ''}", flush=True)
-
-    # Detect OS
+    # Detect OS and get script directory
     os_type = detect_os()
-    print(f"[DEBUG] Detected OS: {os_type}", flush=True)
-
-    # Get script directory
     script_dir = get_script_dir()
-    print(f"[DEBUG] Script directory: {script_dir}", flush=True)
 
     # Run appropriate notification
-    print("[DEBUG] Running notification script...", flush=True)
     run_notification(os_type, script_dir, stdin_data)
-    print("[DEBUG] Notification script completed!", flush=True)
 
 
 if __name__ == "__main__":

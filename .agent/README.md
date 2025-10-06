@@ -4,7 +4,7 @@ This directory stores session-based context files created by domain analysts dur
 
 ## File Pattern
 
-```text
+```
 .agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
 ```
 
@@ -25,14 +25,14 @@ Domain analysts use these files to:
 
 **Manual Cleanup**:
 
-```bash
+```
 # Remove files older than 30 days
 find ~/.claude/.agent/context -name "*.md" -mtime +30 -delete
 ```
 
 **Session-Based Cleanup**:
 
-```bash
+```
 # Remove all files for a specific session ID
 find ~/.claude/.agent/context -name "*-{sessionid}.md" -delete
 ```
@@ -45,7 +45,7 @@ find ~/.claude/.agent/context -name "*-{sessionid}.md" -delete
 
 ## Directory Structure
 
-```text
+```
 .agent/
 ├── context/               # Session context files (gitignored)
 │   ├── .gitkeep          # Preserves directory in git
@@ -62,4 +62,4 @@ All 16 domain analysts persist findings here:
 - security-analyst, performance-analyst, testing-analyst, accessibility-analyst
 - documentation-analyst, database-analyst, frontend-analyst, shadcn-analyst
 
-Agents obtain session ID via: `python3 ~/.claude/.agents/scripts/session_manager.py current`
+Agents obtain session ID via: `python3 ~/.claude/.agent/scripts/session_manager.py current`

@@ -141,7 +141,7 @@ When conflicts are detected:
 
 ### Example Conflict Resolution
 
-```bash
+```text
 # Conflict detected during merge of feature/auth
 ⚠️  Merge conflict detected in 3 files:
   - src/auth/login.js (both modified)

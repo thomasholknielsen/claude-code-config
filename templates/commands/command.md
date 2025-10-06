@@ -12,7 +12,7 @@ allowed-tools: Tool1, Tool2, Bash(command:*), Bash(another-cmd:*)
 
 ## Usage
 
-```bash
+```
 /<category>:<command-name> $ARGUMENTS
 ```
 
@@ -64,7 +64,7 @@ allowed-tools: Tool1, Tool2, Bash(command:*), Bash(another-cmd:*)
 
 **Examples of Compliant Patterns:**
 
-```markdown
+```
 # Tool restriction example (frontmatter)
 allowed-tools: Read, Grep, Bash(ls:*), Bash(git status)
 
@@ -80,7 +80,7 @@ SlashCommand(/next:command $ARGS)
 
 ### Example 1: <Scenario Name>
 
-```bash
+```
 /<category>:<command> $ARGUMENTS
 # where $ARGUMENTS = "<specific values>"
 
@@ -91,7 +91,7 @@ SlashCommand(/next:command $ARGS)
 
 ### Example 2: <Another Scenario>
 
-```bash
+```
 /<category>:<command> $ARGUMENTS
 # where $ARGUMENTS = "<different values>"
 
@@ -106,7 +106,7 @@ SlashCommand(/next:command $ARGS)
 
 **Use Case**: <When parallel execution is beneficial>
 
-```python
+```
 # Example parallel task coordination
 Task("Parallel task 1 description")
 Task("Parallel task 2 description")

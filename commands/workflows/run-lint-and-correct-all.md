@@ -1,6 +1,6 @@
 ---
 description: "Detect project languages and run all applicable linters with auto-fix in parallel"
-allowed-tools: Task, Glob, Bash
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch
 ---
 
 # Command: Lint and Correct All
@@ -68,7 +68,7 @@ Task("typescript-analyst: Run TypeScript/JavaScript linting with auto-fix enable
 Task("python-analyst: Run Python linting (ruff, black) with auto-fix enabled") # if Python detected
 Task("react-analyst: Run React-specific linting and pattern validation") # if React detected
 
-# Each analyst persists findings to .artifacts/context/ and returns summary
+# Each analyst persists lean findings to .agent/context/{session-id}/ and returns summary
 ```
 
 ## Examples
@@ -93,7 +93,7 @@ Launching parallel linting analysis...
 → Task("typescript-analyst: Lint TypeScript files with auto-fix")
 → Task("python-analyst: Lint Python files with auto-fix")
 
-Analysts complete in 2-3 minutes (vs 8-10 minutes sequential)
+Analysts complete through concurrent execution (significantly faster than sequential)
 
 Results synthesized:
 ✓ TypeScript: 23 issues fixed, 2 remaining
@@ -105,7 +105,7 @@ Summary:
 ✓ 46 issues fixed automatically
 ⚠ 2 issues require manual intervention
 
-Remaining issues persisted to .artifacts/context/quality-analysis-*.md
+Remaining issues persisted to .agent/context/quality-analysis-*.md
 ```
 
 ### Example 2: Documentation Repository
@@ -335,9 +335,9 @@ Next Steps:
 
 **Parallelization Benefit:**
 
-- Sequential execution: ~3-5 min for large monorepo
-- Parallel execution: ~40-90s for same monorepo
-- **Speedup: 3-4x improvement**
+- Sequential execution: Significantly longer for large codebases
+- Parallel execution: Much faster through concurrent linter invocation
+- **Speedup: Substantial improvement through parallelization**
 
 ## Error Handling
 

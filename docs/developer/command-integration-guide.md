@@ -6,9 +6,9 @@ This guide documents how commands work together, their relationships, and integr
 
 ### Development Workflow Chain
 
-```bash
-/analyze:potential-issues → /fix:bug-quickly → /review:code → /git:commit
 ```text
+/analyze:potential-issues → /fix:bug-quickly → /review:code → /git:commit
+```
 
 **Usage Example:**
 
@@ -24,13 +24,13 @@ This guide documents how commands work together, their relationships, and integr
 
 # 4. Commit the changes
 /git:commit "Fix authentication error"
-```text
+```
 
 ### Feature Development Lifecycle
 
-```bash
-/spec-kit:specify → /spec-kit:plan → /implement:spec-kit-tasks → /review:code → /docs:update → /git:pr
 ```text
+/spec-kit:specify → /spec-kit:plan → /implement:spec-kit-tasks → /review:code → /docs:update → /git:pr
+```
 
 **Usage Example:**
 
@@ -52,19 +52,19 @@ This guide documents how commands work together, their relationships, and integr
 
 # 6. Create pull request
 /git:pr "Add user authentication system"
-```text
+```
 
 ### Code Quality Improvement Chain
 
-```bash
-/analyze:performance → /refactor:large-scale → /clean:improve-readability → /review:design → /git:commit
 ```text
+/analyze:performance → /refactor:large-scale → /clean:improve-readability → /review:design → /git:commit
+```
 
 ### Documentation Workflow
 
-```bash
+```text
 /docs:analyze → /docs:generate → /docs:update → /review:design → /git:commit
-```yaml
+```
 
 ## Command Categories and Relationships
 
@@ -84,10 +84,10 @@ This guide documents how commands work together, their relationships, and integr
 
 **Integration Pattern:**
 
-```bash
+```text
 # Analysis → Action → Validation
 /analyze:potential-issues → /fix:bug-quickly → /review:code
-```yaml
+```
 
 ### Fix Commands
 
@@ -108,10 +108,10 @@ This guide documents how commands work together, their relationships, and integr
 
 **Integration Pattern:**
 
-```bash
+```text
 # Problem → Fix → Verify → Commit
 /analyze:potential-issues → /fix:bug-quickly → /review:code → /git:commit
-```yaml
+```
 
 ### Refactor Commands
 
@@ -126,13 +126,13 @@ This guide documents how commands work together, their relationships, and integr
 
 **Workflow Integration:**
 
-```bash
+```text
 # Analysis-driven refactoring
 /analyze:codebase → /refactor:large-scale → /review:code → /git:commit
 
 # Quality-driven refactoring
 /analyze:potential-issues → /refactor:simplify-logic → /clean:improve-readability
-```yaml
+```
 
 ### Review Commands
 
@@ -144,13 +144,13 @@ This guide documents how commands work together, their relationships, and integr
 
 **Integration as Quality Gates:**
 
-```bash
+```text
 # Before commits
 {any-changes} → /review:code → /git:commit
 
 # Before deployment
 {implementation} → /review:security → /review:design → /git:pr
-```yaml
+```
 
 ### Git Commands
 
@@ -165,7 +165,7 @@ This guide documents how commands work together, their relationships, and integr
 
 **Integration as Final Steps:**
 
-```bash
+```text
 # Individual commits
 {changes} → /review:code → /git:commit
 
@@ -174,7 +174,7 @@ This guide documents how commands work together, their relationships, and integr
 
 # Release preparation
 {release-changes} → /workflows:run-comprehensive-review → /git:workflow
-```yaml
+```
 
 ### Documentation Commands
 
@@ -189,13 +189,13 @@ This guide documents how commands work together, their relationships, and integr
 
 **Integration Patterns:**
 
-```bash
+```text
 # Feature documentation
 /implement:spec-kit-tasks → /docs:api → /docs:update → /git:commit
 
 # Release documentation
 /git:workflow → /docs:changelog → /docs:generate → /git:pr
-```yaml
+```
 
 ### Workflow Commands
 
@@ -211,13 +211,13 @@ This guide documents how commands work together, their relationships, and integr
 
 **Integration as Orchestrators:**
 
-```bash
+```text
 # Pre-release workflow
 /workflows:run-comprehensive-review → /workflows:run-docs-workflow → /git:workflow
 
 # Maintenance workflow
 /workflows:run-cleanup-workflow → /workflows:run-optimization → /git:commit
-```text
+```
 
 ## Agent Coordination Patterns
 
@@ -227,11 +227,11 @@ This guide documents how commands work together, their relationships, and integr
 task-analysis-specialist → code-writer (for implementation)
 research-analysis-specialist → reviewer (for analysis)
 implementation-strategy-specialist → multiple execution specialists (for complex features)
-```text
+```
 
 ### Parallel Execution Patterns
 
-```bash
+```text
 # Parallel reviews
 /workflows:run-comprehensive-review
 ├── /review:code (reviewer agent)
@@ -243,11 +243,11 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 ├── /docs:api (documenter agent)
 ├── /docs:generate (documenter agent)
 └── /docs:update (documenter agent)
-```text
+```
 
 ### Sequential Coordination
 
-```bash
+```text
 # Feature implementation chain
 1. /spec-kit:specify (implementation-strategy-specialist)
 2. /spec-kit:plan (implementation-strategy-specialist)
@@ -255,7 +255,7 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 4. /review:code (reviewer)
 5. /docs:update (documenter)
 6. /git:pr (implementation-strategy-specialist)
-```yaml
+```
 
 ## Command Dependency Matrix
 
@@ -274,43 +274,43 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 
 ### 1. Always Review Before Commit
 
-```bash
+```text
 # ✅ Good
 /fix:bug-quickly → /review:code → /git:commit
 
 # ❌ Bad
 /fix:bug-quickly → /git:commit
-```text
+```
 
 ### 2. Use Workflows for Complex Operations
 
-```bash
+```text
 # ✅ Good
 /workflows:run-comprehensive-review
 
 # ❌ Avoid manual coordination
 /review:code && /review:security && /review:design
-```text
+```
 
 ### 3. Follow Logical Sequence
 
-```bash
+```text
 # ✅ Good sequence
 /analyze:potential-issues → /fix:bug-quickly → /review:code → /git:commit
 
 # ❌ Illogical sequence
 /git:commit → /fix:bug-quickly → /analyze:potential-issues
-```text
+```
 
 ### 4. Leverage Agent Orchestration
 
-```bash
+```text
 # ✅ Use analysis specialists for complex tasks
 /workflows:run-complete-overhaul
 
 # ❌ Manual execution specialist coordination
 /clean:* → /refactor:* → /review:* → /docs:*
-```text
+```
 
 ## Common Integration Scenarios
 
@@ -322,7 +322,7 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 /fix:bug-quickly "authentication not working"
 /review:code
 /git:commit "Fix authentication bug"
-```text
+```
 
 ### Scenario 2: Feature Development
 
@@ -334,7 +334,7 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 /review:code
 /docs:api
 /git:pr "Add shopping cart feature"
-```text
+```
 
 ### Scenario 3: Code Quality Improvement
 
@@ -345,7 +345,7 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 /workflows:run-cleanup-workflow
 /review:code
 /git:commit "Improve code quality and structure"
-```text
+```
 
 ### Scenario 4: Release Preparation
 
@@ -355,7 +355,7 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 /workflows:run-security-audit
 /workflows:run-docs-workflow
 /git:workflow "release/v2.0.0"
-```text
+```
 
 ### Scenario 5: Performance Optimization
 
@@ -366,7 +366,7 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 /review:code
 /docs:update "performance improvements"
 /git:commit "Optimize application performance"
-```bash
+```
 
 ## Troubleshooting Integration Issues
 
@@ -402,27 +402,27 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 
 Commands can be conditionally chained based on analysis results:
 
-```bash
+```text
 # Conditional refactoring
 /analyze:potential-issues → [if complex] → /refactor:large-scale
                          → [if simple] → /refactor:quick
-```text
+```
 
 ### Parallel Processing
 
 Leverage Agent Orchestra for parallel execution:
 
-```bash
+```text
 # Parallel quality checks
 /workflows:run-comprehensive-review
 # Executes /review:code, /review:security, /review:design simultaneously
-```yaml
+```
 
 ### Context-Aware Integration
 
 Commands adapt based on project context:
 
-```bash
+```text
 # React project
 /analyze:codebase → [detects React] → /review:design [includes React patterns]
 

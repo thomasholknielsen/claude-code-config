@@ -10,7 +10,7 @@ See professional output styles in action with real-world scenarios.
 
 **Response**:
 
-```text
+```markdown
 **Executive Summary**:
 - European expansion presents €18M opportunity with 24-month ROI
 - Regulatory complexity requires staged entry via UK/Germany
@@ -45,7 +45,7 @@ See professional output styles in action with real-world scenarios.
 
 **Response**:
 
-```text
+```markdown
 **Problem Statement**: Mobile app backlog contains 12 features without clear prioritization framework,
 impacting sprint planning and resource allocation.
 
@@ -85,7 +85,7 @@ impacting sprint planning and resource allocation.
 
 **Response**:
 
-```text
+```markdown
 **Hypothesis**: Simplified signup form (Version B) will increase conversion rate compared to detailed form (Version A).
 
 **Data Overview**:
@@ -122,7 +122,7 @@ impacting sprint planning and resource allocation.
 
 **Response**:
 
-```text
+```markdown
 # User Authentication API
 
 Authenticate users and retrieve access tokens for API requests.
@@ -218,7 +218,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 **Response**:
 
-```text
+```markdown
 **Research Objective**: Identify friction points in mobile app onboarding that impact user activation and retention.
 
 **Methodology**:
@@ -286,7 +286,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 **Response**:
 
-```text
+```markdown
 **Project Overview**: Customer Portal Implementation
 - **Scope**: Self-service portal with account management, billing, and support ticketing
 - **Timeline**: 12 weeks from kickoff to production launch
@@ -374,7 +374,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 /output-style strategic-consultant
 ```
 
-```text
+```markdown
 **Executive Summary**: User engagement decline indicates potential product-market fit erosion requiring strategic intervention.
 
 **Root Cause Analysis**:
@@ -396,7 +396,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 /output-style data-scientist
 ```
 
-```text
+```markdown
 **Hypothesis**: User engagement decline correlates with specific user segments, feature usage patterns, or external factors.
 
 **Analysis Framework**:
@@ -421,7 +421,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 /output-style product-manager
 ```
 
-```text
+```markdown
 **Problem Statement**: User engagement metrics show consistent decline over past 3 months, impacting retention and revenue growth.
 
 **User Impact Assessment**:

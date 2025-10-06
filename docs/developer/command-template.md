@@ -53,7 +53,7 @@ Single sentence describing the command's primary function.
 
 # Advanced usage
 /{category}:{command-name} --option value
-```yaml
+```
 
 ## Output
 
@@ -81,6 +81,7 @@ Commands use the `$ARGUMENTS` placeholder which is automatically replaced with u
 - **Benefits**: Consistent argument handling across all commands
 
 **Example:**
+
 - Template: `/fix:bug-quickly $ARGUMENTS`
 - User input: `login button not working`
 - Executed: `/fix:bug-quickly login button not working`
@@ -97,10 +98,12 @@ Commands use the `$ARGUMENTS` placeholder which is automatically replaced with u
 ## Standardization Rules
 
 ### 1. Header Format
+
 - Always use: `# Command: {Action Verb} {Object}`
 - Examples: "# Command: Analyze Performance", "# Command: Generate Documentation"
 
 ### 2. YAML Frontmatter (Required)
+
 ```yaml
 ---
 description: "Single clear sentence under 100 characters"
@@ -166,9 +169,11 @@ argument-hint: "Description of the bug or error message"
 # Command: Fix Bug Quickly
 
 ## Purpose
+
 Identifies and fixes obvious bugs with rapid diagnosis and immediate resolution.
 
 ## Usage
+
 ```bash
 /fix:bug-quickly $ARGUMENTS
 ```
@@ -283,4 +288,3 @@ Executes parallel code review across security, quality, and design perspectives.
 - **Related**: /review:security, /review:code, /review:design
 
 ```text
-```
