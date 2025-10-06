@@ -88,7 +88,7 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 - **Follows**: /git:branch, code modifications
 - **Followed by**: /git:push, /git:pr
-- **Related**: /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:full-workflow
 
 ## Type Auto-Detection from Uncommitted Files
 

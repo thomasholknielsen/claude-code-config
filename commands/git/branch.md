@@ -85,7 +85,7 @@ Creates, manages, and switches git branches with intelligent naming and safety v
 
 - **Follows**: Code changes, feature development initiation
 - **Followed by**: /git:commit, code modifications
-- **Related**: /git:push, /git:pr, /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:push, /git:pr, /git:full-workflow
 
 ## Type Auto-Detection from Uncommitted Files
 

@@ -89,7 +89,7 @@ gh pr create --title "PR Title" --body "PR Description"
 ## Integration Points
 
 - **Replaces**: Sequential /git:branch → /git:commit → /git:push → /git:pr pattern
-- **Used by**: /workflows:run-git-branch-commit-and-pr (invokes this as ONE command)
+- **Standalone**: This is the atomic git workflow command (replaces the deprecated workflow)
 - **Follows**: Code implementation, feature completion, bug fixes
 - **Followed by**: Code review, CI/CD pipeline
 

@@ -17,7 +17,7 @@ This document provides realistic workflow patterns using the Claude Code Command
 
 ## Quick Reference
 
-### Current Command System (47 commands, 15 analysts)
+### Current Command System (Comprehensive Command Library + Domain Analysts)
 
 **Workflows (8)**: Orchestrate parallel analyst execution
 

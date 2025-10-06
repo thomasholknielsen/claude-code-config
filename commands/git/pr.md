@@ -82,7 +82,7 @@ Creates pull requests with auto-generated descriptions and returns the PR URL fo
 
 - **Follows**: /git:push, development completion
 - **Followed by**: Code review process, CI/CD pipeline
-- **Related**: /git:branch, /git:commit, /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:branch, /git:commit, /git:full-workflow
 
 ## Type Auto-Detection from Branch Changes
 

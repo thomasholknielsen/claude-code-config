@@ -183,7 +183,7 @@ git reset --hard backup/consolidate-2025-09-30-1430
 
 - **Follows**: /git:worktree (add-multiple or add-staging)
 - **Followed by**: /git:commit, /git:push, /git:pr
-- **Related**: /git:merge, /git:branch, /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:merge, /git:branch, /git:full-workflow
 
 ## Quality Standards
 

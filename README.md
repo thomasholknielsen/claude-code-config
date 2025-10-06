@@ -33,14 +33,14 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 
 - **7 visual diagrams** showing workflow patterns, timing comparisons, and command orchestration
 - Real-world timing expectations (15-90 min per task)
-- Performance analysis: 66% time savings with local review
+- Performance analysis: Significantly faster with local review
 
 ## 🏗️ Architecture Overview
 
-This system provides development automation via **15 domain analysts**, **47 streamlined commands**, and **3 Python hooks**,
+This system provides development automation via **comprehensive domain analysts**, **streamlined command library**, and **cross-platform Python hooks**,
 with MCP integration (Context7 for docs, Playwright for browser automation).
 
-### Domain Analyst Framework (15 Analysts)
+### Domain Analyst Framework
 
 **Research Analyst (1)**:
 
@@ -54,9 +54,9 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 - **Testing/Accessibility**: testing-analyst, accessibility-analyst
 - **Documentation/Data**: documentation-analyst, database-analyst, frontend-analyst
 
-**Pattern**: Analysts burn 90%+ tokens on research → persist to `.artifacts/context/*.md` → return concise summaries
+**Pattern**: Analysts conduct extensive research → persist to `.artifacts/context/*.md` → return concise summaries
 
-### Command Categories (47 Commands)
+### Command Categories
 
 - **`/workflows/*`** (8) - Orchestrate parallel analyst execution for comprehensive analysis
 - **`/git/*`** (8) - Git operations (only /git/* commands can perform git operations)
@@ -82,7 +82,7 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
   - [User Guide](docs/user/user-guide.md) - Complete setup and usage instructions
   - [MCP Setup Guide](docs/user/mcp-setup-guide.md) - External tool integration
 - **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic patterns with review-lint-commit workflow
-  - Includes local PR review before committing (saves 66% time on team reviews)
+  - Includes local PR review before committing (significantly faster than team reviews)
   - Comprehensive linting automation
   - Performance comparisons and best practices
 
@@ -200,7 +200,7 @@ claude /workflows:run-docs-workflow
 
 All complex workflows include **Mermaid diagrams** for clear understanding:
 
-- **7 workflow diagrams** in [Developer Workflows Guide](docs/typical-workflows.md):
+- **Multiple workflow diagrams** in [Developer Workflows Guide](docs/typical-workflows.md):
   - Review-Lint-Commit pattern flowchart with decision points
   - Bug fix sequence diagram showing command interactions
   - Performance comparison Gantt chart (Old Way 82 min vs New Way 28 min)

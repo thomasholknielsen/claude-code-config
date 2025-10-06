@@ -58,17 +58,18 @@ The Claude Code Command System provides development automation through domain an
 
 ## 🏗️ Domain Analyst Framework
 
-### Research Analyst (1)
+### Research Analyst
 
 **research-analyst** - Comprehensive sequential research across multiple domains with synthesized findings (uses Context7)
 
-### Domain Analysts (14)
+### Domain Analysts
 
 **Framework/Technology:** react-analyst, typescript-analyst, python-analyst, api-analyst
 **Quality/Architecture:** quality-analyst, architecture-analyst (opus+ultrathink), refactoring-analyst
 **Security/Performance:** security-analyst, performance-analyst
 **Testing/Accessibility:** testing-analyst, accessibility-analyst
 **Documentation/Data:** documentation-analyst, database-analyst, frontend-analyst
+**UI/Design:** shadcn-analyst
 
 **Pattern**: Conduct comprehensive research → persist detailed findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` → return concise summary (context elision)
 
@@ -136,7 +137,7 @@ Use `/artifact:save` to capture Claude outputs (plans, reviews, research) in `.a
 
 ## 🤖 AI Code Review
 
-Use `/workflows:run-comprehensive-review` for multi-perspective reviews with dynamic selection, parallel execution, and unified reporting. 11 atomic review commands available (readability, performance, testing, style, architecture, documentation, observability, security, code, design, synthesize).
+Use `/review:code` for comprehensive code review with domain analyst delegation. For multi-perspective reviews, use `/workflows:run-comprehensive-review` with dynamic analyst selection, parallel execution, and unified reporting.
 
 ## 📚 Documentation
 

@@ -50,6 +50,11 @@ MD040: # Fenced code blocks should have a language specified
       "text",
       "mermaid",
       "powershell",
+      "graphql",
+      "diff",
+      "plaintext",
+      "html",
+      "css",
     ]
   language_only: false
 MD046: # Code block style

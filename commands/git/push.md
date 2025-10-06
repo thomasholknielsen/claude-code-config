@@ -66,7 +66,7 @@ Safely pushes commits to remote repository with tracking setup and team coordina
 
 - **Follows**: /git:commit, local development completion
 - **Followed by**: /git:pr, team collaboration
-- **Related**: /git:branch, /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:branch, /git:full-workflow
 
 ## Quality Standards
 
