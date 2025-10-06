@@ -352,18 +352,21 @@ git checkout feature/my-changes
 
 ## Performance Characteristics
 
-**Traditional Sequential Review:**
+**Sequential Review:**
 
-- multiple reviews × 3 minutes each = 30 minutes total
-- Single-threaded execution
-- High developer waiting time
+- Reviews execute one after another
+- Total time scales linearly with review count
+- Single-threaded execution pattern
+- Higher developer waiting time
 
-**Optimized Parallel Review:**
+**Parallel Review:**
 
-- multiple reviews simultaneously = much faster concurrent execution total
-- Multi-threaded with Task tool
-- 85% time reduction
+- Multiple reviews run simultaneously using Task tool
+- Execution time approaches slowest review (Amdahl's Law)
+- Significantly faster through concurrent execution
 - Real-time progress tracking
+
+**Note**: Actual performance depends on system resources, network latency for MCP tools, and codebase complexity.
 
 **Intelligent Selection:**
 

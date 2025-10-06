@@ -128,19 +128,19 @@ Phase 3: Validation
 
 ## Performance Characteristics
 
-**Traditional Sequential Approach:**
+**Sequential Approach:**
 
-- Refactoring analysis: 5-7 minutes
-- Quality analysis: 4-6 minutes
-- Architecture review: much faster concurrent execution
-- Total: 12-18 minutes
+- Analysts execute one after another
+- Total time scales linearly with analyst count
+- Single-threaded execution pattern
 
-**Parallel Analysis Approach:**
+**Parallel Approach:**
 
-- 3 analysts run concurrently: quick parallel analysis
-- Main thread implementation: 4-6 minutes
-- Total: 7-10 minutes
-- **Performance Gain: 40-50% faster**
+- Multiple analysts run simultaneously using Task tool
+- Execution time approaches slowest analyst (Amdahl's Law)
+- **Performance Gain: Significantly faster through concurrent execution**
+
+**Note**: Actual performance depends on system resources, network latency for MCP tools, and analysis complexity.
 
 ## Domain Analyst Outputs
 

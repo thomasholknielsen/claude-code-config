@@ -116,19 +116,19 @@ Phase 3: Validation
 
 ## Performance Characteristics
 
-**Traditional Sequential Approach:**
+**Sequential Approach:**
 
-- Performance analysis: 6-8 minutes
-- Database analysis: 4-6 minutes
-- Frontend analysis: 5-7 minutes
-- Total: 15-21 minutes
+- Analysts execute one after another
+- Total time scales linearly with analyst count
+- Single-threaded execution pattern
 
-**Parallel Analysis Approach:**
+**Parallel Approach:**
 
-- 3 analysts run concurrently: quick parallel analysis
-- Main thread implementation: 2-3 minutes
-- Total: 5-7 minutes
-- **Performance Gain: 65-70% faster**
+- Multiple analysts run simultaneously using Task tool
+- Execution time approaches slowest analyst (Amdahl's Law)
+- **Performance Gain: Significantly faster through concurrent execution**
+
+**Note**: Actual performance depends on system resources, network latency for MCP tools, and analysis complexity.
 
 ## Domain Analyst Outputs
 
