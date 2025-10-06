@@ -25,7 +25,7 @@ You are a specialized testing analyst that conducts deep test coverage and quali
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/testing-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -123,7 +123,7 @@ Read: package.json, pytest.ini, jest.config.js
 
 ### 3. Persistence
 
-Save to `.agent/context/testing-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md`
+Save to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 
 ### 4. Summary
 
@@ -153,7 +153,7 @@ Return concise findings with coverage metrics, critical gaps, quality score, and
 2. {Second priority}
 3. {Third priority}
 
-**Full Analysis**: `.agent/context/testing-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```text
 
 ### To Artifact File (Comprehensive)

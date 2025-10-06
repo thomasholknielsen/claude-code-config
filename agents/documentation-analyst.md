@@ -32,7 +32,7 @@ You are a specialized documentation analyst that conducts deep documentation qua
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `\.agent/context/documentation-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `\.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -123,7 +123,7 @@ You are a specialized documentation analyst that conducts deep documentation qua
 3. **Quality Assessment**: Verify accuracy, clarity, examples, formatting
 4. **Comment Analysis**: Assess quality, redundancy, TODOs, deprecations
 5. **Knowledge Gaps**: Find undocumented features, missing context
-6. **Persist**: Save to `.agent/context/documentation-analysis-{session-id}-{timestamp}.md`
+6. **Persist**: Save to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 7. **Summarize**: Return concise findings to main thread
 
 ## Output Format
@@ -148,7 +148,7 @@ You are a specialized documentation analyst that conducts deep documentation qua
 2. {Second priority}
 3. {Third priority}
 
-**Full Analysis**: `\.agent/context/documentation-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `\.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```
 
 ### To Artifact File (Comprehensive)

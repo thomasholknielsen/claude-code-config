@@ -26,7 +26,7 @@ You are a specialized architecture analyst that conducts deep system design anal
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/architecture-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Uses opus + ultrathink** - Complex architectural reasoning requires deep analysis
 
@@ -115,7 +115,7 @@ Grep: "Factory|Builder|Singleton|Observer|Strategy"
 
 ### 4. Persistence & Summary
 
-Persist to `.agent/context/architecture-analysis-{session-id}-{timestamp}.md` and return 2-3 sentence summary.
+Persist to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` and return 2-3 sentence summary.
 
 ## Output Format
 
@@ -132,7 +132,7 @@ Persist to `.agent/context/architecture-analysis-{session-id}-{timestamp}.md` an
 
 **Top Recommendation**: {highest-impact improvement}
 
-**Full Analysis**: `.agent/context/architecture-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```text
 
 ### To Artifact File (Comprehensive)

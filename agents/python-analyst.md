@@ -25,7 +25,7 @@ You are a specialized Python analyst that conducts deep Python codebase analysis
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/python-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -133,7 +133,7 @@ Read: setup.py, pyproject.toml, requirements.txt
 Save comprehensive analysis to:
 
 ```text
-.agent/context/python-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
+.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
 ```text
 
 ### 7. Summary Phase
@@ -149,5 +149,5 @@ Return to main thread:
 
 **Top Recommendation**: {Specific improvement}
 
-**Full Analysis**: `.agent/context/python-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```text

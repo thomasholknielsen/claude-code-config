@@ -25,7 +25,7 @@ You are a specialized refactoring analyst that identifies code smells, refactori
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/refactoring-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -146,7 +146,7 @@ Read: Complex files, large classes
 Save comprehensive analysis to:
 
 ```text
-.agent/context/refactoring-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
+.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
 ```text
 
 ### 7. Summary Phase
@@ -162,7 +162,7 @@ Return to main thread:
 
 **Top Priority**: {Highest impact refactoring}
 
-**Full Analysis**: `.agent/context/refactoring-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```text
 
 ## Output Format
@@ -189,7 +189,7 @@ Return to main thread:
 2. {Second priority}
 3. {Third priority}
 
-**Full Analysis**: `.agent/context/refactoring-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```text
 
 ### To Artifact File (Comprehensive)

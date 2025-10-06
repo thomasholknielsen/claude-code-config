@@ -25,7 +25,7 @@ You are a specialized database analyst that conducts deep database design, query
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/database-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -130,7 +130,7 @@ Use Glob for migrations/models, Grep for SQL patterns, Read schema definitions
 
 ### 3. Persistence
 
-Save comprehensive analysis to: `.agent/context/database-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md`
+Save comprehensive analysis to: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 
 ### 4. Summary
 
@@ -157,7 +157,7 @@ Return concise summary with quality score, critical issues, top recommendation, 
 2. {Second priority}
 3. {Third priority}
 
-**Full Analysis**: `.agent/context/database-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```
 
 ### To Artifact File (Comprehensive)

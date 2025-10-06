@@ -25,7 +25,7 @@ You are a specialized TypeScript analyst that conducts deep type system analysis
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/typescript-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -147,7 +147,7 @@ Use WebSearch for TypeScript best practices and Context7 for library documentati
 ### 5. Persistence Phase
 
 ```text
-.agent/context/typescript-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md
+.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
 ```text
 
 ### 6. Summary Phase
@@ -161,7 +161,7 @@ Use WebSearch for TypeScript best practices and Context7 for library documentati
 
 **Top Recommendation**: {Highest-impact type improvement}
 
-**Full Analysis**: .agent/context/typescript-analysis-{session-id}-{timestamp}.md
+**Full Analysis**: .agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
 ```text
 
 ## Output Format
@@ -177,7 +177,7 @@ Use WebSearch for TypeScript best practices and Context7 for library documentati
 
 **Top Recommendation**: {Specific type safety improvement}
 
-**Full Analysis**: `.agent/context/typescript-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```text
 
 ### To Artifact File (Comprehensive)

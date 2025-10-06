@@ -25,7 +25,7 @@ You are a specialized performance analyst that conducts deep performance analysi
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/performance-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -56,7 +56,7 @@ Rendering, database queries, API latency, bundle size, memory leaks, network wat
 2. **Deep Analysis**: Frontend (renders, bundle, assets), Backend (queries, indexes, APIs), Algorithms (complexity)
 3. **External Research**: WebSearch + Context7 for best practices
 4. **Synthesis**: Categorize by impact, assess ROI, prioritize
-5. **Persistence**: `.agent/context/performance-analysis-{session-id}-{timestamp}.md`
+5. **Persistence**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 6. **Summary**: Return concise report with bottlenecks and quick wins
 
 ## Output Format
@@ -73,7 +73,7 @@ Rendering, database queries, API latency, bundle size, memory leaks, network wat
 
 **Top 3 Quick Wins**: {list}
 
-**Full Analysis**: `.agent/context/performance-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```
 
 ### To Artifact File (Comprehensive)

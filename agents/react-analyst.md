@@ -26,7 +26,7 @@ You are a specialized React analyst that conducts deep analysis of React codebas
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/react-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -56,7 +56,7 @@ identify performance opportunities
 
 **External Research**: WebSearch for React best practices, Context7 for framework-specific patterns (react, react-router, @tanstack/react-query)
 
-**Persistence**: Save comprehensive analysis to `.agent/context/react-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md`
+**Persistence**: Save comprehensive analysis to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 
 **Summary**: Return concise findings with key insight, top recommendation, and artifact reference
 
@@ -73,7 +73,7 @@ identify performance opportunities
 
 **Issues Found**: {P1 count} critical, {P2 count} important
 
-**Full Analysis**: `.agent/context/react-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```
 
 ### To Artifact File (Comprehensive)

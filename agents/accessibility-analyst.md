@@ -26,7 +26,7 @@ You are a specialized accessibility analyst that conducts deep WCAG compliance a
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/accessibility-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -109,7 +109,7 @@ Review semantic HTML, alternative text, form labels, announcements
 
 ### 6. Persistence Phase
 
-Save comprehensive analysis to `.agent/context/accessibility-analysis-{session-id}-{YYYY-MM-DD-HHMMSS}.md`
+Save comprehensive analysis to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 
 ### 7. Summary Phase
 
@@ -136,7 +136,7 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 2. {Second priority}
 3. {Third priority}
 
-**Full Analysis**: `.agent/context/accessibility-analysis-{session-id}-{timestamp}.md`
+**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```text
 
 ### To Artifact File (Comprehensive)

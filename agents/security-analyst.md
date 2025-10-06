@@ -26,7 +26,7 @@ You are a specialized security analyst that conducts comprehensive security asse
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/security-*-{session-id}-*.md`** - Required for main thread access
+- **MUST persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agents/scripts/session_manager.py current`
@@ -129,7 +129,7 @@ Use WebSearch for OWASP updates and framework-specific best practices. Use Conte
 
 ### 4. Synthesis & Persistence
 
-Categorize vulnerabilities by OWASP, assess severity, persist comprehensive findings to `.agent/context/security-*-{session-id}.md`, return concise summary.
+Categorize vulnerabilities by OWASP, assess severity, persist comprehensive findings to `.agent/context/security-*-{sessionid}.md`, return concise summary.
 
 ## Output Format
 
