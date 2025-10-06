@@ -54,7 +54,7 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 - **Testing/Accessibility**: testing-analyst, accessibility-analyst
 - **Documentation/Data**: documentation-analyst, database-analyst, frontend-analyst
 
-**Pattern**: Analysts conduct extensive research → persist to `.artifacts/context/*.md` → return concise summaries
+**Pattern**: Analysts conduct extensive research → persist to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` → return concise summaries
 
 ### Command Categories
 
