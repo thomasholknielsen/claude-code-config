@@ -1,9 +1,6 @@
 ---
 description: "Analyze project documentation coverage, quality, and freshness to identify improvement opportunities"
 argument-hint: "[scope] [--detailed] [--output-report]"
-category: "docs"
-tools: ["Glob", "Read", "Grep", "Bash"]
-complexity: "complex"
 allowed-tools: Glob, Read, Grep, Bash
 ---
 

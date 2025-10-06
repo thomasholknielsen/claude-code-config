@@ -1,9 +1,6 @@
 ---
 description: "Manages git worktrees for parallel development with shared repository history"
 argument-hint: "[action] [arguments...]"
-category: "git"
-tools: ["Bash", "Read", "Grep"]
-complexity: "moderate"
 allowed-tools: Bash, Read, Grep
 ---
 
@@ -66,7 +63,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git worktree operations and directory coordination
+- **Specialist Options**: architecture-analyst can be spawned for handling git worktree operations and directory coordination
 
 ## Examples
 
@@ -289,7 +286,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 - **Follows**: Repository setup, feature planning
 - **Followed by**: /git:commit, /git:push, parallel development workflows
-- **Related**: /git:branch, /git:workflow, /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:branch, /git:workflow, /git:full-workflow
 
 ## Quality Standards
 

@@ -1,9 +1,6 @@
 ---
 description: "Automated code formatting using project's configured formatter (prettier, eslint --fix, etc.)"
 argument-hint: "[path] [--tool=<formatter>] [--config=<config_file>] [--check-only]"
-category: "clean"
-tools: ["Read", "Edit", "MultiEdit", "Bash"]
-complexity: "simple"
 allowed-tools: Read, Edit, MultiEdit, Bash
 ---
 
@@ -64,7 +61,7 @@ Applies automated code formatting using project's configured formatters (Prettie
 
 ## Agent Integration
 
-- **Primary Agent**: code-writer - Can be spawned to execute automated formatting with project-aware tool selection and parallel processing
+- **Primary Agent**: quality-analyst - Can be spawned to execute automated formatting with project-aware tool selection and parallel processing
 
 ## Parallelization Patterns
 

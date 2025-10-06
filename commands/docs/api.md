@@ -1,9 +1,6 @@
 ---
 description: "Generate and maintain comprehensive API documentation by analyzing code and extracting endpoint information"
 argument-hint: "[path] [--format=<type>] [--include-examples] [--update-schemas]"
-category: "docs"
-tools: ["Glob", "Read", "Grep", "Write", "mcp__context7__get-library-docs"]
-complexity: "complex"
 allowed-tools: Glob, Read, Grep, Write, mcp__context7__get-library-docs
 ---
 
@@ -69,6 +66,53 @@ Generates and maintains comprehensive API documentation by analyzing code and ex
    - Integrate with existing project documentation
    - Set up automatic documentation updates
    - Validate documentation completeness and accuracy
+
+## Mermaid Diagram Integration
+
+Enhance API documentation with Mermaid diagrams:
+
+**API Architecture Diagrams**:
+
+```mermaid
+graph LR
+    Client[Client] --> API[API Gateway]
+    API --> Auth[Auth Service]
+    API --> Data[Data Service]
+    Data --> DB[(Database)]
+```
+
+**Request Flow Diagrams**:
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant A as API
+    participant D as Database
+    C->>A: POST /api/users
+    A->>D: INSERT user
+    D-->>A: user_id
+    A-->>C: 201 Created
+```
+
+**Authentication Flows**:
+
+```mermaid
+sequenceDiagram
+    Client->>API: Login Request
+    API->>Auth: Validate Credentials
+    Auth->>DB: Check User
+    DB-->>Auth: User Data
+    Auth-->>API: JWT Token
+    API-->>Client: Access Token
+```
+
+**When to Include Mermaid**:
+
+- API endpoint relationships
+- Request/response flows
+- Authentication sequences
+- Data transformation pipelines
+- Service integration patterns
 
 ## Agent Integration
 

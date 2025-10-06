@@ -2,10 +2,15 @@ name: Claude Auto Review with Tracking
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
+  pull_request_review_comment:
+    types: [created]
+  issue_comment:
+    types: [created]
 
 jobs:
   review:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     permissions:
       contents: read
       pull-requests: write
@@ -18,6 +23,19 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Detect commit range for review
+        id: commit_range
+        run: |
+          if [[ "${{ github.event.action }}" == "synchronize" ]]; then
+            # For updates: only review new commits
+            echo "range=${{ github.event.before }}..${{ github.event.after }}" >> $GITHUB_OUTPUT
+            echo "mode=incremental" >> $GITHUB_OUTPUT
+          else
+            # For new PRs: full review
+            echo "range=${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+            echo "mode=full" >> $GITHUB_OUTPUT
+          fi
+
       - uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -28,17 +46,75 @@ jobs:
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
+            REVIEW MODE: ${{ steps.commit_range.outputs.mode }}
+            COMMIT RANGE: ${{ steps.commit_range.outputs.range }}
 
-            Please review this pull request with a focus on:
+            Review this pull request focusing on the specified commit range.
+
+            **If REVIEW MODE is "incremental":**
+            - Analyze ONLY new commits in the range - do not re-review previously analyzed code
+            - Reference prior review context if relevant
+
+            **Review Focus Areas:**
             - Code quality and best practices
-            - Potential bugs or issues
-            - Security implications
-            - Performance considerations
-            - Adherence to project guidelines and style as defined in the repository
-            - Documentation drift
-            Use parallel tasks to analyze different the different aspects.
-            Provide short feedback using inline comments for specific issues and a summary at the end split into issues of criticality: High, Medium, Low.
+            - Potential bugs or logic errors
+            - Security implications (especially for auth/API/database code)
+            - Performance considerations (especially for queries/database)
+            - Adherence to project guidelines (see CLAUDE.md)
+            - Documentation drift and completeness
+
+            **Approach:**
+            - Use parallel tasks to analyze different aspects efficiently
+            - Provide inline comments for specific issues
+            - Post summary with findings by criticality: Critical, High, Medium, Low
+            - Be concise and actionable
 
           claude_args: |
             --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
-            
+
+  respond-to-mention:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'pull_request_review_comment' || github.event_name == 'issue_comment') &&
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '@claude')
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      id-token: write
+      actions: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: true
+          additional_permissions: |
+            actions: read
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.issue.number }}
+
+            You've been mentioned in a PR comment by @${{ github.event.comment.user.login }}:
+
+            "${{ github.event.comment.body }}"
+
+            **Instructions:**
+            1. Read the PR context using gh pr view
+            2. If this is an inline comment, understand the code context around the comment
+            3. Provide a helpful, concise response addressing the question/request
+            4. Reply to the same thread using gh pr comment or inline comment tools
+            5. Be conversational and helpful - you're part of the review discussion
+
+            **Context:**
+            - This is a ${{ github.event_name }} event
+            - Comment author: ${{ github.event.comment.user.login }}
+            - Comment created at: ${{ github.event.comment.created_at }}
+
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr review:*),Read,Grep,Glob"

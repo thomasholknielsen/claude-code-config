@@ -1,9 +1,6 @@
 ---
 description: "Intelligently update existing project documentation by analyzing changes and keeping content current"
 argument-hint: "[target] [--scope=<area>] [--validate-links]"
-category: "docs"
-tools: ["Read", "Edit", "Bash", "Grep"]
-complexity: "moderate"
 allowed-tools: Read, Edit, Bash, Grep
 ---
 
@@ -39,6 +36,35 @@ Executes docs operations for update functionality.
 4. Validate documentation links and cross-references
 5. Ensure README links match actual documentation structure
 6. Validate results and provide feedback
+
+## Mermaid Diagram Updates
+
+When updating documentation, refresh Mermaid diagrams to reflect current architecture:
+
+**Update Architecture Diagrams**:
+
+```mermaid
+graph TD
+    A[Updated Component] --> B[New Component]
+    B --> C[Existing Component]
+```
+
+**Update Sequence Flows**:
+
+```mermaid
+sequenceDiagram
+    Client->>API: Updated Request
+    API->>Service: New Flow
+    Service-->>API: Response
+    API-->>Client: Updated Response
+```
+
+**When to Update Mermaid**:
+
+- Component relationships have changed
+- New data flows introduced
+- Process workflows modified
+- System architecture evolved
 
 ## Agent Integration
 

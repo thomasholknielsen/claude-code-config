@@ -1,10 +1,6 @@
 ---
 description: "Orchestrate multi-perspective code review with dynamic selection and parallel execution"
-category: "workflows"
-agent: "reviewer"
-tools: ["Grep", "Glob", "Bash", "Read", "Write", "Task", "SlashCommand"]
-complexity: "complex"
-allowed-tools: SlashCommand(/review:*), Read, Write
+allowed-tools: Task
 github_integration: true
 ---
 
@@ -12,8 +8,8 @@ github_integration: true
 
 ## Purpose
 
-Orchestrates comprehensive multi-perspective code review by dynamically selecting applicable review commands
-based on changed files, executing them in parallel for speed, and synthesizing results into a unified report.
+Orchestrates comprehensive multi-perspective code review by dynamically selecting applicable review perspectives
+based on changed files, executing them in parallel using Task tool, and synthesizing results for unified reporting.
 
 ## Usage
 
@@ -116,62 +112,81 @@ api_critical_paths = ['routes/', 'controllers/', 'api/', 'endpoints/', 'graphql/
 frontend_critical_paths = ['components/', 'store/', 'state/', 'hooks/', 'composables/', 'pages/', 'views/']
 ```
 
-### Step 3: Parallel Execution
+### Step 3: Parallel Analysis
 
 Execute selected reviews concurrently using Task tool for maximum speed:
 
 ```python
-# Pseudo-code for illustration - not directly executable
-# Spawn parallel tasks (8-10 simultaneously)
-reviews_to_run = determine_applicable_reviews(changed_files)
+# Phase 1: Parallel Domain Analysis (multiple analysts simultaneously)
+Task("quality-analyst: Analyze code quality, complexity, and maintainability issues")
+Task("security-analyst: Perform OWASP Top 10 vulnerability assessment and threat modeling")
+Task("performance-analyst: Identify bottlenecks, optimization opportunities, and resource usage")
+Task("testing-analyst: Assess test coverage, quality, and edge case identification")
+Task("accessibility-analyst: Review WCAG compliance and ARIA patterns")
+Task("documentation-analyst: Evaluate documentation completeness and quality")
 
-for review in reviews_to_run:
-    Task(
-        description=f"Review {review}",
-        prompt=f"Run /review:{review} on {feature_branch} vs {base_branch}",
-        subagent_type="reviewer"
-    )
+# Conditional analysts based on file types:
+Task("database-analyst: Review schema design, query optimization, and migrations") # if database files changed
+Task("api-analyst: Analyze API design, contracts, and REST/GraphQL patterns") # if API files changed
+Task("frontend-analyst: Evaluate component architecture and state management") # if frontend files changed
+Task("react-analyst: Review React patterns, hooks, and component design") # if React files changed
+Task("typescript-analyst: Assess type safety and TypeScript best practices") # if TypeScript files changed
+Task("python-analyst: Evaluate Pythonic patterns and PEP 8 compliance") # if Python files changed
 
-# Each task returns structured review output to main thread
+# Each analyst:
+# - Performs comprehensive domain-specific analysis
+# - Persists detailed findings to .artifacts/context/{domain}-analysis-{timestamp}.md
+# - Returns 2-3 sentence summary to main thread
 ```
 
 **Parallelization Benefits:**
 
-- Sequential: 30-40 minutes (10 reviews × 3-4 min each)
-- Parallel: 3-5 minutes (all reviews simultaneously)
-- Speedup: 8-10x faster
+**Execution Time:**
+
+- Sequential reviews: significantly longer execution time (multiple reviews × quick parallel analysis each)
+- Parallel analysis: much faster concurrent execution (multiple analysts running concurrently)
+- **Performance Gain: substantially faster**
 
 ### Step 4: Synthesis
 
-Aggregate all review outputs:
+Main thread synthesizes all analyst findings:
 
-```bash
-SlashCommand("/review:synthesize [all-review-outputs]")
+```python
+# Phase 2: Main Thread Synthesis
+# Read all analyst artifacts
+Read(.artifacts/context/quality-analysis-*.md)
+Read(.artifacts/context/security-assessment-*.md)
+Read(.artifacts/context/performance-analysis-*.md)
+Read(.artifacts/context/testing-analysis-*.md)
+Read(.artifacts/context/accessibility-analysis-*.md)
+Read(.artifacts/context/documentation-analysis-*.md)
+# ... plus conditional analysts
+
+# Synthesize unified report:
+# - Deduplicate overlapping issues
+# - Organize by severity (Critical/Major/Minor/Enhancement)
+# - Generate high-level summary
+# - Compile positive highlights
+# - Save to .artifacts/reviews/review-{date}-{feature-branch}.md
 ```
-
-The synthesis command will:
-
-- Deduplicate overlapping issues
-- Organize by severity (Critical/Major/Minor/Enhancement)
-- Generate high-level summary
-- Compile positive highlights
-- Format final report
-
-### Step 5: Output & Storage
-
-1. **Display comprehensive report** to console
-2. **Optionally save to artifacts:**
-
-   ```bash
-   # Save review to .artifacts/reviews/
-   Write comprehensive report to .artifacts/reviews/review-{date}-{feature-branch}.md
-   ```
 
 ## Agent Integration
 
-- **Primary Agent**: reviewer - Orchestrates parallel review execution and synthesis
-- **Parallel Subagents**: Multiple reviewer agents execute atomic reviews concurrently
-- **Tools:** Task for parallelization, SlashCommand for synthesis
+- **Primary Agent**: quality-analyst - Orchestrates parallel domain analysis and synthesizes findings
+- **Parallel Domain Analysts** (6-12 concurrent):
+  - quality-analyst - Code quality, complexity, maintainability
+  - security-analyst - Vulnerability assessment, threat modeling
+  - performance-analyst - Bottleneck detection, optimization
+  - testing-analyst - Test coverage and quality assessment
+  - accessibility-analyst - WCAG compliance evaluation
+  - documentation-analyst - Documentation completeness review
+  - database-analyst - Schema design, query optimization (conditional)
+  - api-analyst - API design and contracts review (conditional)
+  - frontend-analyst - Component architecture evaluation (conditional)
+  - react-analyst - React patterns analysis (conditional)
+  - typescript-analyst - Type safety assessment (conditional)
+  - python-analyst - Pythonic patterns evaluation (conditional)
+- **Tools:** Task for parallel analysis, Read for synthesis, Write for report generation
 
 ## Implementation Steps
 
@@ -195,40 +210,47 @@ The synthesis command will:
    - Select applicable reviews: `[readability, performance, testing, security, style, architecture,
      documentation, observability, design, database, api, frontend-architecture]`
 
-3. **Parallel Execution:**
+3. **Parallel Analysis:**
 
    ```python
-   # Core reviews (always run)
-   Task("Review readability", "Run /review:readability feature/x develop", "reviewer")
-   Task("Review style", "Run /review:style feature/x develop", "reviewer")
-   Task("Review testing", "Run /review:testing feature/x develop", "reviewer")
-   Task("Review observability", "Run /review:observability feature/x develop", "reviewer")
-   Task("Review documentation", "Run /review:documentation feature/x develop", "reviewer")
+   # Core analysts (always run)
+   Task("quality-analyst: Analyze code quality, complexity, and maintainability for feature/x vs develop")
+   Task("security-analyst: Perform vulnerability assessment and threat modeling for feature/x vs develop")
+   Task("testing-analyst: Assess test coverage and quality for feature/x vs develop")
+   Task("accessibility-analyst: Review WCAG compliance for feature/x vs develop")
+   Task("documentation-analyst: Evaluate documentation completeness for feature/x vs develop")
 
-   # Conditional reviews (based on changed files)
-   Task("Review performance", "Run /review:performance feature/x develop", "reviewer")
-   Task("Review security", "Run /review:security feature/x develop", "reviewer")
-   Task("Review architecture", "Run /review:architecture feature/x develop", "reviewer")
-   Task("Review design", "Run /review:design feature/x develop", "reviewer")
+   # Conditional analysts (based on changed files)
+   Task("performance-analyst: Identify bottlenecks and optimization opportunities for feature/x vs develop")
+   Task("architecture-analyst: Review SOLID principles and design patterns for feature/x vs develop")
+   Task("frontend-analyst: Evaluate component architecture for feature/x vs develop")
 
-   # Specialized reviews (based on file type detection)
-   Task("Review database", "Run /review:database feature/x develop", "reviewer")
-   Task("Review API", "Run /review:api feature/x develop", "reviewer")
-   Task("Review frontend architecture", "Run /review:frontend-architecture feature/x develop", "reviewer")
+   # Specialized analysts (based on file type detection)
+   Task("database-analyst: Review schema design and query optimization for feature/x vs develop")
+   Task("api-analyst: Analyze API design and contracts for feature/x vs develop")
+   Task("react-analyst: Review React patterns and hooks for feature/x vs develop")
 
-   # All execute simultaneously, return to main thread
+   # All execute simultaneously, persist to .artifacts/context/, return summaries
    ```
 
 4. **Synthesis:**
 
-   ```bash
-   SlashCommand("/review:synthesize [aggregated-outputs]")
+   ```python
+   # Main thread reads all analyst artifacts
+   Read(.artifacts/context/quality-analysis-*.md)
+   Read(.artifacts/context/security-assessment-*.md)
+   # ... etc for all analysts
+
+   # Synthesize unified report
+   # - Deduplicate issues
+   # - Organize by severity
+   # - Generate summary
    ```
 
 5. **Save Results:**
 
    ```bash
-   Write report to .artifacts/reviews/review-2025-10-01-feature-x.md
+   Write(.artifacts/reviews/review-2025-10-01-feature-x.md)
    ```
 
 ## Examples
@@ -244,7 +266,7 @@ The synthesis command will:
 1. Git diff detects: `.tsx` (UI), `.ts` (API), `.sql` (queries)
 2. Selected reviews: readability, performance, testing, security, style, architecture, documentation,
    observability, design, database, api, frontend-architecture (12 reviews)
-3. Parallel execution: All 12 run simultaneously (3-5 minutes)
+3. Parallel execution: All 12 run simultaneously (much faster concurrent execution)
 4. Synthesis: Unified report with deduplicated findings
 5. Output: Comprehensive report saved to `.artifacts/reviews/`
 
@@ -289,7 +311,7 @@ This change implements a new checkout flow with Stripe payment integration...
 
 1. Git diff detects: `.py` (API), `.sql` (migrations)
 2. Selected reviews: readability, performance, testing, security, style, architecture, documentation,
-   observability, database, api (10 reviews, skips design and frontend-architecture)
+   observability, database, api (multiple reviews, skips design and frontend-architecture)
 3. Security-critical path detected (`auth/`) → Deep security scan
 4. Database-critical path detected (`migrations/`) → Deep database review with migration safety analysis
 5. API-critical path detected → Deep API design and contract review
@@ -330,18 +352,21 @@ git checkout feature/my-changes
 
 ## Performance Characteristics
 
-**Traditional Sequential Review:**
+**Sequential Review:**
 
-- 10 reviews × 3 minutes each = 30 minutes total
-- Single-threaded execution
-- High developer waiting time
+- Reviews execute one after another
+- Total time scales linearly with review count
+- Single-threaded execution pattern
+- Higher developer waiting time
 
-**Optimized Parallel Review:**
+**Parallel Review:**
 
-- 10 reviews simultaneously = 3-5 minutes total
-- Multi-threaded with Task tool
-- 85% time reduction
+- Multiple reviews run simultaneously using Task tool
+- Execution time approaches slowest review (Amdahl's Law)
+- Significantly faster through concurrent execution
 - Real-time progress tracking
+
+**Note**: Actual performance depends on system resources, network latency for MCP tools, and codebase complexity.
 
 **Intelligent Selection:**
 

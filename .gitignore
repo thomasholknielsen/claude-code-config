@@ -60,6 +60,11 @@ file-history/
 # Worktrees
 .trees/
 
+# Agent context files (session-specific, not committed)
+.agent/context/*.md
+.agent/context/*.json
+.agent/context/*.log
+
 # Ignore credentials and sensitive files
 .credentials.json
 settings.local.json

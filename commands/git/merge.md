@@ -1,9 +1,6 @@
 ---
 description: "Controlled merge operations with conflict resolution and safety checks"
 argument-hint: "[arguments]"
-category: "git"
-tools: ["Bash"]
-complexity: "moderate"
 allowed-tools: Bash
 ---
 
@@ -41,7 +38,7 @@ Executes git operations for merge functionality.
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
+- **Specialist Options**: architecture-analyst can be spawned for handling git operations and coordination
 
 ## Examples
 

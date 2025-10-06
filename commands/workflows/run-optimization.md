@@ -1,18 +1,14 @@
 ---
-description: "Execute comprehensive optimization workflow by orchestrating atomic slash commands to improve performance, reduce bundle size, and enhance user experience"
-category: "workflows"
-agent: "task-orchestrator"
-tools: ["SlashCommand"]
-complexity: "complex"
-allowed-tools: SlashCommand(/analyze:*), SlashCommand(/refactor:*)
+description: "Execute comprehensive optimization workflow using parallel domain analysis to improve performance, reduce bundle size, and enhance user experience"
+allowed-tools: Task
 ---
 
 # Command: Run Optimization
 
 ## Purpose
 
-Orchestrates comprehensive optimization workflow by executing atomic slash commands sequentially to improve performance, reduce bundle size, and
-enhance user experience.
+Orchestrates comprehensive optimization workflow using parallel domain analysis to identify and implement performance improvements,
+reduce bundle size, and enhance user experience.
 
 ## Usage
 
@@ -22,67 +18,62 @@ enhance user experience.
 
 ## Process
 
-1. **Performance Analysis**: Execute `/analyze:performance` to identify bottlenecks and optimization opportunities
-2. **Dependency Analysis**: Execute `/analyze:dependencies` to identify outdated or inefficient packages
-3. **Code Simplification**: Execute `/refactor:simplify-logic` to reduce complexity and improve performance
-4. **Readability Improvements**: Execute `/clean:improve-readability` to optimize code structure
-5. **Style Optimization**: Execute `/clean:apply-style-rules` to ensure consistent formatting
-6. **Development Artifacts Cleanup**: Execute `/clean:development-artifacts` to remove unnecessary files
-7. **Validation**: Verify optimizations through build and test execution
+1. **Parallel Analysis Phase**: Launch 3 domain analysts concurrently for comprehensive optimization assessment
+2. **Synthesis Phase**: Main thread consolidates findings and implements optimizations
+3. **Validation Phase**: Verify optimizations maintain functionality and improve metrics
 
 ## Agent Integration
 
-- **Primary Agent**: task-orchestrator - Coordinates sequential execution of optimization commands with validation between steps
+- **Primary Agent**: performance-analyst - Orchestrates parallel optimization analysis and synthesizes improvements
+- **Parallel Domain Analysts** (3 concurrent):
+  - performance-analyst - Bottleneck detection, algorithmic efficiency, resource optimization
+  - database-analyst - Query optimization, indexing strategies, database performance
+  - frontend-analyst - Bundle size analysis, code splitting, lazy loading, asset optimization
 
 ## Implementation Steps
 
-**Step 1: Performance Analysis**
+### Phase 1: Parallel Optimization Analysis
 
-```bash
-SlashCommand("/analyze:performance")
+```python
+# Launch 3 analysts concurrently for comprehensive optimization assessment
+Task("performance-analyst: Identify performance bottlenecks, memory leaks, algorithmic inefficiencies, and optimization opportunities across the application")
+Task("database-analyst: Analyze query performance, identify N+1 queries, review indexing strategies, and assess database connection pooling")
+Task("frontend-analyst: Evaluate bundle size, identify unused dependencies, assess code splitting opportunities, and review asset optimization")
+
+# Each analyst:
+# - Burns tokens on comprehensive optimization domain analysis
+# - Persists findings to .artifacts/context/{domain}-analysis-{timestamp}.md
+# - Returns 2-3 sentence summary to main thread
 ```
 
-Identifies performance bottlenecks, memory usage patterns, and optimization opportunities.
+### Phase 2: Main Thread Synthesis & Implementation
 
-**Step 2: Dependency Analysis**
+```python
+# Read all analyst artifacts
+Read(.artifacts/context/performance-analysis-*.md)
+Read(.artifacts/context/database-analysis-*.md)
+Read(.artifacts/context/frontend-analysis-*.md)
 
-```bash
-SlashCommand("/analyze:dependencies")
+# Based on consolidated findings, implement optimizations:
+# 1. Refactor inefficient algorithms and data structures
+# 2. Optimize database queries and add strategic indexes
+# 3. Implement code splitting and lazy loading
+# 4. Remove unused dependencies and reduce bundle size
+# 5. Apply performance-focused refactoring patterns
+# 6. Clean up development artifacts and temporary files
+
+# Validate improvements with benchmarks
 ```
 
-Evaluates package efficiency, identifies outdated dependencies, and security vulnerabilities.
+### Phase 3: Validation
 
-**Step 3: Logic Simplification**
-
-```bash
-SlashCommand("/refactor:simplify-logic")
+```python
+# Verify optimizations:
+# - Run performance benchmarks (before/after comparison)
+# - Validate build size reduction
+# - Ensure tests pass
+# - Confirm no functionality regressions
 ```
-
-Reduces code complexity, eliminates nested conditionals, and improves algorithmic efficiency.
-
-**Step 4: Code Readability**
-
-```bash
-SlashCommand("/clean:improve-readability")
-```
-
-Optimizes variable names, function structure, and code organization for better performance.
-
-**Step 5: Style Consistency**
-
-```bash
-SlashCommand("/clean:apply-style-rules")
-```
-
-Applies automated formatting to reduce parsing overhead and improve maintainability.
-
-**Step 6: Cleanup Artifacts**
-
-```bash
-SlashCommand("/clean:development-artifacts")
-```
-
-Removes temporary files, unused assets, and development-only code that impacts bundle size.
 
 ## Examples
 
@@ -94,13 +85,26 @@ Removes temporary files, unused assets, and development-only code that impacts b
 
 **Expected workflow execution:**
 
-1. Analyzes performance bottlenecks across the application
-2. Reviews dependencies for optimization opportunities
-3. Simplifies complex logic patterns for better performance
-4. Improves code readability and structure
-5. Applies consistent formatting and style rules
-6. Cleans up development artifacts and unused files
-7. Validates all changes maintain functionality
+```text
+Phase 1: Parallel Analysis (quick parallel analysis)
+→ Task("performance-analyst: Analyze application performance bottlenecks")
+→ Task("database-analyst: Review query performance and indexing")
+→ Task("frontend-analyst: Evaluate bundle size and asset optimization")
+
+Analysts complete concurrently (vs much longer sequential)
+
+Phase 2: Main Thread Synthesis
+→ Consolidate findings from all analysts
+→ Implement high-priority optimizations
+→ Apply refactoring patterns for performance
+→ Clean up artifacts and reduce bundle size
+
+Phase 3: Validation
+→ Run benchmarks: 40% performance improvement
+→ Bundle size reduced: 1.2MB → 0.8MB (33% reduction)
+→ All tests passing
+→ No functionality regressions
+```
 
 **Integration with other commands:**
 
@@ -109,3 +113,42 @@ Removes temporary files, unused assets, and development-only code that impacts b
 /workflows:run-optimization
 /git:commit "Optimize application performance and bundle size"
 ```
+
+## Performance Characteristics
+
+**Sequential Approach:**
+
+- Analysts execute one after another
+- Total time scales linearly with analyst count
+- Single-threaded execution pattern
+
+**Parallel Approach:**
+
+- Multiple analysts run simultaneously using Task tool
+- Execution time approaches slowest analyst (Amdahl's Law)
+- **Performance Gain: Significantly faster through concurrent execution**
+
+**Note**: Actual performance depends on system resources, network latency for MCP tools, and analysis complexity.
+
+## Domain Analyst Outputs
+
+**performance-analyst** persists to `.artifacts/context/performance-analysis-{timestamp}.md`:
+
+- Performance bottleneck locations and severity
+- Algorithmic efficiency improvements
+- Memory leak detection and resolution strategies
+- Resource usage optimization opportunities
+
+**database-analyst** persists to `.artifacts/context/database-analysis-{timestamp}.md`:
+
+- Slow query identification with execution plans
+- N+1 query detection and resolution
+- Missing index recommendations
+- Connection pooling and caching strategies
+
+**frontend-analyst** persists to `.artifacts/context/frontend-analysis-{timestamp}.md`:
+
+- Bundle size analysis and unused dependencies
+- Code splitting opportunities
+- Lazy loading implementation recommendations
+- Asset optimization strategies (images, fonts, etc.)

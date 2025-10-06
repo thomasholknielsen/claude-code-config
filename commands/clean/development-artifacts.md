@@ -1,8 +1,5 @@
 ---
 description: "Clean up development artifacts while preserving working code"
-category: "clean"
-tools: ["Bash", "Glob", "Read"]
-complexity: "moderate"
 allowed-tools: Bash, Glob, Read
 ---
 
@@ -29,7 +26,7 @@ Executes clean operations for development artifacts functionality.
 
 ## Agent Integration
 
-- **Primary Agent**: code-writer - Can be spawned to handle clean operations and coordination
+- **Primary Agent**: quality-analyst - Can be spawned to handle clean operations and coordination
 
 ## Examples
 

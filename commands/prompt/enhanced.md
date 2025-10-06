@@ -1,9 +1,6 @@
 ---
 description: "Enhance user prompts with knowledge of available commands and agents"
 argument-hint: "\"user prompt text\""
-category: "prompt"
-tools: ["Read", "Grep", "Glob", "TodoWrite"]
-complexity: "moderate"
 allowed-tools: Read, Grep, Glob, TodoWrite
 ---
 
@@ -65,12 +62,12 @@ I'll help you fix the login form issue. Here's an optimized approach:
 3. **Verification**: Test the fix to ensure it resolves the issue
 
 **Recommended Execution:**
-- Primary Agent: bug-fixer (specialized for rapid diagnosis)
+- Primary Agent: direct implementation (specialized for rapid diagnosis)
 - Pattern: Sequential (analyze → fix → verify)
 - TodoWrite: Track each step for progress visibility
 
 **Enhanced Prompt:**
-"Use the bug-fixer agent to analyze and resolve login form issues. Start with `/analyze:potential-issues` to identify the root cause, then apply `/fix:bug-quickly` for immediate resolution."
+"Use the direct implementation agent to analyze and resolve login form issues. Start with `/analyze:potential-issues` to identify the root cause, then apply `/fix:bug-quickly` for immediate resolution."
 ```text
 
 ### Example 2: Code Quality Improvement
@@ -145,7 +142,7 @@ I'll help implement user authentication systematically. Here's a parallelization
 - Pattern: Parallel research → Sequential planning → Sequential implementation → Parallel QA
 
 **Enhanced Prompt:**
-"Implement user authentication using main thread parallelization for research and quality phases, with sequential implementation coordinated by implementation-strategy-specialist."
+"Implement user authentication using main thread parallelization for research and quality phases, with sequential implementation coordinated by architecture-analyst."
 ```
 
 ## Output
@@ -191,12 +188,12 @@ I'll help you fix the login form issue. Here's an optimized approach:
 3. **Verification**: Test the fix to ensure it resolves the issue
 
 **Recommended Execution:**
-- Primary Agent: bug-fixer (specialized for rapid diagnosis)
+- Primary Agent: direct implementation (specialized for rapid diagnosis)
 - Pattern: Sequential (analyze → fix → verify)
 - TodoWrite: Track each step for progress visibility
 
 **Enhanced Prompt:**
-"Use the bug-fixer agent to analyze and resolve login form issues. Start with `/analyze:potential-issues` to identify the root cause, then apply `/fix:bug-quickly` for immediate resolution."
+"Use the direct implementation agent to analyze and resolve login form issues. Start with `/analyze:potential-issues` to identify the root cause, then apply `/fix:bug-quickly` for immediate resolution."
 ```text
 
 ```bash
@@ -243,7 +240,7 @@ I'll help implement user authentication systematically. Here's the recommended a
    - `/docs:update` for user guides
 
 **Recommended Execution:**
-- Primary Agent: implementation-strategy-specialist (coordinates full feature)
+- Primary Agent: architecture-analyst (coordinates full feature)
 - Pattern: Sequential phases with parallel sub-tasks
 - TodoWrite: Track planning → implementation → documentation
 

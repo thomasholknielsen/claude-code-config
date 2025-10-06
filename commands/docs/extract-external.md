@@ -1,9 +1,6 @@
 ---
 description: "Fetch and integrate up-to-date documentation from external sources using Context7 MCP"
 argument-hint: "[libraries] [--output=<location>] [--format=<type>] [--update-existing]"
-category: "docs"
-tools: ["mcp__context7__resolve-library-id", "mcp__context7__get-library-docs", "Write", "Read"]
-complexity: "moderate"
 allowed-tools: mcp__context7__resolve-library-id, mcp__context7__get-library-docs, Write, Read
 ---
 

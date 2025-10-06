@@ -1,9 +1,6 @@
 ---
 description: "Review code with context-appropriate depth and spec-kit integration"
 argument-hint: "[file_pattern] [--focus=area] [--fix]"
-category: "review"
-tools: ["Read", "Grep", "Bash"]
-complexity: "moderate"
 allowed-tools: Read, Grep, Bash
 ---
 
@@ -80,9 +77,12 @@ Task("Review build and deployment scripts for reliability and security")
 
 ## Agent Integration
 
-- **Specialist Options**: reviewer specialist can be spawned to coordinate parallel code analysis and synthesize quality findings
-- **Coordination**: Spawns concurrent analysis tasks for different quality dimensions
-- **Integration**: Works with `code-writer` for automated fixes, `test-writer` for coverage gaps
+- **Domain Analysts**: Invokes multiple analysts in parallel for comprehensive multi-perspective code review:
+  - quality-analyst - Analyzes code complexity, maintainability, and SOLID principles
+  - security-analyst - Assesses OWASP compliance, vulnerabilities, and threat modeling
+  - testing-analyst - Evaluates test coverage, quality gates, and test design
+- **Coordination**: Runs concurrent analysis tasks for different quality dimensions
+- **Integration**: Aggregates findings from all analysts into unified recommendations
 
 ## Examples
 

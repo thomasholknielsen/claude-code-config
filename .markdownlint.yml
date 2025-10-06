@@ -14,12 +14,7 @@ MD007: # Unordered list indentation
   indent: 2
 MD010: # Hard tabs
   code_blocks: false
-MD013: # Line length
-  line_length: 150
-  heading_line_length: 150
-  code_block_line_length: 200
-  tables: false
-  links: false
+MD013: false # Line length - disabled
 MD022: # Headers should be surrounded by blank lines
   lines_above: 1
   lines_below: 1
@@ -32,6 +27,7 @@ MD029: # Ordered list item prefix
 MD033: # Allow inline HTML
   allowed_elements: ["br", "sub", "sup", "kbd", "details", "summary"]
 MD036: false # Emphasis used instead of a header
+MD041: false # First line in file should be a top level header (conflicts with YAML frontmatter)
 MD040: # Fenced code blocks should have a language specified
   allowed_languages:
     [
@@ -45,13 +41,21 @@ MD040: # Fenced code blocks should have a language specified
       "json",
       "javascript",
       "js",
+      "jsx",
       "typescript",
       "ts",
+      "tsx",
+      "sql",
       "markdown",
       "md",
       "text",
       "mermaid",
       "powershell",
+      "graphql",
+      "diff",
+      "plaintext",
+      "html",
+      "css",
     ]
   language_only: false
 MD046: # Code block style

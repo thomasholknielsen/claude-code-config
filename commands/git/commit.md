@@ -1,9 +1,6 @@
 ---
 description: "Smart commit message generation with quality checks"
 argument-hint: "[message]"
-category: "git"
-tools: ["Bash", "Read", "Grep"]
-complexity: "moderate"
 allowed-tools: Bash, Read, Grep
 ---
 
@@ -63,7 +60,7 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
+- **Specialist Options**: architecture-analyst can be spawned for handling git operations and coordination
 
 ## Examples
 
@@ -91,7 +88,7 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 - **Follows**: /git:branch, code modifications
 - **Followed by**: /git:push, /git:pr
-- **Related**: /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:full-workflow
 
 ## Type Auto-Detection from Uncommitted Files
 

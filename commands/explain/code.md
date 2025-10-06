@@ -1,9 +1,6 @@
 ---
 description: "Provide clear code explanations with context-appropriate depth"
 argument-hint: "[target] [--depth=<level>] [--focus=<aspect>] [--include-examples]"
-category: "explain"
-tools: ["Read", "Grep", "Glob"]
-complexity: "simple"
 allowed-tools: Read, Grep, Glob
 ---
 

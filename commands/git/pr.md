@@ -1,9 +1,6 @@
 ---
 description: "Create and manage pull requests with GitHub CLI integration"
 argument-hint: "[title]"
-category: "git"
-tools: ["Bash", "Read", "Grep"]
-complexity: "moderate"
 allowed-tools: Bash, Read, Grep
 ---
 
@@ -57,7 +54,7 @@ Creates pull requests with auto-generated descriptions and returns the PR URL fo
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
+- **Specialist Options**: architecture-analyst can be spawned for handling git operations and coordination
 
 ## Examples
 
@@ -85,7 +82,7 @@ Creates pull requests with auto-generated descriptions and returns the PR URL fo
 
 - **Follows**: /git:push, development completion
 - **Followed by**: Code review process, CI/CD pipeline
-- **Related**: /git:branch, /git:commit, /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:branch, /git:commit, /git:full-workflow
 
 ## Type Auto-Detection from Branch Changes
 

@@ -1,10 +1,7 @@
 ---
 description: "Quick implementation for small tasks bypassing spec-kit, using focused Agent Specialist Framework coordination"
 argument-hint: "[arguments]"
-category: "implement"
-tools: ["Task", "SlashCommand", "TodoWrite"]
-complexity: "moderate"
-allowed-tools: Task, SlashCommand, TodoWrite
+allowed-tools: Task, TodoWrite
 ---
 
 # Command: Small
@@ -50,15 +47,18 @@ Quick implementation for small tasks bypassing spec-kit, using focused Agent Spe
 
 ### Phase 3: Direct Implementation
 
-1. **Specialist Execution**: Delegate to appropriate execution specialist (code-writer, bug-fixer, test-writer)
+1. **Domain Analysis**: Invoke appropriate domain analysts for implementation guidance (quality-analyst, testing-analyst, language-specific analysts)
 2. **Quality Check**: Quick validation of functionality and integration
 3. **Minimal Documentation**: Update only essential documentation if needed
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned to coordinate small task implementation with minimal overhead
+- **Specialist Options**: architecture-analyst can be spawned to coordinate small task implementation with minimal overhead
 - **Research Phase**: Launches focused Task() agents for rapid context gathering
-- **Execution Phase**: Delegates to single specialist (code-writer, bug-fixer, or test-writer)
+- **Domain Analysis**: Invokes domain analysts for implementation guidance:
+  - quality-analyst - for code quality assessment
+  - testing-analyst - for test strategy recommendations
+  - Language-specific analysts (python-analyst, typescript-analyst, react-analyst) based on context
 - **Validation**: Minimal quality checks appropriate for small task scope
 
 ## Examples
@@ -70,14 +70,14 @@ User: "/implement:small $ARGUMENTS"
 # where $ARGUMENTS = "fix login error message"
 
 # Rapid Research Phase
-→ implementation-strategy-specialist launches:
+→ architecture-analyst launches:
   → Task("Find existing error message patterns")
   → Task("Locate login-related code structure")
   → Task("Check testing conventions for error cases")
 
 # Direct Implementation
 → Identifies as bug fix
-→ Spawns bug-fixer with context
+→ Invokes quality-analyst for code analysis
 → Fix applied with proper error handling
 → Quick validation test
 ```
@@ -94,8 +94,8 @@ User: "/implement:small $ARGUMENTS"
 → Task("Check testing patterns for utilities")
 
 # Implementation
-→ Spawns code-writer for utility function
-→ Spawns test-writer for validation tests
+→ Invokes quality-analyst for utility function design
+→ Invokes testing-analyst for validation test strategy
 → Updates utility exports and documentation
 ```
 
@@ -110,7 +110,7 @@ User: "/implement:small $ARGUMENTS"
 → Task("Review existing extraction conventions")
 
 # Refactor Execution
-→ Spawns code-writer with /refactor:extract-functions
+→ Invokes refactoring-analyst for refactoring strategy
 → Applies DRY principles
 → Updates imports and references
 → Validates functionality preserved
@@ -129,8 +129,8 @@ User: "/implement:small $ARGUMENTS"
 → Task("Identify database query patterns")
 
 # Implementation
-→ Spawns code-writer for endpoint implementation
-→ Spawns test-writer for API tests
+→ Invokes api-analyst for endpoint design analysis
+→ Invokes testing-analyst for API test strategy
 → Updates API documentation
 → Validates with integration test
 ```

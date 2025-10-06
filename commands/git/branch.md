@@ -1,9 +1,6 @@
 ---
 description: "Branch management operations with safety checks and team workflows"
 argument-hint: "[branch-name]"
-category: "git"
-tools: ["Bash", "Read", "Grep"]
-complexity: "moderate"
 allowed-tools: Bash, Read, Grep
 ---
 
@@ -60,7 +57,7 @@ Creates, manages, and switches git branches with intelligent naming and safety v
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
+- **Specialist Options**: architecture-analyst can be spawned for handling git operations and coordination
 
 ## Examples
 
@@ -88,7 +85,7 @@ Creates, manages, and switches git branches with intelligent naming and safety v
 
 - **Follows**: Code changes, feature development initiation
 - **Followed by**: /git:commit, code modifications
-- **Related**: /git:push, /git:pr, /workflows:run-git-branch-commit-and-pr
+- **Related**: /git:push, /git:pr, /git:full-workflow
 
 ## Type Auto-Detection from Uncommitted Files
 

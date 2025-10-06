@@ -71,8 +71,8 @@ impacting sprint planning and resource allocation.
 
 **Success Metrics**:
 - Push notification engagement: >25% click-through rate
-- Offline mode adoption: >40% of users within 30 days
-- Dark mode usage: >60% of users switch within first week
+- Offline mode adoption: >40% of users adopt feature
+- Dark mode usage: >60% of users switch to dark mode
 
 **Confidence Level**: 7/10 (based on user research and technical feasibility analysis)
 ```

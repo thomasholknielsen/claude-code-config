@@ -1,9 +1,6 @@
 ---
 description: "Rapid bug fixes without full implementation session complexity"
 argument-hint: "[issue] [--scope=<area>] [--strategy=<approach>] [--test-first]"
-category: "fix"
-tools: ["Read", "Edit", "MultiEdit", "Bash"]
-complexity: "moderate"
 allowed-tools: Read, Edit, MultiEdit, Bash
 ---
 
@@ -78,7 +75,7 @@ The command processes arguments through the $ARGUMENTS placeholder:
 
 ## Agent Integration
 
-- **Primary Specialist**: bug-fixer - A specialized agent that can be spawned for rapid issue diagnosis and targeted fix implementation with minimal disruption
+- **Primary Specialist**: direct implementation - A specialized agent that can be spawned for rapid issue diagnosis and targeted fix implementation with minimal disruption
 
 ## Parallelization Patterns
 

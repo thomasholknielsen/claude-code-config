@@ -1,9 +1,6 @@
 ---
 description: "Systematic code restructuring with behavior preservation"
 argument-hint: "[--target=<pattern>] [--strategy=<approach>] [--validate-each-step] [--backup]"
-category: "refactor"
-tools: ["Read", "Write", "Edit", "MultiEdit", "Glob", "Grep", "Bash"]
-complexity: "moderate"
 allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep, Bash
 ---
 
@@ -61,7 +58,9 @@ Performs systematic code restructuring with behavior preservation, including arc
 
 ## Agent Integration
 
-- **Specialist Options**: code-writer specialist can be spawned to execute complex structural changes with comprehensive analysis and safety validation
+- **Domain Analysts**: Invokes multiple analysts in parallel for refactoring guidance:
+  - architecture-analyst - Assesses SOLID principles, design patterns, and architectural quality
+  - refactoring-analyst - Analyzes dependencies, identifies risks, and recommends safe incremental refactoring strategies
 
 ## Parallelization Patterns
 

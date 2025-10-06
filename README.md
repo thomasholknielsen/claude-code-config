@@ -29,32 +29,47 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 
 ### Want to See It in Action
 
-👉 **[Typical Workflows](docs/typical-workflows.md)** - Common usage patterns with visual diagrams
+👉 **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic workflows with review-lint-commit pattern
+
+- **Visual diagrams** showing workflow patterns, timing comparisons, and command orchestration
+- Real-world workflow examples with realistic task complexity
+- Performance analysis: Significantly faster with local review
 
 ## 🏗️ Architecture Overview
 
-This system is built on the **Agent Specialist Framework** - a task-focused coordination system that uses 8 specialized agents
-as advisory subagents to handle complex development tasks efficiently. Only the main Claude Code thread can orchestrate parallel execution.
+This system provides development automation via **comprehensive domain analysts**, **streamlined command library**, and **cross-platform Python hooks**,
+with MCP integration (Context7 for docs, Playwright for browser automation).
 
-### Agent Specialist Components
+### Domain Analyst Framework
 
-- **3 Analysis Specialists**: Provide strategic analysis and guidance
-  - `task-analysis-specialist` - Complexity analysis and execution recommendations
-  - `research-analysis-specialist` - Multi-domain research and synthesis
-  - `implementation-strategy-specialist` - Dependency analysis and sequential guidance
-- **5 Execution Specialists**: Provide focused domain expertise
-  - `code-writer`, `test-writer`, `bug-fixer`, `reviewer`, `documenter`
+**Research Analyst**:
 
-### Command Categories (54 Commands)
+- `research-analyst` - Comprehensive sequential research across domains (uses Context7)
 
-- **`/analyze/*`** - Performance and dependency analysis
-- **`/clean/*`** - Code cleanup and formatting
+**Domain Specialists**:
+
+- **Framework/Tech**: react-analyst, typescript-analyst, python-analyst, api-analyst, shadcn-analyst
+- **Quality/Architecture**: quality-analyst, architecture-analyst, refactoring-analyst
+- **Security/Performance**: security-analyst, performance-analyst
+- **Testing/Accessibility**: testing-analyst, accessibility-analyst
+- **Documentation/Data**: documentation-analyst, database-analyst, frontend-analyst
+
+**Pattern**: Analysts conduct extensive research → persist to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` → return concise summaries
+
+### Command Categories
+
+- **`/workflows/*`** - Orchestrate parallel analyst execution for comprehensive analysis
+- **`/git/*`** - Complete Git operation toolset (only /git/* commands can perform git operations)
+- **`/spec-kit/*`** - Feature development workflow automation
 - **`/docs/*`** - Documentation generation and maintenance
+- **`/clean/*`** - Code cleanup and formatting automation
+- **`/to-do/*`** - TODO management and tracking
+- **`/refactor/*`** - Code improvement (apply + large-scale)
+- **`/explain/*`** - Code and architecture explanation
 - **`/fix/*`** - Bug fixes and issue resolution
-- **`/git/*`** - Git operations (only commands that can perform Git operations)
-- **`/review/*`** - Code review and quality analysis
-- **`/spec-kit/*`** - Complete 7-step feature development workflow
-- **`/workflows/*`** - Multi-step orchestrated processes
+- **`/implement/*`** - Feature implementation workflows
+- **`/review/*`** - Intelligent code review orchestrator
+- **`/utility/*`** - Utility commands (save artifacts, prompts, creation tools)
 
 ## 📚 Documentation
 
@@ -62,8 +77,11 @@ as advisory subagents to handle complex development tasks efficiently. Only the 
 
 - **[User Documentation](docs/user/)** - Setup, usage, and workflow guides
   - [User Guide](docs/user/user-guide.md) - Complete setup and usage instructions
-  - [Typical Workflows](docs/user/typical-workflows.md) - Common usage patterns with diagrams
   - [MCP Setup Guide](docs/user/mcp-setup-guide.md) - External tool integration
+- **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic patterns with review-lint-commit workflow
+  - Includes local PR review before committing (significantly faster than team reviews)
+  - Comprehensive linting automation
+  - Performance comparisons and best practices
 
 ### For Developers
 
@@ -138,7 +156,7 @@ claude /workflows:run-docs-workflow
 ├── agents/                    # Agent Specialist definitions
 │   ├── analysis-specialists/  # Strategic analysis agents
 │   └── execution-specialists/ # Domain expertise agents
-├── commands/                 # 54 organized commands
+├── commands/                 # Organized slash commands
 │   ├── analyze/, clean/, docs/, fix/, git/
 │   ├── review/, spec-kit/, workflows/
 │   └── [11 other categories]
@@ -179,10 +197,16 @@ claude /workflows:run-docs-workflow
 
 All complex workflows include **Mermaid diagrams** for clear understanding:
 
+- **Multiple workflow diagrams** in [Developer Workflows Guide](docs/typical-workflows.md):
+  - Review-Lint-Commit pattern flowchart with decision points
+  - Bug fix sequence diagram showing command interactions
+  - Performance comparison showing significant improvement with parallel execution
+  - Daily development timelines (morning feature work, afternoon bug fixes)
+  - Command chaining patterns visualization
+  - Large-scale refactoring parallel execution flow
 - Agent coordination patterns
 - Hook system flows
 - Spec-kit workflow steps
-- Typical usage patterns
 
 ## 🚦 Development Standards
 
