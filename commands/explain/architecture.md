@@ -1,9 +1,6 @@
 ---
 description: "Analyze entire application to understand architecture, patterns, and how components work together"
 argument-hint: "[focus] [--depth=<level>] [--format=<output>] [--include-dependencies]"
-category: "explain"
-tools: ["Glob", "Read", "Grep", "Bash"]
-complexity: "complex"
 allowed-tools: Glob, Read, Grep, Bash
 ---
 
@@ -66,6 +63,57 @@ Analyzes entire application to understand architecture, patterns, and how compon
    - Key architectural decisions and trade-offs
    - Data flow descriptions and interaction patterns
    - Recommendations for improvements or extensions
+
+## Mermaid Diagram Integration
+
+Always include Mermaid diagrams when explaining architecture:
+
+**System Architecture Diagrams**:
+
+```mermaid
+graph TB
+    UI[User Interface] --> API[API Layer]
+    API --> Auth[Auth Service]
+    API --> Business[Business Logic]
+    Business --> Data[Data Layer]
+    Data --> DB[(Database)]
+    Data --> Cache[(Cache)]
+```
+
+**Component Interaction Diagrams**:
+
+```mermaid
+graph LR
+    A[Module A] -->|depends on| B[Module B]
+    A -->|uses| C[Module C]
+    B -->|implements| D[Interface D]
+    C -->|implements| D
+```
+
+**Data Flow Diagrams**:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant API
+    participant Database
+    User->>Frontend: Action
+    Frontend->>API: Request
+    API->>Database: Query
+    Database-->>API: Data
+    API-->>Frontend: Response
+    Frontend-->>User: Update
+```
+
+**When to Include Mermaid**:
+
+- High-level system architecture
+- Module dependencies and relationships
+- Request/response flows
+- Data transformation pipelines
+- Service communication patterns
+- Deployment architecture
 
 ## Agent Integration
 

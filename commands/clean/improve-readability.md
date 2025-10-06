@@ -1,9 +1,6 @@
 ---
 description: "Manual code beautification - readability improvements, naming, structure optimization"
 argument-hint: "[path] [--focus=<area>] [--preserve-functionality] [--interactive]"
-category: "clean"
-tools: ["Read", "Edit", "MultiEdit", "Bash"]
-complexity: "simple"
 allowed-tools: Read, Edit, MultiEdit, Bash
 ---
 
@@ -69,7 +66,7 @@ Performs manual code beautification focusing on readability improvements, meanin
 
 ## Agent Integration
 
-- **Primary Agent**: code-writer - Can be spawned to apply human-guided readability improvements with careful functionality preservation
+- **Primary Agent**: quality-analyst - Can be spawned to apply human-guided readability improvements with careful functionality preservation
 
 ## Parallelization Patterns
 

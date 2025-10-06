@@ -1,9 +1,6 @@
 ---
 description: "Captures work items into TODO.md with industry-standard TODO tagging"
 argument-hint: "\"task description\""
-category: "to-do"
-tools: ["Read", "Write", "Edit"]
-complexity: "simple"
 allowed-tools: Read, Write, Edit
 ---
 

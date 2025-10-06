@@ -1,9 +1,5 @@
 ---
 description: "Merge changes from multiple worktrees into a single feature branch with intelligent conflict resolution"
-category: "git"
-agent: "implementation-orchestrator"
-tools: ["Bash", "Read", "Grep", "TodoWrite"]
-complexity: "complex"
 allowed-tools: Bash, Read, Grep, TodoWrite
 ---
 

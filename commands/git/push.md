@@ -1,9 +1,6 @@
 ---
 description: "Push with safety checks, force-push protection, and team coordination"
 argument-hint: "[remote] [branch]"
-category: "git"
-tools: ["Bash"]
-complexity: "moderate"
 allowed-tools: Bash
 ---
 
@@ -41,7 +38,7 @@ Safely pushes commits to remote repository with tracking setup and team coordina
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned for handling git operations and coordination
+- **Specialist Options**: architecture-analyst can be spawned for handling git operations and coordination
 
 ## Examples
 

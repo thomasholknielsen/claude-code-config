@@ -1,9 +1,6 @@
 ---
 description: "Locate all TODO comments and unfinished work markers in the codebase"
 argument-hint: "[arguments]"
-category: "to-do"
-tools: ["Grep", "Read", "Write"]
-complexity: "simple"
 allowed-tools: Grep, Read, Write
 ---
 

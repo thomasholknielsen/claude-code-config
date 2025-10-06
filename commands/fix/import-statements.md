@@ -1,9 +1,6 @@
 ---
 description: "Systematically fix import statements broken by file moves or renames"
 argument-hint: "[path] [--scope=<area>] [--strategy=<approach>] [--dry-run]"
-category: "fix"
-tools: ["Grep", "Edit", "Bash", "Read"]
-complexity: "moderate"
 allowed-tools: Grep, Edit, Bash, Read
 ---
 
@@ -80,7 +77,7 @@ The command processes arguments through the $ARGUMENTS placeholder:
 
 ## Agent Integration
 
-- **Primary Specialist**: bug-fixer - A specialized agent that can be spawned for analyzing import structures and systematically resolving
+- **Primary Specialist**: direct implementation - A specialized agent that can be spawned for analyzing import structures and systematically resolving
   module resolution issues
 
 ## Parallelization Patterns

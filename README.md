@@ -29,32 +29,50 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 
 ### Want to See It in Action
 
-👉 **[Typical Workflows](docs/typical-workflows.md)** - Common usage patterns with visual diagrams
+👉 **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic workflows with review-lint-commit pattern
+
+- **7 visual diagrams** showing workflow patterns, timing comparisons, and command orchestration
+- Real-world timing expectations (15-90 min per task)
+- Performance analysis: 66% time savings with local review
 
 ## 🏗️ Architecture Overview
 
-This system is built on the **Agent Specialist Framework** - a task-focused coordination system that uses 8 specialized agents
-as advisory subagents to handle complex development tasks efficiently. Only the main Claude Code thread can orchestrate parallel execution.
+This system provides development automation via **15 domain analysts**, **47 streamlined commands**, and **3 Python hooks**,
+with MCP integration (Context7 for docs, Playwright for browser automation).
 
-### Agent Specialist Components
+### Domain Analyst Framework (15 Analysts)
 
-- **3 Analysis Specialists**: Provide strategic analysis and guidance
-  - `task-analysis-specialist` - Complexity analysis and execution recommendations
-  - `research-analysis-specialist` - Multi-domain research and synthesis
-  - `implementation-strategy-specialist` - Dependency analysis and sequential guidance
-- **5 Execution Specialists**: Provide focused domain expertise
-  - `code-writer`, `test-writer`, `bug-fixer`, `reviewer`, `documenter`
+**Research Analyst (1)**:
 
-### Command Categories (54 Commands)
+- `research-analyst` - Comprehensive sequential research across domains (uses Context7)
 
-- **`/analyze/*`** - Performance and dependency analysis
-- **`/clean/*`** - Code cleanup and formatting
-- **`/docs/*`** - Documentation generation and maintenance
-- **`/fix/*`** - Bug fixes and issue resolution
-- **`/git/*`** - Git operations (only commands that can perform Git operations)
-- **`/review/*`** - Code review and quality analysis
-- **`/spec-kit/*`** - Complete 7-step feature development workflow
-- **`/workflows/*`** - Multi-step orchestrated processes
+**Domain Specialists (14)**:
+
+- **Framework/Tech**: react-analyst, typescript-analyst, python-analyst, api-analyst
+- **Quality/Architecture**: quality-analyst, architecture-analyst, refactoring-analyst
+- **Security/Performance**: security-analyst, performance-analyst
+- **Testing/Accessibility**: testing-analyst, accessibility-analyst
+- **Documentation/Data**: documentation-analyst, database-analyst, frontend-analyst
+
+**Pattern**: Analysts burn 90%+ tokens on research → persist to `.artifacts/context/*.md` → return concise summaries
+
+### Command Categories (47 Commands)
+
+- **`/workflows/*`** (8) - Orchestrate parallel analyst execution for comprehensive analysis
+- **`/git/*`** (8) - Git operations (only /git/* commands can perform git operations)
+- **`/spec-kit/*`** (7) - Complete feature development workflow
+- **`/docs/*`** (6) - Documentation generation and maintenance
+- **`/clean/*`** (4) - Code cleanup and formatting
+- **`/to-do/*`** (3) - TODO management and tracking
+- **`/refactor/*`** (2) - Code improvement (apply + large-scale)
+- **`/explain/*`** (2) - Code and architecture explanation
+- **`/fix/*`** (2) - Bug fixes and issue resolution
+- **`/implement/*`** (2) - Feature implementation
+- **`/review/*`** (1) - Intelligent code review orchestrator
+- **`/artifact/*`** (1) - Save Claude outputs
+- **`/prompt/*`** (1) - Enhance user prompts
+- **`/subagent/*`** (1) - Create agents from templates
+- **`/slashcommand/*`** (1) - Create commands from templates
 
 ## 📚 Documentation
 
@@ -62,8 +80,11 @@ as advisory subagents to handle complex development tasks efficiently. Only the 
 
 - **[User Documentation](docs/user/)** - Setup, usage, and workflow guides
   - [User Guide](docs/user/user-guide.md) - Complete setup and usage instructions
-  - [Typical Workflows](docs/user/typical-workflows.md) - Common usage patterns with diagrams
   - [MCP Setup Guide](docs/user/mcp-setup-guide.md) - External tool integration
+- **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic patterns with review-lint-commit workflow
+  - Includes local PR review before committing (saves 66% time on team reviews)
+  - Comprehensive linting automation
+  - Performance comparisons and best practices
 
 ### For Developers
 
@@ -179,10 +200,16 @@ claude /workflows:run-docs-workflow
 
 All complex workflows include **Mermaid diagrams** for clear understanding:
 
+- **7 workflow diagrams** in [Developer Workflows Guide](docs/typical-workflows.md):
+  - Review-Lint-Commit pattern flowchart with decision points
+  - Bug fix sequence diagram showing command interactions
+  - Performance comparison Gantt chart (Old Way 82 min vs New Way 28 min)
+  - Daily development timelines (morning feature work, afternoon bug fixes)
+  - Command chaining patterns visualization
+  - Large-scale refactoring parallel execution flow
 - Agent coordination patterns
 - Hook system flows
 - Spec-kit workflow steps
-- Typical usage patterns
 
 ## 🚦 Development Standards
 

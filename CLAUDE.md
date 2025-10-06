@@ -1,358 +1,216 @@
 # Claude Code Configuration - Command System Project
 
-This file contains **project-specific** configuration for the Claude Code command system project, providing
-comprehensive instructions for CRUD operations on repository artifacts.
+This file contains **project-specific** configuration for the Claude Code command system project.
 
 ## 🎯 Repository Overview
 
-The Claude Code Command System is a comprehensive development automation system built on the **Agent Specialist Framework**. This repository contains:
+The Claude Code Command System provides development automation through domain analysts, slash commands, cross-platform Python hooks, and MCP integration (Context7, Playwright, Shadcn).
 
-- **8 Agents**: 3 strategic specialists + 5 technical specialists providing advisory domain expertise
-- **63 Commands**: Atomic operations organized across 15 categories (includes 11 review commands)
-- **Complete Documentation**: User guides, technical docs, and visual workflows
-- **Hooks System**: Cross-platform Python-based automation
-- **MCP Integration**: Context7 and Playwright tools for enhanced capabilities
+**Core Components**:
 
-## 🏗️ Agent Specialist Framework
+- **Domain Analysts**: Specialized agents for research, framework expertise, quality analysis, security, performance, and more
+- **Slash Commands**: Atomic commands and orchestrated workflows organized by category (git, docs, workflows, etc.)
+- **Hooks**: Python-based automation for logging, notifications, and context management
+- **MCP Integration**: External tool access for documentation (Context7), browser automation (Playwright), and UI components (Shadcn)
 
-### Strategic Specialists (3 advisory agents)
+## 📋 Anti-Drift Principles
 
-Provide strategic analysis and planning guidance for complex development scenarios:
+**CRITICAL**: Avoid documentation that drifts from reality when the codebase changes.
 
-1. **implementation-strategy-specialist** - Provides advisory analysis for sequential code changes ensuring consistency and preventing conflicts
-2. **task-analysis-specialist** - General task analysis specialist that evaluates complexity and provides recommendations for specialized approaches
-3. **research-analysis-specialist** - Provides advisory guidance for comprehensive information gathering and
-   analysis across multiple sources and domains
+**Prohibited**:
 
-### Technical Specialists (5 advisory agents)
+- ❌ Hard-coded counts ("15 domain analysts", "47 commands")
+- ❌ Percentage statistics ("32% reduction after refactoring")
+- ❌ Performance timings ("3-5min", "75-85% faster")
+- ❌ Timeline estimates ("first week", "30-60 minutes", "1-3 months")
+- ❌ Token burn percentages ("burn 90%+ tokens")
+- ❌ Specific time comparisons ("5-8min vs 25-35min")
 
-Provide focused domain advisory expertise for specific development functions:
+**Preferred**:
 
-1. **reviewer** - Specialized code review advisory specialist providing quality, security, and design guidance
-2. **documenter** - Specialized documentation advisory specialist providing guidance on technical documentation creation and maintenance
-3. **code-writer** - Focused code generation advisory specialist providing guidance on structured development operations
-4. **bug-fixer** - Specialized debugging and bug resolution advisory specialist providing troubleshooting guidance
-5. **test-writer** - Specialized test creation and maintenance advisory specialist providing testing strategy guidance
+- ✅ Structural descriptions ("Multiple domain analysts", "Comprehensive command library")
+- ✅ Qualitative improvements ("Significantly faster", "Improved performance")
+- ✅ Priority levels ("Critical/High/Medium", "Immediate/Short-term/Long-term")
+- ✅ Relative descriptions ("Main thread can parallelize", "Agents run sequentially")
 
-### Agent Specialist Patterns
+**Rationale**: Statistics become outdated immediately upon system changes. Focus on principles, patterns, and architecture over precise metrics.
 
-**Use strategic specialists for:**
+## 🎨 Frontmatter Standards
 
-- Complex strategic planning and analysis guidance
-- Multi-step workflow recommendations
-- Comprehensive research and evaluation strategies
-- Cross-domain advisory expertise
+**Single Source of Truth**: Frontmatter syntax and structure are defined ONLY in templates.
 
-**Use technical specialists for:**
+**CLAUDE.md Role**:
 
-- Domain-specific implementation advisory guidance
-- Focused technical area consultation (coding, testing, documentation)
-- Specialized tool and technique recommendations
-- Targeted problem-solving advisory approaches
+- ✅ Reference templates for frontmatter specifications
+- ✅ Explain the distinction between command and agent frontmatter
+- ❌ Do NOT duplicate frontmatter YAML examples
+- ❌ Do NOT show specific field syntax
 
-## 📁 Command System Structure
+**Key Distinction**:
 
-### Command Categories
+- **Commands** declare permissions via `allowed-tools` frontmatter
+- **Agents** declare capabilities via `tools` frontmatter
 
-```text
-commands/
-├── analyze/
-├── artifact/
-├── clean/
-├── docs/
-├── explain/
-├── fix/
-├── git/
-├── implement/
-├── plan/
-├── prompt/
-├── refactor/
-├── review/
-├── spec-kit/
-├── to-do/
-├── workflows/
-```
+**Template References**:
 
-### Command Design Principles
+- Command frontmatter: See `templates/commands/command.md` and `templates/commands/command-workflow.md`
+- Agent frontmatter: See `templates/agents/agent-domain-specialist.md`
 
-**Atomic Operations**: All commands (except workflows) are atomic, single-purpose operations that can be:
+## 🏗️ Domain Analyst Framework
 
-- Used directly by Claude Code users
-- Recommended by strategic specialists for complex workflows
-- Informed by technical specialist guidance as part of larger tasks
-- Combined with other commands for sophisticated automation
+### Research Analyst (1)
 
-**Clear Responsibility**: Each command has one primary function and clear expected outcomes.
+**research-analyst** - Comprehensive sequential research across multiple domains with synthesized findings (uses Context7)
 
-**Integration Ready**: Commands include integration points showing how they work with other commands.
+### Domain Analysts (14)
+
+**Framework/Technology:** react-analyst, typescript-analyst, python-analyst, api-analyst
+**Quality/Architecture:** quality-analyst, architecture-analyst (opus+ultrathink), refactoring-analyst
+**Security/Performance:** security-analyst, performance-analyst
+**Testing/Accessibility:** testing-analyst, accessibility-analyst
+**Documentation/Data:** documentation-analyst, database-analyst, frontend-analyst
+
+**Pattern**: Conduct comprehensive research → persist detailed findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` → return concise summary (context elision)
+
+### Agent Coordination
+
+**Main Thread:** Parallelizes Task tools, invokes multiple domain analysts concurrently, runs one slash command at a time
+
+**Slash Commands:** Absorb main thread capabilities (unless restricted), coordinate domain analysts (series/parallel), can daisy-chain ONE other command as final action (no post-processing)
+
+**Domain Analysts:** Must persist findings to `.agent/context/*.md`, cannot invoke other analysts or slash commands reliably
+
+**System:** Changes to CLAUDE.md/commands/agents require Claude Code restart
+
+## 🧠 Model Inheritance
+
+**Default:** `model: inherit` (inherits from main thread)
+**Complex reasoning:** `model: opus` + `thinking: ultrathink` (architecture, system design only)
+
+## 📦 File-Persisted Memory
+
+**Required:** All domain analysts persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
+
+**Naming Pattern**: `{YYYY-MM-DD}-{topic}-{sessionid}.md`
+
+**Example**: `2025-10-05-ui-refactoring-abc123.md`
+
+**Why:** Enables multi-analyst coordination without context pollution
+
+**Session ID**: Agents obtain current session ID via: `python3 ~/.claude/.agents/scripts/session_manager.py current`
+
+## 🚀 Parallel Research Pattern
+
+**Workflow:** Parallel research (multiple analysts) → Sequential implementation → Parallel QA
+
+**Performance:** Significantly faster than sequential execution through concurrent analyst invocations
+
+## 📁 Command System
+
+**Categories:** analyze, artifact, clean, docs, explain, fix, git, implement, plan, prompt, refactor, review, spec-kit, to-do, workflows
+
+**Atomic Design:** Single-purpose, clear responsibility, composable, template-compliant (use `templates/commands/command.md` or `templates/commands/command-workflow.md`)
+
+**Frontmatter**: See templates for complete specifications
 
 ## 🔌 MCP Integration
 
-The system integrates Model Context Protocol (MCP) servers for enhanced capabilities: **Context7** provides
-access to current library/framework documentation (used by docs, review, and analysis commands), and
-**Playwright** enables browser automation for UI testing and visual regression (used by design review and
-testing commands). See individual command frontmatter for specific MCP tool usage.
+**Context7:** Library/framework documentation (docs, review, analysis commands)
+**Playwright:** Browser automation (design review, testing workflows)
 
-## 🌐 Cross-Platform Compatibility
+## 🌐 Cross-Platform
 
-All automation scripts use Python with `pathlib.Path` for cross-platform compatibility (Windows, macOS, Linux).
-Use user-agnostic paths (`~/.claude/`) and avoid hardcoded usernames or shell-specific commands.
+All automation uses Python with `pathlib.Path` for Windows/macOS/Linux compatibility. Use `Path.home()` for user directories.
 
-## 🔐 Security & Permission Guidelines
+## 🔐 Security & Git Constraints
 
-### Critical Git Operations Constraint
+**CRITICAL:** Only `/git/*` commands perform Git operations. All other agents/commands use SlashCommand tool for Git delegation.
 
-**MANDATORY**: Only `/git/*` commands can perform Git operations.
+**Git Conventions:** Conventional commit format with auto-detected types from file analysis (feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert)
 
-- **All other agents/commands**: Must use SlashCommand tool for Git operations (main thread executes)
-- **Explicit consent required**: All Git operations outside `/git/*` must ask user permission
-- **Agent limitation**: Agents cannot call Git commands directly
-- **Enforcement**: Use SlashCommand tool for all Git delegation
+**Permissions:** Context7/Playwright tools allowed. Block secrets (.env, *.key, credentials). Restrict dangerous operations (rm -rf, sudo). See `settings.json`.
 
-### Git Naming Conventions
+## 📦 Artifact Management
 
-All git operations (commits, branches, PRs) use conventional commit format with auto-detected types from
-uncommitted file analysis. Standard types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`,
-`ci`, `build`, `revert`. See `/git:commit`, `/git:branch`, and `/git:pr` for detailed type detection rules,
-format patterns, and scope extraction.
+Use `/artifact:save` to capture Claude outputs (plans, reviews, research) in `.artifacts/` with type-based organization.
 
-### Permission Configuration
+## 🤖 AI Code Review
 
-Located in `settings.json`:
+Use `/workflows:run-comprehensive-review` for multi-perspective reviews with dynamic selection, parallel execution, and unified reporting. 11 atomic review commands available (readability, performance, testing, style, architecture, documentation, observability, security, code, design, synthesize).
 
-**MCP Tools Allowed:**
+## 📚 Documentation
 
-- Context7: `mcp__context7__resolve-library-id`, `mcp__context7__get-library-docs`
-- Playwright: All browser automation tools (`mcp__playwright__*`)
-
-**Security Protections:**
-
-- Block access to secrets: `.env`, `*.key`, `*.pem`, credentials
-- Restrict dangerous operations: `rm -rf`, `sudo`, network tools
-- Allow safe development operations: npm/yarn commands, standard Git ops
-
-## 📦 Artifact Management System
-
-Use `/artifact:save` to capture and preserve Claude outputs (plans, reviews, research, analysis, specifications,
-documentation, reports) in `.artifacts/` with type-based organization and automatic naming. Replaces
-`/plan:save-plan-to-markdown`.
-
-## 🤖 AI Code Review System
-
-The repository includes a comprehensive AI-powered code review system with 11 specialized atomic review commands
-(readability, performance, testing, style, architecture, documentation, observability, security, code, design)
-and synthesis capabilities.
-
-**Primary Workflow:** Use `/workflows:run-comprehensive-review` to orchestrate multi-perspective reviews with
-dynamic selection, parallel execution, and unified reporting. See command documentation for details on individual
-reviews, GitHub Actions integration, and output formats.
-
-## 📚 Documentation Structure
-
-Comprehensive documentation is available in `docs/` covering user guides, developer architecture, command
-templates, hooks system, and implementation details. Start with `README.md` for overview and
-`docs/user-guide.md` for setup.
+Docs in `docs/` following Diátaxis framework (tutorials, guides, reference, explanation). Start with `README.md` and `docs/user-guide.md`.
 
 ## 🔧 Development Standards
 
-### Markdown Linting Standards
+### Markdown Linting
 
-All markdown files follow project linting rules configured in `.markdownlint.yml`: maximum line length 150
-characters (code blocks 200 chars), ATX-style headers with surrounding blank lines, fenced code blocks with
-language specification (bash/python/typescript/yaml/json/mermaid), asterisk-style emphasis, 2-space list
-indentation, and inline HTML allowed for specific elements (br/sub/sup/kbd/details/summary). Exceptions defined
-in `.markdownlintignore` protect spec-kit commands and gitignored directories.
+Follow `.markdownlint.yml`: 150-char lines (code: 200), ATX headers with blank lines, fenced code with language tags, asterisk emphasis, 2-space lists, inline HTML allowed. Exceptions in `.markdownlintignore`.
 
 ### Command Development
 
-**Required Format** (follow templates):
+**Templates:** `templates/commands/command.md` (atomic), `templates/commands/command-workflow.md` (orchestration)
 
-- **Atomic commands**: Use `templates/command.md`
-- **Workflow commands**: Use `templates/command-workflow.md`
+**Frontmatter:** See templates for complete specifications and required fields
 
-**Required frontmatter fields**:
-
-- `description`: Single clear sentence describing command purpose
-- `argument-hint`: Parameter guidance for CLI
-- `category`: Command category folder name
-- `tools`: Array of Claude Code tools used
-- `complexity`: simple | moderate | complex
-- `allowed-tools`: Permission specification (e.g., `Tool1, Tool2, Bash(command:*)`)
-
-**Template Selection**:
-
-- Use base template (`templates/command.md`) for atomic, single-purpose operations
-- Use workflow template (`templates/command-workflow.md`) for commands that orchestrate other slash commands using SlashCommand tool
-
-**Example Format** (base template):
-
-```markdown
----
-description: "Single clear sentence describing command purpose"
-argument-hint: "[arg1] [--flag=value]"
-category: "folder_name"
-tools: ["Tool1", "Tool2"]
-complexity: "simple|moderate|complex"
-allowed-tools: Tool1, Tool2, Bash(command:*)
----
-
-# Command: {Action Verb} {Object}
-
-## Purpose
-Single sentence describing primary function.
-
-## Usage
-/{category}:{command-name} $ARGUMENTS
-
-## Process
-1. Step 1: Clear action
-2. Step 2: Next action
-3. Step 3: Final outcome
-
-## Agent Integration
-- **Primary Agent**: agent-name - role description
-
-## Examples
-[Real usage examples with $ARGUMENTS]
-```bash
+**Key Requirements:** Single-purpose, clear responsibility, composable design
 
 ### Agent Development
 
-**Agent Requirements:**
+**Requirements:** Single responsibility, no overlap, follow domain-analyst pattern, model: inherit (default) or opus (complex reasoning), use SlashCommand for delegation
 
-- **Single Responsibility**: One clear, focused purpose
-- **No Overlap**: Must not duplicate existing agent functionality
-- **Specialist Compliance**: Follow analysis/execution specialist pattern
-- **Model Selection**: Opus for analysis specialists, Sonnet for execution specialists
-- **Tool Integration**: Use SlashCommand for delegation, direct tools for execution
+**Frontmatter:** See `templates/agents/agent-domain-specialist.md` for complete specifications
 
-**Required YAML Frontmatter:**
-
-```yaml
----
-name: agent-name
-description: "Clear description of agent purpose"
-color: color-name
-model: opus|sonnet
-tools: ["Tool1", "Tool2"]
----
-```
+**Key Requirements:** Clear domain focus, advisory role (analyze and recommend, not execute)
 
 ### Spec-Kit Integration
 
-When `.specify/` folder exists, commands automatically:
+When `.specify/` exists: reference `spec.md` (requirements), `plan.md` (architecture), `tasks.md` (completion), `contracts/` (API compliance)
 
-- Reference `spec.md` for requirements validation
-- Check `plan.md` for architectural alignment
-- Verify `tasks.md` for completion criteria
-- Validate `contracts/` for API compliance
-- Align work with current feature context
+**Cross-Repository Paths:** Use `~/.claude/.specify/scripts/` and `~/.claude/.specify/templates/` (reapply with `/utility:apply-spec-kit-mods`)
 
-This ensures all development work stays aligned with planned features.
+## 🔄 CRUD Operations
 
-### Spec-Kit Cross-Repository Modifications
+### TODO Location Constraint
 
-**CRITICAL**: Spec-kit commands have been modified to use `~/.claude/.specify/scripts/` and
-`~/.claude/.specify/templates/` instead of project-relative paths. This enables commands to work from any
-repository when Claude config is user-scoped.
+**CRITICAL:** All TODO operations use `{project_root}/.claude/.todos/TODO.md` ONLY. Prohibited: TODO files elsewhere.
 
-**Reapply modifications:**
+### Creating Commands
 
-```bash
-/utility:apply-spec-kit-mods
-```
+1. Use template from `docs/command-template.md`
+2. Place in `commands/{category}/{name}.md`
+3. Assign to existing domain analyst
+4. Include MCP tools if relevant
+5. Ensure atomic design
 
-## 🔄 CRUD Operations Guide
-
-### 🚨 TODO File Location Constraint
-
-**CRITICAL REQUIREMENT**: All TODO operations MUST use the standardized location:
-
-- **Required Location**: `{project_root}/.claude/.todos/TODO.md`
-- **Prohibited**: TODO files in any other location (project root, docs/, etc.)
-- **Enforcement**: All `/to-do:*` commands validate and enforce this constraint
-- **Rationale**: Centralized task tracking, consistent file management, prevents scattered TODO files
-
-### Create Operations
-
-**New Commands:**
-
-1. Use command template from `docs/command-template.md`
-2. Place in appropriate category folder: `commands/{category}/{name}.md`
-3. Assign to existing Agent Specialist Framework agent
-4. Include MCP tools if relevant (Context7 for docs, Playwright for UI)
-5. Ensure atomic operation design
-
-**Reapply modifications:**
+**Reapply Spec-Kit Mods:**
 
 ```bash
 /utility:apply-spec-kit-mods
 ```
 
-## 🔄 Development Workflows
+## 🔄 Workflows
 
-**TODO Management:** All TODO operations use standardized location `{project_root}/.claude/.todos/TODO.md`.
-Use `/to-do:*` commands for centralized task tracking.
+**TODO Management:** Use standardized location `{project_root}/.claude/.todos/TODO.md` via `/to-do:*` commands
 
-**Creating/Modifying Commands and Agents:** Follow templates in `docs/command-template.md` and existing agent
-patterns. Assign commands to Agent Specialist Framework agents, maintain atomic design, and update CLAUDE.md
-after changes. See `docs/developer-guide.md` for complete CRUD workflows.
-
-## 🎯 Quality Standards
-
-### Command Quality
-
-- **Atomic Design**: Single, clear purpose
-- **Documentation**: Complete template compliance
-- **Integration**: Clear relationship to other commands
-- **Testing**: Verify functionality works as documented
-
-### Agent Quality
-
-- **Responsibility**: Single, focused capability
-- **Specialization**: Proper analysis/execution specialist relationship
-- **Tools**: Appropriate tool selection and MCP usage
-- **Documentation**: Clear purpose and usage patterns
-
-### System Quality
-
-- **Cross-Platform**: Works on Windows, macOS, Linux
-- **User-Agnostic**: No hardcoded user paths
-- **Security**: Git constraints enforced
-- **Performance**: Efficient execution patterns
-
-## 📊 Success Metrics
-
-Track system effectiveness by monitoring:
-
-- **Command Usage**: Which commands are most/least used
-- **Agent Collaboration**: Analysis specialist → execution specialist advisory patterns
-- **Documentation Quality**: User feedback and completion rates
-- **System Performance**: Command execution speed and reliability
-- **Error Rates**: Failed commands and common issues
+**Command/Agent Changes:** Follow templates, maintain atomic design, update CLAUDE.md after changes
 
 ## ⚠️ Critical Constraints
 
-### What NOT to do
+**Git Operations:** ONLY `/git/*` commands can perform Git operations
+**Cross-Platform:** No hardcoded user paths (use `~/.claude/`)
+**Agent Uniqueness:** Each agent has single, unique responsibility
+**MCP Integration:** Use Context7/Playwright where appropriate
+**Atomic Design:** Keep commands single-purpose
+**CLAUDE.md Sync:** Update after creating/modifying/deleting agents or commands
 
-- **Don't bypass Git constraints**: Only `/git/*` commands can perform Git operations
-- **Don't hardcode paths**: Use user-agnostic path patterns
-- **Don't duplicate agents**: Each agent must have unique responsibility
-- **Don't ignore MCP integration**: Use Context7/Playwright where appropriate
-- **Don't break atomic design**: Keep commands single-purpose
+### CLAUDE.md Disambiguation Protocol
 
-### Required Practices
+**When working with multiple CLAUDE.md files, ALWAYS ask:** "Are you referring to user CLAUDE.md (global patterns in ~/CLAUDE.md) or project CLAUDE.md (project-specific in /Users/thomasholknielsen/.claude/CLAUDE.md)?"
 
-- **Use Agent Specialist Framework**: Always assign commands to existing agents
-- **Follow templates**: Use provided templates for consistency
-- **Cross-platform thinking**: Test on multiple operating systems
-- **Document thoroughly**: Include examples and integration points
-- **Validate security**: Ensure Git constraints are respected
-- **Maintain CLAUDE.md synchronization**: After creating, modifying, or deleting agents or commands to update descriptions in this file
+**NO EXCEPTIONS** - applies to reading, editing, referencing, suggesting updates, or ANY mention of CLAUDE.md.
 
 ---
 
-This configuration provides comprehensive instructions for working with all repository artifacts while maintaining quality, security, and
-cross-platform compatibility standards.
-
-- in markdown files, when writing code be sure to declare the script language tag
+**Note:** This configuration provides comprehensive instructions for working with all repository artifacts while maintaining quality, security, and cross-platform compatibility standards.

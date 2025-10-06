@@ -1,9 +1,6 @@
 ---
 description: "Generates comprehensive documentation from codebase structure and code analysis"
 argument-hint: "[type] [--output=<directory>] [--include-examples]"
-category: "docs"
-tools: ["Read", "Write", "Glob", "Grep"]
-complexity: "moderate"
 allowed-tools: Read, Write, Glob, Grep
 ---
 
@@ -41,9 +38,38 @@ Creates comprehensive documentation from codebase analysis, matching project str
 6. Validate README links match actual documentation files and sections
 7. Ensure consistency with existing style and conventions
 
+## Mermaid Diagram Integration
+
+Use Mermaid charts to enhance documentation clarity:
+
+**Architecture Diagrams**:
+
+```mermaid
+graph TD
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+**Sequence Diagrams for API Flows**:
+
+```mermaid
+sequenceDiagram
+    Client->>API: Request
+    API->>Database: Query
+    Database-->>API: Result
+    API-->>Client: Response
+```
+
+**When to Include Mermaid**:
+
+- System architecture overviews
+- Component relationships
+- Data flow diagrams
+- Process workflows
+
 ## Agent Integration
 
-- **Specialist Agent**: documenter - Can be spawned to handle complete documentation generation workflow
+- **Domain Analyst**: documentation-analyst - Can be invoked to assess documentation completeness and identify gaps before generation
 
 ## Examples
 

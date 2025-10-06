@@ -1,10 +1,7 @@
 ---
 description: "Implement features using the Agent Orchestra framework with intelligent task coordination"
 argument-hint: "[arguments]"
-category: "implement"
-tools: ["Task", "SlashCommand", "TodoWrite"]
-complexity: "complex"
-allowed-tools: Task, SlashCommand, TodoWrite
+allowed-tools: Task, TodoWrite
 ---
 
 # Command: Spec Kit Tasks
@@ -59,10 +56,10 @@ executing all tasks defined in tasks.md.
 
 ## Agent Integration
 
-- **Specialist Options**: implementation-strategy-specialist can be spawned to coordinate feature implementation with parallel research and
+- **Specialist Options**: architecture-analyst can be spawned to coordinate feature implementation with parallel research and
   sequential execution
 - **Research Phase**: Spawns multiple Task() agents in parallel for comprehensive context gathering
-- **Implementation Phase**: Delegates to code-writer, test-writer, documenter as needed
+- **Implementation Phase**: Delegates to quality-analyst, testing-analyst, documenter as needed
 - **Quality Assurance**: Coordinates with reviewer for validation and quality checks
 
 ## Examples
@@ -74,7 +71,7 @@ User: "/implement:spec-kit-tasks $ARGUMENTS"
 # where $ARGUMENTS = "user-dashboard-feature"
 
 # Phase 1: Parallel Research
-→ implementation-strategy-specialist launches parallel research:
+→ architecture-analyst launches parallel research:
   → Task("Analyze existing authentication patterns")
   → Task("Research UI component library usage")
   → Task("Identify database schema requirements")
@@ -87,8 +84,8 @@ User: "/implement:spec-kit-tasks $ARGUMENTS"
 → Creates execution strategy with dependencies
 
 # Phase 3: Sequential Implementation
-→ Spawns code-writer for core functionality
-→ Spawns test-writer for comprehensive test coverage
+→ Spawns quality-analyst for core functionality
+→ Spawns testing-analyst for comprehensive test coverage
 → Spawns documenter for API documentation
 → Coordinates integration testing
 → Validates against spec.md requirements
@@ -108,10 +105,10 @@ User: "/implement:spec-kit-tasks $ARGUMENTS"
 → Task("Assess performance optimization needs")
 
 # Implementation Coordination
-→ Backend API development (code-writer)
-→ Frontend components (code-writer + UI patterns)
-→ Database migrations (code-writer + schema validation)
-→ Unit and integration tests (test-writer)
+→ Backend API development (quality-analyst)
+→ Frontend components (quality-analyst + UI patterns)
+→ Database migrations (quality-analyst + schema validation)
+→ Unit and integration tests (testing-analyst)
 → API documentation (documenter)
 → User guide updates (documenter)
 ```

@@ -1,18 +1,14 @@
 ---
-description: "Execute comprehensive refactoring workflow by orchestrating atomic refactor commands in optimal sequence"
-category: "workflows"
-agent: "task-orchestrator"
-tools: ["SlashCommand"]
-complexity: "complex"
-allowed-tools: SlashCommand(/refactor:*)
+description: "Execute comprehensive refactoring workflow using parallel domain analysis to improve code quality, readability, and maintainability"
+allowed-tools: Task
 ---
 
 # Command: Run Refactor Workflow
 
 ## Purpose
 
-Executes a comprehensive refactoring workflow by orchestrating multiple atomic refactor commands in logical sequence to improve code quality,
-readability, and maintainability.
+Executes a comprehensive refactoring workflow using parallel domain analysis to identify and implement improvements
+to code quality, readability, and maintainability.
 
 ## Usage
 
@@ -22,60 +18,63 @@ readability, and maintainability.
 
 ## Process
 
-1. **Quick Refactoring Pass**: Execute `/refactor:quick` to apply common refactoring patterns
-2. **Logic Simplification**: Run `/refactor:simplify-logic` to reduce complex conditionals and nested statements
-3. **Function Extraction**: Execute `/refactor:extract-functions` to break down complex code blocks
-4. **Duplication Removal**: Run `/refactor:remove-duplication` to eliminate code duplication using DRY principles
-5. **Variable Renaming**: Execute `/refactor:rename-variables` to improve identifier clarity
-6. **Large-Scale Restructuring**: Run `/refactor:large-scale` for systematic architectural improvements
-7. **Validation**: Verify all refactoring changes maintain behavior and improve code quality
+1. **Parallel Analysis Phase**: Launch 3 domain analysts concurrently for comprehensive refactoring assessment
+2. **Synthesis Phase**: Main thread consolidates findings and implements refactoring improvements
+3. **Validation Phase**: Verify refactoring maintains behavior and improves quality metrics
 
 ## Agent Integration
 
-- **Primary Agent**: task-orchestrator - Coordinates sequential refactoring operations ensuring consistency and preventing conflicts
+- **Primary Agent**: refactoring-analyst - Orchestrates parallel refactoring analysis and synthesizes improvements
+- **Parallel Domain Analysts** (3 concurrent):
+  - refactoring-analyst - Code smell detection, refactoring opportunities, technical debt assessment
+  - quality-analyst - Complexity analysis, maintainability metrics, SOLID principles validation
+  - architecture-analyst - Design pattern recommendations, structural improvements, architectural consistency
 
 ## Implementation Steps
 
-### Step 1: Quick Refactoring Foundation
+### Phase 1: Parallel Refactoring Analysis
 
-```bash
-# Apply common refactoring patterns first
-SlashCommand("/refactor:quick")
+```python
+# Launch 3 analysts concurrently for comprehensive refactoring assessment
+Task("refactoring-analyst: Identify code smells, duplication, long methods, complex conditionals, and refactoring opportunities across the codebase")
+Task("quality-analyst: Analyze code complexity, detect maintainability issues, validate SOLID principles, and assess technical debt")
+Task("architecture-analyst: Review design patterns, identify structural improvements, and recommend architectural enhancements for better modularity")
+
+# Each analyst:
+# - Burns tokens on comprehensive refactoring domain analysis
+# - Persists findings to .artifacts/context/{domain}-analysis-{timestamp}.md
+# - Returns 2-3 sentence summary to main thread
 ```
 
-### Step 2: Simplify Complex Logic
+### Phase 2: Main Thread Synthesis & Implementation
 
-```bash
-# Reduce conditional complexity and nested statements
-SlashCommand("/refactor:simplify-logic")
+```python
+# Read all analyst artifacts
+Read(.artifacts/context/refactoring-analysis-*.md)
+Read(.artifacts/context/quality-analysis-*.md)
+Read(.artifacts/context/architecture-analysis-*.md)
+
+# Based on consolidated findings, implement refactoring:
+# 1. Apply quick refactoring patterns (common improvements)
+# 2. Simplify complex logic and reduce nested conditionals
+# 3. Extract functions from complex code blocks
+# 4. Remove code duplication using DRY principles
+# 5. Rename variables for improved clarity
+# 6. Perform large-scale architectural restructuring
+# 7. Apply design patterns for better structure
+
+# Ensure all changes preserve behavior
 ```
 
-### Step 3: Extract Functions
+### Phase 3: Validation
 
-```bash
-# Break down complex code blocks into well-named functions
-SlashCommand("/refactor:extract-functions")
-```
-
-### Step 4: Remove Code Duplication
-
-```bash
-# Apply DRY principles through function extraction
-SlashCommand("/refactor:remove-duplication")
-```
-
-### Step 5: Improve Naming
-
-```bash
-# Enhance code clarity with descriptive identifiers
-SlashCommand("/refactor:rename-variables")
-```
-
-### Step 6: Large-Scale Restructuring
-
-```bash
-# Perform systematic architectural improvements
-SlashCommand("/refactor:large-scale")
+```python
+# Verify refactoring improvements:
+# - Run full test suite (all tests must pass)
+# - Measure complexity reduction (cyclomatic complexity)
+# - Validate SOLID principles compliance
+# - Confirm improved maintainability metrics
+# - Ensure no functionality regressions
 ```
 
 ## Examples
@@ -86,14 +85,31 @@ SlashCommand("/refactor:large-scale")
 /workflows:run-refactor-workflow
 ```
 
-This command will execute the following sequence:
+**Expected workflow execution:**
 
-1. `/refactor:quick` - Apply common patterns
-2. `/refactor:simplify-logic` - Reduce complexity
-3. `/refactor:extract-functions` - Improve modularity
-4. `/refactor:remove-duplication` - Eliminate redundancy
-5. `/refactor:rename-variables` - Enhance clarity
-6. `/refactor:large-scale` - Architectural improvements
+```text
+Phase 1: Parallel Analysis (3-4 minutes)
+→ Task("refactoring-analyst: Identify code smells and refactoring opportunities")
+→ Task("quality-analyst: Analyze complexity and maintainability metrics")
+→ Task("architecture-analyst: Review design patterns and structural improvements")
+
+Analysts complete concurrently (vs 12-18 minutes sequential)
+
+Phase 2: Main Thread Synthesis
+→ Consolidate findings from all analysts
+→ Apply quick refactoring patterns
+→ Simplify complex logic and extract functions
+→ Remove code duplication (DRY principles)
+→ Rename variables for clarity
+→ Implement architectural improvements
+
+Phase 3: Validation
+→ All tests passing
+→ Complexity reduced: 15 → 8 (47% improvement)
+→ Duplication eliminated: 23 instances → 3
+→ Maintainability index improved: 65 → 82
+→ No functionality regressions
+```
 
 ### Integration Points
 
@@ -104,8 +120,47 @@ This command will execute the following sequence:
 
 ### Success Criteria
 
-- All refactor commands execute successfully without conflicts
+- All refactoring analysis complete with comprehensive findings
 - Code quality metrics improve (complexity, duplication, readability)
 - Tests continue to pass after all refactoring operations
 - No functional behavior changes introduced
 - Codebase structure is more maintainable and readable
+
+## Performance Characteristics
+
+**Traditional Sequential Approach:**
+
+- Refactoring analysis: 5-7 minutes
+- Quality analysis: 4-6 minutes
+- Architecture review: 3-5 minutes
+- Total: 12-18 minutes
+
+**Parallel Analysis Approach:**
+
+- 3 analysts run concurrently: 3-4 minutes
+- Main thread implementation: 4-6 minutes
+- Total: 7-10 minutes
+- **Performance Gain: 40-50% faster**
+
+## Domain Analyst Outputs
+
+**refactoring-analyst** persists to `.artifacts/context/refactoring-analysis-{timestamp}.md`:
+
+- Code smell identification and severity
+- Duplication detection with locations
+- Long method and complex conditional detection
+- Refactoring pattern recommendations
+
+**quality-analyst** persists to `.artifacts/context/quality-analysis-{timestamp}.md`:
+
+- Cyclomatic complexity metrics by function
+- Maintainability index assessment
+- SOLID principles violation detection
+- Technical debt quantification
+
+**architecture-analyst** persists to `.artifacts/context/architecture-analysis-{timestamp}.md`:
+
+- Design pattern opportunities
+- Structural improvement recommendations
+- Architectural consistency assessment
+- Modularity and separation of concerns analysis

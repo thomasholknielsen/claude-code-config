@@ -1,18 +1,13 @@
 ---
-description: "Orchestrated cleanup workflow that runs multiple cleanup commands in sequence"
-category: "workflows"
-agent: "task-orchestrator"
-tools: ["SlashCommand"]
-complexity: "complex"
-allowed-tools: SlashCommand(/clean:*)
+description: "Orchestrated cleanup workflow that runs multiple cleanup operations in parallel"
+allowed-tools: Task
 ---
 
 # Command: Run Cleanup Workflow
 
 ## Purpose
 
-Executes a comprehensive cleanup workflow by orchestrating multiple atomic cleanup commands in logical sequence to improve code quality, remove
-artifacts, and standardize formatting.
+Executes a comprehensive cleanup workflow by launching parallel domain analyst tasks to improve code quality, remove artifacts, and standardize formatting.
 
 ## Usage
 
@@ -24,32 +19,23 @@ artifacts, and standardize formatting.
 
 ## Process
 
-1. **Clean Development Artifacts**: Execute `/clean:development-artifacts` to remove temporary files, build artifacts, and development debris
-2. **Apply Style Rules**: Execute `/clean:apply-style-rules` to run automated formatters (prettier, eslint --fix, etc.)
-3. **Improve Code Readability**: Execute `/clean:improve-readability` to enhance naming, structure, and manual code beautification
-4. **Clean Code Comments**: Execute `/clean:code-comments` to remove redundant comments while preserving valuable documentation
-5. **Validate Results**: Verify all cleanup operations completed successfully and report final status
+1. **Launch Parallel Cleanup Tasks**: Invoke quality-analyst and refactoring-analyst to perform cleanup operations concurrently
+2. **Synthesize Results**: Collect recommendations from all analysts
+3. **Report Completion**: Provide unified cleanup summary
 
 ## Agent Integration
 
-- **Primary Agent**: task-orchestrator - Coordinates sequential execution of atomic cleanup commands ensuring proper order and dependencies
+- **Primary Agent**: quality-analyst - Analyzes code quality and coordinates cleanup operations
+- **Supporting Agents**: refactoring-analyst - Provides refactoring and readability recommendations
 
 ## Implementation Pattern
 
-The orchestrator executes each cleanup command sequentially using SlashCommand:
+The workflow launches parallel analyst tasks using the Task tool:
 
 ```python
-# Step 1: Clean development artifacts
-SlashCommand("/clean:development-artifacts")
-
-# Step 2: Apply automated style rules
-SlashCommand("/clean:apply-style-rules")
-
-# Step 3: Manual readability improvements
-SlashCommand("/clean:improve-readability")
-
-# Step 4: Clean up comments
-SlashCommand("/clean:code-comments")
+# Launch parallel cleanup analyses
+Task("quality-analyst: Remove development artifacts and temporary files, then apply automated formatting rules (prettier, eslint --fix)")
+Task("refactoring-analyst: Improve code readability through better naming, structure optimization, and comment cleanup")
 ```
 
 ## Examples
@@ -58,28 +44,25 @@ SlashCommand("/clean:code-comments")
 # Execute complete cleanup workflow
 /workflows:run-cleanup-workflow
 
-# Expected sequence:
-# 1. Removing temporary files and build artifacts...
-# 2. Running prettier, eslint --fix, and other formatters...
-# 3. Improving variable names and code structure...
-# 4. Cleaning redundant comments...
-# 5. Cleanup workflow completed successfully
+# Expected execution:
+# 1. Launching parallel cleanup analyses...
+# 2. quality-analyst: Analyzing code quality and formatting...
+# 3. refactoring-analyst: Identifying readability improvements...
+# 4. Cleanup recommendations ready
 ```
 
 ## Integration Points
 
 This workflow command works with:
 
-- **Individual cleanup commands**: Can be run separately if only specific cleanup is needed
+- **Domain Analysts**: Leverages quality-analyst and refactoring-analyst for comprehensive cleanup analysis
 - **Pre-commit workflows**: Often executed before commits to ensure code quality
 - **CI/CD pipelines**: Can be integrated into automated quality gates
 - **Development workflows**: Regular cleanup during development cycles
 
 ## Dependencies
 
-Requires the following atomic cleanup commands to be available:
+Requires the following domain analysts to be available:
 
-- `/clean:development-artifacts`
-- `/clean:apply-style-rules`
-- `/clean:improve-readability`
-- `/clean:code-comments`
+- `quality-analyst` - Code quality analysis and formatting
+- `refactoring-analyst` - Readability and structure improvements

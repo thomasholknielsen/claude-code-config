@@ -1,42 +1,60 @@
 <!--
 Sync Impact Report:
-Version: 2.0.0 (Updated to reflect actual project practices)
-Modified principles: Complete rewrite based on CLAUDE.md project-specific configuration
-Added sections: Agent Specialist Framework, Command System Architecture, MCP Integration, Cross-Platform Compatibility
-Removed sections: Generic testing and quality standards (replaced with project-specific patterns)
+Version: 2.1.0 (Updated to reflect Domain Analyst Framework with 15 agents)
+Modified principles: Updated Agent Specialist Framework to Domain Analyst Framework with 15 domain analysts (1 research + 14 specialists)
+Added sections: Research analyst role, expanded domain specialist coverage (React, TypeScript, Python, API, security, performance, testing, accessibility, documentation, database, frontend, quality, architecture, refactoring)
+Removed sections: Strategic/Technical specialist division (replaced with research + domain analyst pattern)
 Templates requiring updates:
-  ✅ plan-template.md - Constitution Check section updated to reflect Agent Specialist Framework
-  ✅ spec-template.md - Updated to reference command system patterns
+  ✅ plan-template.md - Constitution Check section updated to reflect Domain Analyst Framework
+  ✅ spec-template.md - Updated to reference domain analyst patterns
   ✅ tasks-template.md - Task ordering follows atomic command principles
-Follow-up TODOs: Update existing specs to reference v2.0.0
+Follow-up TODOs: Update existing specs to reference v2.1.0
 -->
 
 # Claude Code Command System Constitution
 
 ## Core Principles
 
-### I. Agent Specialist Framework Architecture
+### I. Domain Analyst Framework Architecture
 
-The repository is built on the **Agent Specialist Framework** with 8 specialized agents providing advisory domain expertise:
+The repository is built on the **Domain Analyst Framework** with 15 specialized domain analysts providing comprehensive advisory expertise:
 
-**Strategic Specialists (3):**
-- `task-analysis-specialist` - Evaluates complexity and recommends specialized approaches
-- `research-analysis-specialist` - Comprehensive information gathering and multi-domain analysis
-- `implementation-strategy-specialist` - Sequential code change analysis and conflict prevention
+**Research Analyst (1):**
+- `research-analyst` - Conducts comprehensive sequential research across multiple domains and provides synthesized findings. Uses Context7 for framework documentation.
 
-**Technical Specialists (5):**
-- `code-writer` - Structured development operations guidance
-- `test-writer` - Testing strategy and maintenance guidance
-- `bug-fixer` - Debugging and troubleshooting guidance
-- `reviewer` - Quality, security, and design review guidance
-- `documenter` - Technical documentation creation and maintenance guidance
+**Domain Analysts (14):**
+
+**Framework/Technology Analysts:**
+- `react-analyst` - React patterns, hooks, state management, component design analysis
+- `typescript-analyst` - Type safety, generics, interface design, TypeScript best practices
+- `python-analyst` - Pythonic patterns, PEP 8 compliance, library best practices, type hints analysis
+- `api-analyst` - REST/GraphQL patterns, endpoint design, versioning strategies, contract validation
+
+**Code Quality & Architecture Analysts:**
+- `quality-analyst` - Complexity analysis, code smells detection, maintainability metrics, SOLID principles validation
+- `architecture-analyst` - SOLID principles, design patterns, system design recommendations (uses opus + ultrathink)
+- `refactoring-analyst` - Code smell detection, refactoring opportunities, design pattern recommendations, technical debt assessment
+
+**Security & Performance Analysts:**
+- `security-analyst` - OWASP Top 10 analysis, threat modeling, vulnerability detection, auth/authz review, mitigation strategies
+- `performance-analyst` - Bottleneck detection, optimization strategies, profiling recommendations, caching patterns, query optimization
+
+**Testing & Accessibility Analysts:**
+- `testing-analyst` - Test coverage assessment, test quality evaluation, edge case identification, testing strategy recommendations
+- `accessibility-analyst` - WCAG compliance assessment, ARIA pattern evaluation, keyboard navigation analysis, screen reader compatibility
+
+**Documentation & Data Analysts:**
+- `documentation-analyst` - Documentation completeness assessment, API documentation quality, comment effectiveness, knowledge gap identification
+- `database-analyst` - Schema design evaluation, query optimization, indexing strategies, migration assessment, database performance
+- `frontend-analyst` - Component architecture evaluation, state management patterns, bundle optimization, UI framework best practices
 
 **Usage Patterns:**
-- Strategic specialists for complex planning, multi-step workflows, and cross-domain research
-- Technical specialists for domain-specific implementation, focused consultation, and targeted problem-solving
-- All agents are **advisory** - they provide guidance, not direct execution
+- Research analyst for multi-domain sequential research and synthesized findings
+- Domain analysts for deep domain-specific analysis with context elision (burn 90%+ tokens on research, return 2-3 sentence summaries)
+- All domain analysts persist findings to `.artifacts/context/{domain}-analysis-*.md` for main thread access
+- Domain analysts are **advisory** - they provide recommendations and guidance, not direct execution
 
-**Rationale**: Specialized agents provide focused domain expertise while maintaining clear separation of concerns. This ensures optimal resource utilization and consistent quality across development work.
+**Rationale**: Domain analysts provide deep domain expertise while maintaining context elision pattern (detailed research → concise summaries). This enables parallel research workflows and keeps main thread context clean for implementation.
 
 ### II. Atomic Command Design
 
@@ -210,4 +228,4 @@ Constitution updates require:
 
 Constitution supersedes other development practices. Latest version always takes precedence. Track amendments with dates and rationale. Maintain backward compatibility unless explicitly documented as breaking change.
 
-**Version**: 2.0.0 | **Ratified**: 2025-10-03 | **Last Amended**: 2025-10-03 | **Based On**: Project CLAUDE.md actual practices
+**Version**: 2.1.0 | **Ratified**: 2025-10-03 | **Last Amended**: 2025-10-05 | **Based On**: Project CLAUDE.md actual practices with Domain Analyst Framework
