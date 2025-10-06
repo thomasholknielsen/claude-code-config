@@ -159,7 +159,7 @@ claude /workflows:run-docs-workflow
 ├── agents/                    # Agent Specialist definitions
 │   ├── analysis-specialists/  # Strategic analysis agents
 │   └── execution-specialists/ # Domain expertise agents
-├── commands/                 # 54 organized commands
+├── commands/                 # Organized slash commands
 │   ├── analyze/, clean/, docs/, fix/, git/
 │   ├── review/, spec-kit/, workflows/
 │   └── [11 other categories]
