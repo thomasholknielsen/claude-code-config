@@ -48,7 +48,11 @@ The Claude Code Command System provides development automation through domain an
 **Testing/Accessibility:** testing-analyst, accessibility-analyst
 **Documentation/Data:** documentation-analyst, database-analyst, frontend-analyst
 
+<<<<<<< Updated upstream
 **Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary with task counts (context elision)
+=======
+**Pattern**: Conduct comprehensive research → persist detailed findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary (context elision)
+>>>>>>> Stashed changes
 
 ### Agent Coordination
 
@@ -67,6 +71,7 @@ The Claude Code Command System provides development automation through domain an
 
 ## 📦 Context Management System
 
+<<<<<<< Updated upstream
 **Directory Structure**:
 
 ```text
@@ -79,9 +84,22 @@ The Claude Code Command System provides development automation through domain an
 ```
 
 **Required:** All domain analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
+=======
+**Required:** All domain analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
+
+**Path Strategy**: Project-local context storage in `{project_root}/.agent/context/`
+- Context files are stored within each project's `.agent/` directory
+- Enables project-specific analysis without cross-project pollution
+- Session isolation prevents context collision between concurrent analyses
+
+**Naming Pattern**: `{session-id}/{agent-name}.md`
+
+**Example**: `abc123/performance-analyst.md`
+>>>>>>> Stashed changes
 
 **Session Commands**:
 
+<<<<<<< Updated upstream
 - Get session ID: `python3 ~/.claude/.agent/scripts/session_manager.py current`
 - Get context directory: `python3 ~/.claude/.agent/scripts/session_manager.py context_dir`
 - Initialize session: `python3 ~/.claude/.agent/scripts/session_manager.py init [topic]`
@@ -93,6 +111,9 @@ The Claude Code Command System provides development automation through domain an
 **Why:** Enables multi-analyst coordination, incremental updates, and clean organization without context pollution
 
 **Main Thread Responsibility**: After executing agent recommendations, update context file's "Main Thread Log" section with completion status
+=======
+**Session ID**: Agents obtain current session ID via: `python3 ~/.claude/.agent/scripts/session_manager.py current`
+>>>>>>> Stashed changes
 
 ## 🚀 Parallel Research Pattern
 

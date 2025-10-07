@@ -20,15 +20,19 @@ Reapply cross-repository path modifications to spec-kit commands if they are ove
 
 ## Process
 
-1. Read all 6 spec-kit command files (specify, plan, tasks, clarify, analyze, implement)
-2. For each file, check current path references
-3. Apply modifications:
+1. **Check Command Files**: Read all 6 spec-kit command files (specify, plan, tasks, clarify, analyze, implement)
+2. **Check Script Files**: Read all spec-kit script files for internal template path references
+3. **Verify Path References**: For each file, check current path references
+4. **Apply Command Modifications**:
    - Replace `.specify/scripts/bash/` with `~/.claude/.specify/scripts/bash/`
    - Replace `.specify/templates/` with `~/.claude/.specify/templates/`
    - Leave `.specify/memory/` unchanged (project-specific constitution)
-4. If `--verify-only` flag is set: Report status without making changes
-5. Otherwise: Apply modifications and report results
-6. Display summary of files checked and modified
+5. **Apply Script Modifications**:
+   - Replace `$REPO_ROOT/.specify/templates/` with `$HOME/.claude/.specify/templates/`
+   - Ensure scripts reference global templates, not project-local ones
+6. **Report Results**: If `--verify-only` flag is set, report status without making changes
+7. **Apply Changes**: Otherwise, apply modifications and report results
+8. **Display Summary**: Show files checked and modified
 
 ## Modification Pattern
 
@@ -42,6 +46,16 @@ Reapply cross-repository path modifications to spec-kit commands if they are ove
 - Constitution: `.specify/memory/constitution.md`
 - Specification files: `.specify/spec.md`, `plan.md`, `tasks.md`, etc.
 - Contracts and other project artifacts: `.specify/contracts/*`, etc.
+
+## Script Internal Path Corrections
+
+**Files that require internal template path updates:**
+
+- `~/.claude/.specify/scripts/bash/create-new-feature.sh`
+- `~/.claude/.specify/scripts/bash/setup-plan.sh`
+- `~/.claude/.specify/scripts/bash/update-agent-context.sh`
+
+**Pattern**: Replace `$REPO_ROOT/.specify/templates/` with `$HOME/.claude/.specify/templates/` to ensure scripts use global templates rather than project-local paths.
 
 ## Rationale
 

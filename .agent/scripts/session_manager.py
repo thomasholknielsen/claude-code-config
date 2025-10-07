@@ -1,19 +1,28 @@
 #!/usr/bin/env python3
 """
 Session Manager for Claude Code
+<<<<<<< Updated upstream
 Cross-platform session ID generation and management with context directory support
 """
 
 from datetime import datetime
+=======
+Cross-platform session ID generation and management
+"""
+
+>>>>>>> Stashed changes
 from pathlib import Path
 import sys
 import uuid
 
 
+<<<<<<< Updated upstream
 # Constants
 SESSION_ID_LENGTH = 8  # Length of generated session IDs (first 8 chars of UUID)
 
 
+=======
+>>>>>>> Stashed changes
 def get_session_file():
     """Get path to session file (cross-platform)"""
     claude_dir = Path.home() / ".claude"
@@ -21,6 +30,7 @@ def get_session_file():
     return claude_dir / ".current_session"
 
 
+<<<<<<< Updated upstream
 def get_context_base_dir():
     """Get base context directory (cross-platform)"""
     context_dir = Path.home() / ".claude" / ".agent" / "context"
@@ -37,6 +47,11 @@ def get_session_context_dir(session_id):
 def generate_session_id():
     """Generate a short, unique session ID"""
     return str(uuid.uuid4())[:SESSION_ID_LENGTH]
+=======
+def generate_session_id():
+    """Generate a short, unique session ID"""
+    return str(uuid.uuid4())[:8]
+>>>>>>> Stashed changes
 
 
 def current_session():
@@ -66,6 +81,7 @@ def new_session(topic=None):
     return session_id
 
 
+<<<<<<< Updated upstream
 def init_session(topic=None):
     """Initialize a new session with context directory and session metadata file"""
     session_id = current_session()
@@ -149,6 +165,12 @@ def main():
     """Main entry point"""
     if len(sys.argv) < 2:
         print("Usage: session_manager.py [current|new [topic]|init [topic]|context_dir|list_agents|archive]")
+=======
+def main():
+    """Main entry point"""
+    if len(sys.argv) < 2:
+        print("Usage: session_manager.py [current|new [topic]]")
+>>>>>>> Stashed changes
         sys.exit(1)
 
     command = sys.argv[1]
@@ -158,6 +180,7 @@ def main():
     elif command == "new":
         topic = sys.argv[2] if len(sys.argv) > 2 else None
         new_session(topic)
+<<<<<<< Updated upstream
     elif command == "init":
         topic = sys.argv[2] if len(sys.argv) > 2 else None
         init_session(topic)
@@ -170,6 +193,11 @@ def main():
     else:
         print(f"Unknown command: {command}")
         print("Usage: session_manager.py [current|new [topic]|init [topic]|context_dir|list_agents|archive]")
+=======
+    else:
+        print(f"Unknown command: {command}")
+        print("Usage: session_manager.py [current|new [topic]]")
+>>>>>>> Stashed changes
         sys.exit(1)
 
 

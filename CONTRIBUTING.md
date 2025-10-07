@@ -124,12 +124,18 @@ complexity: "simple|moderate|complex"
 # Install markdownlint-cli globally
 npm install -g markdownlint-cli
 
-# Run markdownlint on all markdown files
-markdownlint "**/*.md" --ignore node_modules --config .markdownlint.yml
+# Run markdownlint on docs directory only
+markdownlint "docs/**/*.md" --config .markdownlint.yml
 
+<<<<<<< Updated upstream
 # Auto-fix basic markdown formatting issues
 markdownlint "**/*.md" --fix --ignore node_modules --config .markdownlint.yml
 ```
+=======
+# Auto-fix basic markdown formatting issues in docs
+markdownlint "docs/**/*.md" --fix --config .markdownlint.yml
+```text
+>>>>>>> Stashed changes
 
 ### Python Linting (for hook scripts)
 

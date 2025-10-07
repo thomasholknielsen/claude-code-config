@@ -44,8 +44,7 @@ repos:
       - id: markdownlint
         name: markdownlint (auto-fix)
         args: ["--fix", "--config", ".markdownlint.yml"]
-        files: \.md$
-        exclude: ^(CHANGELOG\.md|\.github/|\.specify/|commands/spec-kit/|templates/)
+        files: ^docs/.*\.md$
 
   # Python code formatting and linting with Ruff
   - repo: https://github.com/astral-sh/ruff-pre-commit
