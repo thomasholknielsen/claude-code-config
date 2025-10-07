@@ -36,26 +36,14 @@ This document provides realistic workflow patterns using the Claude Code Command
 - `/git:branch`, `/git:commit`, `/git:push`, `/git:pr`
 - `/git:merge`, `/git:worktree`, `/git:worktree-consolidate`
 
-**Review (1)**: Intelligent code review
+**Development Commands**: See `docs/command-decision-guide.md` for complete catalog
 
-- `/review:code [path] [--focus=area]` - Orchestrates multiple analysts based on context
-
-**Refactor (2)**: Code improvement
-
-- `/refactor:apply [path] [--type=type]` - Atomic refactorings (rename, extract, simplify, remove-duplication)
-- `/refactor:large-scale` - Comprehensive restructuring with analysts
-
-**Fix (2)**: Bug resolution
-
-- `/fix:bug-quickly [issue]` - Rapid bug diagnosis and fix
-- `/fix:import-statements` - Fix broken imports after file moves
-
-**Domain Analysts (15)**: Direct invocation for specialized analysis
+**Domain Analysts**: 16 specialized analysts for comprehensive analysis
 
 - research-analyst, quality-analyst, architecture-analyst
 - security-analyst, performance-analyst, testing-analyst
 - accessibility-analyst, documentation-analyst, database-analyst
-- frontend-analyst, react-analyst, typescript-analyst, python-analyst, api-analyst, refactoring-analyst
+- frontend-analyst, react-analyst, typescript-analyst, python-analyst, api-analyst, refactoring-analyst, shadcn-analyst
 
 ---
 
@@ -65,16 +53,16 @@ This document provides realistic workflow patterns using the Claude Code Command
 
 ```mermaid
 graph TD
-    A[1. Make Changes] --> B[2. Local Review<br/>3-5 min]
+    A[1. Make Changes] --> B[2. Local Review]
     B --> C{Critical/High<br/>Issues?}
-    C -->|Yes| D[3. Fix Issues<br/>5-10 min]
-    C -->|No| E[4. Lint & Format<br/>2-3 min]
+    C -->|Yes| D[3. Fix Issues]
+    C -->|No| E[4. Lint & Format]
     D --> E
-    E --> F[5. Run Tests<br/>1-2 min]
+    E --> F[5. Run Tests]
     F --> G{Tests Pass?}
     G -->|No| D
-    G -->|Yes| H[6. Commit & PR<br/>2-3 min]
-    H --> I[Clean PR Ready<br/>Team review: 5 min]
+    G -->|Yes| H[6. Commit & PR]
+    H --> I[Clean PR Ready]
 
     style I fill:#90EE90
     style C fill:#FFE4B5
@@ -85,40 +73,40 @@ graph TD
 # 1. Make your changes
 → Write code, fix bugs, implement features
 
-# 2. Local PR review (3-5 min)
+# 2. Local PR review (quick analysis)
 /workflows:run-comprehensive-review
 → Spawns multiple analysts in parallel
 → Returns findings: Critical, High, Medium, Low
 
-# 3. Fix review findings (5-10 min)
+# 3. Fix review findings
 → Address all Critical and High priority issues
 → Document or defer Medium/Low issues
 
-# 4. Lint and format (2-3 min)
+# 4. Lint and format (quick)
 /workflows:run-lint-and-correct-all
 → Auto-detects languages (Python, TypeScript, etc.)
 → Runs formatters in parallel (ruff, eslint, prettier)
-→ Auto-fixes 90% of style issues
+→ Auto-fixes most style issues
 
-# 5. Run tests (1-2 min)
+# 5. Run tests (quick validation)
 npm test  # or pytest, cargo test, etc.
 → Verify nothing broke
 
-# 6. Commit and push (2-3 min)
+# 6. Commit and push (quick)
 /git:full-workflow <branch-name>
 → Creates branch, commits, pushes, creates PR
-→ PR is clean - team review takes 5 min vs 30 min
+→ PR is clean - team review is significantly faster
 ```
 
-**Total Time**: 13-23 min per commit
-**Team Review Time**: 5 min (vs 30 min without local review)
-**PR Iterations**: 1-2 rounds (vs 4-5 rounds without local review)
+**Total Time**: Moderate time investment per commit
+**Team Review Time**: Significantly faster than without local review
+**PR Iterations**: Substantially fewer rounds needed
 
 ---
 
 ## Bug Fix Workflow
 
-### Realistic Timeline: much longer
+### Workflow Pattern: Investigation → Fix → Review → Lint → Commit
 
 ```mermaid
 sequenceDiagram
@@ -131,90 +119,90 @@ sequenceDiagram
     Dev->>Fix: "login form validation broken"
     Fix->>Fix: Invoke quality-analyst + testing-analyst (parallel)
     Fix->>Dev: Root cause identified + fix applied
-    Note over Dev,Fix: 5-8 min
+    Note over Dev,Fix: Quick diagnosis
 
     Dev->>Review: Run comprehensive review
     Review->>Review: Spawn multiple analysts in parallel
-    Review->>Dev: "2 medium issues in validation logic"
-    Note over Dev,Review: 3-5 min
+    Review->>Dev: "Issues found in validation logic"
+    Note over Dev,Review: Quick parallel analysis
 
-    Dev->>Dev: Fix 2 medium issues
-    Note over Dev: 3-5 min
+    Dev->>Dev: Fix identified issues
+    Note over Dev: Targeted fixes
 
     Dev->>Lint: Auto-fix formatting
-    Lint->>Dev: 23 issues fixed
-    Note over Dev,Lint: 2-3 min
+    Lint->>Dev: Style issues fixed
+    Note over Dev,Lint: Quick
 
     Dev->>Dev: npm test (validate)
-    Note over Dev: 1-2 min
+    Note over Dev: Quick validation
 
     Dev->>Git: fix-login-validation
     Git->>Dev: PR created & clean
-    Note over Dev,Git: 2-3 min
+    Note over Dev,Git: Quick
 ```
 
 ```bash
-# Step 1: Investigate and fix (5-8 min)
+# Step 1: Investigate and fix (quick)
 /fix:bug-quickly "login form validation not working"
 → Main thread invokes quality-analyst + testing-analyst in parallel
 → Identifies root cause
 → Applies fix with tests
 
-# Step 2: Local PR review BEFORE committing (3-5 min)
+# Step 2: Local PR review BEFORE committing (quick parallel analysis)
 /workflows:run-comprehensive-review
 → Parallel analysis: quality, security, performance, testing
-→ Returns: "2 medium issues found in validation logic"
+→ Returns: Issues found in validation logic
 
-# Step 3: Fix review findings (3-5 min)
-→ Address the 2 medium issues
+# Step 3: Fix review findings
+→ Address the identified issues
 
-# Step 4: Lint and format (2-3 min)
+# Step 4: Lint and format (quick)
 /workflows:run-lint-and-correct-all
 → Auto-fixes formatting inconsistencies
 
-# Step 5: Validate (1-2 min)
+# Step 5: Validate (quick)
 npm test
 → All tests pass
 
-# Step 6: Commit and create PR (2-3 min)
+# Step 6: Commit and create PR (quick)
 /git:full-workflow fix-login-validation
 → Branch created, committed, pushed, PR created
 → PR URL: https://github.com/org/repo/pull/123
 ```
 
-**Result**: Clean PR, fast team review (5 min vs 30 min)
+**Result**: Clean PR, significantly faster team review
 
 ---
 
 ## Feature Development Workflow
 
-### Realistic Timeline: 60-90 minutes
+### Workflow Pattern: Research → Implement → Review → Refine → Commit
 
 ```mermaid
 graph TD
-    A[Research 5-8min] --> B[Implementation 30-40min]
-    B --> C[Local PR Review 5-8min]
-    C --> D[Fix Findings 10-15min]
-    D --> E[Lint 2-3min]
-    E --> F[Validate 2-3min]
-    F --> G[Git Workflow 2-3min]
+    A[Research Phase<br/>Parallel] --> B[Implementation<br/>Sequential]
+    B --> C[Local PR Review<br/>Parallel]
+    C --> D[Fix Findings<br/>Targeted]
+    D --> E[Lint & Format<br/>Quick]
+    E --> F[Validate<br/>Quick]
+    F --> G[Git Workflow<br/>Quick]
     G --> H[PR Created - Clean Code]
 ```
 
-### Phase 1: Research & Planning (5-8 min, parallel)
+### Phase 1: Research & Planning (parallel execution for speed)
 
-```python
+```bash
 # Spawn multiple analysts concurrently
 Task("research-analyst: Research authentication best practices and security requirements")
 Task("frontend-analyst: Analyze existing auth UI patterns")
 Task("database-analyst: Review schema design for user credentials")
 
-→ All run in parallel (5-8 min vs 20-30 min sequential)
-→ Persist findings to .artifacts/context/*.md
-→ Return 2-3 sentence summaries
+→ All run in parallel (significantly faster than sequential execution)
+→ Persist findings to .agent/context/*.md
+→ Return concise summaries
 ```
 
-### Phase 2: Implementation (30-40 min, sequential)
+### Phase 2: Implementation (sequential, structured)
 
 ```bash
 # Structured development with spec-kit
@@ -231,7 +219,7 @@ Task("database-analyst: Review schema design for user credentials")
 → Executes tasks with quality validation
 ```
 
-### Phase 3: Local PR Review (5-8 min, parallel) ⭐
+### Phase 3: Local PR Review (parallel analysis) ⭐
 
 ```bash
 # Review BEFORE committing - catches issues early
@@ -246,19 +234,19 @@ Task("database-analyst: Review schema design for user credentials")
   - accessibility-analyst (WCAG compliance)
 
 → Returns unified report:
-  "12 issues found: 2 critical, 5 medium, 5 minor"
+  "Issues found across multiple dimensions"
 ```
 
-### Phase 4: Address Review Findings (10-15 min)
+### Phase 4: Address Review Findings (targeted fixes)
 
 ```bash
-# Fix critical and medium issues
-→ Fix the 7 critical/medium issues identified
-→ Document why minor issues are deferred (or fix them)
+# Fix critical and high priority issues
+→ Fix identified critical/high priority issues
+→ Document why lower priority issues are deferred (or fix them)
 → Re-run review if major changes made
 ```
 
-### Phase 5: Lint and Format (2-3 min) ⭐
+### Phase 5: Lint and Format (quick) ⭐
 
 ```bash
 /workflows:run-lint-and-correct-all
@@ -268,10 +256,10 @@ Task("database-analyst: Review schema design for user credentials")
   - Python: ruff format + ruff check --fix
   - TypeScript: eslint --fix + prettier
   - Other: language-specific formatters
-→ Auto-fixes 23 formatting issues
+→ Auto-fixes style issues
 ```
 
-### Phase 6: Final Validation (2-3 min)
+### Phase 6: Final Validation (quick)
 
 ```bash
 # Verify everything works after fixes + linting
@@ -279,7 +267,7 @@ npm test       # or pytest, cargo test, etc.
 npm run build  # verify build succeeds
 ```
 
-### Phase 7: Git Workflow (2-3 min)
+### Phase 7: Git Workflow (quick)
 
 ```bash
 /git:full-workflow feature-auth-system
@@ -291,62 +279,62 @@ npm run build  # verify build succeeds
 → Returns: https://github.com/org/repo/pull/456
 ```
 
-**Total Time**: 60-90 min
-**Team Review Time**: 5 min (vs 30 min without local review)
+**Total Time**: Moderate to substantial development time
+**Team Review Time**: Significantly faster than without local review
 **Why**: PR is already clean - you caught issues locally
 
 ---
 
 ## Refactoring Workflow
 
-### Quick Refactoring (10-15 min)
+### Quick Targeted Refactoring
 
 ```bash
-# Step 1: Apply atomic refactoring (3-5 min)
+# Step 1: Apply targeted refactoring (quick)
 /refactor:apply src/ --type=remove-duplication
 → Invokes refactoring-analyst to identify duplication
 → Applies DRY principles
 → Extracts shared code
 
-# Step 2: Review refactored code (3-5 min)
+# Step 2: Review refactored code (quick parallel analysis)
 /workflows:run-comprehensive-review
 → Verify refactoring improved quality
 → Check complexity metrics
 
-# Step 3: Lint (2-3 min)
+# Step 3: Lint (quick)
 /workflows:run-lint-and-correct-all
 → Ensure consistent formatting
 
-# Step 4: Validate (1-2 min)
+# Step 4: Validate (quick)
 npm test
 → Verify behavior preserved
 
-# Step 5: Commit (2-3 min)
+# Step 5: Commit (quick)
 /git:full-workflow refactor-remove-duplication
 ```
 
-### Large-Scale Refactoring (30-45 min, parallel)
+### Comprehensive Large-Scale Refactoring
 
 ```mermaid
 graph TD
-    A[Start Refactoring] --> B[Comprehensive Analysis<br/>quick parallel analysis PARALLEL]
+    A[Start Refactoring] --> B[Comprehensive Analysis<br/>Parallel]
     B --> C1[refactoring-analyst]
     B --> C2[quality-analyst]
     B --> C3[architecture-analyst]
     C1 --> D[Synthesize Findings]
     C2 --> D
     C3 --> D
-    D --> E[Apply Improvements<br/>15-20 min]
-    E --> F[Review Changes<br/>5-8 min]
-    F --> G[Lint & Validate<br/>5-8 min]
-    G --> H[Commit<br/>2-3 min]
+    D --> E[Apply Improvements<br/>Targeted]
+    E --> F[Review Changes<br/>Quick Parallel]
+    F --> G[Lint & Validate<br/>Quick]
+    G --> H[Commit<br/>Quick]
 
     style D fill:#FFE4B5
     style H fill:#90EE90
 ```
 
 ```bash
-# Step 1: Comprehensive analysis (quick parallel analysis, parallel)
+# Step 1: Comprehensive analysis (parallel execution)
 /workflows:run-refactor-workflow
 
 → Spawns 3 analysts concurrently:
@@ -356,169 +344,130 @@ graph TD
 → Main thread synthesizes findings
 → Applies improvements
 
-# Step 2: Review changes (5-8 min)
+# Step 2: Review changes (quick parallel analysis)
 /workflows:run-comprehensive-review
 → Verify improvements effective
 
-# Step 3: Lint and validate (5-8 min)
+# Step 3: Lint and validate (quick)
 /workflows:run-lint-and-correct-all
 npm test
 
-# Step 4: Commit (2-3 min)
+# Step 4: Commit (quick)
 /git:full-workflow refactor-architecture
 ```
 
-**Performance**: 40-50% faster than sequential
+**Performance**: Significantly faster than sequential analysis
 
 ---
 
 ## Daily Development Pattern
 
-### Morning: Feature Work
+### Morning: Feature Work Pattern
 
 ```mermaid
-gantt
-    title Morning Feature Development (53 min)
-    dateFormat HH:mm
-    axisFormat %H:%M
+graph LR
+    A[Implementation] --> B[Quality Gates]
+    B --> C[Delivery]
 
-    section Implementation
-    Write code                :08:00, 30m
-
-    section Quality Gates
-    Local review             :08:30, 5m
-    Fix findings             :08:35, 10m
-    Lint & format            :08:45, 3m
-    Run tests                :08:48, 2m
-
-    section Delivery
-    Commit & create PR       :08:50, 3m
+    subgraph "Quality Gates"
+        B1[Local Review] --> B2[Fix Findings]
+        B2 --> B3[Lint & Format]
+        B3 --> B4[Run Tests]
+    end
 ```
 
-```bash
-08:00 - Start implementation (30 min)
-       → Write code
+**Workflow Sequence:**
 
-08:30 - Local review (5 min)
-       /workflows:run-comprehensive-review
+1. **Implementation Phase**: Write code for feature
+2. **Quality Gate Phase**:
+   - Local comprehensive review
+   - Fix identified issues
+   - Lint and format
+   - Run tests
+3. **Delivery Phase**: Commit and create PR
 
-08:35 - Fix findings (10 min)
-       → Address issues
-
-08:45 - Lint (3 min)
-       /workflows:run-lint-and-correct-all
-
-08:48 - Test (2 min)
-       npm test
-
-08:50 - Commit & PR (3 min)
-       /git:full-workflow feature-xyz
-
-08:53 - Feature complete, clean PR created
-```
-
-### Afternoon: Bug Fixes
+### Afternoon: Bug Fix Pattern
 
 ```mermaid
-gantt
-    title Afternoon Bug Fix (28 min)
-    dateFormat HH:mm
-    axisFormat %H:%M
+graph LR
+    A[Investigation & Fix] --> B[Quality Gates]
+    B --> C[Delivery]
 
-    section Investigation & Fix
-    Fix bug                  :14:00, 10m
-
-    section Quality Gates
-    Local review             :14:10, 5m
-    Fix findings             :14:15, 5m
-    Lint & format            :14:20, 3m
-    Run tests                :14:23, 2m
-
-    section Delivery
-    Commit & create PR       :14:25, 3m
+    subgraph "Quality Gates"
+        B1[Local Review] --> B2[Fix Findings]
+        B2 --> B3[Lint & Format]
+        B3 --> B4[Run Tests]
+    end
 ```
 
-```bash
-14:00 - Fix bug (10 min)
-        /fix:bug-quickly "issue-123"
+**Workflow Sequence:**
 
-14:10 - Review (5 min)
-        /workflows:run-comprehensive-review
-
-14:15 - Fix findings (5 min)
-
-14:20 - Lint (3 min)
-        /workflows:run-lint-and-correct-all
-
-14:23 - Test (2 min)
-        npm test
-
-14:25 - Commit & PR (3 min)
-        /git:full-workflow fix-issue-123
-
-14:28 - Bug fixed, PR created
-```
+1. **Investigation & Fix Phase**: Use `/fix:bug-quickly`
+2. **Quality Gate Phase**: Same as feature work
+3. **Delivery Phase**: Commit and create PR
 
 ---
 
 ## Performance Analysis
 
-### Time Comparison: With vs Without Local Review
+### Workflow Comparison: With vs Without Local Review
 
 ```mermaid
-gantt
-    title Workflow Time Comparison
-    dateFormat X
-    axisFormat %M min
+graph TD
+    subgraph "Without Local Review"
+        A1[Commit] --> A2[Create PR]
+        A2 --> A3[Wait for team review<br/>Substantial time]
+        A3 --> A4[Address feedback]
+        A4 --> A5[Team re-review]
+        A5 --> A6[More feedback]
+        A6 --> A7[Final approval]
+    end
 
-    section Old Way (82 min)
-    Commit changes           :0, 5
-    Create PR               :5, 2
-    Wait for team review    :7, 30
-    Address feedback        :37, 15
-    Team re-review          :52, 15
-    More feedback           :67, 10
-    Final approval          :77, 5
+    subgraph "With Local Review"
+        B1[Local review<br/>Quick parallel] --> B2[Fix issues locally]
+        B2 --> B3[Lint & format<br/>Quick]
+        B3 --> B4[Run tests<br/>Quick]
+        B4 --> B5[Commit & PR<br/>Quick]
+        B5 --> B6[Team review<br/>Quick - code is clean]
+    end
 
-    section New Way (28 min)
-    Local review            :0, 5
-    Fix issues locally      :5, 10
-    Lint & format           :15, 3
-    Run tests               :18, 2
-    Commit & PR             :20, 3
-    Team review (clean)     :23, 5
+    style A7 fill:#FFB6C1
+    style B6 fill:#90EE90
 ```
 
-### Without Local Review + Linting (Old Way)
+### Without Local Review + Linting (Traditional Approach)
 
 ```text
-1. Commit changes                    5 min
-2. Create PR                         2 min
-3. Wait for team review             30 min
-4. Address PR feedback              15 min
-5. Team re-review                   15 min
-6. Address more feedback            10 min
-7. Final approval                    5 min
+1. Commit changes                    Quick
+2. Create PR                         Quick
+3. Wait for team review              Substantial time
+4. Address PR feedback               Moderate time
+5. Team re-review                    Substantial time
+6. Address more feedback             Moderate time
+7. Final approval                    Quick
 ────────────────────────────────────────
-Total: 82 min, 3-4 PR iterations
+Total: Substantial total time, multiple PR iterations
 ```
 
-### With Local Review + Linting (Current Best Practice)
+### With Local Review + Linting (Recommended Approach)
 
 ```text
-1. Local comprehensive review        5 min
-2. Fix issues locally               10 min
-3. Lint and format                   3 min
-4. Run tests                         2 min
-5. Commit and create PR              3 min
-6. Team review (code is clean)       5 min
+1. Local comprehensive review        Quick parallel analysis
+2. Fix issues locally                Targeted fixes
+3. Lint and format                   Quick
+4. Run tests                         Quick
+5. Commit and create PR              Quick
+6. Team review (code is clean)       Quick
 ────────────────────────────────────────
-Total: 28 min, 1 PR iteration
+Total: Moderate total time, minimal PR iterations
 ```
 
-**Time Savings**: 54 min (66% faster)
-**Quality**: Higher (issues caught earlier)
-**Team Efficiency**: 83% reduction in review time
+**Benefits**:
+
+- Substantially faster overall delivery
+- Higher code quality
+- Substantially reduced team review burden
+- Fewer PR iteration cycles
 
 ---
 
@@ -534,7 +483,7 @@ Total: 28 min, 1 PR iteration
 
 ✅ **ALWAYS fix critical/high priority issues**
 
-```bash
+```text
 → Fix all Critical issues (security, bugs)
 → Fix all High issues (performance, missing tests)
 → Document or defer Medium/Low issues
@@ -560,12 +509,13 @@ npm test  # or pytest, cargo test, etc.
 
 ### During Feature Development
 
-✅ Use parallel research for speed (5-8 min vs 20-30 min)
+✅ Use parallel research for speed
 
-```python
+```bash
 Task("analyst-1: research X")
 Task("analyst-2: research Y")
 Task("analyst-3: research Z")
+# Significantly faster than sequential execution
 ```
 
 ✅ Use spec-kit for structured development
@@ -576,7 +526,7 @@ Task("analyst-3: research Z")
 
 ✅ Review incrementally during development
 
-```bash
+```text
 # Don't wait until the end - review as you go
 ```
 
@@ -601,19 +551,19 @@ Task("analyst-3: research Z")
 
 ✅ Save review artifacts
 
-```bash
-→ Keep .artifacts/context/*.md for reference
+```text
+→ Keep .agent/context/*.md for reference
 ```
 
 ✅ Create tickets for deferred issues
 
-```bash
+```text
 → Track Medium/Low issues for future sprints
 ```
 
 ✅ Continuous improvement
 
-```bash
+```text
 → Learn from review findings
 → Update team standards
 → Share positive patterns
@@ -668,8 +618,8 @@ graph LR
 
 ### Pattern 2: Parallel Research → Sequential Implementation
 
-```python
-# Research phase (parallel)
+```bash
+# Research phase (parallel - significantly faster)
 Task("research-analyst: ...")
 Task("security-analyst: ...")
 Task("performance-analyst: ...")
@@ -683,10 +633,10 @@ Task("performance-analyst: ...")
 
 ```bash
 # After major milestone 1
-/review:code src/auth --focus=security
+/workflows:run-comprehensive-review --focus=security
 
 # After major milestone 2
-/review:code src/api --focus=performance
+/workflows:run-comprehensive-review --focus=performance
 
 # Before commit (comprehensive)
 /workflows:run-comprehensive-review
@@ -700,7 +650,7 @@ Task("performance-analyst: ...")
 
 Instead of wrapper commands, invoke analysts directly:
 
-```python
+```bash
 # Security analysis
 Task("security-analyst: Analyze authentication for OWASP Top 10 vulnerabilities")
 
@@ -719,14 +669,14 @@ Task("quality-analyst: Assess code complexity and maintainability")
 
 ### Analyst Coordination Pattern
 
-```python
+```bash
 # Main thread spawns analysts in parallel
 Task("security-analyst: Authentication security review")
 Task("testing-analyst: Test coverage assessment")
 Task("documentation-analyst: API documentation completeness")
 
-→ All run concurrently (3-5 min)
-→ Each persists findings to .artifacts/context/*.md
+→ All run concurrently (significantly faster than sequential)
+→ Each persists findings to .agent/context/*.md
 → Main thread reads artifacts and synthesizes
 → Implementation proceeds with full context
 ```
@@ -737,38 +687,40 @@ Task("documentation-analyst: API documentation completeness")
 
 ### Small Bug Fix
 
-- **Without review**: 5 min (but PR takes 30 min team review)
-- **With review**: 15 min (but PR takes 5 min team review)
-- **Net result**: Same total time, higher quality
+- **Without review**: Quick implementation (but substantial team review time)
+- **With review**: Moderate implementation time (but quick team review)
+- **Net result**: Comparable total time, substantially higher quality
 
 ### Medium Feature
 
-- **Without review**: 40 min (but 3-4 PR iterations = 90 min total)
-- **With review**: 60 min (but 1 PR iteration = 65 min total)
-- **Net result**: 28% faster, higher quality
+- **Without review**: Moderate implementation (but multiple PR iterations required)
+- **With review**: Moderate to substantial implementation (but minimal PR iterations)
+- **Net result**: Faster overall delivery, higher quality
 
 ### Large Refactoring
 
-- **Without review**: 30 min (but risky, might break things)
-- **With review**: 45 min (but safe, validated)
-- **Net result**: 50% more time upfront, 90% fewer bugs
+- **Without review**: Faster implementation (but risky, potential issues)
+- **With review**: More thorough implementation (but safe, validated)
+- **Net result**: Additional upfront time investment, substantially fewer bugs
 
 ---
 
 ## The Honest Truth
 
-**Local review + linting adds 10-15 min per commit**
-**BUT it saves 20-40 min on PR review iterations**
+**Local review + linting adds moderate time per commit**
+**BUT it saves substantial time on PR review iterations**
 **AND it improves code quality significantly**
 **AND it reduces team frustration with back-and-forth**
 
-**Bottom line**: Invest 15 min locally, save 30 min on team review, ship higher quality code.
+**Bottom line**: Moderate local time investment, substantial team review savings, significantly higher quality code.
 
 ---
 
 ## Additional Resources
 
-- [Command Reference](./developer/command-reference.md)
-- [Agent Specialist Framework](./concepts/agent-framework.md)
-- [GitHub Automation](./github-automation.md)
-- [MCP Tool Assignment](./MCP-TOOL-ASSIGNMENT-MATRIX.md)
+- [Command Decision Guide](./command-decision-guide.md) - Choose the right command
+- [Workflow vs Atomic Commands](./workflow-vs-atomic-commands.md) - Understand complementary architecture
+- [Command Reference](./developer/command-reference.md) - Complete command catalog
+- [Agent Specialist Framework](./concepts/agent-specialist-framework.md) - Domain analyst patterns
+- [GitHub Automation](./github-automation.md) - Git integration
+- [MCP Tool Assignment](./MCP-TOOL-ASSIGNMENT-MATRIX.md) - External tool integration

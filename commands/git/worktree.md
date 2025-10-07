@@ -153,63 +153,6 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 /git:worktree add-multiple feature/auth feature/payments bugfix/header
 
 # Creates:
-# ../wt-auth/     (feature/auth branch)
-# ../wt-payments/ (feature/payments branch)
-# ../wt-header/   (bugfix/header branch)
-# Each worktree independent → separate PRs
-
-# List shows parallel mode worktrees
-/git:worktree list
-# [parallel] ../wt-auth (feature/auth)
-# [parallel] ../wt-payments (feature/payments)
-# [parallel] ../wt-header (bugfix/header)
-```
-
-### Staging Mode: Consolidated Work → Single PR
-
-```bash
-# Create staging branch + multiple child worktrees
-/git:worktree add-staging integration-q4 feature/auth feature/payments bugfix/header
-
-# Creates:
-# integration-q4 branch (staging branch)
-# ../wt-integration/      (integration-q4 base)
-# ../wt-integration-auth/ (integration-q4-auth branch)
-# ../wt-integration-pay/  (integration-q4-payments branch)
-# ../wt-integration-head/ (integration-q4-header branch)
-# All child worktrees branch from integration-q4
-
-# List shows staging structure
-/git:worktree list
-# [staging-parent] ../wt-integration (integration-q4)
-# [staging-child]  ../wt-integration-auth (integration-q4-auth)
-# [staging-child]  ../wt-integration-pay (integration-q4-payments)
-# [staging-child]  ../wt-integration-head (integration-q4-header)
-```
-
-### Workflow Decision Guide
-
-```bash
-# Use Parallel Mode when:
-# ✅ Changes are logically separate
-# ✅ Want clean history and atomic PRs
-# ✅ Need independent code review cycles
-/git:worktree add-multiple feature/login feature/dashboard feature/api
-
-# Use Staging Mode when:
-# ✅ Experimenting with related changes
-# ✅ Want to consolidate before review
-# ✅ Prefer single bundled PR over multiple small ones
-/git:worktree add-staging experiment-2024q4 feature/ui-refresh feature/new-flow feature/analytics
-```
-
-### Parallel Mode: Independent Branches → Multiple PRs (Default)
-
-```bash
-# Create multiple independent worktrees for parallel development
-/git:worktree add-multiple feature/auth feature/payments bugfix/header
-
-# Creates:
 # .trees/auth/     (feature/auth branch)
 # .trees/payments/ (feature/payments branch)
 # .trees/header/   (bugfix/header branch)
@@ -293,7 +236,6 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 ### General Operations
 
 - Validates repository state before all worktree operations
-
 - Ensures proper directory structure and permissions
 - Prevents conflicts between worktree branches
 - Provides clear feedback on worktree status and location

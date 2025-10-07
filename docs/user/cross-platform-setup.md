@@ -23,7 +23,7 @@ Complete setup instructions for Windows, macOS, and Linux systems, with troubles
 
    # Check Git installation
    git --version
-   ```bash
+   ```
 
 1. **Clone to Claude Directory**
 
@@ -36,7 +36,7 @@ Complete setup instructions for Windows, macOS, and Linux systems, with troubles
 
    # Clone repository (replace with actual repo URL)
    git clone <repository-url> .
-   ```yaml
+   ```
 
 1. **Set Execution Policy (if needed)**
 
@@ -73,14 +73,14 @@ New-Item -Path $profilePath -ItemType File -Force
 
 # Add alias (optional)
 Add-Content $profilePath 'Set-Alias claude "C:\Path\To\Claude.exe"'
-```text
+```
 
 **Environment Variables:**
 
 ```powershell
 # Set Claude root environment variable
 [Environment]::SetEnvironmentVariable("CLAUDE_ROOT", "$env:USERPROFILE\.claude", "User")
-```bash
+```
 
 ### macOS Setup
 
@@ -101,7 +101,7 @@ Add-Content $profilePath 'Set-Alias claude "C:\Path\To\Claude.exe"'
 
    # Check Git installation
    git --version
-   ```bash
+   ```
 
 1. **Install Prerequisites (if needed)**
 
@@ -159,7 +159,7 @@ echo 'alias claude-validate="python3 $CLAUDE_ROOT/scripts/validate_commands.py"'
 
 # Reload configuration
 source ~/.zshrc
-```text
+```
 
 **For Bash Users:**
 
@@ -167,7 +167,7 @@ source ~/.zshrc
 # Add to ~/.bash_profile
 echo 'export CLAUDE_ROOT="$HOME/.claude"' >> ~/.bash_profile
 source ~/.bash_profile
-```bash
+```
 
 ### Linux Setup
 
@@ -185,7 +185,7 @@ source ~/.bash_profile
    ```bash
    sudo apt update
    sudo apt upgrade -y
-   ```bash
+   ```
 
 1. **Install Prerequisites**
 
@@ -237,7 +237,7 @@ sudo yum install python3 python3-pip git -y
 sudo dnf install python3 python3-pip git -y
 
 # Follow same steps as Ubuntu/Debian
-```text
+```
 
 #### Arch Linux
 
@@ -246,7 +246,7 @@ sudo dnf install python3 python3-pip git -y
 sudo pacman -S python git
 
 # Follow same steps as Ubuntu/Debian
-```yaml
+```
 
 ## Cross-Platform Troubleshooting
 
@@ -265,7 +265,7 @@ $env:PATH += ";C:\Users\$env:USERNAME\AppData\Local\Programs\Python\Python39"
 
 # Or use Chocolatey
 choco install python
-```text
+```
 
 **macOS Solution:**
 
@@ -277,7 +277,7 @@ brew install python
 brew install pyenv
 pyenv install 3.9.7
 pyenv global 3.9.7
-```text
+```
 
 **Linux Solution:**
 
@@ -288,7 +288,7 @@ sudo apt install python3.9 python3.9-pip
 # CentOS/RHEL (enable EPEL first)
 sudo yum install epel-release
 sudo yum install python39 python39-pip
-```text
+```
 
 #### 2. Permission Denied Errors
 
@@ -305,7 +305,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Alternative: Run Python directly
 python scripts\validate_commands.py
-```text
+```
 
 **macOS/Linux Solution:**
 
@@ -319,7 +319,7 @@ ls -la scripts/
 
 # Fix ownership if needed
 sudo chown -R $(whoami):$(whoami) ~/.claude
-```text
+```
 
 #### 3. Path Issues
 
@@ -337,7 +337,7 @@ Test-Path "$env:USERPROFILE\.claude"
 
 # Use forward slashes in Python scripts
 python scripts/validate_commands.py --claude-root "$env:USERPROFILE/.claude"
-```text
+```
 
 **macOS/Linux Solution:**
 
@@ -351,7 +351,7 @@ ls -la "$CLAUDE_ROOT"
 
 # Use proper quoting for paths with spaces
 python3 scripts/validate_commands.py --claude-root "$HOME/.claude"
-```text
+```
 
 #### 4. Git Configuration Issues
 
@@ -372,7 +372,7 @@ git config --global core.autocrlf input
 
 # Test Git access
 git status
-```python
+```
 
 #### 5. Script Import/Module Issues
 
@@ -390,7 +390,7 @@ python3 -c "import sys; print(sys.path)"
 # Run from correct directory
 cd ~/.claude
 python3 scripts/validate_commands.py
-```text
+```
 
 ### Platform-Specific Optimizations
 
@@ -404,7 +404,7 @@ python3 scripts/validate_commands.py
 ```powershell
 # Add Claude directory to Windows Defender exclusions
 Add-MpPreference -ExclusionPath "$env:USERPROFILE\.claude"
-```javascript
+```
 
 #### macOS Performance Tips
 
@@ -413,7 +413,7 @@ Add-MpPreference -ExclusionPath "$env:USERPROFILE\.claude"
 
    ```bash
    xcode-select --install
-   ```javascript
+   ```
 
 1. **Use native Python** when possible
 1. **Configure spotlight exclusions**:
@@ -457,7 +457,7 @@ set CLAUDE_ROOT=%USERPROFILE%\.claude       # Windows
 
 export PYTHONPATH="$CLAUDE_ROOT/scripts:$PYTHONPATH"
 export PATH="$CLAUDE_ROOT/scripts:$PATH"
-```text
+```
 
 ### Shell Configuration
 
@@ -471,7 +471,7 @@ alias claude-fix="python3 $CLAUDE_ROOT/scripts/fix_command_templates.py"
 
 # Add to PATH for easy access
 export PATH="$CLAUDE_ROOT/scripts:$PATH"
-```text
+```
 
 #### Zsh (~/.zshrc)
 
@@ -483,7 +483,7 @@ alias claude-fix="python3 $CLAUDE_ROOT/scripts/fix_command_templates.py"
 
 # Auto-completion (if available)
 autoload -U compinit && compinit
-```text
+```
 
 #### PowerShell (Profile)
 
@@ -495,7 +495,7 @@ $env:CLAUDE_ROOT = "$env:USERPROFILE\.claude"
 Set-Alias claude-validate "python"
 function claude-validate { python "$env:CLAUDE_ROOT\scripts\validate_commands.py" $args }
 function claude-fix { python "$env:CLAUDE_ROOT\scripts\fix_command_templates.py" $args }
-```text
+```
 
 ## Advanced Cross-Platform Considerations
 
@@ -511,11 +511,11 @@ claude_root = Path.home() / '.claude'
 # Bad: Hardcoded separators
 claude_root = "~/.claude"  # Won't work on Windows
 claude_root = "~\.claude"  # Won't work on Unix
-```text
+```
 
 #### Case Sensitivity
 
-```bash
+```text
 # macOS and Windows are typically case-insensitive
 # Linux is case-sensitive
 
@@ -524,7 +524,7 @@ commands/analyze/dependencies.md
 
 # Bad: Inconsistent casing
 Commands/Analyze/Dependencies.md  # May work on some platforms, not others
-```text
+```
 
 #### Character Encoding
 
@@ -536,7 +536,7 @@ with open(file_path, 'r', encoding='utf-8') as f:
 # Bad: Platform-dependent encoding
 with open(file_path, 'r') as f:  # May use cp1252 on Windows
     content = f.read()
-```text
+```
 
 ### Terminal and Shell Differences
 
@@ -553,7 +553,7 @@ if platform.system() == 'Windows':
     cmd = ['python', 'script.py']
 else:
     cmd = ['python3', 'script.py']
-```text
+```
 
 #### Environment Variables
 
@@ -566,7 +566,7 @@ claude_root = Path(os.environ.get('CLAUDE_ROOT', Path.home() / '.claude'))
 
 # Bad: Platform-specific assumptions
 claude_root = os.environ['HOME'] + '/.claude'  # Fails on Windows
-```yaml
+```
 
 ## Testing Cross-Platform Compatibility
 

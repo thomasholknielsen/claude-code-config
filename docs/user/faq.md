@@ -87,7 +87,7 @@ python3 scripts/fix_command_templates.py
 
 # Validate after fixing
 python3 scripts/validate_commands.py
-```yaml
+```
 
 ## Security Questions
 
@@ -110,7 +110,7 @@ The system implements **Git operation constraints** for security:
 
 # Instead of: git checkout -b branch
 /git:branch "new-branch"
-```bash
+```
 
 ### What are MCP tools and are they safe
 
@@ -139,7 +139,7 @@ python3 hooks/security_enforcement.py --test-all
 
 # Check security logs
 tail ~/.claude/logs/security.log
-```yaml
+```
 
 ## Usage Questions
 
@@ -178,7 +178,7 @@ Yes, the Agent Orchestra enables:
 
 # Sequential workflow
 /analyze:potential-issues → /fix:bug-quickly → /review:code → /git:commit
-```python
+```
 
 ### Why do some commands take longer than others
 
@@ -260,7 +260,7 @@ python3 scripts/fix_command_templates.py
 
 # Check results
 python3 scripts/validate_commands.py
-```yaml
+```
 
 ### The system seems slow. How can I improve performance
 
@@ -284,7 +284,7 @@ chmod +x ~/.claude/scripts/*.py
 
 # Fix ownership
 sudo chown -R $(whoami):$(whoami) ~/.claude
-```text
+```
 
 **Windows:**
 
@@ -293,7 +293,7 @@ sudo chown -R $(whoami):$(whoami) ~/.claude
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Run as administrator if needed
-```bash
+```
 
 ### Documentation links are broken after updates. How to fix
 
@@ -325,7 +325,7 @@ Yes! Use for automated quality gates:
 
 - name: System Health Check
   run: python3 scripts/system_health_monitor.py
-```text
+```
 
 ### How do I customize the Agent Orchestra
 
@@ -349,7 +349,7 @@ cp -r ~/.claude ~/.claude.backup
 # Configuration only
 cp ~/.claude/settings.json ~/.claude.backup/
 cp -r ~/.claude/docs/custom/ ~/.claude.backup/
-```text
+```
 
 **Restore:**
 
@@ -359,7 +359,7 @@ cp ~/.claude.backup/settings.json ~/.claude/
 
 # Restore custom content
 cp -r ~/.claude.backup/docs/custom/ ~/.claude/docs/
-```text
+```
 
 ### How do I monitor system health continuously
 

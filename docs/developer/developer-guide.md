@@ -42,7 +42,7 @@ graph TB
     AnalysisSpecialists --> ExecutionSpecialists
     ExecutionSpecialists --> Commands
     Commands --> Hooks
-```python
+```
 
 ## Agent Specialist Framework
 
@@ -117,22 +117,20 @@ graph TB
 
 ```text
 commands/{category}/{command-name}.md
-```text
+```
 
 #### 2. Command Format
 
-```markdown
+````markdown
 # Command: {action-verb} {object}
 
 ## Purpose
 Single clear sentence describing what this command does.
 
 ## Usage
-```text
-
+```bash
 {command-name} [arguments]
-
-```yaml
+```
 
 ## Agent Integration
 - Primary agent: {agent-name}
@@ -143,7 +141,7 @@ Single clear sentence describing what this command does.
 
 ## Integration Points
 {How this connects to other commands}
-```yaml
+````
 
 #### 3. Naming Conventions
 
@@ -218,7 +216,7 @@ agents/{type}/{agent-name}.md
 
 ## Usage Patterns
 {Common workflows using this agent}
-```yaml
+```
 
 #### 4. Agent Constraints
 
@@ -253,7 +251,7 @@ def execute_hook():
 
 if __name__ == "__main__":
     execute_hook()
-```text
+```
 
 #### 3. Hook Registration (settings.json)
 
@@ -268,7 +266,7 @@ if __name__ == "__main__":
     }]
   }
 }
-```yaml
+```
 
 #### 4. Hook Best Practices
 
@@ -288,7 +286,7 @@ if __name__ == "__main__":
     "deny": ["Sensitive patterns"]
   }
 }
-```bash
+```
 
 #### 2. Git Operations Constraints
 
@@ -316,7 +314,7 @@ grep -E "^# Command:" commands/{category}/{command}.md
 
 # Test agent integration
 grep -E "Primary agent:" commands/{category}/{command}.md
-```text
+```
 
 #### 2. Agent Testing
 
@@ -329,7 +327,7 @@ grep -E "Model:" agents/{type}/{agent}.md
 
 # Test integration points
 grep -E "Commands:" agents/{type}/{agent}.md
-```yaml
+```
 
 #### 3. Integration Testing
 
@@ -353,7 +351,7 @@ grep -E "Commands:" agents/{type}/{agent}.md
 - **think**: Basic analysis and straightforward problem solving
 - **think hard**: Deep analysis, complex reasoning, multi-step problems
 - **ultra think**: Comprehensive planning, architectural decisions, complex debugging
-```text
+```
 
 ### Specialist Advisory Logic
 

@@ -9,6 +9,7 @@ commands/spec-kit/
 templates/
 
 # Gitignored directories containing markdown
+.agent/
 .claude/
 ide/
 logs/

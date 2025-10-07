@@ -10,16 +10,44 @@ from pathlib import Path
 import sys
 
 
-def get_script_dir():
-    """Get the directory where this script is located."""
+# Constants
+MAX_LOG_LINES = 15  # Maximum number of lines to include in log preview
+SEPARATOR_WIDTH = 80  # Width of separator line in log output
+
+
+def get_script_dir() -> Path:
+    """
+    Get the directory where this script is located.
+
+    Returns:
+        Path: Directory containing this script
+
+    Example:
+        >>> script_dir = get_script_dir()
+        >>> print(script_dir)
+        PosixPath('/Users/username/.claude/scripts')
+    """
     if "__file__" in globals():
         return Path(__file__).parent
     # Fallback to ~/.claude/scripts directory
     return Path.home() / ".claude" / "scripts"
 
 
-def get_logs_dir():
-    """Get the logs directory, creating it if it doesn't exist."""
+def get_logs_dir() -> Path:
+    """
+    Get the logs directory, creating it if it doesn't exist.
+
+    Returns:
+        Path: Logs directory path (~/.claude/logs or fallback)
+
+    Raises:
+        PermissionError: If directory cannot be created (handled internally with fallback)
+
+    Example:
+        >>> logs_dir = get_logs_dir()
+        >>> print(logs_dir.exists())
+        True
+    """
     logs_dir = Path.home() / ".claude" / "logs"
 
     # Create directory if it doesn't exist
@@ -33,27 +61,70 @@ def get_logs_dir():
         return fallback_dir
 
 
-def get_log_filename():
-    """Generate log filename for this year."""
+def get_log_filename() -> str:
+    """
+    Generate log filename for this year.
+
+    Returns:
+        str: Log filename in format "prompt-log-YYYY.log"
+
+    Example:
+        >>> filename = get_log_filename()
+        >>> print(filename)
+        'prompt-log-2025.log'
+    """
     year = datetime.now().strftime("%Y")
     return f"prompt-log-{year}.log"
 
 
-def sanitize_prompt(prompt_text):
-    """Sanitize prompt text for logging (remove sensitive patterns)."""
+def sanitize_prompt(prompt_text: str) -> str:
+    """
+    Sanitize prompt text for logging (only first MAX_LOG_LINES lines).
+
+    Args:
+        prompt_text: Raw user prompt text to sanitize
+
+    Returns:
+        str: Sanitized text with only printable characters and newlines, truncated to MAX_LOG_LINES
+
+    Example:
+        >>> sanitize_prompt("Hello\\x00World\\nLine2")
+        'HelloWorld\\nLine2'
+        >>> long_prompt = "\\n".join([f"Line {i}" for i in range(20)])
+        >>> result = sanitize_prompt(long_prompt)
+        >>> "TRUNCATED" in result
+        True
+    """
     # Basic sanitization - remove control characters but keep newlines
     sanitized = "".join(char for char in prompt_text if char.isprintable() or char in "\n\r\t")
 
-    # Limit length to prevent huge log entries
-    max_length = 10000
-    if len(sanitized) > max_length:
-        sanitized = sanitized[:max_length] + "... [TRUNCATED]"
+    # Limit to first MAX_LOG_LINES lines to prevent huge log entries
+    lines = sanitized.split("\n")
+    if len(lines) > MAX_LOG_LINES:
+        sanitized = "\n".join(lines[:MAX_LOG_LINES]) + f"\n... [TRUNCATED - showing first {MAX_LOG_LINES} lines only]"
+    else:
+        sanitized = "\n".join(lines)
 
     return sanitized
 
 
-def log_prompt(prompt_text):
-    """Log the user prompt to the yearly log file."""
+def log_prompt(prompt_text: str) -> tuple[bool, str]:
+    """
+    Log the user prompt to the yearly log file.
+
+    Args:
+        prompt_text: User prompt text to log
+
+    Returns:
+        tuple[bool, str]: Success status and message (True, "Logged to...") or (False, "Failed...")
+
+    Example:
+        >>> success, message = log_prompt("Test prompt")
+        >>> print(success)
+        True
+        >>> "Logged to" in message
+        True
+    """
     try:
         logs_dir = get_logs_dir()
         log_file = logs_dir / get_log_filename()
@@ -62,12 +133,12 @@ def log_prompt(prompt_text):
         sanitized_prompt = sanitize_prompt(prompt_text)
 
         # Create log entry
-        log_entry = f"[{timestamp}] USER PROMPT:\n{sanitized_prompt}\n{'=' * 80}\n\n"
+        log_entry = f"[{timestamp}] USER PROMPT:\n{sanitized_prompt}\n{'=' * SEPARATOR_WIDTH}\n\n"
 
         # Write to log file with UTF-8 encoding
         with log_file.open("a", encoding="utf-8", errors="replace") as f:
             f.write(log_entry)
-            f.flush()  # Ensure immediate write
+            # Context manager handles flush on close
 
         return True, f"Logged to {log_file}"
 
@@ -75,8 +146,21 @@ def log_prompt(prompt_text):
         return False, f"Failed to log prompt: {str(e)}"
 
 
-def parse_hook_input():
-    """Parse the input from Claude Code hook."""
+def parse_hook_input() -> tuple[str | None, str | None]:
+    """
+    Parse the input from Claude Code hook.
+
+    Returns:
+        tuple[str | None, str | None]: Parsed prompt text and error message (one will be None)
+
+    Example:
+        >>> # With JSON input: {"prompt": "Hello world"}
+        >>> prompt, error = parse_hook_input()
+        >>> print(prompt)
+        'Hello world'
+        >>> print(error)
+        None
+    """
     try:
         # Read all stdin
         input_data = sys.stdin.read().strip()

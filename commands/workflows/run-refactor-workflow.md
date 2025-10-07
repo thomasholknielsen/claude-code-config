@@ -1,6 +1,6 @@
 ---
 description: "Execute comprehensive refactoring workflow using parallel domain analysis to improve code quality, readability, and maintainability"
-allowed-tools: Task
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
 ---
 
 # Command: Run Refactor Workflow
@@ -42,7 +42,7 @@ Task("architecture-analyst: Review design patterns, identify structural improvem
 
 # Each analyst:
 # - Burns tokens on comprehensive refactoring domain analysis
-# - Persists findings to .artifacts/context/{domain}-analysis-{timestamp}.md
+# - Persists lean findings to .agent/context/{session-id}/{agent-name}.md
 # - Returns 2-3 sentence summary to main thread
 ```
 
@@ -50,9 +50,9 @@ Task("architecture-analyst: Review design patterns, identify structural improvem
 
 ```python
 # Read all analyst artifacts
-Read(.artifacts/context/refactoring-analysis-*.md)
-Read(.artifacts/context/quality-analysis-*.md)
-Read(.artifacts/context/architecture-analysis-*.md)
+Read(.agent/context/${session_id}/refactoring-analyst.md)
+Read(.agent/context/${session_id}/quality-analyst.md)
+Read(.agent/context/${session_id}/architecture-analyst.md)
 
 # Based on consolidated findings, implement refactoring:
 # 1. Apply quick refactoring patterns (common improvements)
@@ -93,7 +93,7 @@ Phase 1: Parallel Analysis (quick parallel analysis)
 → Task("quality-analyst: Analyze complexity and maintainability metrics")
 → Task("architecture-analyst: Review design patterns and structural improvements")
 
-Analysts complete concurrently (vs 12-18 minutes sequential)
+Analysts complete concurrently (significantly faster than sequential execution)
 
 Phase 2: Main Thread Synthesis
 → Consolidate findings from all analysts
@@ -105,9 +105,9 @@ Phase 2: Main Thread Synthesis
 
 Phase 3: Validation
 → All tests passing
-→ Complexity reduced: 15 → 8 (47% improvement)
-→ Duplication eliminated: 23 instances → 3
-→ Maintainability index improved: 65 → 82
+→ Complexity substantially reduced
+→ Duplication significantly eliminated
+→ Maintainability index notably improved
 → No functionality regressions
 ```
 
@@ -144,21 +144,21 @@ Phase 3: Validation
 
 ## Domain Analyst Outputs
 
-**refactoring-analyst** persists to `.artifacts/context/refactoring-analysis-{timestamp}.md`:
+**refactoring-analyst** persists to `.agent/context/refactoring-analysis-{timestamp}.md`:
 
 - Code smell identification and severity
 - Duplication detection with locations
 - Long method and complex conditional detection
 - Refactoring pattern recommendations
 
-**quality-analyst** persists to `.artifacts/context/quality-analysis-{timestamp}.md`:
+**quality-analyst** persists to `.agent/context/quality-analysis-{timestamp}.md`:
 
 - Cyclomatic complexity metrics by function
 - Maintainability index assessment
 - SOLID principles violation detection
 - Technical debt quantification
 
-**architecture-analyst** persists to `.artifacts/context/architecture-analysis-{timestamp}.md`:
+**architecture-analyst** persists to `.agent/context/architecture-analysis-{timestamp}.md`:
 
 - Design pattern opportunities
 - Structural improvement recommendations

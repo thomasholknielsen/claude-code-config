@@ -17,7 +17,7 @@
    ```bash
    git clone <repo-url> ~/.claude
    cd ~/.claude
-   ```bash
+   ```
 
 2. **Make scripts executable:**
 
@@ -151,7 +151,7 @@ claude /spec-kit:implement
 
 # Or quick implementation
 claude /implement "Add user authentication"
-```text
+```
 
 ### Code Quality
 
@@ -163,7 +163,7 @@ claude /workflows:run-comprehensive-review
 claude /review:security
 claude /review:code
 claude /clean:apply-style-rules
-```text
+```
 
 ### Bug Fixing
 

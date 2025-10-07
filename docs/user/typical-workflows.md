@@ -39,7 +39,7 @@ sequenceDiagram
         end
     end
     Claude-->>User: Present Results
-```text
+```
 
 ## Workflow Categories
 
@@ -77,7 +77,7 @@ flowchart TD
     S3 --> S4[/review:security]
     S4 --> S5[/docs:update]
     S5 --> Done2([Complex Feature Complete])
-```text
+```
 
 #### Full Spec-Kit Workflow
 
@@ -137,7 +137,7 @@ graph TB
     FixIssues --> Analyze
 
     Implement --> Done([Checkout Feature Complete])
-```text
+```
 
 ### 2. Code Quality Workflows
 
@@ -179,7 +179,7 @@ sequenceDiagram
     CW-->>Claude: Provide Fix Strategy
     Claude->>Claude: Prioritize and Execute Fixes
     Claude-->>User: Present Consolidated Results
-```text
+```
 
 #### Automated Cleanup Workflow
 
@@ -221,7 +221,7 @@ flowchart LR
     end
 
     Report --> Done([Cleanup Complete])
-```text
+```
 
 ### 3. Bug Fix Workflows
 
@@ -247,7 +247,7 @@ stateDiagram-v2
     Documentation --> [*]
 
     note right of QuickFix : Main thread handles\nentire fix process
-```text
+```
 
 #### Complex Bug Investigation
 
@@ -288,7 +288,7 @@ flowchart TD
     end
 
     F4 --> Verified[Bug Fixed & Documented]
-```text
+```
 
 ### 4. Documentation Workflows
 
@@ -326,7 +326,7 @@ sequenceDiagram
     Claude->>Claude: Generate markdown docs
     Claude->>Claude: Create interactive examples
     Claude-->>User: API docs generated
-```text
+```
 
 #### Comprehensive Documentation Update
 
@@ -365,7 +365,7 @@ graph LR
     V1 --> Complete([Documentation Updated])
     V2 --> Complete
     V3 --> Complete
-```text
+```
 
 ### 5. Deployment & Operations Workflows
 
@@ -403,7 +403,7 @@ flowchart TD
 
     Complete --> Notify[Send Success Notifications]
     Investigate --> Report[Generate Failure Report]
-```text
+```
 
 ### 6. Research & Analysis Workflows
 
@@ -438,7 +438,7 @@ mindmap
       Generate recommendations
       Create decision matrix
       Present options
-```text
+```
 
 #### Performance Analysis
 
@@ -474,7 +474,7 @@ sequenceDiagram
     Claude->>Claude: Identify Bottlenecks
     Claude->>Claude: Generate Optimization Recommendations
     Claude-->>User: Performance Insights & Recommendations
-```text
+```
 
 ## Workflow Selection Guide
 

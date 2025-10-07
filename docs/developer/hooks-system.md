@@ -40,7 +40,7 @@ sequenceDiagram
     S-->>H: Modified query
     H-->>C: Enhanced search query
     C->>C: Execute web search
-```text
+```
 
 ## Hook Types & Implementation
 
@@ -76,7 +76,7 @@ def log_prompt():
 
     except Exception as e:
         print(f"Logging error: {e}", file=sys.stderr)
-```text
+```
 
 **Configuration**:
 
@@ -91,7 +91,7 @@ def log_prompt():
     }]
   }
 }
-```text
+```
 
 ### 2. Stop Hook (Smart Notifications)
 
@@ -117,7 +117,7 @@ flowchart TD
     J --> L[Display macOS Notification]
     K --> L
     L --> M[Hook Complete]
-```text
+```
 
 **Implementation**:
 
@@ -163,7 +163,7 @@ def extract_completion_message():
     # Implementation extracts key completion details
     # Returns formatted message for notification
     pass
-```text
+```
 
 ### 3. PreToolUse Hook (Search Enhancement)
 
@@ -203,7 +203,7 @@ def should_add_year(query):
 def add_current_year(query, year):
     """Add current year to search query"""
     return f"{query} {year}"
-```text
+```
 
 ## Hook Development Patterns
 
@@ -220,7 +220,7 @@ flowchart LR
     D --> H[Hook Fails Safely]
     F --> H
     G --> F
-```yaml
+```
 
 **Security Guidelines**:
 
@@ -256,7 +256,7 @@ def hook_with_timeout():
         pass
     finally:
         signal.alarm(0)  # Cancel timeout
-```text
+```
 
 ### Error Handling Patterns
 
@@ -278,7 +278,7 @@ def log_error(message):
     error_log = os.path.expanduser('~/.claude/logs/hook-errors.log')
     with open(error_log, 'a') as f:
         f.write(f"[{datetime.now().isoformat()}] {message}\n")
-```yaml
+```
 
 ## Custom Hook Development
 
@@ -311,9 +311,9 @@ def handle_custom_event():
 
 if __name__ == "__main__":
     execute_custom_hook()
-```text
+```
 
-3. **Register in settings.json**:
+1. **Register in settings.json**:
 
 ```json
 {
@@ -326,9 +326,9 @@ if __name__ == "__main__":
     }]
   }
 }
-```text
+```
 
-4. **Test Hook Execution**:
+1. **Test Hook Execution**:
 
 ```bash
 # Make script executable
@@ -339,7 +339,7 @@ python ~/.claude/scripts/hooks/custom-hook.py
 
 # Test through Claude Code
 claude "test prompt"  # Should trigger hook
-```text
+```
 
 ### Hook Debugging
 
@@ -351,7 +351,7 @@ export CLAUDE_HOOK_DEBUG=1
 
 # View available environment variables in hooks
 env | grep CLAUDE_
-```text
+```
 
 **Common Debug Patterns**:
 
@@ -369,7 +369,7 @@ def debug_hook():
         debug_file = os.path.expanduser('~/.claude/logs/hook-debug.log')
         with open(debug_file, 'a') as f:
             f.write(f"{json.dumps(debug_info, indent=2)}\n")
-```text
+```
 
 ## Integration with Agent Orchestra
 
@@ -396,7 +396,7 @@ graph TB
     TO --> W1
     W1 --> H2
     H3 --> RO
-```yaml
+```
 
 **Hook-Aware Agents**:
 
@@ -421,7 +421,7 @@ graph TB
     }]
   }
 }
-```text
+```
 
 **Chain Hooks**:
 
@@ -441,7 +441,7 @@ def chain_hook():
         except Exception as e:
             print(f"Chain hook {hook_func} failed: {e}")
             break
-```bash
+```
 
 ## Troubleshooting
 

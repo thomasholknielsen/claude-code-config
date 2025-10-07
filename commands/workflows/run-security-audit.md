@@ -1,6 +1,6 @@
 ---
 description: "Execute comprehensive security audit using parallel domain analysis to identify vulnerabilities and ensure secure coding practices"
-allowed-tools: Task
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
 ---
 
 # Command: Run Security Audit
@@ -42,7 +42,7 @@ Task("database-analyst: Review database security including SQL injection prevent
 
 # Each analyst:
 # - Burns tokens on comprehensive security domain analysis
-# - Persists findings to .artifacts/context/{domain}-assessment-{timestamp}.md
+# - Persists lean findings to .agent/context/{session-id}/{agent-name}.md
 # - Returns 2-3 sentence summary with critical findings to main thread
 ```
 
@@ -50,9 +50,9 @@ Task("database-analyst: Review database security including SQL injection prevent
 
 ```python
 # Read all analyst artifacts
-Read(.artifacts/context/security-assessment-*.md)
-Read(.artifacts/context/api-analysis-*.md)
-Read(.artifacts/context/database-analysis-*.md)
+Read(.agent/context/${session_id}/security-analyst.md)
+Read(.agent/context/${session_id}/api-analyst.md)
+Read(.agent/context/${session_id}/database-analyst.md)
 
 # Consolidate findings and prioritize:
 # 1. Aggregate all vulnerabilities by CVSS score
@@ -92,12 +92,12 @@ Phase 1: Parallel Security Analysis (quick parallel analysis)
 → Task("api-analyst: API security and authentication review")
 → Task("database-analyst: SQL injection and database security analysis")
 
-Analysts complete concurrently (vs much longer sequential)
+Analysts complete concurrently (significantly faster than sequential execution)
 
 Phase 2: Main Thread Synthesis
 → Consolidate findings from all analysts
 → Aggregate vulnerabilities by CVSS score
-→ Prioritize by severity: 3 Critical, 7 High, 12 Medium
+→ Prioritize by severity (Critical, High, Medium, Low)
 → Generate remediation recommendations
 
 Phase 3: Validation
@@ -131,21 +131,21 @@ Phase 3: Validation
 
 **Traditional Sequential Approach:**
 
-- Security code review: 8-10 minutes
-- API security analysis: 4-6 minutes
-- Database security review: much faster concurrent execution
-- Total: 15-21 minutes
+- Security code review executed sequentially
+- API security analysis follows
+- Database security review completes last
+- Total execution time scales linearly
 
 **Parallel Analysis Approach:**
 
-- 3 analysts run concurrently: quick parallel analysis
-- Main thread synthesis: 1-2 minutes
-- Total: 4-6 minutes
-- **Performance Gain: 70-75% faster**
+- 3 analysts run concurrently (quick parallel analysis)
+- Main thread synthesis completes analysis
+- Execution time approaches slowest analyst (Amdahl's Law)
+- **Performance Gain: Substantially faster through concurrent execution**
 
 ## Domain Analyst Outputs
 
-**security-analyst** persists to `.artifacts/context/security-assessment-{timestamp}.md`:
+**security-analyst** persists to `.agent/context/security-assessment-{timestamp}.md`:
 
 - OWASP Top 10 vulnerability findings with CVSS scores
 - Authentication and authorization weaknesses
@@ -153,7 +153,7 @@ Phase 3: Validation
 - Security configuration problems
 - Threat model analysis
 
-**api-analyst** persists to `.artifacts/context/api-analysis-{timestamp}.md`:
+**api-analyst** persists to `.agent/context/api-analysis-{timestamp}.md`:
 
 - API endpoint authentication gaps
 - Input validation vulnerabilities
@@ -161,7 +161,7 @@ Phase 3: Validation
 - Rate limiting and throttling issues
 - API security best practices violations
 
-**database-analyst** persists to `.artifacts/context/database-analysis-{timestamp}.md`:
+**database-analyst** persists to `.agent/context/database-analysis-{timestamp}.md`:
 
 - SQL injection vulnerability locations
 - Parameterized query usage analysis

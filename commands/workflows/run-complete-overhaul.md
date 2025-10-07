@@ -1,6 +1,6 @@
 ---
 description: "Comprehensive codebase analysis through parallel domain specialist invocations covering all quality perspectives"
-allowed-tools: Task
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
 ---
 
 # Command: Run Complete Overhaul
@@ -63,7 +63,7 @@ Task("frontend-analyst: Analyze component architecture, assess state management,
 /workflows:run-complete-overhaul
 ```
 
-**Expected Outcome**: Parallel analysis across 10 domains (5-8 minutes), consolidated improvement roadmap with critical findings and prioritized action items.
+**Expected Outcome**: Quick parallel analysis across 10 domains, consolidated improvement roadmap with critical findings and prioritized action items.
 
 **Output Structure**:
 
@@ -71,7 +71,7 @@ Task("frontend-analyst: Analyze component architecture, assess state management,
 ## Complete Overhaul Analysis Summary
 
 **Analysis Scope**: 10 domain specialists (parallel execution)
-**Analysis Time**: 5-8 minutes
+**Analysis Time**: Quick concurrent execution
 **Overall Risk Level**: High (multiple critical findings)
 
 ### Critical Findings (Immediate Action)
@@ -80,14 +80,14 @@ Task("frontend-analyst: Analyze component architecture, assess state management,
 3. **Architecture** - Circular dependencies in 5 modules
 
 ### Improvement Roadmap (Prioritized by Impact)
-1. **Phase 1** (0-2 weeks): Critical security fixes + performance bottlenecks
-2. **Phase 2** (2-6 weeks): Architecture refactoring + code quality improvements
-3. **Phase 3** (1-3 months): Testing coverage + documentation + accessibility
+1. **Phase 1** (Immediate): Critical security fixes + performance bottlenecks
+2. **Phase 2** (Short-term): Architecture refactoring + code quality improvements
+3. **Phase 3** (Medium-term): Testing coverage + documentation + accessibility
 
 **Detailed Reports**:
-- `.artifacts/context/security-assessment-*.md`
-- `.artifacts/context/performance-analysis-*.md`
-- `.artifacts/context/architecture-analysis-*.md`
+- `.agent/context/{session-id}/security-analyst.md`
+- `.agent/context/{session-id}/performance-analyst.md`
+- `.agent/context/{session-id}/architecture-analyst.md`
 - [... 7 more domain-specific reports]
 ```
 
@@ -95,8 +95,8 @@ Task("frontend-analyst: Analyze component architecture, assess state management,
 
 - **Domain Analysts**: Leverages all 10 analysts for complete multi-perspective analysis
 - **Replaces**: Sequential workflow invocations with parallel analyst execution
-- **Performance**: 75-85% faster than sequential workflow approach
-- **Artifact Outputs**: All analysts persist detailed findings to `.artifacts/context/`
+- **Performance**: Significantly faster than sequential workflow approach
+- **Artifact Outputs**: All analysts persist lean, actionable findings to `.agent/context/{session-id}/`
 
 ## Dependencies
 
@@ -115,7 +115,7 @@ Task("frontend-analyst: Analyze component architecture, assess state management,
 
 ## Performance Notes
 
-- **Analysis Speed**: 75-85% faster than sequential approach (5-8 min vs 30-45 min)
-- **Parallel Tasks**: 10 concurrent analyst invocations (most comprehensive workflow)
+- **Analysis Speed**: Significantly faster through concurrent execution
+- **Parallel Tasks**: Multiple concurrent analyst invocations (most comprehensive workflow)
 - **Context Management**: Analysts persist detailed findings to artifacts, return concise summaries
 - **Synthesis Quality**: Main thread consolidates findings with risk-based prioritization

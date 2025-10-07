@@ -48,7 +48,11 @@ The Claude Code Command System provides development automation through domain an
 **Testing/Accessibility:** testing-analyst, accessibility-analyst
 **Documentation/Data:** documentation-analyst, database-analyst, frontend-analyst
 
-**Pattern**: Conduct comprehensive research → persist detailed findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` → return concise summary (context elision)
+<<<<<<< Updated upstream
+**Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary with task counts (context elision)
+=======
+**Pattern**: Conduct comprehensive research → persist detailed findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary (context elision)
+>>>>>>> Stashed changes
 
 ### Agent Coordination
 
@@ -56,7 +60,7 @@ The Claude Code Command System provides development automation through domain an
 
 **Slash Commands:** Absorb main thread capabilities (unless restricted), coordinate domain analysts (series/parallel), can daisy-chain ONE other command as final action (no post-processing)
 
-**Domain Analysts:** Must persist findings to `.agent/context/*.md`, cannot invoke other analysts or slash commands reliably
+**Domain Analysts:** Must persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md`, update incrementally if file exists, cannot invoke other analysts or slash commands reliably
 
 **System:** Changes to CLAUDE.md/commands/agents require Claude Code restart
 
@@ -65,17 +69,51 @@ The Claude Code Command System provides development automation through domain an
 **Default:** `model: inherit` (inherits from main thread)
 **Complex reasoning:** `model: opus` + `thinking: ultrathink` (architecture, system design only)
 
-## 📦 File-Persisted Memory
+## 📦 Context Management System
 
-**Required:** All domain analysts persist findings to `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
+<<<<<<< Updated upstream
+**Directory Structure**:
 
-**Naming Pattern**: `{YYYY-MM-DD}-{topic}-{sessionid}.md`
+```text
+.agent/context/
+└── {session-id}/
+    ├── session.md              # Session metadata and summary
+    ├── python-analyst.md       # One file per agent
+    ├── security-analyst.md
+    └── {agent-name}.md
+```
 
-**Example**: `2025-10-05-ui-refactoring-abc123.md`
+**Required:** All domain analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
+=======
+**Required:** All domain analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
 
-**Why:** Enables multi-analyst coordination without context pollution
+**Path Strategy**: Project-local context storage in `{project_root}/.agent/context/`
+- Context files are stored within each project's `.agent/` directory
+- Enables project-specific analysis without cross-project pollution
+- Session isolation prevents context collision between concurrent analyses
 
-**Session ID**: Agents obtain current session ID via: `python3 ~/.claude/.agents/scripts/session_manager.py current`
+**Naming Pattern**: `{session-id}/{agent-name}.md`
+
+**Example**: `abc123/performance-analyst.md`
+>>>>>>> Stashed changes
+
+**Session Commands**:
+
+<<<<<<< Updated upstream
+- Get session ID: `python3 ~/.claude/.agent/scripts/session_manager.py current`
+- Get context directory: `python3 ~/.claude/.agent/scripts/session_manager.py context_dir`
+- Initialize session: `python3 ~/.claude/.agent/scripts/session_manager.py init [topic]`
+- List agents invoked: `python3 ~/.claude/.agent/scripts/session_manager.py list_agents`
+- Archive session: `python3 ~/.claude/.agent/scripts/session_manager.py archive`
+
+**Lean Context Principle**: Context files must be scannable in <30 seconds - focus on actionable tasks, not verbose analysis
+
+**Why:** Enables multi-analyst coordination, incremental updates, and clean organization without context pollution
+
+**Main Thread Responsibility**: After executing agent recommendations, update context file's "Main Thread Log" section with completion status
+=======
+**Session ID**: Agents obtain current session ID via: `python3 ~/.claude/.agent/scripts/session_manager.py current`
+>>>>>>> Stashed changes
 
 ## 🚀 Parallel Research Pattern
 

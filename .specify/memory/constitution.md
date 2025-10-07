@@ -20,35 +20,42 @@ Follow-up TODOs: Update existing specs to reference v2.1.0
 The repository is built on the **Domain Analyst Framework** with 15 specialized domain analysts providing comprehensive advisory expertise:
 
 **Research Analyst (1):**
+
 - `research-analyst` - Conducts comprehensive sequential research across multiple domains and provides synthesized findings. Uses Context7 for framework documentation.
 
 **Domain Analysts (14):**
 
 **Framework/Technology Analysts:**
+
 - `react-analyst` - React patterns, hooks, state management, component design analysis
 - `typescript-analyst` - Type safety, generics, interface design, TypeScript best practices
 - `python-analyst` - Pythonic patterns, PEP 8 compliance, library best practices, type hints analysis
 - `api-analyst` - REST/GraphQL patterns, endpoint design, versioning strategies, contract validation
 
 **Code Quality & Architecture Analysts:**
+
 - `quality-analyst` - Complexity analysis, code smells detection, maintainability metrics, SOLID principles validation
 - `architecture-analyst` - SOLID principles, design patterns, system design recommendations (uses opus + ultrathink)
 - `refactoring-analyst` - Code smell detection, refactoring opportunities, design pattern recommendations, technical debt assessment
 
 **Security & Performance Analysts:**
+
 - `security-analyst` - OWASP Top 10 analysis, threat modeling, vulnerability detection, auth/authz review, mitigation strategies
 - `performance-analyst` - Bottleneck detection, optimization strategies, profiling recommendations, caching patterns, query optimization
 
 **Testing & Accessibility Analysts:**
+
 - `testing-analyst` - Test coverage assessment, test quality evaluation, edge case identification, testing strategy recommendations
 - `accessibility-analyst` - WCAG compliance assessment, ARIA pattern evaluation, keyboard navigation analysis, screen reader compatibility
 
 **Documentation & Data Analysts:**
+
 - `documentation-analyst` - Documentation completeness assessment, API documentation quality, comment effectiveness, knowledge gap identification
 - `database-analyst` - Schema design evaluation, query optimization, indexing strategies, migration assessment, database performance
 - `frontend-analyst` - Component architecture evaluation, state management patterns, bundle optimization, UI framework best practices
 
 **Usage Patterns:**
+
 - Research analyst for multi-domain sequential research and synthesized findings
 - Domain analysts for deep domain-specific analysis with context elision (conduct extensive research, return 2-3 sentence summaries)
 - All domain analysts persist findings to `.artifacts/context/{domain}-analysis-*.md` for main thread access
@@ -61,12 +68,14 @@ The repository is built on the **Domain Analyst Framework** with 15 specialized 
 All commands (except workflows) must be atomic, single-purpose operations:
 
 **Command Characteristics:**
+
 - Single, clear responsibility with predictable outcomes
 - Can be used directly by users or recommended by strategic specialists
 - Include integration points showing relationships to other commands
 - Follow standardized template structure with required sections
 
 **Workflow Commands Exception:**
+
 - Workflows orchestrate other atomic commands using SlashCommand tool
 - Use `task-orchestrator` agent instead of specialized agents
 - Document sequential execution strategy
@@ -78,12 +87,14 @@ All commands (except workflows) must be atomic, single-purpose operations:
 Features follow the spec-kit workflow when `.specify/` folder exists:
 
 **Required Artifacts:**
+
 - `spec.md` - User requirements and acceptance criteria (WHAT/WHY, not HOW)
 - `plan.md` - Technical design and implementation strategy
 - `tasks.md` - Ordered, dependency-aware task breakdown
 - `contracts/` - API and validation contracts
 
 **Clarification Protocol:**
+
 - Mark ambiguities as [NEEDS CLARIFICATION]
 - Run `/spec-kit:clarify` to resolve uncertainties before planning
 - Ensure requirements are testable and unambiguous
@@ -95,6 +106,7 @@ Features follow the spec-kit workflow when `.specify/` folder exists:
 All automation must work on macOS, Windows, and Linux:
 
 **Implementation Requirements:**
+
 - Use Python with `pathlib.Path` for all file operations
 - Use `Path.home()` for user directory references
 - No shell-specific scripts or commands
@@ -107,11 +119,13 @@ All automation must work on macOS, Windows, and Linux:
 Leverage Model Context Protocol servers for enhanced capabilities:
 
 **Context7 MCP** - External documentation access:
+
 - Use for current library/framework documentation
 - Tools: `mcp__context7__resolve-library-id`, `mcp__context7__get-library-docs`
 - Commands: `/docs:extract-external`, `/review:security`, `/analyze:dependencies`
 
 **Playwright MCP** - Browser automation:
+
 - Use for UI testing, visual regression, user interaction simulation
 - Full navigation, interaction, and analysis capabilities
 - Integration: Design review, testing workflows
@@ -123,6 +137,7 @@ Leverage Model Context Protocol servers for enhanced capabilities:
 ### Command Development Protocol
 
 **Template Compliance:**
+
 - Follow `docs/command-template.md` for atomic commands
 - Use workflow template for orchestration commands
 - Required frontmatter: description, argument-hint, category, tools, complexity
@@ -130,6 +145,7 @@ Leverage Model Context Protocol servers for enhanced capabilities:
 - Include agent integration and examples
 
 **Agent Assignment:**
+
 - Assign to existing Agent Specialist Framework agent
 - Single responsibility per command
 - No duplicate functionality across commands
@@ -139,6 +155,7 @@ Leverage Model Context Protocol servers for enhanced capabilities:
 **CRITICAL SECURITY RULE**: Only `/git/*` commands can perform Git operations
 
 **Enforcement:**
+
 - All other agents/commands must use SlashCommand tool for Git delegation
 - Explicit user consent required for Git operations outside `/git/*`
 - Agents cannot call Git commands directly
@@ -179,6 +196,7 @@ Leverage Model Context Protocol servers for enhanced capabilities:
 ### TODO Management Constraint
 
 **CRITICAL**: All TODO operations use standardized location only:
+
 - **Required**: `{project_root}/.claude/.todos/TODO.md`
 - **Prohibited**: TODO files in any other location
 - **Enforcement**: All `/to-do:*` commands validate this constraint
@@ -210,6 +228,7 @@ Constitution updates require:
 ### Critical Constraints
 
 **What NOT to do:**
+
 - Don't bypass Git constraints (only `/git/*` commands perform Git operations)
 - Don't hardcode user-specific paths (use `~/.claude/` patterns)
 - Don't duplicate agent responsibilities (each agent has unique purpose)
@@ -217,6 +236,7 @@ Constitution updates require:
 - Don't break atomic design (keep commands single-purpose)
 
 **Required Practices:**
+
 - Use Agent Specialist Framework for all development work
 - Follow provided templates for consistency
 - Test cross-platform compatibility (Windows, macOS, Linux)

@@ -36,7 +36,7 @@ flowchart TD
 
 **Research Execution (2-8 minutes):**
 
-```markdown
+```text
 ✅ Task 1 complete: Security analysis findings ready
 ✅ Task 2 complete: Performance implications assessed
 ✅ Task 3 complete: Architecture integration analyzed
@@ -162,7 +162,7 @@ Before moving to implementation, verify:
 
 **Strategy 1: Incremental Implementation**
 
-```markdown
+```text
 # Best for: Large features, production systems
 1. Implement core functionality first
 2. Test each piece thoroughly
@@ -174,7 +174,7 @@ Example: Auth Core → Middleware → Routes → Advanced Features
 
 **Strategy 2: Complete Feature Implementation**
 
-```markdown
+```text
 # Best for: New features, development environment
 1. Implement all components
 2. Test as complete system
@@ -185,7 +185,7 @@ Example: Complete auth system in development, then deploy to production
 
 **Strategy 3: Parallel Development Tracks**
 
-```markdown
+```text
 # Best for: Independent components
 1. Implement components separately
 2. Integrate when both complete
@@ -265,7 +265,7 @@ Example: Backend auth + Frontend components developed separately
 
 **Continuous Validation:**
 
-```markdown
+```text
 After Each Step:
 ✅ Code compiles/runs without errors
 ✅ New functionality works as expected
@@ -304,7 +304,7 @@ After Each Step:
 **Problem:** Research recommended Approach A, but implementation reveals it won't work
 **Solution:**
 
-```markdown
+```text
 1. **Pause Implementation:** Don't force wrong approach
 2. **Quick Research:** 2-3 minute targeted investigation
 3. **Adjust Plan:** Update approach based on new information
@@ -412,7 +412,7 @@ After Each Step:
 **Problem:** Research returns too much information to process effectively
 **Solution:**
 
-```markdown
+```text
 1. Focus on highest priority findings first
 2. Implement core functionality, defer nice-to-haves
 3. Create follow-up TODO list for additional improvements
@@ -424,7 +424,7 @@ After Each Step:
 **Problem:** Research assumptions don't match actual codebase
 **Solution:**
 
-```markdown
+```text
 1. Validate research assumptions early in implementation
 2. Adapt recommendations to actual constraints
 3. Document variances for future reference
@@ -436,7 +436,7 @@ After Each Step:
 **Problem:** Implementation is more complex than research suggested
 **Solution:**
 
-```markdown
+```text
 1. Break complex steps into smaller sub-steps
 2. Implement minimum viable version first
 3. Iterate and improve incrementally
@@ -448,7 +448,7 @@ After Each Step:
 **Problem:** Implementation taking longer than expected
 **Solution:**
 
-```markdown
+```text
 1. Prioritize critical requirements over nice-to-haves
 2. Implement core functionality first
 3. Create follow-up tasks for remaining items

@@ -30,7 +30,7 @@ From extensive analysis of Claude Code behavior:
 
 This is the most effective pattern for complex tasks:
 
-```markdown
+```python
 # Phase 1: Main thread consults specialists in parallel
 Task("research-analysis-specialist: Research authentication best practices and security requirements")
 Task("code-writer: Analyze existing authentication patterns in current codebase")
@@ -47,7 +47,7 @@ Task("reviewer: Explore framework-specific authentication implementations")
 
 For comprehensive analysis across different domains:
 
-```markdown
+```python
 # Main thread consults domain specialists in parallel
 Task("reviewer: Perform comprehensive security vulnerability assessment")
 Task("code-writer: Analyze code quality, patterns, and maintainability issues")
@@ -61,7 +61,7 @@ Task("test-writer: Review test coverage and identify testing gaps")
 
 For complex debugging scenarios:
 
-```markdown
+```python
 # Main thread consults diagnostic specialists in parallel
 Task("bug-fixer: Analyze error logs and failure patterns for root cause identification")
 Task("research-analysis-specialist: Investigate recent code changes and deployment history")
@@ -188,7 +188,7 @@ Track these metrics to evaluate parallelization effectiveness:
 
 ### ❌ Expecting Specialists to Orchestrate
 
-```markdown
+```python
 # Wrong - Expecting specialists to coordinate other agents
 # (This won't work - specialists are advisory agents)
 # Specialists provide expert recommendations, not orchestration
@@ -196,7 +196,7 @@ Track these metrics to evaluate parallelization effectiveness:
 
 ### ❌ Using Task() for Implementation
 
-```markdown
+```python
 # Wrong - Implementation tasks with dependencies via Task()
 Task("Create API endpoints")        # These conflict
 Task("Write tests for endpoints")   # Dependencies ignored
@@ -204,7 +204,7 @@ Task("Write tests for endpoints")   # Dependencies ignored
 
 ### ❌ Using SlashCommand() for Advice
 
-```markdown
+```python
 # Wrong - Using commands for expert consultation
 SlashCommand("Get security advice")  # Commands are for operations, not advice
 SlashCommand("Analyze architecture") # Use specialists for expert advice
@@ -212,7 +212,7 @@ SlashCommand("Analyze architecture") # Use specialists for expert advice
 
 ### ❌ Vague Specialist Consultation
 
-```markdown
+```python
 # Wrong - Overlapping, unclear specialist domains
 Task("Review the code")  # No specialist specified
 Task("Find issues")      # Unclear domain
@@ -220,7 +220,7 @@ Task("Find issues")      # Unclear domain
 
 ### ✅ Correct Patterns
 
-```markdown
+```python
 # Right - Main thread specialist consultation
 Task("reviewer: Analyze security vulnerabilities in authentication system")
 Task("implementation-strategy-specialist: Evaluate performance bottlenecks in API layer")

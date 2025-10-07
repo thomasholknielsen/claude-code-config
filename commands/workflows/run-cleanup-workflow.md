@@ -1,6 +1,6 @@
 ---
 description: "Orchestrated cleanup workflow that runs multiple cleanup operations in parallel"
-allowed-tools: Task
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
 ---
 
 # Command: Run Cleanup Workflow
