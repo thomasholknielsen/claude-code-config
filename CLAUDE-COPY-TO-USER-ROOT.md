@@ -222,6 +222,8 @@ docs/
 
 **Rationale**: Statistics become outdated immediately upon system changes. Focus on principles, patterns, and architecture over precise metrics.
 
+**Note**: See project CLAUDE.md for anti-drift documentation principles when documenting performance characteristics.
+
 ### Industry Standards
 **Always prioritize established patterns:** Language conventions (PEP 8, ESLint), established frameworks over custom solutions, community best practices, semantic versioning, standard security practices, accessibility standards (WCAG), established API patterns (REST, GraphQL), standard deployment and CI/CD patterns.
 
