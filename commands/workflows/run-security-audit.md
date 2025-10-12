@@ -10,6 +10,10 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
 Executes comprehensive security audit using parallel domain analysis to identify vulnerabilities, ensure secure coding practices,
 and validate compliance standards across application, API, and database layers.
 
+## Core Parallelization Principle
+
+**MAXIMIZE PARALLEL EXECUTION**: Both analysis (via concurrent Task calls) AND implementation (via concurrent security fixes) are heavily parallelized for optimal performance.
+
 ## Usage
 
 ```bash
@@ -19,8 +23,8 @@ and validate compliance standards across application, API, and database layers.
 ## Process
 
 1. **Parallel Analysis Phase**: Launch 3 domain analysts concurrently for comprehensive security assessment
-2. **Synthesis Phase**: Main thread consolidates findings and prioritizes remediation
-3. **Validation Phase**: Verify security improvements and compliance standards
+2. **Parallel Implementation Phase**: Main thread executes multiple security fixes concurrently based on analyst findings
+3. **Parallel Validation Phase**: Verify security improvements and compliance standards concurrently
 
 ## Agent Integration
 

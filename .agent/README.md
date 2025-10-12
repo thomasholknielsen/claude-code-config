@@ -4,16 +4,11 @@ This directory stores session-based context files created by domain analysts dur
 
 ## File Pattern
 
-<<<<<<< Updated upstream
-```
-.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
-=======
 ```text
 .agent/context/{session-id}/{agent-name}.md
->>>>>>> Stashed changes
 ```
 
-**Example**: `.agent/context/2025-10-06-ui-refactoring-abc123.md`
+**Example**: `.agent/context/abc123/python-analyst.md`
 
 ## Purpose
 

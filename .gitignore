@@ -61,9 +61,17 @@ file-history/
 .trees/
 
 # Agent context files (session-specific, not committed)
-.agent/context/*.md
-.agent/context/*.json
-.agent/context/*.log
+.agent/context/
+
+# Lock files (platform-specific)
+*.lock
+yarn.lock
+package-lock.json
+Pipfile.lock
+poetry.lock
+composer.lock
+Gemfile.lock
+pnpm-lock.yaml
 
 # Session management
 .current_session

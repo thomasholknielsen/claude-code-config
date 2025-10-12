@@ -25,17 +25,27 @@ Executes a comprehensive cleanup workflow by launching parallel domain analyst t
 
 ## Agent Integration
 
-- **Primary Agent**: quality-analyst - Analyzes code quality and coordinates cleanup operations
-- **Supporting Agents**: refactoring-analyst - Provides refactoring and readability recommendations
+**Critical Constraint**: **Subagents provide analysis ONLY - no implementation allowed**
+
+- **Phase 1**: Domain analysts conduct cleanup analysis and return recommendations to main thread
+- **Phase 2**: **Main thread synthesizes analyst findings and implements all cleanup operations**
+- **Phase 3**: Main thread executes all cleanup fixes and validation
+
+**Primary Agent**: quality-analyst - Analyzes code quality and provides cleanup recommendations (advisory only)
+**Supporting Agents**: refactoring-analyst - Provides refactoring and readability recommendations (advisory only)
+
+**Implementation Responsibility**: Main thread executes all cleanup operations using Edit/Bash tools
 
 ## Implementation Pattern
 
 The workflow launches parallel analyst tasks using the Task tool:
 
 ```python
-# Launch parallel cleanup analyses
-Task("quality-analyst: Remove development artifacts and temporary files, then apply automated formatting rules (prettier, eslint --fix)")
-Task("refactoring-analyst: Improve code readability through better naming, structure optimization, and comment cleanup")
+# Launch parallel cleanup analyses (ANALYSIS ONLY)
+Task("quality-analyst: Analyze development artifacts and temporary files, identify formatting rule violations (prettier, eslint)")
+Task("refactoring-analyst: Analyze code readability issues, identify naming improvements, structure optimization opportunities, and comment cleanup needs")
+
+# Main thread then implements all cleanup operations based on analyst recommendations
 ```
 
 ## Examples

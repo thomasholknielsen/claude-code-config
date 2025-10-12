@@ -31,6 +31,21 @@ The command processes arguments through the $ARGUMENTS placeholder:
 - `$2` - Second positional argument (if provided)
 - Named flags are parsed from $ARGUMENTS for scope, strategy, and test-first options
 
+## Agent Integration
+
+**Critical Constraint**: **Subagents provide analysis ONLY - no implementation allowed**
+
+- **Phase 1**: Domain analysts conduct diagnostic analysis and return recommendations to main thread
+- **Phase 2**: **Main thread synthesizes analyst findings and implements bug fixes**
+- **Phase 3**: Main thread applies all fixes and validates resolution
+
+**Domain Specialists** (analysis only):
+- quality-analyst - Code quality issues and improvement recommendations
+- security-analyst - Security vulnerability analysis and mitigation strategies
+- testing-analyst - Test strategy and validation approach recommendations
+
+**Implementation Responsibility**: Main thread executes all bug fixes using Edit/MultiEdit tools
+
 ## Process
 
 1. **Argument Processing & Diagnostic Analysis**: Parse $ARGUMENTS and use Task() to simultaneously investigate multiple aspects:
@@ -42,7 +57,7 @@ The command processes arguments through the $ARGUMENTS placeholder:
    strategy = parse_flag("--strategy", $ARGUMENTS) or "comprehensive"
    test_first = "--test-first" in $ARGUMENTS
 
-   # Parallel diagnostic tasks
+   # Parallel diagnostic tasks (analysts provide recommendations only)
    Task("analyze-symptoms", f"Examine error messages, logs, and failure patterns for: {issue_description}"),
    Task("analyze-recent-changes", "Review recent commits and changes that might be related"),
    Task("analyze-similar-issues", f"Search for similar patterns in {scope} scope")
