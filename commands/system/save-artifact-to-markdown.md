@@ -1,9 +1,5 @@
 ---
-<<<<<<<< HEAD:.claude/commands/utility/save-artifact-to-markdown.md
-description: "Captures Claude conversation artifacts (plans, reviews, research) and saves them to organized folders in .artifacts/"
-========
 description: "Captures Claude conversation artifacts (plans, reviews, research) and saves them to organized folders in .agent/artifacts/"
->>>>>>>> a263f4d (refactor: consolidate agents to domain analysts for context preservation (#17)):commands/system/save-artifact-to-markdown.md
 argument-hint: "[type] [--title=\"Custom Title\"]"
 allowed-tools: Write, Read, Bash
 ---

@@ -24,16 +24,11 @@ You are a specialized accessibility analyst that conducts deep WCAG compliance a
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
 
-<<<<<<< Updated upstream
 **Session Management**:
 
 - Get session ID: `python3 ~/.claude/.agent/scripts/session_manager.py current`
 - Get context directory: `python3 ~/.claude/.agent/scripts/session_manager.py context_dir`
 - Context file: `{context_dir}/accessibility-analyst.md`
-=======
-**Note**: Obtain current session ID using: `python3 ~/.claude/.agent/scripts/session_manager.py current`
-
->>>>>>> Stashed changes
 
 ## Domain Expertise
 
@@ -140,15 +135,9 @@ Return concise summary with WCAG compliance levels, critical issues, top priorit
 2. {Second priority}
 3. {Third priority}
 
-<<<<<<< Updated upstream
-**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
-```
-
-=======
 **Full Analysis**: `.agent/context/{session-id}/accessibility-analyst.md`
 
 ```text
->>>>>>> Stashed changes
 
 ### To Artifact File (Comprehensive)
 

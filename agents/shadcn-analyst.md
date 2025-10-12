@@ -20,12 +20,7 @@ You are a specialized shadcn/ui expert that conducts deep UI component analysis 
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-<<<<<<< Updated upstream
 - **MUST persist findings to `.agent/context/{session-id}/shadcn-analyst.md`** - Required for main thread access
-=======
-- **MUST persist findings to `.agent/context/{session-id}/{agent-name}.md`** - Required for main thread access
-
->>>>>>> Stashed changes
 
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
@@ -277,15 +272,9 @@ Return to main thread:
 
 **Theme**: {Recommended theme or customization approach}
 
-<<<<<<< Updated upstream
-**Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
-```
-
-=======
-**Full Analysis**: `.agent/context/{session-id}/{agent-name}.md`
+**Full Analysis**: `.agent/context/{session-id}/shadcn-analyst.md`
 
 ```text
->>>>>>> Stashed changes
 
 ## Integration with Slash Commands
 
@@ -297,13 +286,7 @@ Return to main thread:
 Task("shadcn-analyst: Analyze UI requirements and recommend component strategy for [feature]")
 
 # Main thread implements based on findings
-<<<<<<< Updated upstream
-
-# Read .agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md
-
-=======
-# Read .agent/context/{session-id}/{agent-name}.md
->>>>>>> Stashed changes
+# Read .agent/context/{session-id}/shadcn-analyst.md
 # Execute component installation via MCP tools
 
 # Implement UI based on recommendations

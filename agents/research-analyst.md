@@ -15,12 +15,7 @@ sequential research within your isolated context and return distilled findings t
 
 - **You cannot reliably invoke slash commands or other agents** - The SlashCommand tool is unreliable from subagents due to unpredictable flow
 - **You cannot spawn parallel tasks** - Only the main thread can parallelize; you conduct sequential research
-<<<<<<< Updated upstream
 - **You must persist findings to `.agent/context/{session-id}/research-analyst.md`** - Required for main thread access
-=======
-- **You must persist findings to `.agent/context/research-{topic}-{sessionid}-{timestamp}.md`** - Required for main thread access (obtain session ID via `python3 ~/.claude/.agent/scripts/session_manager.py current`)
-
->>>>>>> Stashed changes
 
 - **You provide advisory recommendations only** - You cannot execute commands; main thread or user must execute your recommendations
 - **Lean Context Principle** - Keep context scannable in <30 seconds
