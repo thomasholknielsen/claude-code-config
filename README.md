@@ -21,11 +21,11 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 
 ### New User? Start Here
 
-👉 **[User Guide](docs/user-guide.md)** - Complete setup and usage guide
+👉 **[User Guide](docs/user/user-guide.md)** - Complete setup and usage guide
 
 ### Developer? Extend the System
 
-👉 **[Developer Guide](docs/developer-guide.md)** - Architecture and customization
+👉 **[Developer Guide](docs/developer/developer-guide.md)** - Architecture and customization
 
 ### Want to See It in Action
 
@@ -188,10 +188,10 @@ claude /workflows:run-docs-workflow
    ```
 
 4. **Follow the User Guide:**
-   See [docs/user-guide.md](docs/user-guide.md) for detailed setup instructions.
+   See [docs/user-guide.md](docs/user/user-guide.md) for detailed setup instructions.
 
 5. **Optional: Set up MCP Integration:**
-   See [docs/mcp-setup-guide.md](docs/mcp-setup-guide.md) for Context7 and Playwright setup.
+   See [docs/mcp-setup-guide.md](docs/user/mcp-setup-guide.md) for Context7 and Playwright setup.
 
 ## 🎨 Visual Documentation
 
@@ -231,9 +231,9 @@ See [CLAUDE.md](CLAUDE.md) for complete development rules.
 ## 📖 Learn More
 
 - **[Agent Specialist Framework](docs/concepts/agent-specialist-framework.md)** - Deep dive into the architecture
-- **[Hooks System](docs/hooks-system.md)** - Event-driven automation details
+- **[Hooks System](docs/developer/hooks-system.md)** - Event-driven automation details
 - **[Spec-Kit Workflow](docs/spec-kit-workflow.md)** - Complete feature development process
-- **[Developer Guide](docs/developer-guide.md)** - Extend and customize the system
+- **[Developer Guide](docs/developer/developer-guide.md)** - Extend and customize the system
 
 ---
 

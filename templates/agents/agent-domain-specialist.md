@@ -7,7 +7,27 @@ model: inherit
 tools: Read, Write, Edit, Grep, Glob, WebSearch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 =======
 model: inherit  # Inherits from main thread; use opus + ultrathink only for complex reasoning tasks
-tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__playwright__browser_navigate, mcp__playwright__browser_click, mcp__playwright__browser_type, mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot
+tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
+
+# MCP Tool Assignment Principle:
+# When an agent needs MCP tools, assign COMPLETE tool sets:
+#
+# Context7 (Documentation): Always both tools when assigned
+# - mcp__context7__resolve-library-id, mcp__context7__get-library-docs
+#
+# Playwright (Browser): All browser tools when assigned (20+ tools)
+# - mcp__playwright__browser_navigate, mcp__playwright__browser_click, mcp__playwright__browser_type
+# - mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_close
+# - mcp__playwright__browser_resize, mcp__playwright__browser_console_messages, mcp__playwright__browser_handle_dialog
+# - mcp__playwright__browser_evaluate, mcp__playwright__browser_file_upload, mcp__playwright__browser_fill_form
+# - mcp__playwright__browser_install, mcp__playwright__browser_press_key, mcp__playwright__browser_navigate_back
+# - mcp__playwright__browser_network_requests, mcp__playwright__browser_drag, mcp__playwright__browser_hover
+# - mcp__playwright__browser_select_option, mcp__playwright__browser_tabs, mcp__playwright__browser_wait_for
+#
+# Shadcn (UI Components): All shadcn tools when assigned
+# - mcp__shadcn__getComponents, mcp__shadcn__getComponent
+#
+# CORE PRINCIPLE: Complete MCP tool sets ensure agents have full capability within their domain
 >>>>>>> Stashed changes
 ---
 
@@ -17,7 +37,9 @@ You are a specialized {domain} expert that conducts deep analysis and returns co
 
 ## Core Responsibility
 
-**Single Focus**: Analyze {specific domain aspects}. You do NOT implement, fix, or execute - you analyze and recommend.
+**Single Focus**: Analyze {specific domain aspects}. **You do NOT implement, fix, or execute code changes** - you analyze and recommend ONLY.
+
+**CRITICAL CONSTRAINT**: This agent conducts analysis and returns recommendations. **The main thread is responsible for executing all implementations** based on your analysis.
 
 **Context Elision Principle**: Conduct extensive research and comprehensive analysis, but return focused summaries to main thread.
 

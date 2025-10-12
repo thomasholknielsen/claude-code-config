@@ -30,9 +30,12 @@ Reapply cross-repository path modifications to spec-kit commands if they are ove
 5. **Apply Script Modifications**:
    - Replace `$REPO_ROOT/.specify/templates/` with `$HOME/.claude/.specify/templates/`
    - Ensure scripts reference global templates, not project-local ones
-6. **Report Results**: If `--verify-only` flag is set, report status without making changes
-7. **Apply Changes**: Otherwise, apply modifications and report results
-8. **Display Summary**: Show files checked and modified
+6. **Apply Repository Detection Fixes**:
+   - Update repository root detection logic in scripts
+   - Ensure specs are created in current project directory, not global Claude directory
+7. **Report Results**: If `--verify-only` flag is set, report status without making changes
+8. **Apply Changes**: Otherwise, apply modifications and report results
+9. **Display Summary**: Show files checked and modified
 
 ## Modification Pattern
 
@@ -57,6 +60,53 @@ Reapply cross-repository path modifications to spec-kit commands if they are ove
 
 **Pattern**: Replace `$REPO_ROOT/.specify/templates/` with `$HOME/.claude/.specify/templates/` to ensure scripts use global templates rather than project-local paths.
 
+## Repository Detection Modifications
+
+**Files that require repository root detection fixes:**
+
+- `~/.claude/.specify/scripts/bash/create-new-feature.sh`
+- `~/.claude/.specify/scripts/bash/common.sh`
+
+**Pattern**: Ensure scripts use current working directory as project root, not script installation location.
+
+### create-new-feature.sh Repository Detection
+Replace git-based repository detection with current working directory logic:
+
+```bash
+# OLD (problematic):
+if git rev-parse --show-toplevel >/dev/null 2>&1; then
+    REPO_ROOT=$(git rev-parse --show-toplevel)
+
+# NEW (fixed):
+CURRENT_DIR="$(pwd)"
+if [ -d "$CURRENT_DIR/.git" ]; then
+    REPO_ROOT="$CURRENT_DIR"
+else
+    REPO_ROOT="$CURRENT_DIR"
+fi
+```
+
+### common.sh Repository Detection
+Replace get_repo_root() function with current working directory logic:
+
+```bash
+# OLD:
+get_repo_root() {
+    if git rev-parse --show-toplevel >/dev/null 2>&1; then
+        git rev-parse --show-toplevel
+    else
+        local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+        (cd "$script_dir/../../.." && pwd)
+    fi
+}
+
+# NEW:
+get_repo_root() {
+    local current_dir="$(pwd)"
+    echo "$current_dir"
+}
+```
+
 ## Rationale
 
 This modification pattern enables spec-kit commands to work in any repository context:
@@ -64,6 +114,7 @@ This modification pattern enables spec-kit commands to work in any repository co
 - User-scoped Claude config stores shared development tools
 - Project repositories contain project-specific specifications and requirements
 - Each project can have its own constitution and feature requirements
+- Specs are created in the current project directory, not global Claude directory
 
 ## Agent Integration
 
@@ -98,9 +149,11 @@ Run this command when:
 - Updating from upstream source
 - Verifying modification status after changes
 - Setting up a fresh clone of the command system
+- Repository detection is creating specs in wrong location
 
 ## Integration Points
 
 - Works with all `/spec-kit:*` commands
 - Ensures cross-repository compatibility
 - Maintains separation between shared tools and project files
+- Ensures project-local spec creation instead of global

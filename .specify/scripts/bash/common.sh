@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 # Common functions and variables for all scripts
 
-# Get repository root, with fallback for non-git repositories
+# Get repository root, using current working directory as project root
 get_repo_root() {
-    if git rev-parse --show-toplevel >/dev/null 2>&1; then
-        git rev-parse --show-toplevel
-    else
-        # Fall back to script location for non-git repos
-        local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-        (cd "$script_dir/../../.." && pwd)
-    fi
+    local current_dir="$(pwd)"
+    # Always use current working directory as project root
+    # This ensures specs are created in the user's project, not the script location
+    echo "$current_dir"
 }
 
 # Get current branch, with fallback for non-git repositories

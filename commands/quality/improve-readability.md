@@ -39,6 +39,21 @@ Performs manual code beautification focusing on readability improvements, meanin
    Task("analyze-complexity", "Identify overly complex expressions and statements")
    ```
 
+## Agent Integration
+
+**Critical Constraint**: **Subagents provide analysis ONLY - no implementation allowed**
+
+- **Phase 1**: Domain analysts conduct analysis and return recommendations to main thread
+- **Phase 2**: **Main thread synthesizes analyst findings and implements all changes**
+- **Phase 3**: Main thread applies all readability improvements based on analysis
+
+**Domain Specialists** (analysis only):
+- quality-analyst - Code quality assessment and improvement recommendations
+- refactoring-analyst - Readability enhancement techniques and strategies
+- architecture-analyst - Structure organization and pattern recommendations
+
+**Implementation Responsibility**: Main thread executes all recommendations using Edit/MultiEdit tools
+
 2. **Improvement Identification**: Find readability enhancement opportunities:
    - Unclear or abbreviated variable names
    - Overly complex expressions that could be simplified

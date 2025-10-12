@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Pre-tool-use hook to automatically add current year to web search queries
 when no year or temporal keywords are detected.

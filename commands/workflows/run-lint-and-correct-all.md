@@ -7,8 +7,12 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch
 
 ## Purpose
 
-Automatically detect project languages, run all applicable linters in parallel using domain analysts with auto-fix enabled,
+Automatically detect project languages, run all applicable linters in parallel for maximum performance,
 and provide a comprehensive quality report across the entire codebase.
+
+## Core Parallelization Principle
+
+**MAXIMIZE PARALLEL EXECUTION**: Both analysis (via Task) AND implementation (via concurrent tool calls) are heavily parallelized for optimal performance.
 
 ## Usage
 
@@ -21,8 +25,8 @@ and provide a comprehensive quality report across the entire codebase.
 ## Process
 
 1. **Language Detection**: Use Glob to scan for language-specific files
-2. **Parallel Analysis**: Launch domain analysts concurrently for language-specific linting
-3. **Synthesis**: Main thread consolidates findings and applies auto-fixes
+2. **Parallel Analysis**: Launch domain analysts concurrently for language-specific linting analysis
+3. **Parallel Implementation**: Main thread executes multiple linters concurrently based on analyst recommendations
 4. **Validation**: Verify fixes and report remaining manual issues
 
 ## Language Detection Matrix
@@ -50,26 +54,45 @@ and provide a comprehensive quality report across the entire codebase.
 
 ## Agent Integration
 
-**Primary Agent**: quality-analyst - Orchestrates parallel linting analysis and synthesizes fixes
+**Critical Constraint**: **Subagents provide analysis ONLY - no implementation allowed**
 
-**Parallel Domain Analysts** (3 concurrent based on detected languages):
+- **Phase 1**: Domain analysts conduct linting analysis and return recommendations to main thread
+- **Phase 2**: **Main thread synthesizes analyst findings and applies all auto-fixes**
+- **Phase 3**: Main thread executes all linting fixes and validation
 
-- quality-analyst - General code quality, formatting, and style consistency
-- typescript-analyst - TypeScript-specific linting and type safety (if TypeScript detected)
-- react-analyst - React-specific patterns and best practices (if React detected)
-- python-analyst - Python linting and PEP 8 compliance (if Python detected)
+**Primary Agent**: quality-analyst - Orchestrates parallel linting analysis (advisory only)
+
+**Parallel Domain Analysts** (3 concurrent based on detected languages - analysis only):
+
+- quality-analyst - General code quality analysis, formatting issue detection, and style recommendations
+- typescript-analyst - TypeScript-specific linting analysis and type safety recommendations (if TypeScript detected)
+- react-analyst - React-specific pattern analysis and best practice recommendations (if React detected)
+- python-analyst - Python linting analysis and PEP 8 compliance recommendations (if Python detected)
+
+**Implementation Responsibility**: Main thread executes all linting and auto-fixes using Bash/Edit tools
 
 **Execution Pattern**:
 
 ```python
-# Phase 1: Parallel Linting Analysis (3 analysts max concurrently)
-Task("quality-analyst: Run all general linters (markdown, yaml, json, shell) and report issues")
-Task("typescript-analyst: Run TypeScript/JavaScript linting with auto-fix enabled") # if TS/JS detected
-Task("python-analyst: Run Python linting (ruff, black) with auto-fix enabled") # if Python detected
-Task("react-analyst: Run React-specific linting and pattern validation") # if React detected
+# Phase 1: Parallel Linting Analysis (3 analysts max concurrently - ANALYSIS ONLY)
+Task("quality-analyst: Analyze all general files (markdown, yaml, json, shell) and identify linting issues")
+Task("typescript-analyst: Analyze TypeScript/JavaScript files and identify linting violations") # if TS/JS detected
+Task("python-analyst: Analyze Python files for linting issues (ruff, black compliance)") # if Python detected
+Task("react-analyst: Analyze React-specific patterns and identify violations") # if React detected
 
-# Each analyst persists lean findings to .agent/context/{session-id}/ and returns summary
+# Each analyst persists findings to .agent/context/{session-id}/ and returns recommendations
+
+# Phase 2: Parallel Implementation (Main thread executes multiple linters concurrently)
+# Single message with multiple concurrent operations for maximum performance:
+Bash("markdownlint *.md --fix")        # Parallel linting
+Bash("python -m ruff check . --fix")   # Parallel linting
+Bash("npm run lint:typescript")        # Parallel linting
+Bash("shellcheck **/*.sh")             # Parallel linting
+Edit("file1.ts", old_ts, new_ts)       # Parallel file fix
+Edit("file2.py", old_py, new_py)       # Parallel file fix
 ```
+
+**Performance Benefit**: 6+ operations execute concurrently vs sequential execution
 
 ## Examples
 
@@ -89,11 +112,12 @@ Detecting project languages...
 ✓ Found 6 YAML files
 
 Launching parallel linting analysis...
-→ Task("quality-analyst: Lint markdown and yaml files")
-→ Task("typescript-analyst: Lint TypeScript files with auto-fix")
-→ Task("python-analyst: Lint Python files with auto-fix")
+→ Task("quality-analyst: Analyze markdown and yaml files for linting violations")
+→ Task("typescript-analyst: Analyze TypeScript files for linting issues")
+→ Task("python-analyst: Analyze Python files for linting issues")
 
-Analysts complete through concurrent execution (significantly faster than sequential)
+Analysts complete analysis through concurrent execution (significantly faster than sequential)
+Main thread then applies all auto-fixes based on analyst recommendations
 
 Results synthesized:
 ✓ TypeScript: 23 issues fixed, 2 remaining
@@ -121,7 +145,7 @@ Detecting project languages...
 ✓ Found 156 Markdown files
 ✓ Found 3 YAML files
 
-Running linters with auto-fix in parallel...
+Main thread running linters with auto-fix based on analyst recommendations...
 → /lint:markdown --fix (156 files)
 → /lint:yaml --fix (3 files)
 
@@ -154,7 +178,7 @@ Detecting project languages...
 ✓ Found 18 YAML files
 ✓ Found 15 JSON files
 
-Running linters with auto-fix in parallel...
+Main thread running linters with auto-fix based on analyst recommendations...
 → /lint:typescript --fix (128 files)
 → /lint:javascript --fix (45 files)
 → /lint:python --fix (23 files)

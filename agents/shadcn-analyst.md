@@ -1,12 +1,7 @@
 ---
 name: shadcn-analyst
-<<<<<<< Updated upstream
-description: Use PROACTIVELY for shadcn/ui component analysis - provides component architecture recommendations, theme integration strategies, and UI implementation patterns using shadcn/ui library. This agent conducts comprehensive shadcn/ui analysis and returns actionable recommendations for component selection and theme customization. It does NOT implement changes - it only analyzes UI requirements and persists findings to .agent/context/shadcn-*.md files. The main thread is responsible for executing recommended component installations and theme configurations based on the analysis. Expect a concise summary with component recommendations, theme strategy, and a reference to the full analysis artifact. Invoke when: 'shadcn', 'ui components', 'theme', 'design system' keywords; components.json or components/ui/**/*.tsx files; UI building, component selection, or theme customization contexts.
-tools: mcp__shadcn__getComponents, mcp__shadcn__getComponent, Glob, Grep, Read, Edit, Write, WebSearch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
-=======
 description: "Use PROACTIVELY for shadcn/ui component analysis - provides component architecture recommendations, theme integration strategies, and UI implementation patterns using shadcn/ui library. This agent conducts comprehensive shadcn/ui analysis and returns actionable recommendations for component selection and theme customization. It does NOT implement changes - it only analyzes UI requirements and persists findings to .agent/context/{session-id}/shadcn-analyst.md files. The main thread is responsible for executing recommended component installations and theme configurations based on the analysis. Expect a concise summary with component recommendations, theme strategy, and a reference to the full analysis artifact. Invoke when: 'shadcn', 'ui components', 'theme', 'design system' keywords; components.json or components/ui/**/*.tsx files; UI building, component selection, or theme customization contexts."
-tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__shadcn__get-registry-index, mcp__shadcn__get-registry-item
->>>>>>> Stashed changes
+tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__shadcn__getComponents, mcp__shadcn__getComponent
 model: inherit
 color: green
 ---
@@ -29,7 +24,9 @@ You are a specialized shadcn/ui expert that conducts deep UI component analysis 
 - **MUST persist findings to `.agent/context/{session-id}/shadcn-analyst.md`** - Required for main thread access
 =======
 - **MUST persist findings to `.agent/context/{session-id}/{agent-name}.md`** - Required for main thread access
+
 >>>>>>> Stashed changes
+
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
 
@@ -283,8 +280,10 @@ Return to main thread:
 <<<<<<< Updated upstream
 **Full Analysis**: `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md`
 ```
+
 =======
 **Full Analysis**: `.agent/context/{session-id}/{agent-name}.md`
+
 ```text
 >>>>>>> Stashed changes
 

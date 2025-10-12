@@ -53,11 +53,18 @@ Quick implementation for small tasks bypassing spec-kit, using focused Agent Spe
 
 ## Agent Integration
 
-- **Specialist Options**: architecture-analyst can be spawned to coordinate small task implementation with minimal overhead
-- **Research Phase**: Launches focused Task() agents for rapid context gathering
-- **Domain Analysis**: Invokes domain analysts for implementation guidance:
-  - quality-analyst - for code quality assessment
-  - testing-analyst - for test strategy recommendations
+**Critical Constraint**: **Subagents provide analysis ONLY - no implementation allowed**
+
+- **Phase 1**: Domain analysts conduct analysis and return recommendations to main thread
+- **Phase 2**: **Main thread synthesizes analyst findings and implements all changes**
+- **Phase 3**: Main thread executes all small task implementations
+
+**Domain Specialists** (analysis only):
+- architecture-analyst - System design recommendations and integration guidance
+- quality-analyst - Code quality assessment and improvement recommendations
+- testing-analyst - Test strategy and validation approach recommendations
+
+**Implementation Responsibility**: Main thread executes all implementations using Edit/MultiEdit/TodoWrite tools
   - Language-specific analysts (python-analyst, typescript-analyst, react-analyst) based on context
 - **Validation**: Minimal quality checks appropriate for small task scope
 

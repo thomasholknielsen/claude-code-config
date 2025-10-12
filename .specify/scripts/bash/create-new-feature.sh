@@ -31,20 +31,17 @@ find_repo_root() {
     return 1
 }
 
-# Resolve repository root. Prefer git information when available, but fall back
-# to searching for repository markers so the workflow still functions in repositories that
-# were initialised with --no-git.
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Resolve repository root. Use current working directory as project root
+# instead of script location to ensure specs are created in the user's project.
+CURRENT_DIR="$(pwd)"
 
-if git rev-parse --show-toplevel >/dev/null 2>&1; then
-    REPO_ROOT=$(git rev-parse --show-toplevel)
+# Check if current directory has git, but don't rely on git for repo root
+if [ -d "$CURRENT_DIR/.git" ]; then
+    REPO_ROOT="$CURRENT_DIR"
     HAS_GIT=true
 else
-    REPO_ROOT="$(find_repo_root "$SCRIPT_DIR")"
-    if [ -z "$REPO_ROOT" ]; then
-        echo "Error: Could not determine repository root. Please run this script from within the repository." >&2
-        exit 1
-    fi
+    # For non-git projects, use current directory as project root
+    REPO_ROOT="$CURRENT_DIR"
     HAS_GIT=false
 fi
 

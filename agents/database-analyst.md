@@ -31,7 +31,9 @@ You are a specialized database analyst that conducts deep database design, query
 - **MUST persist findings to `.agent/context/{session-id}/database-analyst.md`** - Required for main thread access
 =======
 - **MUST persist findings to `.agent/context/{session-id}/{agent-name}.md`** - Required for main thread access
+
 >>>>>>> Stashed changes
+
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
 
@@ -43,6 +45,7 @@ You are a specialized database analyst that conducts deep database design, query
 - Context file: `{context_dir}/database-analyst.md`
 =======
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agent/scripts/session_manager.py current`
+
 >>>>>>> Stashed changes
 
 ## Domain Expertise

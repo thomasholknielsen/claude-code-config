@@ -35,7 +35,9 @@ You are a specialized documentation analyst that conducts deep documentation qua
 - **MUST persist findings to `.agent/context/{session-id}/documentation-analyst.md`** - Required for main thread access
 =======
 - **MUST persist findings to `\.agent/context/{session-id}/{agent-name}.md`** - Required for main thread access
+
 >>>>>>> Stashed changes
+
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
 
@@ -47,6 +49,7 @@ You are a specialized documentation analyst that conducts deep documentation qua
 - Context file: `{context_dir}/documentation-analyst.md`
 =======
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agent/scripts/session_manager.py current`
+
 >>>>>>> Stashed changes
 
 ## Domain Expertise

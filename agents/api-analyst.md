@@ -29,7 +29,9 @@ You are a specialized API design analyst that conducts deep API analysis and ret
 - **MUST persist findings to `.agent/context/{session-id}/api-analyst.md`** - Required for main thread access
 =======
 - **MUST persist findings to `.agent/context/{session-id}/{agent-name}.md`** - Required for main thread access
+
 >>>>>>> Stashed changes
+
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
 
@@ -41,6 +43,7 @@ You are a specialized API design analyst that conducts deep API analysis and ret
 - Context file: `{context_dir}/api-analyst.md`
 =======
 **Note**: Obtain current session ID using: `python3 ~/.claude/.agent/scripts/session_manager.py current`
+
 >>>>>>> Stashed changes
 
 ## Domain Expertise
