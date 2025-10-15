@@ -33,7 +33,8 @@ exclude = [
     "venv",
     "env",
     ".specify",
-    "commands/spec-kit",
+    "agents",
+    "commands",
 ]
 
 # Line length (align with markdownlint)

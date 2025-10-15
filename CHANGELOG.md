@@ -2,29 +2,38 @@
 
 All notable changes to the Claude Code Command System will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### Added
 
-- Initial comprehensive repository analysis and improvement plan
+- Standardized command template system with enhanced frontmatter validation (#16)
+- Professional output styles collection with 12 domain-specific communication styles (#9)
+- Git worktree command with dual-mode functionality for parallel development (#8)
+- Artifact system for saving plans, reviews, research, and analysis (#12)
+- Cross-repository path modifications for Spec-Kit v0.56 compatibility (#14)
+- User CLAUDE.md template for global patterns across projects (#19)
 - Complete GitHub standards compliance (LICENSE, CONTRIBUTING.md, SECURITY.md)
 - Enhanced security documentation and vulnerability reporting procedures
-- Systematic command template validation and standardization process
 
 ### Changed
 
+- **Major**: Consolidated 57 agents to 43 domain analysts for context preservation (#17, #18)
 - Repository structure now follows industry-standard open source patterns
 - Documentation organization improved for better user experience
 - Security policies enhanced with technical enforcement mechanisms
+- Upgraded Spec-Kit to v0.56 with improved workflow automation (#14)
+- Markdown linting now respects gitignore exclusions (#11)
 
 ### Fixed
 
+- Git merge conflicts and comprehensive linting issues across codebase (#20)
 - Command template compliance issues across multiple command files
 - Missing YAML frontmatter in several command definitions
 - Inconsistent agent assignments throughout command system
+- Markdown linting violations and repository standardization issues (#6, #10)
 
 ### Security
 
@@ -32,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added comprehensive input validation framework
 - Enhanced MCP tool permission boundaries and restrictions
 - Improved cross-platform security patterns
+- Permissions system upgrade with workflow improvements (#15)
 
 ## [1.0.0] - 2025-09-27
 
@@ -55,7 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Explain**: `architecture`, `code`
 - **Fix**: `bug-quickly`, `import-statements`
 - **Git**: `branch`, `commit`, `merge`, `pr`, `push`, `workflow`
-- **Implement**: `feature`, `spec-kit-tasks`, `small`
+- **Implement**: `feature`, `speckit-tasks`, `small`
 - **Artifact**: `save` (captures plans, reviews, research, analysis, specs, docs, reports)
 - **Prompt**: `enhanced`
 - **Refactor**: `extract-functions`, `large-scale`, `quick`, `remove-duplication`, `rename-variables`, `simplify-logic`
@@ -111,31 +121,5 @@ integration patterns. The documentation provides comprehensive guidance for both
 
 ---
 
-## Version Numbering
-
-This project uses [Semantic Versioning](https://semver.org/):
-
-- **MAJOR** version for incompatible API changes
-- **MINOR** version for backwards-compatible functionality additions
-- **PATCH** version for backwards-compatible bug fixes
-
-## Change Categories
-
-- **Added** for new features
-- **Changed** for changes in existing functionality
-- **Deprecated** for soon-to-be removed features
-- **Removed** for now removed features
-- **Fixed** for any bug fixes
-- **Security** for vulnerability fixes and security improvements
-
-## Contributing to the Changelog
-
-When contributing changes:
-
-1. Add entries to the `[Unreleased]` section
-2. Use the appropriate change category
-3. Include clear, concise descriptions
-4. Reference issues or PRs where applicable
-5. Follow the established format and style
-
-For more details, see [CONTRIBUTING.md](CONTRIBUTING.md).
+[Unreleased]: https://github.com/thomasholknielsen/claude-code-config/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/thomasholknielsen/claude-code-config/releases/tag/v1.0.0

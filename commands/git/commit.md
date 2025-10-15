@@ -1,10 +1,41 @@
 ---
 description: "Smart commit message generation with quality checks"
 argument-hint: "[message]"
-allowed-tools: Bash, Read, Grep
+allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Commit
+
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Create conventional commit(s) with auto-detection of type from uncommitted files (docs → docs:, tests → test:, new files → feat:), optional batch mode for logical grouping by type, pre-commit linting with auto-fix, format validation (type prefix, scope extraction, 72-char limit)
+
+**P**urpose: Maintain clean git history with conventional commit format compliance, atomic commits for single functionality, intelligent type detection from file analysis (not commit history), automated code quality enforcement via pre-commit linting
+
+**E**xpectation: Single atomic commit (default) or multiple logical commits grouped by type (--batch mode), validated conventional format `<type>(<scope>): <description>`, all code passing linting checks, auto-generated messages if not provided, clear commit summaries with next steps guidance
+
+## Analysis Methodology
+
+### 1. Pre-Commit Linting: Run `/lint:correct-all`, auto-fix errors, stage fixed files, abort if critical errors remain
+
+### 2. File Analysis: Execute `git diff HEAD --name-status`, analyze uncommitted files only (never commit history), group by type if --batch mode
+
+### 3. Type Detection: Apply priority rules (docs files → docs:, test files → test:, new files → feat:, fix keywords → fix:, default → refactor:), extract scope from directory patterns
+
+### 4. Message Generation/Validation: Parse provided message or auto-generate from type + file changes, validate conventional format, check 72-char limit
+
+### 5. Commit Execution: Create single commit (default) or multiple commits grouped by type (--batch), report summaries with file counts
+
+## Explicit Constraints
+
+**IN SCOPE**: Conventional commit creation, type auto-detection from uncommitted files, pre-commit linting with auto-fix, batch commit grouping by type, commit message validation, scope extraction, amend support
+**OUT OF SCOPE**: Pushing to remote (use /git:push), PR creation (use /git:pr), branch management (use /git-flow:*), merge operations, git history rewriting beyond amend
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% commit requirements, Accuracy >90% type detection, Relevance >85% conventional format, Efficiency <15s for typical commits)
 
 ## Purpose
 
@@ -30,7 +61,9 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 ## Process
 
-1. **Pre-Commit Linting**: Run `/workflows:lint-and-correct-all` to ensure code quality
+### Without --batch Flag (Single Commit)
+
+1. **Pre-Commit Linting**: Run `/lint:correct-all` to ensure code quality
    - Auto-fix linting errors across all languages
    - Stage auto-fixed files automatically
    - Report any unfixable issues requiring manual intervention
@@ -55,8 +88,41 @@ Creates logical, atomic commits with intelligent message generation and quality 
    - Use detected type + description from file changes
    - Format: `<type>: <generated description>`
    - Or with scope: `<type>(<scope>): <generated description>`
-6. Create atomic commits with validated conventional format
+6. Create single atomic commit with validated conventional format
 7. Report commit summary and next steps
+
+### With --batch Flag (Multiple Logical Commits)
+
+**CRITICAL:** Groups changes by type and creates separate commits for each type.
+
+1. **Pre-Commit Linting**: Same as single commit mode
+2. **Analyze and group files by type:**
+
+   ```bash
+   # Group all uncommitted files by conventional type
+   declare -A file_groups
+   while IFS= read -r file; do
+     type=$(detect_conventional_type "$file")
+     file_groups["$type"]+="$file "
+   done < <(git diff HEAD --name-only)
+   ```
+
+3. **Create commit for each type group:**
+   - For each type (feat, fix, docs, test, chore, etc.):
+     - Stage only files of this type
+     - Detect scope from file paths in group
+     - Generate commit message for this type
+     - Create commit
+     - Report commit created
+4. **Result:** Multiple logical commits instead of monolithic commit
+
+**Example Output:**
+
+```
+✅ feat(auth): implement JWT authentication (12 files)
+✅ docs: update authentication documentation (3 files)
+✅ test: add authentication test coverage (8 files)
+```
 
 ## Agent Integration
 
@@ -86,9 +152,9 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 ## Integration Points
 
-- **Follows**: /git:branch, code modifications
+- **Follows**: /git-flow:feature, code modifications
 - **Followed by**: /git:push, /git:pr
-- **Related**: /git:full-workflow
+- **Related**: /workflows:git
 
 ## Type Auto-Detection from Uncommitted Files
 

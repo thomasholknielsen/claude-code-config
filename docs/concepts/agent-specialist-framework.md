@@ -77,7 +77,7 @@ graph TD
 
 - **Role**: Testing strategy and implementation specialist
 - **Expertise**: Test framework selection, coverage strategies, test architecture
-- **Advises**: `/test`, `/spec-kit:tasks` command usage
+- **Advises**: `/test`, `/speckit:tasks` command usage
 - **Specializes**: Automated framework detection, test pattern recommendations
 
 #### bug-fixer
@@ -172,7 +172,7 @@ Main thread executes slash commands informed by specialist advisory recommendati
 | Specialist | Recommends Commands | Expertise Domain |
 |------------|-------------------|------------------|
 | code-writer | `/refactor`, `/implement` | Code generation patterns |
-| test-writer | `/test`, `/spec-kit:tasks` | Testing strategies |
+| test-writer | `/test`, `/speckit:tasks` | Testing strategies |
 | bug-fixer | `/fix:bug-quickly`, `/analyze` | Debugging approaches |
 | reviewer | `/review:code`, `/review:security` | Quality assessment |
 | documenter | `/docs:generate`, `/docs:api` | Documentation formats |

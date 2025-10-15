@@ -23,6 +23,9 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 
 👉 **[User Guide](docs/user/user-guide.md)** - Complete setup and usage guide
 
+**Important:** After cloning, configure MCP servers in your `~/.claude.json`:
+👉 **[MCP User Setup](MCP-USER-SETUP.md)** - Required for full functionality
+
 ### Developer? Extend the System
 
 👉 **[Developer Guide](docs/developer/developer-guide.md)** - Architecture and customization
@@ -38,21 +41,27 @@ Each style adapts Claude's communication to match industry-specific roles, termi
 ## 🏗️ Architecture Overview
 
 This system provides development automation via **comprehensive domain analysts**, **streamlined command library**, and **cross-platform Python hooks**,
-with MCP integration (Context7 for docs, Playwright for browser automation).
+with MCP integration (7 servers: Context7 for docs, Playwright for browser automation, fetch for web content, markitdown for document conversion, terraform for infrastructure, shadcn for UI components, sequential-thinking for enhanced reasoning).
 
 ### Domain Analyst Framework
 
-**Research Analyst**:
+**Research Analysts**:
 
-- `research-analyst` - Comprehensive sequential research across domains (uses Context7)
+- `research-codebase-analyst` - Comprehensive sequential codebase research across domains
+- `research-web-analyst` - Advanced web research and multi-source verification
 
-**Domain Specialists**:
+**Domain Analysts** (43 total across 12 domains):
 
-- **Framework/Tech**: react-analyst, typescript-analyst, python-analyst, api-analyst, shadcn-analyst
-- **Quality/Architecture**: quality-analyst, architecture-analyst, refactoring-analyst
-- **Security/Performance**: security-analyst, performance-analyst
-- **Testing/Accessibility**: testing-analyst, accessibility-analyst
-- **Documentation/Data**: documentation-analyst, database-analyst, frontend-analyst
+- **API**: api-rest-analyst, api-graphql-analyst, api-docs-analyst
+- **Database**: database-analyst, database-sql-analyst, database-nosql-analyst, database-architecture-analyst
+- **Frontend**: frontend-analyst, frontend-react-analyst, frontend-nextjs-analyst, frontend-accessibility-analyst, frontend-shadcn-analyst
+- **Code Quality**: code-python-analyst, code-typescript-analyst, code-javascript-analyst, code-csharp-analyst, code-quality-analyst
+- **Infrastructure**: infrastructure-terraform-analyst, infrastructure-cloud-analyst, infrastructure-network-analyst, infrastructure-devops-analyst, infrastructure-monitoring-analyst
+- **Mobile**: mobile-react-native-analyst, mobile-flutter-analyst, mobile-ios-swift-analyst
+- **Documentation**: docs-analyst, docs-docusaurus-analyst
+- **UI/UX**: ui-ux-analyst, ui-ux-cli-analyst
+- **Standalone**: architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst, prompt-analyst
+- **Meta**: agent-expert, command-expert, git-flow-analyst
 
 **Pattern**: Analysts conduct extensive research → persist to `.agent/context/{session-id}/{agent-name}.md` → return concise summaries
 
@@ -60,7 +69,7 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 
 - **`/workflows/*`** - Orchestrate parallel analyst execution for comprehensive analysis
 - **`/git/*`** - Complete Git operation toolset (only /git/* commands can perform git operations)
-- **`/spec-kit/*`** - Feature development workflow automation
+- **`/speckit/*`** - Feature development workflow automation
 - **`/docs/*`** - Documentation generation and maintenance
 - **`/clean/*`** - Code cleanup and formatting automation
 - **`/to-do/*`** - TODO management and tracking
@@ -78,6 +87,7 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 - **[User Documentation](docs/user/)** - Setup, usage, and workflow guides
   - [User Guide](docs/user/user-guide.md) - Complete setup and usage instructions
   - [MCP Setup Guide](docs/user/mcp-setup-guide.md) - External tool integration
+  - **[MCP User Setup](MCP-USER-SETUP.md)** - Configure all MCP servers in `~/.claude.json`
 - **[Developer Workflows Guide](docs/typical-workflows.md)** - Realistic patterns with review-lint-commit workflow
   - Includes local PR review before committing (significantly faster than team reviews)
   - Comprehensive linting automation
@@ -101,7 +111,7 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 
 - **[Conceptual Documentation](docs/concepts/)** - Deep architecture insights
   - [Agent Specialist Framework](docs/concepts/agent-specialist-framework.md) - Specialist agent coordination
-  - [Spec-Kit Workflow](docs/concepts/spec-kit-workflow.md) - Feature development process
+  - [Spec-Kit Workflow](docs/concepts/speckit-workflow.md) - Feature development process
   - [Parallel Execution Patterns](docs/concepts/parallel-execution-patterns.md) - Performance optimization
 
 ## 🛠️ Key Features
@@ -127,39 +137,90 @@ with MCP integration (Context7 for docs, Playwright for browser automation).
 - **Agent Constraints**: Secure delegation through SlashCommand system
 - **Quality Assurance**: Built-in review and validation processes
 
-## 🎯 Common Use Cases
+## 🎯 Quick Command Reference
+
+### 🔍 Not Sure Which Command to Use
 
 ```bash
-# Quick feature implementation
-claude /implement "Add user authentication"
-
-# Comprehensive code review
-claude /workflows:run-comprehensive-review
-
-# Complete feature development lifecycle
-claude /spec-kit:specify "E-commerce checkout process"
-claude /spec-kit:plan
-claude /spec-kit:implement
-
-# Performance optimization
-claude /analyze:performance
-claude /workflows:run-optimization
-
-# Documentation generation
-claude /docs:generate
-claude /workflows:run-docs-workflow
+/claude:guru                       # Get context-aware command suggestions
+/claude:guru [topic]               # Get detailed guidance on specific topic
 ```
+
+👉 **[Command Selection Guide](docs/user/command-selection-guide.md)** - Visual decision trees for finding the right command
+
+### 🚀 Most Used Commands
+
+**Git & Version Control:**
+
+```bash
+/workflows:git "description"       # Complete workflow: review → lint → commit → PR
+/git:commit "message"              # Smart commit with validation
+/git:pr "title"                    # Create pull request
+/git:worktree feature-name         # Parallel development
+```
+
+**Code Quality & Review:**
+
+```bash
+/workflows:run-comprehensive-review  # Multi-perspective code review
+/workflows:run-security-audit        # Security-focused audit
+/lint:correct-all                    # Fix all linting issues
+/workflows:run-refactor-workflow     # Refactoring analysis
+```
+
+**Feature Development:**
+
+```bash
+/speckit:specify "feature"        # Create feature spec
+/speckit:plan                     # Generate implementation plan
+/speckit:implement                # Execute implementation
+```
+
+**Code Understanding:**
+
+```bash
+/explain:code path/to/file         # Explain specific code
+/explain:architecture              # Explain system architecture
+/system:find-comments              # Find TODOs and issues
+```
+
+**Documentation:**
+
+```bash
+/workflows:docs                    # Complete documentation workflow
+/docs:changelog                    # Manage CHANGELOG.md
+```
+
+**System & Setup:**
+
+```bash
+/claude:guru                       # Get personalized guidance & suggestions
+/system:setup-mcp                  # Setup MCP servers
+/session:start topic               # Start work session
+```
+
+### 📖 Complete Command List
+
+See [Command Selection Guide](docs/user/command-selection-guide.md) for visual decision trees and complete command reference.
 
 ## 📁 System Structure
 
 ```text
-├── agents/                    # Agent Specialist definitions
-│   ├── analysis-specialists/  # Strategic analysis agents
-│   └── execution-specialists/ # Domain expertise agents
-├── commands/                 # Organized slash commands
-│   ├── analyze/, clean/, docs/, fix/, git/
-│   ├── review/, spec-kit/, workflows/
-│   └── [11 other categories]
+├── agents/                   # 43 Domain Analysts across 12 domains
+├── commands/                 # 48 Commands across 13 categories
+│   ├── claude/              # Agent/command creation and guru
+│   ├── docs/                # Documentation management
+│   ├── explain/             # Code and architecture explanation
+│   ├── git/                 # Git operations (exclusive)
+│   ├── git-flow/            # Git-Flow workflow commands
+│   ├── github/              # GitHub issue integration
+│   ├── lint/                # Linting and formatting
+│   ├── prompt/              # Prompt engineering
+│   ├── session/             # Session management
+│   ├── speckit/             # Feature development workflow
+│   ├── system/              # System utilities
+│   ├── task/                # Task management
+│   └── workflows/           # Multi-step orchestration
 ├── docs/                     # Comprehensive documentation
 ├── scripts/                  # Hook automation scripts
 ├── settings.json             # System configuration
@@ -178,7 +239,7 @@ claude /workflows:run-docs-workflow
 2. **Make scripts executable:**
 
    ```bash
-   chmod +x scripts/*.sh
+   chmod +x scripts/**/*.py
    ```
 
 3. **Test installation:**
@@ -232,7 +293,7 @@ See [CLAUDE.md](CLAUDE.md) for complete development rules.
 
 - **[Agent Specialist Framework](docs/concepts/agent-specialist-framework.md)** - Deep dive into the architecture
 - **[Hooks System](docs/developer/hooks-system.md)** - Event-driven automation details
-- **[Spec-Kit Workflow](docs/spec-kit-workflow.md)** - Complete feature development process
+- **[Spec-Kit Workflow](docs/speckit-workflow.md)** - Complete feature development process
 - **[Developer Guide](docs/developer/developer-guide.md)** - Extend and customize the system
 
 ---

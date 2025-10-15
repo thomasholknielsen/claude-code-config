@@ -1,9 +1,46 @@
 ---
 description: "Execute comprehensive refactoring workflow using parallel domain analysis to improve code quality, readability, and maintainability"
-allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Run Refactor Workflow
+
+## Framework Structure (S-Tier Pattern)
+
+### CO-STAR Framework (Orchestration)
+
+**C**ontext: Comprehensive refactoring workflow for improving code quality, readability, and maintainability through code smell detection, complexity reduction, SOLID principles validation, and architectural improvements
+
+**O**bjective: Execute parallel refactoring analysis across 3 domains (code smells, quality metrics, architecture), consolidate findings, implement refactoring improvements while preserving behavior, and validate quality improvements through metrics and tests
+
+**S**tyle: Structured refactoring approach with metric-based assessment (cyclomatic complexity, maintainability index), specific refactoring patterns (Extract Method, Replace Conditional with Polymorphism), and behavior-preserving transformations
+
+**T**one: Constructive, improvement-focused with emphasis on technical debt reduction, maintainability gains, and concrete refactoring techniques - clear before/after metrics
+
+**A**udience: Software engineers, technical leads, architecture teams requiring maintainability improvements with preserved functionality and measurable quality gains
+
+**R**esults: Improved codebase with reduced complexity, eliminated duplication, better structure, passing test suite, and measurable quality metric improvements (complexity reduction, maintainability index increase)
+
+## Analysis Methodology
+
+### 1. Pre-Refactoring Assessment: Baseline complexity metrics (cyclomatic complexity per function), identify high-priority refactoring targets (long methods >50 lines, complex conditionals, code duplication)
+
+### 2. Parallel Refactoring Analysis: Launch 3 domain analysts concurrently (refactoring-analyst for code smells, code-quality-analyst for metrics, architecture-analyst for structural improvements)
+
+### 3. Consolidation & Prioritization: Aggregate findings, prioritize by impact (high complexity reduction, critical duplication removal), plan refactoring sequence
+
+### 4. Implementation: Apply refactoring patterns (Extract Method, Simplify Conditional, Remove Duplication), preserve behavior through incremental changes
+
+### 5. Validation: Run full test suite (all tests must pass), measure complexity reduction, validate SOLID compliance, confirm no functionality regressions
+
+## Explicit Constraints
+
+**IN SCOPE**: Code smell detection (long methods, complex conditionals, duplication), complexity analysis (cyclomatic complexity, maintainability index), SOLID principles validation, design pattern application, structural improvements
+**OUT OF SCOPE**: Functional behavior changes (feature additions/modifications), architecture redesigns requiring API changes, performance optimization (performance-analyst), test creation (testing-analyst)
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% code smell coverage, Accuracy >90% refactoring safety, Relevance >85% prioritized by impact, Efficiency <45s parallel analysis)
 
 ## Purpose
 
@@ -27,7 +64,7 @@ to code quality, readability, and maintainability.
 - **Primary Agent**: refactoring-analyst - Orchestrates parallel refactoring analysis and synthesizes improvements
 - **Parallel Domain Analysts** (3 concurrent):
   - refactoring-analyst - Code smell detection, refactoring opportunities, technical debt assessment
-  - quality-analyst - Complexity analysis, maintainability metrics, SOLID principles validation
+  - code-quality-analyst - Complexity analysis, maintainability metrics, SOLID principles validation
   - architecture-analyst - Design pattern recommendations, structural improvements, architectural consistency
 
 ## Implementation Steps
@@ -37,7 +74,7 @@ to code quality, readability, and maintainability.
 ```python
 # Launch 3 analysts concurrently for comprehensive refactoring assessment
 Task("refactoring-analyst: Identify code smells, duplication, long methods, complex conditionals, and refactoring opportunities across the codebase")
-Task("quality-analyst: Analyze code complexity, detect maintainability issues, validate SOLID principles, and assess technical debt")
+Task("code-quality-analyst: Analyze code complexity, detect maintainability issues, validate SOLID principles, and assess technical debt")
 Task("architecture-analyst: Review design patterns, identify structural improvements, and recommend architectural enhancements for better modularity")
 
 # Each analyst:
@@ -51,7 +88,7 @@ Task("architecture-analyst: Review design patterns, identify structural improvem
 ```python
 # Read all analyst artifacts
 Read(.agent/context/${session_id}/refactoring-analyst.md)
-Read(.agent/context/${session_id}/quality-analyst.md)
+Read(.agent/context/${session_id}/code-quality-analyst.md)
 Read(.agent/context/${session_id}/architecture-analyst.md)
 
 # Based on consolidated findings, implement refactoring:
@@ -90,7 +127,7 @@ Read(.agent/context/${session_id}/architecture-analyst.md)
 ```text
 Phase 1: Parallel Analysis (quick parallel analysis)
 → Task("refactoring-analyst: Identify code smells and refactoring opportunities")
-→ Task("quality-analyst: Analyze complexity and maintainability metrics")
+→ Task("code-quality-analyst: Analyze complexity and maintainability metrics")
 → Task("architecture-analyst: Review design patterns and structural improvements")
 
 Analysts complete concurrently (significantly faster than sequential execution)
@@ -116,7 +153,7 @@ Phase 3: Validation
 - **Before Execution**: Works with `/git:branch` to create refactoring branch
 - **After Execution**: Integrates with `/git:commit` for structured commit messages
 - **Quality Assurance**: Pairs with `/review:code` for post-refactoring validation
-- **Documentation**: Coordinates with `/docs:update` to reflect structural changes
+- **Documentation**: Coordinates with `/workflows:docs` to reflect structural changes
 
 ### Success Criteria
 
@@ -151,7 +188,7 @@ Phase 3: Validation
 - Long method and complex conditional detection
 - Refactoring pattern recommendations
 
-**quality-analyst** persists to `.agent/context/quality-analysis-{timestamp}.md`:
+**code-quality-analyst** persists to `.agent/context/quality-analysis-{timestamp}.md`:
 
 - Cyclomatic complexity metrics by function
 - Maintainability index assessment

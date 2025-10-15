@@ -1,10 +1,29 @@
 ---
 description: "Provide clear code explanations with context-appropriate depth"
 argument-hint: "[target] [--depth=<level>] [--focus=<aspect>] [--include-examples]"
-allowed-tools: Read, Grep, Glob
+allowed-tools: Read, Grep, Glob, Task, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Code
+
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Provide clear code explanations via parallel multi-level analysis (structure, logic, context via Task tool), context understanding (problem/business-logic/domain/relationships/data-transformations), implementation analysis (algorithms/patterns/variables/data-structures/execution-flow), quality assessment (readability/maintainability/performance/issues/trade-offs), explanation generation (appropriate depth, examples, visual aids, related code suggestions)
+
+**P**urpose: Help understand code functionality and purpose through clear explanations, break down complex algorithms into understandable steps, explain design patterns and architectural choices for learning, assess code quality and identify improvement opportunities, support onboarding and knowledge transfer, adapt explanation depth to audience needs
+
+**E**xpectation: Clear code explanation with context (problem solved, business logic, system relationships), implementation breakdown (algorithms, patterns, key variables, execution flow), quality assessment (readability, issues, trade-offs), concrete examples and usage scenarios, visual aids (flowcharts/diagrams when helpful), related code/documentation suggestions, depth-appropriate technical detail (brief/detailed/comprehensive)
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% code coverage, Accuracy >90% explanation correctness, Relevance >85% audience appropriateness, Efficiency <30s typical explanation)
+
+## Explicit Constraints
+
+**IN SCOPE**: Code explanation (functionality/purpose/implementation), parallel multi-level analysis (structure/logic/context via Task), context understanding (problem/domain/relationships), implementation breakdown (algorithms/patterns/flow), quality assessment (readability/issues/trade-offs), explanation generation (depth-appropriate, examples, visual aids), focus areas (logic/purpose/patterns/performance), depth levels (brief/detailed/comprehensive)
+**OUT OF SCOPE**: Code refactoring (explanation only), implementation changes, bug fixing (identify issues only), test generation, performance optimization, security fixes (use security-analyst)
 
 ## Purpose
 

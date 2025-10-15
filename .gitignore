@@ -44,6 +44,7 @@ Thumbs.db
 # Debug logs
 *.log
 hook-debug.log
+debug/
 
 # Conversation history
 history.jsonl
@@ -75,6 +76,9 @@ pnpm-lock.yaml
 
 # Session management
 .current_session
+
+# MCP configuration (user-local only, use template)
+.mcp.json
 
 # Ignore credentials and sensitive files
 .credentials.json

@@ -5,12 +5,12 @@ Code Command System! This document provides guidelines for contributing to this 
 
 ## 🎯 Overview
 
-The Claude Code Command System is built on the **Agent Specialist Framework** with:
+The Claude Code Command System is built on the **Domain Analyst Framework** with:
 
-- **8 Agents**: 3 analysis specialists + 5 execution specialists for task coordination
-- **54+ Commands**: Atomic operations across 15 categories
+- **43 Domain Analysts**: Specialized analysts across 12 domains (API, Database, Frontend, Code Quality, Infrastructure, Mobile, Research, Documentation, UI/UX, Standalone, Engineering, Meta)
+- **48 Commands**: Atomic operations across 13 categories
 - **Cross-Platform Compatibility**: Windows, macOS, and Linux support
-- **MCP Integration**: Context7 and Playwright tools
+- **MCP Integration**: Context7, Playwright, and 5 other MCP servers
 
 ## 📋 How to Contribute
 
@@ -19,7 +19,7 @@ The Claude Code Command System is built on the **Agent Specialist Framework** wi
 We welcome several types of contributions:
 
 1. **New Commands** - Atomic operations following our command template
-2. **Agent Improvements** - Enhancements to analysis specialists or execution specialists
+2. **Domain Analyst Improvements** - Enhancements to domain analysts (analysis-only, persist findings)
 3. **Documentation** - User guides, technical docs, and examples
 4. **Bug Fixes** - Corrections to existing functionality
 5. **Security Improvements** - Enhanced security patterns and controls
@@ -28,9 +28,9 @@ We welcome several types of contributions:
 ### Before You Start
 
 1. **Search existing issues** to avoid duplicates
-2. **Review the architecture** in `docs/concepts/agent-specialist-framework.md`
-3. **Read the developer guide** at `docs/developer-guide.md`
-4. **Check command standards** in `docs/command-template.md`
+2. **Review the architecture** in `docs/concepts/agent-specialist-system.md`
+3. **Read the developer guide** at `docs/developer/developer-guide.md`
+4. **Check command standards** in `templates/commands/command.md`
 
 ## 🛠️ Development Guidelines
 
@@ -38,9 +38,9 @@ We welcome several types of contributions:
 
 **All new commands must:**
 
-- Follow the template in `docs/command-template.md`
+- Follow the template in `templates/commands/command.md`
 - Include complete YAML frontmatter
-- Be assigned to an existing Agent Specialist Framework agent
+- Be assigned to appropriate domain analysts for delegation
 - Include practical examples and integration points
 - Support cross-platform execution
 
@@ -65,15 +65,15 @@ complexity: "simple|moderate|complex"
 - Examples
 - Integration Points
 
-### Agent Development
+### Domain Analyst Development
 
-**New agents must:**
+**New domain analysts must:**
 
-- Have single, focused responsibility
-- Follow analysis specialist/execution specialist pattern
-- Use appropriate model (Opus for analysis specialists, Sonnet for execution specialists)
-- Not duplicate existing agent functionality
-- Include complete YAML specification
+- Have single, focused domain responsibility
+- Follow domain analyst pattern (analyze, persist to `.agent/context/`, return summary)
+- Use `model: inherit` (default) or `model: opus` for complex reasoning only
+- Not duplicate existing analyst functionality
+- Include complete YAML frontmatter with `tools` specification
 
 ### Code Standards
 
@@ -89,8 +89,9 @@ complexity: "simple|moderate|complex"
 
 **Critical constraints:**
 
-- Only `/git/*` commands can perform Git operations
-- All agents must use SlashCommand tool for Git delegation
+- Only `/git/*` and `/git-flow/*` commands can perform Git operations
+- All domain analysts must use SlashCommand tool for Git delegation
+- Domain analysts are analysis-only (no implementation)
 - No hardcoded secrets or credentials
 - Input validation for all user inputs
 - Path validation for file operations

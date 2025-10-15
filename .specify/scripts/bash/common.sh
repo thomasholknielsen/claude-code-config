@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 # Common functions and variables for all scripts
 
-# Get repository root, using current working directory as project root
+# Get repository root, using current working directory
 get_repo_root() {
     local current_dir="$(pwd)"
-    # Always use current working directory as project root
-    # This ensures specs are created in the user's project, not the script location
     echo "$current_dir"
 }
 

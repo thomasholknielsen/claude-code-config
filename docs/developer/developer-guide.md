@@ -26,7 +26,7 @@ graph TB
             Fix[fix/]
             Git[git/]
             Review[review/]
-            SpecKit[spec-kit/]
+            SpecKit[speckit/]
             Workflows[workflows/]
         end
 
@@ -88,7 +88,7 @@ graph TB
 #### 2. test-writer
 
 - **Focus**: Testing strategy and implementation guidance
-- **Advises on**: `/test`, `/spec-kit:tasks` command usage
+- **Advises on**: `/test`, `/speckit:tasks` command usage
 - **Specializes in**: Test framework selection, coverage strategies, testing patterns
 
 #### 3. bug-fixer
@@ -163,7 +163,7 @@ Single clear sentence describing what this command does.
 - `git/` - Git operations
 - `operations/` - File operations
 - `review/` - Code review
-- `spec-kit/` - Feature workflow
+- `speckit/` - Feature workflow
 - `test/` - Testing
 - `to-do/` - Task management
 - `workflows/` - Multi-step workflows

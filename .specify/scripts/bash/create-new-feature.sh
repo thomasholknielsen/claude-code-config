@@ -32,15 +32,12 @@ find_repo_root() {
 }
 
 # Resolve repository root. Use current working directory as project root
-# instead of script location to ensure specs are created in the user's project.
+# to ensure specs are created in the current project directory.
 CURRENT_DIR="$(pwd)"
-
-# Check if current directory has git, but don't rely on git for repo root
 if [ -d "$CURRENT_DIR/.git" ]; then
     REPO_ROOT="$CURRENT_DIR"
     HAS_GIT=true
 else
-    # For non-git projects, use current directory as project root
     REPO_ROOT="$CURRENT_DIR"
     HAS_GIT=false
 fi

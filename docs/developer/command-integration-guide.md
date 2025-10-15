@@ -29,26 +29,26 @@ This guide documents how commands work together, their relationships, and integr
 ### Feature Development Lifecycle
 
 ```text
-/spec-kit:specify → /spec-kit:plan → /implement:spec-kit-tasks → /review:code → /docs:update → /git:pr
+/speckit:specify → /speckit:plan → /implement:speckit-tasks → /review:code → /workflows:docs → /git:pr
 ```
 
 **Usage Example:**
 
 ```bash
 # 1. Define feature requirements
-/spec-kit:specify "User authentication system"
+/speckit:specify "User authentication system"
 
 # 2. Create implementation plan
-/spec-kit:plan
+/speckit:plan
 
 # 3. Implement the feature
-/implement:spec-kit-tasks
+/implement:speckit-tasks
 
 # 4. Review implementation
 /review:code
 
 # 5. Update documentation
-/docs:update
+/workflows:docs
 
 # 6. Create pull request
 /git:pr "Add user authentication system"
@@ -63,7 +63,7 @@ This guide documents how commands work together, their relationships, and integr
 ### Documentation Workflow
 
 ```text
-/docs:analyze → /docs:generate → /docs:update → /review:design → /git:commit
+/workflows:docs → /review:design → /git:commit
 ```
 
 ## Command Categories and Relationships
@@ -161,7 +161,7 @@ This guide documents how commands work together, their relationships, and integr
 - `/git:merge` - Branch merging
 - `/git:push` - Push to remote
 - `/git:pr` - Pull request creation
-- `/git:workflow` - Complete Git workflows
+- `/workflows:git` - Complete Git workflows
 
 **Integration as Final Steps:**
 
@@ -173,28 +173,24 @@ This guide documents how commands work together, their relationships, and integr
 {feature} → /review:code → /git:pr
 
 # Release preparation
-{release-changes} → /workflows:run-comprehensive-review → /git:workflow
+{release-changes} → /workflows:run-comprehensive-review → /workflows:git
 ```
 
 ### Documentation Commands
 
 **Primary Commands:**
 
-- `/docs:generate` - Auto-generate documentation
-- `/docs:update` - Update existing docs
-- `/docs:api` - API documentation
-- `/docs:changelog` - Version history
-- `/docs:analyze` - Documentation audit
-- `/docs:extract-external` - External doc integration
+- `/workflows:docs` - Idempotent documentation workflow (CRUD operations)
+- `/docs:changelog` - Manual CHANGELOG.md management (Keep a Changelog v1.1.0)
 
 **Integration Patterns:**
 
 ```text
 # Feature documentation
-/implement:spec-kit-tasks → /docs:api → /docs:update → /git:commit
+/implement:speckit-tasks → /workflows:docs → /git:commit
 
 # Release documentation
-/git:workflow → /docs:changelog → /docs:generate → /git:pr
+/workflows:git → /docs:changelog → /workflows:docs → /git:pr
 ```
 
 ### Workflow Commands
@@ -203,7 +199,7 @@ This guide documents how commands work together, their relationships, and integr
 
 - `/workflows:run-comprehensive-review` - Complete quality check
 - `/workflows:run-cleanup-workflow` - Code cleanup
-- `/workflows:run-docs-workflow` - Documentation workflow
+- `/workflows:docs` - Idempotent documentation workflow
 - `/workflows:run-optimization` - Performance optimization
 - `/workflows:run-security-audit` - Security assessment
 - `/workflows:run-refactor-workflow` - Refactoring workflow
@@ -213,7 +209,7 @@ This guide documents how commands work together, their relationships, and integr
 
 ```text
 # Pre-release workflow
-/workflows:run-comprehensive-review → /workflows:run-docs-workflow → /git:workflow
+/workflows:run-comprehensive-review → /workflows:docs → /workflows:git
 
 # Maintenance workflow
 /workflows:run-cleanup-workflow → /workflows:run-optimization → /git:commit
@@ -239,21 +235,19 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 └── /review:design (reviewer agent)
 
 # Parallel documentation
-/workflows:run-docs-workflow
-├── /docs:api (documenter agent)
-├── /docs:generate (documenter agent)
-└── /docs:update (documenter agent)
+/workflows:docs
+└── Documentation analysts (parallel CRUD assessment)
 ```
 
 ### Sequential Coordination
 
 ```text
 # Feature implementation chain
-1. /spec-kit:specify (implementation-strategy-specialist)
-2. /spec-kit:plan (implementation-strategy-specialist)
-3. /implement:spec-kit-tasks (implementation-strategy-specialist → code-writer)
+1. /speckit:specify (implementation-strategy-specialist)
+2. /speckit:plan (implementation-strategy-specialist)
+3. /implement:speckit-tasks (implementation-strategy-specialist → code-writer)
 4. /review:code (reviewer)
-5. /docs:update (documenter)
+5. /workflows:docs (documentation analysts)
 6. /git:pr (implementation-strategy-specialist)
 ```
 
@@ -328,9 +322,9 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 
 ```bash
 # Complete feature implementation
-/spec-kit:specify "Shopping cart functionality"
-/spec-kit:plan
-/implement:spec-kit-tasks
+/speckit:specify "Shopping cart functionality"
+/speckit:plan
+/implement:speckit-tasks
 /review:code
 /docs:api
 /git:pr "Add shopping cart feature"
@@ -353,8 +347,8 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 # Prepare for release
 /workflows:run-comprehensive-review
 /workflows:run-security-audit
-/workflows:run-docs-workflow
-/git:workflow "release/v2.0.0"
+/workflows:docs
+/workflows:git "release/v2.0.0"
 ```
 
 ### Scenario 5: Performance Optimization
@@ -364,7 +358,7 @@ implementation-strategy-specialist → multiple execution specialists (for compl
 /analyze:performance
 /workflows:run-optimization
 /review:code
-/docs:update "performance improvements"
+/workflows:docs
 /git:commit "Optimize application performance"
 ```
 

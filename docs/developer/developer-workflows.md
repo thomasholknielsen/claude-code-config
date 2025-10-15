@@ -32,7 +32,7 @@ command system across different project scenarios. All 49 commands across 13 cat
   - [Adding Features to Existing Projects](#adding-features-to-existing-projects)
     - [Simple Features: Direct Implementation](#simple-features-direct-implementation-4-6-commands)
     - [Medium Features: Hybrid Approach](#medium-features-hybrid-approach-8-12-commands)
-    - [Complex Features: Full Spec-Kit](#complex-features-full-spec-kit-15-commands)
+    - [Complex Features: Full Spec-Kit](#complex-features-full-speckit-15-commands)
   - [Complete Example: Adding Payment System](#complete-example-adding-payment-system-complex-feature)
   - [Feature Addition Command Usage by Complexity](#feature-addition-command-usage-by-complexity)
   - [Feature Development Patterns](#feature-development-patterns)
@@ -43,7 +43,7 @@ command system across different project scenarios. All 49 commands across 13 cat
   - [Security Updates Workflow](#security-updates-workflow-6-8-commands)
   - [Complex Bug Investigation](#complex-bug-investigation-10-15-commands)
 - [🔄 Workflow Decision Matrix](#-workflow-decision-matrix)
-  - [When to Use Spec-Kit](#when-to-use-spec-kit)
+  - [When to Use Spec-Kit](#when-to-use-speckit)
   - [When to Use Direct Commands](#when-to-use-direct-commands)
   - [When to Use Hybrid Approach](#when-to-use-hybrid-approach)
 - [🎨 Custom Workflow Examples](#-custom-workflow-examples)
@@ -79,14 +79,14 @@ command system across different project scenarios. All 49 commands across 13 cat
 
 - **Full Spec-Kit**: Complete 7-step feature development
 - **Direct Implementation**: Bypass planning for simple tasks
-- **Hybrid Approach**: Mix spec-kit with direct commands
+- **Hybrid Approach**: Mix speckit with direct commands
 
 ### Command Categories (49 Total Commands)
 
 ```text
 analyze/     (3) → clean/      (4) → docs/       (6) → explain/    (2)
 fix/         (2) → git/        (1) → implement/  (2) → plan/       (1)
-refactor/    (6) → review/     (3) → spec-kit/   (7) → to-do/      (5)
+refactor/    (6) → review/     (3) → speckit/   (7) → to-do/      (5)
 workflows/   (7)
 ```
 
@@ -101,7 +101,7 @@ graph TD
     B -->|Maintenance| F[Issue Analysis]
 
     C --> G[/docs:generate/]
-    C --> H[/spec-kit:constitution/]
+    C --> H[/speckit:constitution/]
     C --> I[/clean:apply-style-rules/]
 
     D --> J[/analyze:dependencies/]
@@ -111,7 +111,7 @@ graph TD
     E --> M{Feature Complexity?}
     M -->|Simple| N[/implement:small/]
     M -->|Medium| O[/artifact:save plan/]
-    M -->|Complex| P[/spec-kit:specify/]
+    M -->|Complex| P[/speckit:specify/]
 
     F --> Q[/fix:bug-quickly/]
     F --> R[/analyze:potential-issues/]
@@ -146,17 +146,17 @@ graph TD
 ```mermaid
 graph LR
     A[Project Start] --> B[/docs:generate/]
-    B --> C[/spec-kit:constitution/]
+    B --> C[/speckit:constitution/]
     C --> D[/clean:apply-style-rules/]
     D --> E{Feature Complexity?}
 
     E -->|Complex| F[Full Spec-Kit]
     E -->|Simple| G[Direct Implementation]
 
-    F --> H[/spec-kit:specify/]
-    H --> I[/spec-kit:plan/]
-    I --> J[/spec-kit:tasks/]
-    J --> K[/spec-kit:implement/]
+    F --> H[/speckit:specify/]
+    H --> I[/speckit:plan/]
+    I --> J[/speckit:tasks/]
+    J --> K[/speckit:implement/]
 
     G --> L[/implement:small/]
     L --> M[/test:write/]
@@ -192,25 +192,25 @@ graph LR
 #### 2. Architecture Planning - Complex Projects (7 Commands)
 
 ```bash
-# spec-kit/ category - Complete planning workflow (7 commands total)
-/spec-kit:constitution "Define project principles and standards"
-/spec-kit:specify "Core application architecture"
-/spec-kit:plan "Implementation roadmap"
-/spec-kit:clarify "Architecture decisions and constraints"
-/spec-kit:analyze "Cross-artifact consistency check"
+# speckit/ category - Complete planning workflow (7 commands total)
+/speckit:constitution "Define project principles and standards"
+/speckit:specify "Core application architecture"
+/speckit:plan "Implementation roadmap"
+/speckit:clarify "Architecture decisions and constraints"
+/speckit:analyze "Cross-artifact consistency check"
 ```
 
 #### 3. First Feature Development Options
 
-**Option A: Full Spec-Kit Workflow (All 7 spec-kit commands)**
+**Option A: Full Spec-Kit Workflow (All 7 speckit commands)**
 
 ```bash
-/spec-kit:specify "User authentication system"
-/spec-kit:plan
-/spec-kit:clarify "OAuth vs JWT vs sessions"
-/spec-kit:tasks
-/spec-kit:analyze
-/spec-kit:implement
+/speckit:specify "User authentication system"
+/speckit:plan
+/speckit:clarify "OAuth vs JWT vs sessions"
+/speckit:tasks
+/speckit:analyze
+/speckit:implement
 ```
 
 **Option B: Direct Implementation (implement + test + docs)**
@@ -218,7 +218,7 @@ graph LR
 ```bash
 # implement/ category (2 commands total)
 /implement:small "Basic landing page"
-/implement:spec-kit-tasks "if using existing tasks"
+/implement:speckit-tasks "if using existing tasks"
 
 # test/ category (1 command total)
 /test:write "landing page tests"
@@ -235,7 +235,7 @@ graph LR
 graph TD
     A[Start] --> B[/docs:generate/]
     B --> C[/docs:api/]
-    C --> D[/spec-kit:constitution/]
+    C --> D[/speckit:constitution/]
     D --> E[/clean:apply-style-rules/]
     E --> F[/review:security/]
     F --> G[/git:commit/]
@@ -248,8 +248,8 @@ graph TD
 /docs:api                       # API structure
 /docs:extract-external "e-commerce best practices"
 
-# 2. Project constitution (spec-kit/)
-/spec-kit:constitution "E-commerce platform principles"
+# 2. Project constitution (speckit/)
+/speckit:constitution "E-commerce platform principles"
 
 # 3. Code standards (clean/)
 /clean:apply-style-rules
@@ -258,19 +258,19 @@ graph TD
 #### Phase 2: Core Architecture (5 Commands)
 
 ```bash
-# spec-kit/ category - Full planning
-/spec-kit:specify "Product catalog and user management"
-/spec-kit:plan
-/spec-kit:clarify "data relationships and user flows"
-/spec-kit:analyze
+# speckit/ category - Full planning
+/speckit:specify "Product catalog and user management"
+/speckit:plan
+/speckit:clarify "data relationships and user flows"
+/speckit:analyze
 ```
 
 #### Phase 3: Implementation Cycles (12+ Commands)
 
 ```bash
 # Cycle 1: Core features
-/spec-kit:tasks
-/spec-kit:implement
+/speckit:tasks
+/speckit:implement
 /review:security
 /test:write "authentication tests"
 
@@ -285,7 +285,7 @@ graph TD
 
 # Final polish (workflows/)
 /workflows:run-cleanup-workflow
-/workflows:run-docs-workflow
+/workflows:docs
 ```
 
 #### Complete Command Usage Matrix
@@ -293,7 +293,7 @@ graph TD
 | Category | Commands Used | Purpose |
 |----------|---------------|---------|
 | **docs/** | 4/6 | Documentation foundation |
-| **spec-kit/** | 6/7 | Architecture & planning |
+| **speckit/** | 6/7 | Architecture & planning |
 | **implement/** | 2/2 | Feature development |
 | **clean/** | 3/4 | Code quality |
 | **review/** | 2/3 | Security & quality |
@@ -385,7 +385,7 @@ graph TD
 # workflows/ category - Comprehensive analysis (7 commands total)
 /workflows:run-comprehensive-review    # Multi-perspective code review
 /workflows:run-security-audit         # Security vulnerability assessment
-/workflows:run-docs-workflow --mode=audit  # Documentation coverage
+/workflows:docs --mode=audit  # Documentation coverage
 
 # review/ category - Detailed quality checks (3 commands total)
 /review:security --audit              # Security-focused review
@@ -546,11 +546,11 @@ graph TD
     J --> K[/implement:small/ x3]
     K --> L[/workflows:run-cleanup-workflow/]
 
-    E --> M[/spec-kit:specify/]
-    M --> N[/spec-kit:clarify/]
-    N --> O[/spec-kit:plan/]
-    O --> P[/spec-kit:tasks/]
-    P --> Q[/spec-kit:implement/]
+    E --> M[/speckit:specify/]
+    M --> N[/speckit:clarify/]
+    N --> O[/speckit:plan/]
+    O --> P[/speckit:tasks/]
+    P --> Q[/speckit:implement/]
 
     I --> R[Feature Complete]
     L --> R
@@ -631,13 +631,13 @@ graph TD
 #### Complex Features: Full Spec-Kit (15+ Commands)
 
 ```bash
-# spec-kit/ category - Complete planning workflow (7 commands total)
-/spec-kit:specify "Real-time notifications system"
-/spec-kit:clarify "integration with existing auth and websockets"
-/spec-kit:plan "implementation phases and dependencies"
-/spec-kit:analyze "consistency with existing patterns"
-/spec-kit:tasks "detailed implementation breakdown"
-/spec-kit:implement "full feature implementation"
+# speckit/ category - Complete planning workflow (7 commands total)
+/speckit:specify "Real-time notifications system"
+/speckit:clarify "integration with existing auth and websockets"
+/speckit:plan "implementation phases and dependencies"
+/speckit:analyze "consistency with existing patterns"
+/speckit:tasks "detailed implementation breakdown"
+/speckit:implement "full feature implementation"
 
 # Additional quality and integration
 /review:security "websocket connections and auth"
@@ -653,27 +653,27 @@ graph TD
 
 ```mermaid
 graph LR
-    A[Payment Requirement] --> B[/spec-kit:specify/]
-    B --> C[/spec-kit:clarify/]
-    C --> D[/spec-kit:plan/]
-    D --> E[/spec-kit:analyze/]
+    A[Payment Requirement] --> B[/speckit:specify/]
+    B --> C[/speckit:clarify/]
+    C --> D[/speckit:plan/]
+    D --> E[/speckit:analyze/]
     E --> F[Ready for Implementation]
 ```
 
 ```bash
-# Complete spec-kit planning
-/spec-kit:specify "Stripe payment integration with webhooks"
-/spec-kit:clarify "refund handling, dispute management, and edge cases"
-/spec-kit:plan "security compliance and PCI requirements"
-/spec-kit:analyze "security and compliance requirements"
+# Complete speckit planning
+/speckit:specify "Stripe payment integration with webhooks"
+/speckit:clarify "refund handling, dispute management, and edge cases"
+/speckit:plan "security compliance and PCI requirements"
+/speckit:analyze "security and compliance requirements"
 ```
 
 #### Phase 2: Implementation & Security (8 Commands)
 
 ```bash
 # Core implementation
-/spec-kit:tasks "payment flow breakdown"
-/spec-kit:implement "complete payment system"
+/speckit:tasks "payment flow breakdown"
+/speckit:implement "complete payment system"
 
 # Security-first validation (critical for payments)
 /review:security "payment handling code and data flow"
@@ -730,7 +730,7 @@ graph LR
 
 | Category | Commands | Usage Rate |
 |----------|----------|------------|
-| **spec-kit/** | 6/7 | 86% |
+| **speckit/** | 6/7 | 86% |
 | **review/** | 3/3 | 100% |
 | **test/** | 1/1 | 100% |
 | **analyze/** | 1/3 | 33% |
@@ -750,7 +750,7 @@ graph TD
 
     C --> F["/implement:small<br/>/test:write<br/>/review:code"]
     D --> G["/artifact:save plan<br/>Multiple /implement:small<br/>/workflows:run-cleanup-workflow"]
-    E --> H["/spec-kit:specify → clarify → plan → tasks → implement<br/>/review:security<br/>/docs:api"]
+    E --> H["/speckit:specify → clarify → plan → tasks → implement<br/>/review:security<br/>/docs:api"]
 
     F --> I[5-7 Commands]
     G --> J[8-12 Commands]
@@ -1049,7 +1049,7 @@ graph TD
 ❌ **Don't:**
 
 - Skip analysis on complex features
-- Use spec-kit for simple changes
+- Use speckit for simple changes
 - Ignore security reviews on sensitive code
 - Skip documentation updates
 - Commit without running cleanup workflows
@@ -1067,7 +1067,7 @@ graph TD
 ### Greenfield Project Checklist
 
 - [ ] `/docs:generate` for initial structure
-- [ ] `/spec-kit:constitution` for project standards
+- [ ] `/speckit:constitution` for project standards
 - [ ] `/clean:apply-style-rules` setup
 - [ ] Core architecture planning
 - [ ] First feature implementation
@@ -1191,7 +1191,7 @@ graph LR
 ```mermaid
 graph TD
     A[Feature Development] --> B{Use Spec-Kit?}
-    B -->|Yes| C[/implement:spec-kit-tasks/]
+    B -->|Yes| C[/implement:speckit-tasks/]
     B -->|No| D[/implement:small/]
     C --> E[Structured Implementation]
     D --> F[Direct Implementation]
@@ -1200,7 +1200,7 @@ graph TD
 ```bash
 # Complete implementation workflow
 /implement:small "simple UI component"
-/implement:spec-kit-tasks "complex feature from planned tasks"
+/implement:speckit-tasks "complex feature from planned tasks"
 ```
 
 #### Plan Commands (1/1) - Strategic Planning
@@ -1267,25 +1267,25 @@ graph TD
 
 ```mermaid
 graph TD
-    A[Feature Start] --> B[/spec-kit:constitution/]
-    B --> C[/spec-kit:specify/]
-    C --> D[/spec-kit:clarify/]
-    D --> E[/spec-kit:plan/]
-    E --> F[/spec-kit:tasks/]
-    F --> G[/spec-kit:analyze/]
-    G --> H[/spec-kit:implement/]
+    A[Feature Start] --> B[/speckit:constitution/]
+    B --> C[/speckit:specify/]
+    C --> D[/speckit:clarify/]
+    D --> E[/speckit:plan/]
+    E --> F[/speckit:tasks/]
+    F --> G[/speckit:analyze/]
+    G --> H[/speckit:implement/]
     H --> I[Feature Complete]
 ```
 
 ```bash
-# Complete spec-kit workflow
-/spec-kit:constitution "establish project principles"
-/spec-kit:specify "detailed feature requirements"
-/spec-kit:clarify "resolve ambiguities and edge cases"
-/spec-kit:plan "implementation strategy and phases"
-/spec-kit:tasks "actionable development tasks"
-/spec-kit:analyze "cross-artifact consistency check"
-/spec-kit:implement "execute complete implementation"
+# Complete speckit workflow
+/speckit:constitution "establish project principles"
+/speckit:specify "detailed feature requirements"
+/speckit:clarify "resolve ambiguities and edge cases"
+/speckit:plan "implementation strategy and phases"
+/speckit:tasks "actionable development tasks"
+/speckit:analyze "cross-artifact consistency check"
+/speckit:implement "execute complete implementation"
 ```
 
 #### Task Management Commands (5/5) - Project Organization
@@ -1316,7 +1316,7 @@ graph TD
     A[Workflow Automation] --> B[/workflows:run-comprehensive-review/]
     A --> C[/workflows:run-security-audit/]
     A --> D[/workflows:run-cleanup-workflow/]
-    A --> E[/workflows:run-docs-workflow/]
+    A --> E[/workflows:docs/]
 
     B --> F[Quality Assurance]
     C --> G[Security Validation]
@@ -1329,7 +1329,7 @@ graph TD
 /workflows:run-comprehensive-review "multi-perspective code review"
 /workflows:run-security-audit "vulnerability assessment"
 /workflows:run-cleanup-workflow "code quality optimization"
-/workflows:run-docs-workflow --mode=generate "documentation refresh"
+/workflows:docs --mode=generate "documentation refresh"
 ```
 
 ### Command Integration Patterns
@@ -1339,10 +1339,10 @@ graph TD
 ```mermaid
 graph TD
     A[Feature Request] --> B[Spec-Kit Phase]
-    B --> C["/spec-kit:specify<br/>/spec-kit:clarify<br/>/spec-kit:plan<br/>/spec-kit:tasks"]
+    B --> C["/speckit:specify<br/>/speckit:clarify<br/>/speckit:plan<br/>/speckit:tasks"]
 
     C --> D[Implementation Phase]
-    D --> E["/spec-kit:implement<br/>/test:write<br/>/review:security<br/>/review:code"]
+    D --> E["/speckit:implement<br/>/test:write<br/>/review:security<br/>/review:code"]
 
     E --> F[Quality Phase]
     F --> G["/clean:apply-style-rules<br/>/clean:improve-readability<br/>/refactor:optimize"]
@@ -1393,9 +1393,9 @@ graph TD
 
 | Workflow Type | Commands Used | Most Used Categories | Success Metrics |
 |---------------|---------------|----------------------|------------------|
-| **Greenfield** | 23/50 (46%) | spec-kit, docs, clean | Architecture foundation |
+| **Greenfield** | 23/50 (46%) | speckit, docs, clean | Architecture foundation |
 | **Brownfield** | 35/50 (70%) | analyze, refactor, review | Code modernization |
-| **Feature Add** | 15-25/50 (30-50%) | implement, spec-kit, review | Feature delivery |
+| **Feature Add** | 15-25/50 (30-50%) | implement, speckit, review | Feature delivery |
 | **Maintenance** | 8-15/50 (16-30%) | fix, analyze, test | Issue resolution |
 
 ### Universal Command Combinations

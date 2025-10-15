@@ -1,251 +1,217 @@
-<!--
-Sync Impact Report:
-Version: 2.1.0 (Updated to reflect Domain Analyst Framework with 15 agents)
-Modified principles: Updated Agent Specialist Framework to Domain Analyst Framework with 15 domain analysts (1 research + 14 specialists)
-Added sections: Research analyst role, expanded domain specialist coverage (React, TypeScript, Python, API, security, performance, testing, accessibility, documentation, database, frontend, quality, architecture, refactoring)
-Removed sections: Strategic/Technical specialist division (replaced with research + domain analyst pattern)
-Templates requiring updates:
-  ✅ plan-template.md - Constitution Check section updated to reflect Domain Analyst Framework
-  ✅ spec-template.md - Updated to reference domain analyst patterns
-  ✅ tasks-template.md - Task ordering follows atomic command principles
-Follow-up TODOs: Update existing specs to reference v2.1.0
--->
-
 # Claude Code Command System Constitution
+
+<!--
+SYNC IMPACT REPORT - Constitution Update
+Version: 1.0.0 → 2.0.0 (MAJOR)
+Date: 2025-10-14
+
+MODIFIED PRINCIPLES:
+- Complete restructure from placeholder template to concrete implementation
+- Established 7 core principles from 5 generic placeholders
+- Added Command System Architecture section
+- Added Security & Quality Standards section
+- Expanded governance with specific compliance procedures
+
+ADDED SECTIONS:
+- Command System Architecture (command categories, atomic design, git constraints)
+- Security & Quality Standards (dependency management, code evidence, quality gates)
+
+REMOVED SECTIONS:
+- None (all placeholder sections replaced with concrete content)
+
+TEMPLATES REQUIRING UPDATES:
+✅ plan-template.md - Constitution Check section references this file
+✅ spec-template.md - Functional requirements align with principles
+✅ tasks-template.md - Task organization reflects atomic design and user story independence
+✅ constitution.md - This command file (self-referential)
+
+FOLLOW-UP TODOS:
+- Monitor template usage for 30 days to verify constitution alignment
+- Consider adding explicit examples for constitution violations in plan-template.md
+-->
 
 ## Core Principles
 
-### I. Domain Analyst Framework Architecture
+### I. Agent Specialist Framework
 
-The repository is built on the **Domain Analyst Framework** with 15 specialized domain analysts providing comprehensive advisory expertise:
+**Every analysis must leverage domain specialists with clear responsibility boundaries.**
 
-**Research Analyst (1):**
+- Domain analysts conduct comprehensive research and persist findings to `.agent/context/{session-id}/{agent-name}.md`
+- Analysts return concise summaries with task counts to minimize context pollution
+- Main thread coordinates parallel analyst invocation for optimal performance
+- No overlapping responsibilities between agents
 
-- `research-analyst` - Conducts comprehensive sequential research across multiple domains and provides synthesized findings. Uses Context7 for framework documentation.
-
-**Domain Analysts (14):**
-
-**Framework/Technology Analysts:**
-
-- `react-analyst` - React patterns, hooks, state management, component design analysis
-- `typescript-analyst` - Type safety, generics, interface design, TypeScript best practices
-- `python-analyst` - Pythonic patterns, PEP 8 compliance, library best practices, type hints analysis
-- `api-analyst` - REST/GraphQL patterns, endpoint design, versioning strategies, contract validation
-
-**Code Quality & Architecture Analysts:**
-
-- `quality-analyst` - Complexity analysis, code smells detection, maintainability metrics, SOLID principles validation
-- `architecture-analyst` - SOLID principles, design patterns, system design recommendations (uses opus + ultrathink)
-- `refactoring-analyst` - Code smell detection, refactoring opportunities, design pattern recommendations, technical debt assessment
-
-**Security & Performance Analysts:**
-
-- `security-analyst` - OWASP Top 10 analysis, threat modeling, vulnerability detection, auth/authz review, mitigation strategies
-- `performance-analyst` - Bottleneck detection, optimization strategies, profiling recommendations, caching patterns, query optimization
-
-**Testing & Accessibility Analysts:**
-
-- `testing-analyst` - Test coverage assessment, test quality evaluation, edge case identification, testing strategy recommendations
-- `accessibility-analyst` - WCAG compliance assessment, ARIA pattern evaluation, keyboard navigation analysis, screen reader compatibility
-
-**Documentation & Data Analysts:**
-
-- `documentation-analyst` - Documentation completeness assessment, API documentation quality, comment effectiveness, knowledge gap identification
-- `database-analyst` - Schema design evaluation, query optimization, indexing strategies, migration assessment, database performance
-- `frontend-analyst` - Component architecture evaluation, state management patterns, bundle optimization, UI framework best practices
-
-**Usage Patterns:**
-
-- Research analyst for multi-domain sequential research and synthesized findings
-- Domain analysts for deep domain-specific analysis with context elision (conduct extensive research, return 2-3 sentence summaries)
-- All domain analysts persist findings to `.artifacts/context/{domain}-analysis-*.md` for main thread access
-- Domain analysts are **advisory** - they provide recommendations and guidance, not direct execution
-
-**Rationale**: Domain analysts provide deep domain expertise while maintaining context elision pattern (detailed research → concise summaries). This enables parallel research workflows and keeps main thread context clean for implementation.
+**Rationale**: Specialists provide deep expertise while preserving context efficiency through the research-persist-summarize pattern.
 
 ### II. Atomic Command Design
 
-All commands (except workflows) must be atomic, single-purpose operations:
+**Every command must have single purpose, clear responsibility, and composable design.**
 
-**Command Characteristics:**
+- Commands follow template-based development (`templates/commands/*.md`)
+- One command = one responsibility (no feature creep)
+- Commands can delegate to domain analysts but not perform git operations (except `/git/*` commands)
+- Slash commands can daisy-chain ONE other command as final action
 
-- Single, clear responsibility with predictable outcomes
-- Can be used directly by users or recommended by strategic specialists
-- Include integration points showing relationships to other commands
-- Follow standardized template structure with required sections
+**Rationale**: Atomic design enables reliable composition, testing, and maintenance while preventing scope creep.
 
-**Workflow Commands Exception:**
+### III. Git Operation Safety (NON-NEGOTIABLE)
 
-- Workflows orchestrate other atomic commands using SlashCommand tool
-- Use `task-orchestrator` agent instead of specialized agents
-- Document sequential execution strategy
+**ONLY `/git/*` and `/git-flow/*` commands can perform Git operations.**
 
-**Rationale**: Atomic design enables composability, maintainability, and clear understanding of system capabilities. Workflows provide sophisticated automation by combining atomic operations.
+- Main thread NEVER performs direct git operations
+- Other commands NEVER perform direct git operations
+- All git workflows must delegate to `/git:*` or `/git-flow:*` commands
+- Git commands follow Conventional Commits with auto-detected types
 
-### III. Specification-Driven Feature Development
+**Rationale**: Centralized git operations prevent inconsistent states, ensure validation gates, and maintain audit trails.
 
-Features follow the spec-kit workflow when `.specify/` folder exists:
+### IV. Context Management Discipline
 
-**Required Artifacts:**
+**Every session must maintain structured context with incremental updates.**
 
-- `spec.md` - User requirements and acceptance criteria (WHAT/WHY, not HOW)
-- `plan.md` - Technical design and implementation strategy
-- `tasks.md` - Ordered, dependency-aware task breakdown
-- `contracts/` - API and validation contracts
+- All sessions initialized via `session_manager.py init [topic]`
+- Context structure: `.agent/context/{session-id}/session.md` + `{agent-name}.md`
+- Domain analysts MUST persist lean, actionable findings (not verbose analysis)
+- Main thread updates context file "Main Thread Log" after implementing recommendations
 
-**Clarification Protocol:**
+**Rationale**: Structured context enables session continuity, traceability, and prevents context drift across complex multi-step workflows.
 
-- Mark ambiguities as [NEEDS CLARIFICATION]
-- Run `/spec-kit:clarify` to resolve uncertainties before planning
-- Ensure requirements are testable and unambiguous
+### V. Test-First for Feature Development (CONDITIONAL)
 
-**Rationale**: Structured specification process prevents scope creep, ensures alignment, and provides clear acceptance criteria. This reduces rework and validates features meet actual needs.
+**When tests are requested in feature specs, TDD is mandatory.**
 
-### IV. Cross-Platform Compatibility
+- Tests written FIRST → User approved → Tests FAIL → Then implement
+- Red-Green-Refactor cycle strictly enforced when tests included
+- Tests are OPTIONAL unless explicitly requested in specifications
+- Integration tests required for: new contracts, contract changes, inter-service communication
 
-All automation must work on macOS, Windows, and Linux:
+**Rationale**: TDD ensures requirements clarity and prevents regressions, but remains optional to support rapid prototyping when tests aren't needed.
 
-**Implementation Requirements:**
+### VI. User Story Independence
 
-- Use Python with `pathlib.Path` for all file operations
-- Use `Path.home()` for user directory references
-- No shell-specific scripts or commands
-- User-agnostic paths: `~/.claude/` instead of `/Users/specific-user/.claude/`
+**Every user story must be independently testable and deliverable.**
 
-**Rationale**: Cross-platform compatibility ensures the command system works consistently across all development environments without platform-specific modifications.
+- User stories prioritized (P1, P2, P3) by importance
+- Each story = viable MVP increment that delivers standalone value
+- Tasks organized by user story to enable parallel development
+- Stories can be developed, tested, deployed, and demonstrated independently
 
-### V. MCP Integration Patterns
+**Rationale**: Independent stories enable incremental delivery, parallel team work, and early validation without waiting for full feature completion.
 
-Leverage Model Context Protocol servers for enhanced capabilities:
+### VII. Cross-Platform Compatibility
 
-**Context7 MCP** - External documentation access:
+**All automation must work across Windows, macOS, and Linux.**
 
-- Use for current library/framework documentation
-- Tools: `mcp__context7__resolve-library-id`, `mcp__context7__get-library-docs`
-- Commands: `/docs:extract-external`, `/review:security`, `/analyze:dependencies`
+- Python with `pathlib.Path` for all file operations
+- `Path.home()` for user directories (never hardcoded paths)
+- No platform-specific shell commands in core workflows
+- MCP integration via `~/.claude.json` (cross-platform)
 
-**Playwright MCP** - Browser automation:
+**Rationale**: Cross-platform design ensures broad adoption and prevents vendor lock-in.
 
-- Use for UI testing, visual regression, user interaction simulation
-- Full navigation, interaction, and analysis capabilities
-- Integration: Design review, testing workflows
+## Command System Architecture
 
-**Rationale**: MCP integration provides access to current external information and advanced testing capabilities that enhance command functionality.
+**Command Categories**: `/git/*`, `/git-flow/*`, `/workflows/*`, `/speckit/*`, `/docs/*`, `/task/*`, `/github/*`, `/system/*`, `/claude/*`, `/lint/*`, `/explain/*`
 
-## Development Workflow Standards
+**Atomic Design Requirements**:
+- Single-purpose commands with clear responsibility
+- Template compliance (`templates/commands/command.md` or `command-workflow.md`)
+- Composable design (can be orchestrated by workflows)
+- User input via A/B/C/D table format (max 5 choices, "Skip" always included)
 
-### Command Development Protocol
+**Git Workflow Constraints**:
+- Git-Flow (main+develop) with auto-detection
+- Conventional Commits format with type prefixes (feat, fix, docs, etc.)
+- Branch name validation via pre-tool-use hooks
+- Direct push prevention to main/master
 
-**Template Compliance:**
+**MCP Integration**:
+- 7 servers: Context7 (docs), Playwright (browser), fetch (web), markitdown (conversion), terraform (infra), shadcn (UI), sequential-thinking (reasoning)
+- Commands delegate to agents for MCP tool usage (security constraint)
+- Configuration in `~/.claude.json` (user-local, per-project)
 
-- Follow `docs/command-template.md` for atomic commands
-- Use workflow template for orchestration commands
-- Required frontmatter: description, argument-hint, category, tools, complexity
-- Document $ARGUMENTS parsing patterns
-- Include agent integration and examples
+## Security & Quality Standards
 
-**Agent Assignment:**
+**Dependency Management (NON-NEGOTIABLE)**:
+- ALWAYS update package.json/requirements.txt when adding imports
+- NEVER add import statements without corresponding dependencies
+- Check existing libraries before importing new ones
 
-- Assign to existing Agent Specialist Framework agent
-- Single responsibility per command
-- No duplicate functionality across commands
+**Code Evidence Protocol**:
+- When asked about implementation, SHOW CODE with `file_path:line_number` references
+- Provide specific file paths in all recommendations
+- Include line ranges for context
 
-### Git Operations Constraint
+**Quality Gates**:
+- Run lint/typecheck commands after changes
+- Validate builds pass before completion
+- Follow existing patterns and conventions
+- Clean up temporary debugging code automatically
 
-**CRITICAL SECURITY RULE**: Only `/git/*` commands can perform Git operations
+**Security Protocols**:
+- No API keys/secrets in client-side code
+- Proper authentication and input validation required
+- Row-level database security for multi-tenant systems
+- Block commits of `.env`, `*.key`, `credentials.json`
 
-**Enforcement:**
+**Intelligent Logging**:
+- Automatically add essential logging to understand core application behavior
+- Log key decisions, data transformations, and system state changes
+- Use appropriate levels (ERROR/WARN/INFO/DEBUG) with relevant context
 
-- All other agents/commands must use SlashCommand tool for Git delegation
-- Explicit user consent required for Git operations outside `/git/*`
-- Agents cannot call Git commands directly
+## Development Workflow
 
-**Rationale**: Centralized Git control prevents accidental or unauthorized repository modifications.
+**Session Workflow**:
+1. Initialize: `python ~/.claude/scripts/session/session_manager.py init [topic]`
+2. Work: Invoke analysts → Read context → Implement → Update context log
+3. Archive: `session_manager.py archive` (optional)
 
-### File Management Standards
+**Parallelization Pattern**:
+- Main thread spawns multiple concurrent tasks (Task tool)
+- Parallel research → Sequential implementation → Parallel QA
+- Sub-agents run sequentially in isolated contexts (cannot parallelize)
 
-- Prefer editing existing files over creating new files
-- Always use Read tool before editing
-- Verify parent directory existence before creating directories
-- Quote file paths with spaces in shell commands
-- Use appropriate branch naming: `###-feature-name` format
+**Feature Development**:
+1. `/speckit:specify` - Create specification
+2. `/speckit:plan` - Generate implementation plan
+3. `/speckit:tasks` - Create dependency-ordered tasks
+4. `/speckit:implement` - Execute implementation
 
-## Quality Standards
-
-### Command Quality Requirements
-
-- **Atomic Design**: Single, clear purpose with predictable outcomes
-- **Complete Documentation**: Follow template structure with all required sections
-- **Integration Clarity**: Document relationships to other commands
-- **Functional Verification**: Ensure command works as documented
-
-### Agent Quality Requirements
-
-- **Single Responsibility**: One clear, focused capability per agent
-- **Specialization Compliance**: Follow analysis/execution specialist pattern
-- **Tool Appropriateness**: Select tools matching agent domain expertise
-- **Documentation Clarity**: Clear purpose, usage patterns, and examples
-
-### System Quality Requirements
-
-- **Cross-Platform**: Works on Windows, macOS, Linux without modification
-- **User-Agnostic**: No hardcoded user-specific paths
-- **Security Enforcement**: Git constraints respected, no unauthorized operations
-- **Performance**: Efficient execution with minimal resource usage
-
-### TODO Management Constraint
-
-**CRITICAL**: All TODO operations use standardized location only:
-
-- **Required**: `{project_root}/.claude/.todos/TODO.md`
-- **Prohibited**: TODO files in any other location
-- **Enforcement**: All `/to-do:*` commands validate this constraint
-
-**Rationale**: Centralized task tracking prevents scattered TODO files and ensures consistent file management.
-
-## Success Metrics
-
-Track system effectiveness through:
-
-- **Command Usage**: Most/least used commands, adoption patterns
-- **Agent Collaboration**: Analysis specialist → execution specialist advisory workflows
-- **Documentation Quality**: User feedback, template compliance rates
-- **System Performance**: Command execution speed and reliability
-- **Error Rates**: Failed commands, common issues, resolution patterns
+**Daily Workflow**:
+- `/task:execute` → work → complete → `/task:archive`
+- `/task:scan-project --consolidate` for tech debt discovery
+- `/github:fetch-issues --milestone=X` → convert → work for sprint planning
 
 ## Governance
 
-### Amendment Process
+**Constitution Authority**:
+- This constitution supersedes all other practices and guidelines
+- All commands, agents, and workflows MUST comply with these principles
+- Violations require explicit justification in `plan.md` Complexity Tracking table
 
-Constitution updates require:
+**Amendment Procedure**:
+1. Proposal with rationale and impact analysis
+2. Version bump decision (MAJOR/MINOR/PATCH semantic versioning)
+3. Update constitution via `/speckit:constitution` command
+4. Propagate changes to dependent templates (plan, spec, tasks)
+5. Update runtime guidance (README.md, CLAUDE.md)
+6. Generate Sync Impact Report (HTML comment at top of file)
 
-1. **Version Bump** - Semantic versioning (MAJOR: breaking, MINOR: additions, PATCH: clarifications)
-2. **Impact Analysis** - Document affected templates, specs, and commands
-3. **Sync Report** - List all artifacts requiring updates
-4. **Validation** - Ensure template references align with new principles
-5. **Communication** - Update CLAUDE.md and related documentation
+**Versioning Policy**:
+- **MAJOR**: Backward incompatible governance/principle removals or redefinitions
+- **MINOR**: New principle/section added or materially expanded guidance
+- **PATCH**: Clarifications, wording, typo fixes, non-semantic refinements
 
-### Critical Constraints
+**Compliance Review**:
+- All PRs/reviews must verify constitution compliance
+- `/speckit:analyze` performs cross-artifact consistency checks
+- Complexity violations tracked in plan.md with justifications
+- Runtime development guidance references this constitution
 
-**What NOT to do:**
+**Template Synchronization**:
+- Plan template Constitution Check section aligns with principles
+- Spec template requirements structure reflects user story independence
+- Tasks template organization supports atomic design and parallel execution
+- Command templates enforce atomic design and git constraints
 
-- Don't bypass Git constraints (only `/git/*` commands perform Git operations)
-- Don't hardcode user-specific paths (use `~/.claude/` patterns)
-- Don't duplicate agent responsibilities (each agent has unique purpose)
-- Don't ignore MCP integration opportunities (Context7, Playwright)
-- Don't break atomic design (keep commands single-purpose)
-
-**Required Practices:**
-
-- Use Agent Specialist Framework for all development work
-- Follow provided templates for consistency
-- Test cross-platform compatibility (Windows, macOS, Linux)
-- Document thoroughly with examples and integration points
-- Validate security constraints are respected
-- Maintain CLAUDE.md synchronization after changes
-
-### Version Control
-
-Constitution supersedes other development practices. Latest version always takes precedence. Track amendments with dates and rationale. Maintain backward compatibility unless explicitly documented as breaking change.
-
-**Version**: 2.1.0 | **Ratified**: 2025-10-03 | **Last Amended**: 2025-10-05 | **Based On**: Project CLAUDE.md actual practices with Domain Analyst Framework
+**Version**: 2.0.0 | **Ratified**: 2025-10-14 | **Last Amended**: 2025-10-14

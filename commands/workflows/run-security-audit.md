@@ -1,9 +1,46 @@
 ---
 description: "Execute comprehensive security audit using parallel domain analysis to identify vulnerabilities and ensure secure coding practices"
-allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Run Security Audit
+
+## Framework Structure (S-Tier Pattern)
+
+### CO-STAR Framework (Orchestration)
+
+**C**ontext: Comprehensive security audit workflow for web applications, APIs, and databases with OWASP Top 10 focus, threat modeling, vulnerability detection, authentication/authorization review, and compliance validation (SOC2, PCI-DSS)
+
+**O**bjective: Execute parallel security analysis across 3 domains (application, API, database), consolidate findings by CVSS score, generate prioritized remediation roadmap, and deliver comprehensive security audit report with compliance mapping
+
+**S**tyle: Professional security audit with structured vulnerability classification, concrete remediation steps, CVSS scoring, CWE/CVE references, and actionable recommendations prioritized by severity
+
+**T**one: Direct, factual, security-focused with emphasis on risk mitigation urgency - clear severity indicators, specific vulnerability locations, and explicit remediation steps
+
+**A**udience: Security engineers, DevSecOps teams, compliance officers requiring OWASP/CWE-mapped findings with CVSS scores and compliance status
+
+**R**esults: Consolidated security audit report (.artifacts/security/audit-{timestamp}.md) with vulnerability inventory, CVSS-prioritized remediation roadmap, compliance gap analysis, and dependency security assessment
+
+## Analysis Methodology
+
+### 1. Pre-Audit Assessment: Detect security-critical files (auth, API endpoints, database queries), check for existing security tools (ESLint security plugins, npm audit, SAST tools)
+
+### 2. Parallel Security Analysis: Launch 3 domain analysts concurrently (security-analyst for OWASP, api-rest-analyst for API security, database-analyst for SQL injection)
+
+### 3. Vulnerability Consolidation: Aggregate findings, deduplicate, calculate CVSS scores, categorize by severity (Critical/High/Medium/Low)
+
+### 4. Remediation Planning: Generate specific fix recommendations with code examples, prioritize by risk, map to compliance standards
+
+### 5. Validation: Verify all critical/high severity issues documented, remediation steps provided, compliance standards mapped
+
+## Explicit Constraints
+
+**IN SCOPE**: OWASP Top 10 vulnerability assessment, threat modeling, API security (authentication, authorization, input validation), database security (SQL injection, parameterized queries, access control), cryptographic implementation review, dependency vulnerability scanning (CVE references)
+**OUT OF SCOPE**: Actual vulnerability exploitation (ethical hacking), infrastructure penetration testing (network-level attacks), social engineering assessments, physical security audits
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% OWASP coverage, Accuracy >90% vulnerability identification, Relevance >85% prioritized by CVSS, Efficiency <45s parallel analysis)
 
 ## Purpose
 
@@ -31,7 +68,7 @@ and validate compliance standards across application, API, and database layers.
 - **Primary Agent**: security-analyst - Orchestrates parallel security analysis and synthesizes findings
 - **Parallel Domain Analysts** (3 concurrent):
   - security-analyst - OWASP Top 10 assessment, threat modeling, vulnerability detection, cryptographic review
-  - api-analyst - API security, authentication/authorization, input validation, rate limiting assessment
+  - api-rest-analyst - API security, authentication/authorization, input validation, rate limiting assessment
   - database-analyst - SQL injection prevention, database security, access control, encryption at rest
 
 ## Implementation Steps
@@ -41,7 +78,7 @@ and validate compliance standards across application, API, and database layers.
 ```python
 # Launch 3 analysts concurrently for comprehensive security assessment
 Task("security-analyst: Perform OWASP Top 10 vulnerability assessment, threat modeling, authentication/authorization review, and cryptographic implementation analysis")
-Task("api-analyst: Analyze API security including endpoint authentication, input validation, output encoding, CSRF protection, and rate limiting")
+Task("api-rest-analyst: Analyze API security including endpoint authentication, input validation, output encoding, CSRF protection, and rate limiting")
 Task("database-analyst: Review database security including SQL injection prevention, parameterized queries, access control, and encryption strategies")
 
 # Each analyst:
@@ -55,7 +92,7 @@ Task("database-analyst: Review database security including SQL injection prevent
 ```python
 # Read all analyst artifacts
 Read(.agent/context/${session_id}/security-analyst.md)
-Read(.agent/context/${session_id}/api-analyst.md)
+Read(.agent/context/${session_id}/api-rest-analyst.md)
 Read(.agent/context/${session_id}/database-analyst.md)
 
 # Consolidate findings and prioritize:
@@ -93,7 +130,7 @@ Read(.agent/context/${session_id}/database-analyst.md)
 ```text
 Phase 1: Parallel Security Analysis (quick parallel analysis)
 → Task("security-analyst: OWASP Top 10 and threat modeling assessment")
-→ Task("api-analyst: API security and authentication review")
+→ Task("api-rest-analyst: API security and authentication review")
 → Task("database-analyst: SQL injection and database security analysis")
 
 Analysts complete concurrently (significantly faster than sequential execution)
@@ -122,7 +159,7 @@ Phase 3: Validation
 **Follows Well With:**
 
 - `/clean:development-artifacts` - Clean up before security audit
-- `/docs:update` - Update security documentation after audit
+- `/workflows:docs` - Update security documentation after audit
 - `/git:commit` - Commit security fixes after remediation
 
 **Works With:**
@@ -157,7 +194,7 @@ Phase 3: Validation
 - Security configuration problems
 - Threat model analysis
 
-**api-analyst** persists to `.agent/context/api-analysis-{timestamp}.md`:
+**api-rest-analyst** persists to `.agent/context/api-analysis-{timestamp}.md`:
 
 - API endpoint authentication gaps
 - Input validation vulnerabilities

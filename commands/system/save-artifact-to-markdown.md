@@ -1,10 +1,24 @@
 ---
 description: "Captures Claude conversation artifacts (plans, reviews, research) and saves them to organized folders in .agent/artifacts/"
 argument-hint: "[type] [--title=\"Custom Title\"]"
-allowed-tools: Write, Read, Bash
+allowed-tools: Write, Read, Bash, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Save Artifact
+
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Capture Claude conversation artifacts (plans, reviews, research, analysis, specs, docs, reports), auto-detect type from context keywords or use explicit type arg, extract content with formatting preservation, generate filename ({type}-{YYYY-MM-DD}-{title-slug}.md), create directory structure (.agent/artifacts/{type}/), add metadata headers (artifact_type, created, project, status)
+
+**P**urpose: Preserve valuable Claude outputs in organized project-specific storage, enable team sharing and documentation, provide searchable dated filenames, maintain logical folder structure by artifact type, support custom titles via --title flag
+
+**E**xpectation: Artifact saved to .agent/artifacts/{type}/{filename}.md with metadata headers, original formatting preserved, confirmation message with full path, organized in type-specific folder (plans/, reviews/, research/, analysis/, specifications/, documentation/, reports/)
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% content preservation, Accuracy >90% type detection, Relevance >85% filename quality, Efficiency <5s save operation)
 
 ## Purpose
 
@@ -93,6 +107,11 @@ structure.
    - Report saved location to user
    - Confirm successful save with full path
 
+## Explicit Constraints
+
+**IN SCOPE**: Artifact capture from conversation, type detection (7 types: plan, review, research, analysis, spec, docs, report), content extraction with formatting, filename generation (dated, kebab-case), directory structure creation, metadata headers (type, created, project, status), custom title support
+**OUT OF SCOPE**: Artifact versioning/history, content editing/modification, cross-project artifact sharing, binary file storage, automatic artifact generation from code, artifact search/indexing
+
 ## Agent Integration
 
 - **Primary Agent**: documenter - Handles artifact capture and organization
@@ -149,7 +168,7 @@ structure.
 
 - **Follows**: Any Claude conversation producing valuable artifacts (plans, reviews, research, etc.)
 - **Followed by**: Review saved artifacts, share with team, reference in documentation
-- **Related**: `/docs:generate`, `/review:code`, `/analyze:potential-issues`, `/spec-kit:specify`
+- **Related**: `/workflows:docs`, `/review:code`, `/analyze:potential-issues`, `/speckit:specify`
 
 ## Quality Standards
 

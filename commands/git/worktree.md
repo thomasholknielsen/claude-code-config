@@ -1,10 +1,24 @@
 ---
 description: "Manages git worktrees for parallel development with shared repository history"
 argument-hint: "[action] [arguments...]"
-allowed-tools: Bash, Read, Grep
+allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Worktree
+
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Create and manage git worktrees for parallel development with actions (add/add-multiple/add-staging/remove/list/prune), auto-generate directory paths, support parallel mode (independent branches) and staging mode (consolidated work), track worktree relationships
+
+**P**urpose: Enable simultaneous work on multiple branches without context switching, support parallel development (multiple PRs) or staging workflows (single PR), maintain shared repository history with independent working directories
+
+**E**xpectation: Worktrees created with proper directory structure (.trees/ paths), clear mode indicators (parallel/staging-parent/staging-child), working status for each worktree, consolidation guidance for staging mode, efficient parallel development support
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% worktree requirements, Accuracy >90% directory structure, Relevance >85% workflow guidance, Efficiency <15s worktree creation)
 
 ## Purpose
 
@@ -229,7 +243,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 - **Follows**: Repository setup, feature planning
 - **Followed by**: /git:commit, /git:push, parallel development workflows
-- **Related**: /git:branch, /git:workflow, /git:full-workflow
+- **Related**: /git:branch, /workflows:git, /workflows:git
 
 ## Quality Standards
 

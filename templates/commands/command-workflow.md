@@ -4,7 +4,7 @@ agent: "<appropriate-domain-analyst>"
 allowed-tools: Task
 ---
 
-# Command: Run <Workflow Name>
+# Command: <Workflow Name>
 
 ## Purpose
 

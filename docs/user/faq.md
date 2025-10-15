@@ -43,7 +43,7 @@ Currently **55 commands** across **15 categories**:
 
 - analyze (3), clean (4), docs (6), explain (2), fix (2)
 - git (6), implement (2), plan (1), prompt (1), refactor (6)
-- review (3), spec-kit (7), to-do (5), workflows (7)
+- review (3), speckit (7), to-do (5), workflows (7)
 
 ### What's the difference between analysis specialists and execution specialists
 

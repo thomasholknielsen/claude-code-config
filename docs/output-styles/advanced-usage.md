@@ -174,7 +174,7 @@ Combine styles with Claude Code commands:
 
 # Document findings with presentation style
 /output-style presentation-designer
-/docs:generate
+/workflows:docs
 
 # Plan implementation with project coordination
 /output-style project-coordinator

@@ -16,13 +16,10 @@ START: What do you want to accomplish?
 │  └─ Use GIT commands (/git:*)
 │
 ├─ "I want to manage feature specifications and implementation"
-│  └─ Use SPEC-KIT commands (/spec-kit:*)
-│
-├─ "I want to develop/fix specific functionality"
-│  └─ Use DEVELOPMENT commands (/implement:*, /fix:*)
+│  └─ Use SPEC-KIT commands (/speckit:*)
 │
 ├─ "I want to improve code quality or apply formatting"
-│  └─ Use QUALITY commands (/clean:*)
+│  └─ Use LINT commands (/lint:*)
 │
 ├─ "I want to create/update documentation"
 │  └─ Use DOCUMENTATION commands (/docs:*)
@@ -30,8 +27,8 @@ START: What do you want to accomplish?
 ├─ "I want to understand code or architecture"
 │  └─ Use EXPLAIN commands (/explain:*, /guru)
 │
-└─ "I want to manage TODOs, sessions, or create new commands"
-   └─ Use SYSTEM commands (/to-do:*, /session:*, /slashcommand:*, /subagent:*)
+└─ "I want to manage tasks, sessions, or create new agents/commands"
+   └─ Use SYSTEM/CLAUDE commands (/task:*, /session:*, /claude:*, /system:*)
 ```
 
 ## Category Deep Dive
@@ -46,10 +43,9 @@ START: What do you want to accomplish?
 - `/workflows:run-refactor-workflow` - Comprehensive refactoring using parallel domain analysis
 - `/workflows:run-cleanup-workflow` - Orchestrated cleanup across quality and readability
 - `/workflows:run-complete-overhaul` - Full codebase analysis across all quality perspectives
-- `/workflows:run-docs-workflow` - Documentation analysis, generation, and validation
+- `/workflows:docs` - Idempotent documentation workflow (CRUD operations on all doc types)
 - `/workflows:run-optimization` - Performance, database, and bundle optimization
 - `/workflows:run-security-audit` - Security vulnerability assessment across all layers
-- `/workflows:run-lint-and-correct-all` - Detect languages and run all applicable linters
 
 **Characteristics**:
 
@@ -66,37 +62,75 @@ START: What do you want to accomplish?
 
 **Available Commands**:
 
+**Standard Git Operations:**
+
 - `/git:commit` - Smart commit message generation with quality checks
-- `/git:branch` - Branch management with safety checks
-- `/git:merge` - Controlled merge operations with conflict resolution
 - `/git:push` - Push with safety checks and force-push protection
-- `/git:pr` - Create and manage pull requests with GitHub CLI
+- `/git:pr` - Create and manage pull requests with GitHub CLI (git-flow aware)
 - `/git:worktree` - Manage git worktrees for parallel development
 - `/git:worktree-consolidate` - Merge changes from multiple worktrees
-- `/git:full-workflow` - Complete workflow: branch, commit, push, PR in one command
+- `/workflows:git` - Complete workflow with logical commits: branch, commit, push, PR (git-flow aware)
+
+**Workflow Mode Auto-Detection:**
+Commands automatically detect repository mode:
+
+- **Git-Flow mode**: When both `main` and `develop` branches exist
+  - feature/* branches from develop → PR targets develop
+  - release/* branches from develop → PR targets main
+  - hotfix/* branches from main → PR targets main
+- **Conventional mode**: When develop doesn't exist (default)
+  - feat/fix/docs/* branches from HEAD → PR targets main
+
+---
+
+### Git-Flow (`/git-flow:*`) - Git Flow Branching Model
+
+**When to use**: You're working with the Git Flow branching model (main/develop with feature/release/hotfix branches).
+
+**Available Commands**:
+
+- `/git-flow:feature <name>` - Create feature branch from develop
+- `/git-flow:release <version>` - Create release branch with version management and changelog
+- `/git-flow:hotfix <name>` - Create emergency hotfix branch from main
+- `/git-flow:finish` - Complete and merge current branch (feature/release/hotfix) with cleanup
+- `/git-flow:status` - Display comprehensive Git Flow repository status
+
+**Git Flow Workflow:**
+
+1. **Features**: Branch from develop → merge back to develop
+2. **Releases**: Branch from develop → merge to main AND develop, create tag
+3. **Hotfixes**: Branch from main → merge to main AND develop, create tag
+
+**Multi-Language Version Support:**
+
+- Node.js: Updates `package.json` and `package-lock.json`
+- Python: Updates `pyproject.toml`
+- Rust: Updates `Cargo.toml` and `Cargo.lock`
 
 **Characteristics**:
 
 - Only commands authorized for git operations
+- Automatic workflow mode detection (git-flow vs conventional)
 - Built-in safety protocols and validation
 - Team coordination features
 - GitHub integration via gh CLI
+- Semantic versioning support (git-flow)
 
 ---
 
-### Spec-Kit (`/spec-kit:*`) - Feature Specification & Implementation
+### Spec-Kit (`/speckit:*`) - Feature Specification & Implementation
 
 **When to use**: You're following a structured feature development workflow from specification to implementation.
 
 **Available Commands**:
 
-- `/spec-kit:specify` - Create/update feature specification from natural language
-- `/spec-kit:plan` - Execute implementation planning workflow
-- `/spec-kit:clarify` - Identify underspecified areas with targeted questions
-- `/spec-kit:tasks` - Generate actionable, dependency-ordered task list
-- `/spec-kit:analyze` - Cross-artifact consistency and quality analysis
-- `/spec-kit:implement` - Execute implementation plan from tasks.md
-- `/spec-kit:constitution` - Create/update project constitution
+- `/speckit:specify` - Create/update feature specification from natural language
+- `/speckit:plan` - Execute implementation planning workflow
+- `/speckit:clarify` - Identify underspecified areas with targeted questions
+- `/speckit:tasks` - Generate actionable, dependency-ordered task list
+- `/speckit:analyze` - Cross-artifact consistency and quality analysis
+- `/speckit:implement` - Execute implementation plan from tasks.md
+- `/speckit:constitution` - Create/update project constitution
 
 **Characteristics**:
 
@@ -107,41 +141,20 @@ START: What do you want to accomplish?
 
 ---
 
-### Development (`/implement:*`, `/fix:*`) - Code Implementation & Bug Fixes
+### Lint (`/lint:*`) - Code Quality & Formatting
 
-**When to use**: You need to implement features or fix bugs with focused, targeted changes.
-
-**Available Commands**:
-
-- `/implement:spec-kit-tasks` - Implement features using Agent Orchestra framework
-- `/implement:small` - Quick implementation for small tasks bypassing spec-kit
-- `/fix:bug-quickly` - Rapid bug fixes without full implementation complexity
-- `/fix:import-statements` - Fix broken imports from file moves/renames
-
-**Characteristics**:
-
-- Targeted, specific changes
-- Small to medium scope
-- Agent coordination for complex tasks
-- Quick turnaround for focused work
-
----
-
-### Quality (`/clean:*`) - Code Quality & Formatting
-
-**When to use**: You want to improve code readability, apply formatting rules, or enhance code structure.
+**When to use**: You want to automatically fix linting and formatting issues across the codebase.
 
 **Available Commands**:
 
-- `/clean:apply-style-rules` - Automated formatting using project's configured formatter
-- `/clean:improve-readability` - Manual beautification: naming, structure, comments
+- `/lint:correct-all` - Detect project languages and run all applicable linters with auto-fix in parallel
 
 **Characteristics**:
 
-- Code improvement without behavior change
-- Formatting and style enforcement
-- Readability optimization
-- Preserves functionality
+- Automatic language detection (Python, JavaScript/TypeScript, Shell, Markdown)
+- Parallel execution of multiple linters
+- Auto-fix formatting issues
+- Project-specific linter configuration support
 
 ---
 
@@ -151,11 +164,8 @@ START: What do you want to accomplish?
 
 **Available Commands**:
 
-- `/docs:extract-external` - Fetch up-to-date docs from external sources (Context7)
-- `/docs:update` - Update existing project documentation intelligently
-- `/docs:generate` - Generate comprehensive docs from codebase analysis
-- `/docs:changelog` - Manage CHANGELOG.md with version history
-- `/docs:api` - Generate and maintain API documentation
+- `/workflows:docs` - Idempotent documentation workflow (handles all CRUD operations)
+- `/docs:changelog` - Manage CHANGELOG.md following Keep a Changelog v1.1.0
 
 **Characteristics**:
 
@@ -185,40 +195,113 @@ START: What do you want to accomplish?
 
 ---
 
-### System (`/to-do:*`, `/session:*`, `/utility:*`, `/slashcommand:*`, `/subagent:*`, `/prompt:*`) - Meta Operations
+### Task Management (`/task:*`) - Task Tracking & Execution
 
-**When to use**: You need to manage project metadata, create new commands/agents, or handle system-level operations.
+**When to use**: You need unified task management with origin tagging and GitHub integration.
 
 **Available Commands**:
 
-**TODO Management:**
-
-- `/to-do:create` - Capture work items into TODO.md
-- `/to-do:convert-to-github-issues` - Create GitHub issues from TODO comments
-- `/to-do:find-comments` - Locate all TODO comments in codebase
-
-**Session Management:**
-
-- `/session:start` - Start new session with topic label
-- `/session:end` - End current session and optionally archive
-
-**Development:**
-
-- `/slashcommand:create-from-template` - Interactive command creation wizard
-- `/subagent:create-from-template` - Interactive agent creation wizard
-
-**Utilities:**
-
-- `/utility:save-artifact-to-markdown` - Save Claude artifacts to organized folders
-- `/utility:apply-spec-kit-mods` - Apply cross-repository path modifications
-- `/prompt:enhanced` - Enhance prompts with command/agent knowledge
+- `/task:execute` - Intelligent task triaging and execution with speckit integration
+- `/task:add` - Capture adhoc tasks with standardized metadata
+- `/task:scan-project` - Find code comments (TODO, FIXME, HACK, BUG) and consolidate to tasks
+- `/task:archive` - Move completed tasks to archive file
+- `/task:help` - Guide to using the unified task management system
 
 **Characteristics**:
 
-- Project management
-- Command system development
-- Session tracking
+- Origin tagging (adhoc, code-comment, github-issue)
+- Bidirectional GitHub sync
+- Stored in `.agent/tasks.md` (active) and `tasks-archive.md` (completed)
+
+---
+
+### GitHub Integration (`/github:*`) - Issue Management
+
+**When to use**: You need to sync tasks with GitHub issues for team collaboration.
+
+**Available Commands**:
+
+- `/github:fetch-issues` - Fetch GitHub issues to session context
+- `/github:convert-issues-to-tasks` - Convert GitHub issues to local tasks with origin tagging
+- `/github:create-issue-from-task` - Create GitHub issue from task with proper labeling
+
+**Characteristics**:
+
+- Bidirectional sync between local tasks and GitHub issues
+- Origin tagging for traceability
+- Milestone and label support
+
+---
+
+### Session Management (`/session:*`) - Session Lifecycle
+
+**When to use**: You need to initialize or end development sessions with context tracking.
+
+**Available Commands**:
+
+- `/session:start` - Start new session with topic label for context file organization
+- `/session:end` - End current session and optionally archive context files
+
+**Characteristics**:
+
+- Session context tracking in `.agent/context/{session-id}/`
+- Topic-based organization
+- Optional archival of completed sessions
+
+---
+
+### Claude System (`/claude:*`) - Agent & Command Creation
+
+**When to use**: You need to create new agents or commands, or get intelligent guidance.
+
+**Available Commands**:
+
+- `/claude:create-agent` - Intelligent agent creation with expert consultation
+- `/claude:create-command` - Intelligent command creation with expert consultation
+- `/claude:guru` - Context-aware intelligent assistant with personalized guidance
+- `/claude:review-claude-md` - Review CLAUDE.md quality with interactive fixes
+- `/claude:apply-global-claude-md-to-current-user` - Sync CLAUDE-GLOBAL.md to user CLAUDE.md
+
+**Characteristics**:
+
+- Expert-guided creation process
+- Context-aware recommendations
+- Template compliance validation
+- Configuration management
+
+---
+
+### System Utilities (`/system:*`) - System-Level Operations
+
+**When to use**: You need to perform system-level operations like artifact saving or MCP setup.
+
+**Available Commands**:
+
+- `/system:save-artifact-to-markdown` - Save Claude artifacts to organized folders
+- `/system:setup-mcp` - Interactive wizard for setting up MCP servers
+- `/system:find-comments` - Locate code comments (TODO, FIXME, HACK, BUG) in codebase
+
+**Characteristics**:
+
 - Artifact organization
+- MCP server configuration
+- Code comment discovery
+
+---
+
+### Prompt Engineering (`/prompt:*`) - Prompt Enhancement
+
+**When to use**: You need to enhance prompts using S-tier frameworks.
+
+**Available Commands**:
+
+- `/prompt:enhance-prompt` - Transform prompts using frameworks (RISEN, COSTAR, APE, auto)
+
+**Characteristics**:
+
+- S-tier prompt engineering frameworks
+- Framework auto-detection
+- Quick and complete enhancement modes
 
 ## Workflow vs Atomic Command Strategy
 
@@ -260,18 +343,19 @@ Many workflows **use** atomic commands internally. You can also:
 ### "I want to implement a new feature following best practices"
 
 ```bash
-/spec-kit:specify                      # Create specification
-/spec-kit:plan                         # Plan architecture
-/spec-kit:tasks                        # Generate task list
-/spec-kit:implement                    # Execute implementation
-/git:full-workflow                     # Branch, commit, push, PR
+/speckit:specify                      # Create specification
+/speckit:plan                         # Plan architecture
+/speckit:tasks                        # Generate task list
+/speckit:implement                    # Execute implementation
+/workflows:git                          # Logical commits, push, PR
 ```
 
-### "I want to fix a bug quickly"
+### "I want to debug an issue"
 
 ```bash
-/fix:bug-quickly "Issue description"   # Rapid targeted fix
-/git:commit                            # Commit the fix
+/explain:code path/to/problematic/file  # Understand the code
+# Make manual fixes
+/git:commit                             # Commit the fix
 ```
 
 ### "I want to understand this codebase"
@@ -286,17 +370,16 @@ Many workflows **use** atomic commands internally. You can also:
 
 ```bash
 /workflows:run-cleanup-workflow        # Comprehensive cleanup
-/clean:apply-style-rules              # Apply formatting rules
+/lint:correct-all                      # Auto-fix linting issues
 /git:commit                            # Commit cleanup changes
 ```
 
 ### "I want to update my documentation"
 
 ```bash
-/workflows:run-docs-workflow           # Comprehensive doc workflow
-# OR for targeted updates:
-/docs:update [target]                  # Update specific docs
-/docs:changelog [version]              # Update changelog
+/workflows:docs                        # Idempotent doc workflow (all CRUD operations)
+# OR for manual changelog:
+/docs:changelog [version]              # Manage CHANGELOG.md manually
 ```
 
 ## Command Relationships
@@ -316,7 +399,7 @@ See `commands/deprecated/MIGRATION-GUIDE.md` for full details.
 **Feature Development:**
 
 ```text
-/spec-kit:specify → /spec-kit:plan → /spec-kit:tasks → /spec-kit:implement → /git:full-workflow
+/speckit:specify → /speckit:plan → /speckit:tasks → /speckit:implement → /workflows:git
 ```
 
 **Pre-Release Quality Check:**
@@ -328,13 +411,13 @@ See `commands/deprecated/MIGRATION-GUIDE.md` for full details.
 **Documentation Update Cycle:**
 
 ```text
-/docs:extract-external [libraries] → /docs:generate [type] → /docs:update [target] → /git:commit
+/workflows:docs → /git:commit
 ```
 
 **Bug Fix Cycle:**
 
 ```text
-/fix:bug-quickly [issue] → /git:commit → /git:push
+/explain:code [file] → manual fixes → /git:commit → /git:push
 ```
 
 ## Tips for Command Selection
@@ -345,8 +428,8 @@ See `commands/deprecated/MIGRATION-GUIDE.md` for full details.
 
 3. **Check for Workflows First**: Most common multi-step tasks have optimized workflow commands
 
-4. **Use Git Commands Exclusively**: Never use raw git commands - always use `/git:*` for safety checks
+4. **Use Git Commands Exclusively**: Never use raw git commands - always use `/git:*` or `/git-flow:*` for safety checks
 
-5. **Follow Spec-Kit for Features**: For new features, spec-kit provides structured workflow from idea to implementation
+5. **Follow Spec-Kit for Features**: For new features, speckit provides structured workflow from idea to implementation
 
 6. **Consult /guru**: When unsure, `/guru` provides context-aware guidance on command selection
