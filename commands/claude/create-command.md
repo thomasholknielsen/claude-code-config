@@ -318,10 +318,10 @@ Command: [Generates workflows/analyze-api-performance.md automatically]
 **Specifications Used**:
 - Category: workflows
 - Type: workflow
-- Analysts: performance-analyst, api-analyst
+- Analysts: performance-analyst, api-rest-analyst
 
 **Process Steps** (3):
-1. Launch parallel analysis (performance-analyst, api-analyst)
+1. Launch parallel analysis (performance-analyst, api-rest-analyst)
 2. Synthesize findings from context files
 3. Generate consolidated performance report
 
@@ -341,12 +341,12 @@ Which aspect would you like to change?
 Choice: 5
 
 Current process steps:
-1. Launch parallel analysis (performance-analyst, api-analyst)
+1. Launch parallel analysis (performance-analyst, api-rest-analyst)
 2. Synthesize findings from context files
 3. Generate consolidated performance report
 
 Enter new process steps (one per line, empty line to finish):
-User: Launch parallel analysis (performance-analyst, api-analyst, security-analyst)
+User: Launch parallel analysis (performance-analyst, api-rest-analyst, security-analyst)
 User: Wait for analyst completion and read context files
 User: Identify critical performance bottlenecks
 User: Generate prioritized optimization recommendations
@@ -358,7 +358,7 @@ User: [empty line]
 
 **Command**: /workflows:analyze-api-performance
 **Process Steps** (4):
-1. Launch parallel analysis (performance-analyst, api-analyst, security-analyst)
+1. Launch parallel analysis (performance-analyst, api-rest-analyst, security-analyst)
 2. Wait for analyst completion and read context files
 3. Identify critical performance bottlenecks
 4. Generate prioritized optimization recommendations

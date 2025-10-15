@@ -111,6 +111,8 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 **Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary with task counts
 
+**Total**: 43 agents (40 domain analysts + 3 meta agents: agent-expert, command-expert, git-flow-analyst)
+
 ### Agent Coordination
 
 - **Main Thread**: Parallelizes Task tools, invokes multiple domain analysts concurrently, runs one slash command at a time

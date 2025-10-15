@@ -2,6 +2,18 @@
 
 This guide helps you set up **all MCP servers** in your user-local configuration.
 
+## Quick Start (TL;DR)
+
+For the impatient:
+
+1. **Install**: `brew install uv node docker` (macOS) or equivalents
+2. **Get Context7 API key** from <https://context7.com>
+3. **Add to `~/.claude.json`** (use template from `.claude.json.user-local.template`)
+4. **Pull Docker images**: `docker pull mcp/markitdown:latest hashicorp/terraform-mcp-server:0.2.3`
+5. **Restart Claude Code**
+
+[Full setup instructions below ↓](#setup-instructions)
+
 ## MCP Configuration Architecture
 
 All MCP servers are configured in `~/.claude.json` (per-project nested config). This repository provides a template that you'll merge into your configuration.
