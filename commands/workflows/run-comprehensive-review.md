@@ -1,10 +1,47 @@
 ---
 description: "Orchestrate multi-perspective code review with dynamic selection and parallel execution"
-allowed-tools: Task, Read, Write, Grep, Glob, WebFetch, WebSearch
+allowed-tools: Task, Read, Write, Grep, Glob, WebFetch, WebSearch, mcp__sequential-thinking__sequentialthinking
 github_integration: true
 ---
 
 # Command: Run Comprehensive Review
+
+## Framework Structure (S-Tier Pattern)
+
+### CO-STAR Framework (Orchestration)
+
+**C**ontext: Intelligent multi-perspective code review workflow for Git branch comparisons with dynamic analyst selection based on changed file types (frontend .tsx → frontend-analyst, database .sql → database-analyst, API routes/ → api-rest-analyst), parallel execution, and unified reporting
+
+**O**bjective: Analyze git diff between feature and base branches, detect file types and critical paths (security: auth/, performance: database/, API: routes/, frontend: components/), dynamically select applicable analysts (6-12 concurrent), execute parallel analysis, synthesize findings with deduplication and severity prioritization
+
+**S**tyle: Context-aware code review with file type matrix detection, security/performance/database/API/frontend critical path identification, severity classification (Critical/Major/Minor/Enhancement), deduplication of cross-domain issues, and actionable recommendations
+
+**T**one: Constructive, thorough, severity-focused with emphasis on quality gates - clear issue categories, specific file:line references, measurable improvements expected
+
+**A**udience: Code reviewers, pull request authors, CI/CD pipelines requiring comprehensive automated review with dynamic scope based on actual changes (only run frontend review if frontend files changed)
+
+**R**esults: Unified review report (.artifacts/reviews/review-{date}-{branch}.md) with deduplicated findings organized by severity, positive highlights, review coverage summary, and actionable recommendations per domain
+
+## Analysis Methodology
+
+### 1. Git Analysis & Context Detection: Fetch latest code, determine feature/base branches, run git diff --name-only --diff-filter=M to get changed files, categorize by extension and path
+
+### 2. Dynamic Selection: Apply file type matrix (frontend files → frontend-analyst, database files → database-analyst), check critical paths (security: auth/, performance: database/, API: routes/, frontend: components/), select applicable analysts (skip irrelevant perspectives)
+
+### 3. Parallel Analysis: Launch 6-12 domain analysts concurrently based on selection (always: quality/security/testing/accessibility/docs, conditional: performance/architecture/database/API/frontend based on file types)
+
+### 4. Synthesis: Read all analyst artifacts from .agent/context/{session-id}/, deduplicate overlapping issues, organize by severity (Critical/Major/Minor/Enhancement), generate high-level summary with positive highlights
+
+### 5. Reporting: Save comprehensive unified report to .artifacts/reviews/ with review coverage summary and actionable recommendations
+
+## Explicit Constraints
+
+**IN SCOPE**: Git branch comparison, dynamic analyst selection based on file types, critical path detection (security/performance/database/API/frontend paths), parallel review execution, finding deduplication, severity prioritization, unified reporting
+**OUT OF SCOPE**: Implementation of review findings (developer responsibility), git merge operations (use /git:* commands), GitHub PR comment posting (CI/CD responsibility), code modifications (review only)
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% applicable perspectives, Accuracy >90% finding correctness, Relevance >85% only applicable reviews, Efficiency <45s parallel analysis for 6-12 analysts)
 
 ## Purpose
 
@@ -118,20 +155,20 @@ Execute selected reviews concurrently using Task tool for maximum speed:
 
 ```python
 # Phase 1: Parallel Domain Analysis (multiple analysts simultaneously)
-Task("quality-analyst: Analyze code quality, complexity, and maintainability issues")
+Task("code-quality-analyst: Analyze code quality, complexity, and maintainability issues")
 Task("security-analyst: Perform OWASP Top 10 vulnerability assessment and threat modeling")
 Task("performance-analyst: Identify bottlenecks, optimization opportunities, and resource usage")
 Task("testing-analyst: Assess test coverage, quality, and edge case identification")
-Task("accessibility-analyst: Review WCAG compliance and ARIA patterns")
-Task("documentation-analyst: Evaluate documentation completeness and quality")
+Task("frontend-accessibility-analyst: Review WCAG compliance and ARIA patterns")
+Task("docs-analyst: Evaluate documentation completeness and quality")
 
 # Conditional analysts based on file types:
 Task("database-analyst: Review schema design, query optimization, and migrations") # if database files changed
-Task("api-analyst: Analyze API design, contracts, and REST/GraphQL patterns") # if API files changed
+Task("api-rest-analyst: Analyze API design, contracts, and REST/GraphQL patterns") # if API files changed
 Task("frontend-analyst: Evaluate component architecture and state management") # if frontend files changed
-Task("react-analyst: Review React patterns, hooks, and component design") # if React files changed
-Task("typescript-analyst: Assess type safety and TypeScript best practices") # if TypeScript files changed
-Task("python-analyst: Evaluate Pythonic patterns and PEP 8 compliance") # if Python files changed
+Task("frontend-react-analyst: Review React patterns, hooks, and component design") # if React files changed
+Task("code-typescript-analyst: Assess type safety and TypeScript best practices") # if TypeScript files changed
+Task("code-python-analyst: Evaluate Pythonic patterns and PEP 8 compliance") # if Python files changed
 
 # Each analyst:
 # - Performs comprehensive domain-specific analysis
@@ -155,16 +192,16 @@ Main thread synthesizes all analyst findings:
 ```python
 # Phase 2: Main Thread Synthesis
 # Get session context directory
-session_id = $(python3 ~/.claude/.agent/scripts/session_manager.py current)
+session_id = $(python3 ~/.claude/scripts/session/session_manager.py current)
 context_dir = .agent/context/${session_id}
 
 # Read all analyst artifacts
-Read(${context_dir}/quality-analyst.md)
+Read(${context_dir}/code-quality-analyst.md)
 Read(${context_dir}/security-analyst.md)
 Read(${context_dir}/performance-analyst.md)
 Read(${context_dir}/testing-analyst.md)
-Read(${context_dir}/accessibility-analyst.md)
-Read(${context_dir}/documentation-analyst.md)
+Read(${context_dir}/frontend-accessibility-analyst.md)
+Read(${context_dir}/docs-analyst.md)
 # ... plus conditional analysts
 
 # Synthesize unified report:
@@ -177,20 +214,20 @@ Read(${context_dir}/documentation-analyst.md)
 
 ## Agent Integration
 
-- **Primary Agent**: quality-analyst - Orchestrates parallel domain analysis and synthesizes findings
+- **Primary Agent**: code-quality-analyst - Orchestrates parallel domain analysis and synthesizes findings
 - **Parallel Domain Analysts** (6-12 concurrent):
-  - quality-analyst - Code quality, complexity, maintainability
+  - code-quality-analyst - Code quality, complexity, maintainability
   - security-analyst - Vulnerability assessment, threat modeling
   - performance-analyst - Bottleneck detection, optimization
   - testing-analyst - Test coverage and quality assessment
-  - accessibility-analyst - WCAG compliance evaluation
-  - documentation-analyst - Documentation completeness review
+  - frontend-accessibility-analyst - WCAG compliance evaluation
+  - docs-analyst - Documentation completeness review
   - database-analyst - Schema design, query optimization (conditional)
-  - api-analyst - API design and contracts review (conditional)
+  - api-rest-analyst - API design and contracts review (conditional)
   - frontend-analyst - Component architecture evaluation (conditional)
-  - react-analyst - React patterns analysis (conditional)
-  - typescript-analyst - Type safety assessment (conditional)
-  - python-analyst - Pythonic patterns evaluation (conditional)
+  - frontend-react-analyst - React patterns analysis (conditional)
+  - code-typescript-analyst - Type safety assessment (conditional)
+  - code-python-analyst - Pythonic patterns evaluation (conditional)
 - **Tools:** Task for parallel analysis, Read for synthesis, Write for report generation
 
 ## Implementation Steps
@@ -219,11 +256,11 @@ Read(${context_dir}/documentation-analyst.md)
 
    ```python
    # Core analysts (always run)
-   Task("quality-analyst: Analyze code quality, complexity, and maintainability for feature/x vs develop")
+   Task("code-quality-analyst: Analyze code quality, complexity, and maintainability for feature/x vs develop")
    Task("security-analyst: Perform vulnerability assessment and threat modeling for feature/x vs develop")
    Task("testing-analyst: Assess test coverage and quality for feature/x vs develop")
-   Task("accessibility-analyst: Review WCAG compliance for feature/x vs develop")
-   Task("documentation-analyst: Evaluate documentation completeness for feature/x vs develop")
+   Task("frontend-accessibility-analyst: Review WCAG compliance for feature/x vs develop")
+   Task("docs-analyst: Evaluate documentation completeness for feature/x vs develop")
 
    # Conditional analysts (based on changed files)
    Task("performance-analyst: Identify bottlenecks and optimization opportunities for feature/x vs develop")
@@ -232,8 +269,8 @@ Read(${context_dir}/documentation-analyst.md)
 
    # Specialized analysts (based on file type detection)
    Task("database-analyst: Review schema design and query optimization for feature/x vs develop")
-   Task("api-analyst: Analyze API design and contracts for feature/x vs develop")
-   Task("react-analyst: Review React patterns and hooks for feature/x vs develop")
+   Task("api-rest-analyst: Analyze API design and contracts for feature/x vs develop")
+   Task("frontend-react-analyst: Review React patterns and hooks for feature/x vs develop")
 
    # All execute simultaneously, persist to .agent/context/{session-id}/, return summaries
    ```
@@ -242,7 +279,7 @@ Read(${context_dir}/documentation-analyst.md)
 
    ```python
    # Main thread reads all analyst artifacts from session directory
-   Read(.agent/context/${session_id}/quality-analyst.md)
+   Read(.agent/context/${session_id}/code-quality-analyst.md)
    Read(.agent/context/${session_id}/security-analyst.md)
    # ... etc for all analysts
 

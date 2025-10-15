@@ -1,9 +1,46 @@
 ---
 description: "Execute comprehensive optimization workflow using parallel domain analysis to improve performance, reduce bundle size, and enhance user experience"
-allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
+allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Run Optimization
+
+## Framework Structure (S-Tier Pattern)
+
+### CO-STAR Framework (Orchestration)
+
+**C**ontext: Comprehensive performance optimization workflow covering full-stack performance improvements (backend: algorithmic efficiency, memory leaks; database: query optimization, N+1 detection, indexing; frontend: bundle size reduction, code splitting, lazy loading, asset optimization)
+
+**O**bjective: Execute parallel optimization analysis across 3 domains (application performance, database performance, frontend optimization), consolidate findings, implement optimizations (refactor algorithms, optimize queries, add indexes, apply code splitting, remove unused dependencies), validate with before/after benchmarks
+
+**S**tyle: Metrics-driven optimization with quantifiable improvements (response time reduction, bundle size decrease, memory usage improvement), benchmark comparisons (before/after), and incremental optimization approach
+
+**T**one: Data-focused, improvement-oriented with emphasis on measurable performance gains - clear metrics, specific optimization techniques, concrete results
+
+**A**udience: Performance engineers, full-stack developers requiring end-to-end optimization across backend, database, and frontend layers with measurable performance improvements
+
+**R**esults: Optimized codebase with measurable performance improvements (response time, bundle size, memory usage), passing validation benchmarks, maintained functionality (all tests passing), and documented optimization techniques applied
+
+## Analysis Methodology
+
+### 1. Pre-Optimization Benchmarking: Baseline performance metrics (application response times, database query times, frontend bundle size, memory usage), identify optimization targets (slowest endpoints, largest bundle chunks, most expensive queries)
+
+### 2. Parallel Optimization Analysis: Launch 3 domain analysts concurrently (performance-analyst for bottlenecks/algorithms, database-analyst for queries/indexes, frontend-analyst for bundle/assets)
+
+### 3. Consolidation & Prioritization: Aggregate findings, prioritize by impact (high-impact optimizations first: N+1 queries causing 400% slowdown, unused dependencies adding 2MB to bundle)
+
+### 4. Implementation: Apply optimizations incrementally (refactor inefficient algorithms, add strategic indexes, implement code splitting, remove unused dependencies), validate after each change
+
+### 5. Validation: Run performance benchmarks, compare before/after metrics, ensure tests pass, confirm no functionality regressions, document improvements achieved
+
+## Explicit Constraints
+
+**IN SCOPE**: Performance optimization (algorithmic efficiency, memory leaks, resource usage), database optimization (query performance, N+1 queries, indexing, connection pooling), frontend optimization (bundle size, code splitting, lazy loading, unused dependencies, asset optimization)
+**OUT OF SCOPE**: Functional behavior changes (feature modifications), architecture redesigns (structural changes), infrastructure scaling (use infrastructure-cloud-analyst), CDN configuration (use infrastructure-network-analyst)
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% optimization opportunities, Accuracy >90% performance improvements, Relevance >85% prioritized by impact, Efficiency <45s parallel analysis)
 
 ## Purpose
 

@@ -43,7 +43,7 @@ flowchart TD
 ✅ "Plan migration strategy requiring compatibility and risk analysis"
 ```
 
-**Expected Performance Gain:** 60-85% time savings
+**Expected Performance Gain:** Substantial time savings
 
 ### 🟡 Consider Parallelization
 
@@ -63,7 +63,7 @@ flowchart TD
 🤔 "Refactor module with quality and maintainability review"
 ```
 
-**Expected Performance Gain:** 30-50% time savings
+**Expected Performance Gain:** Moderate time savings
 
 ### 🔴 Skip Parallelization
 
@@ -272,7 +272,7 @@ Before starting any task, ask:
 
 ### Cost-Benefit Assessment
 
-- [ ] Will time savings (60-85%) justify 2-3 minute coordination overhead?
+- [ ] Will substantial time savings justify brief coordination overhead?
 - [ ] Is quality improvement worth the additional complexity?
 - [ ] Do I have adequate time for the full parallel research cycle?
 

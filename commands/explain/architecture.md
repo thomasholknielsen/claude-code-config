@@ -1,10 +1,29 @@
 ---
 description: "Analyze entire application to understand architecture, patterns, and how components work together"
 argument-hint: "[focus] [--depth=<level>] [--format=<output>] [--include-dependencies]"
-allowed-tools: Glob, Read, Grep, Bash
+allowed-tools: Glob, Read, Grep, Bash, Task, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Architecture
+
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Analyze entire application architecture via parallel multi-perspective analysis (structure, patterns, data-flow, dependencies via Task tool), component mapping (modules/packages/responsibilities/relationships), pattern recognition (MVC/MVP/Observer/Factory/custom conventions), system integration analysis (request-response flows, data pipelines, shared state), Mermaid diagram generation (system/component/sequence/data-flow diagrams)
+
+**P**urpose: Provide comprehensive system understanding through architectural overview, identify design patterns and conventions for consistency, document component relationships and integration points, support onboarding and knowledge transfer, enable informed architectural decisions and extensions, visualize architecture through clear diagrams
+
+**E**xpectation: Comprehensive architectural analysis with high-level system diagram, component map with responsibilities, key architectural decisions and trade-offs, data flow descriptions and interaction patterns, Mermaid diagrams (system architecture, component interaction, data flow, deployment), improvement recommendations, focus-specific deep-dives if requested (data-flow/modules/patterns/dependencies)
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% component coverage, Accuracy >90% pattern identification, Relevance >85% actionable insights, Efficiency <60s typical analysis)
+
+## Explicit Constraints
+
+**IN SCOPE**: Architectural analysis (structure/patterns/data-flow/dependencies), parallel multi-perspective analysis (via Task tool), component mapping (modules/responsibilities/relationships/interfaces), pattern recognition (common + custom patterns), system integration analysis (flows/pipelines/communication), Mermaid diagram generation (system/component/sequence/data-flow), focus areas (data-flow/modules/patterns/dependencies), depth levels (overview/detailed/comprehensive)
+**OUT OF SCOPE**: Code refactoring (analysis only), implementation changes, performance optimization (identify patterns only), security analysis (use security-analyst), detailed code review (use /explain:code), test generation
 
 ## Purpose
 

@@ -160,7 +160,7 @@ Total: Approaches slowest analyst (Amdahl's Law)
 ```bash
 # Develop feature with atomic commands
 /implement:small "Add user authentication endpoint"
-/docs:api src/api/auth.ts
+/workflows:docs
 
 # Comprehensive validation with workflow
 /workflows:run-security-audit
@@ -181,7 +181,7 @@ Total: Approaches slowest analyst (Amdahl's Law)
 /workflows:run-security-audit
 
 # Stage 3: Documentation update
-/workflows:run-docs-workflow
+/workflows:docs
 
 # Stage 4: Commit everything
 /git:commit
@@ -230,10 +230,10 @@ Total: Approaches slowest analyst (Amdahl's Law)
 **Recommended Approach**:
 
 ```bash
-# Use spec-kit workflow for structure
-/spec-kit:specify
-/spec-kit:plan
-/spec-kit:tasks
+# Use speckit workflow for structure
+/speckit:specify
+/speckit:plan
+/speckit:tasks
 
 # Use atomic commands for implementation
 /implement:small [each task]              # Iterative development
@@ -417,7 +417,7 @@ Don't limit yourself to one or the other. Use workflows for analysis, atomic for
 - `/workflows:run-refactor-workflow` - Comprehensive refactoring
 - `/workflows:run-cleanup-workflow` - Quality and readability cleanup
 - `/workflows:run-complete-overhaul` - Full codebase analysis
-- `/workflows:run-docs-workflow` - Documentation workflow
+- `/workflows:docs` - Idempotent documentation workflow
 - `/workflows:run-optimization` - Performance optimization
 - `/workflows:run-security-audit` - Security assessment
 - `/workflows:run-lint-and-correct-all` - Language detection and linting
@@ -426,7 +426,7 @@ Don't limit yourself to one or the other. Use workflows for analysis, atomic for
 
 - **Git**: commit, branch, merge, push, pr, worktree, full-workflow
 - **Spec-Kit**: specify, plan, clarify, tasks, analyze, implement, constitution
-- **Development**: implement:small, implement:spec-kit-tasks, fix:bug-quickly, fix:import-statements
+- **Development**: implement:small, implement:speckit-tasks, fix:bug-quickly, fix:import-statements
 - **Quality**: clean:apply-style-rules, clean:improve-readability
 - **Documentation**: docs:extract-external, docs:update, docs:generate, docs:changelog, docs:api
 - **Explain**: explain:code, explain:architecture, guru

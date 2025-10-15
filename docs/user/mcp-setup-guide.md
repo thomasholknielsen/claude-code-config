@@ -183,8 +183,7 @@ Here's a complete Claude Code configuration with both MCP servers:
 
 Several commands automatically leverage Context7 for up-to-date documentation:
 
-- `/docs:extract-external` - Primary Context7 integration command
-- `/docs:api` - Current API documentation standards
+- `/workflows:docs` - Documentation workflow with Context7 integration
 - `/review:security` - Latest OWASP guidelines and vulnerabilities
 - `/analyze:dependencies` - Current security advisories
 - `/implement` - Framework-specific best practices
@@ -298,7 +297,7 @@ export PLAYWRIGHT_HEADLESS=false
 ## Next Steps
 
 1. **Test Integration** - Try both MCP servers with simple commands
-2. **Explore Commands** - Use `/docs:extract-external` and `/review:design`
+2. **Explore Commands** - Use `/workflows:docs` and `/review:design`
 3. **Custom Workflows** - Create custom commands that leverage MCP capabilities
 4. **Monitor Usage** - Check logs and performance of MCP integrations
 

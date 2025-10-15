@@ -1,143 +1,228 @@
 # Claude Code Configuration - Command System Project
 
-This file contains **project-specific** configuration for the Claude Code command system project.
+**Scope**: Project-specific configuration for Claude Code command system
 
-## 🎯 Repository Overview
+## Core Components
 
-The Claude Code Command System provides development automation through domain analysts, slash commands, cross-platform Python hooks, and MCP integration (Context7, Playwright, Shadcn).
+- **Domain Analysts**: Specialized agents for research, framework expertise, quality, security, performance
+- **Slash Commands**: Atomic commands and workflows (git, docs, workflows categories)
+- **Hooks**: Python automation for logging, notifications, context management
+- **MCP Integration**: External tools (Context7, Playwright, Shadcn)
 
-**Core Components**:
+## System Topology
 
-- **Domain Analysts**: Specialized agents for research, framework expertise, quality analysis, security, performance, and more
-- **Slash Commands**: Atomic commands and orchestrated workflows organized by category (git, docs, workflows, etc.)
-- **Hooks**: Python-based automation for logging, notifications, and context management
-- **MCP Integration**: External tool access for documentation (Context7), browser automation (Playwright), and UI components (Shadcn)
+**Execution Hierarchy**:
 
-## 🎨 Frontmatter Standards
+```text
+User Request
+    ↓
+Main Thread (parallelizes Task tools, runs slash commands sequentially)
+    ├─→ Domain Analysts (parallel research, persist to .agent/context/)
+    ├─→ Slash Commands (orchestrate workflows, delegate to analysts)
+    └─→ Direct Operations (file ops, bash commands, git via /git:*)
+```
 
-**Single Source of Truth**: Frontmatter syntax and structure are defined ONLY in templates.
+**Component Relationships**:
 
-**CLAUDE.md Role**:
+- **Main Thread** → **Domain Analysts**: Spawns parallel analysis tasks, reads context files
+- **Slash Commands** → **Domain Analysts**: Delegates specialized analysis (series/parallel)
+- **Domain Analysts** → **Context Files**: Persists findings to `.agent/context/{session-id}/{agent-name}.md`
+- **All Components** → **MCP Servers**: Access external tools (Context7, Playwright, Terraform, etc.)
+- **Git Operations**: Exclusively handled by `/git:*` and `/git-flow:*` commands
 
-- ✅ Reference templates for frontmatter specifications
-- ✅ Explain the distinction between command and agent frontmatter
-- ❌ Do NOT duplicate frontmatter YAML examples
-- ❌ Do NOT show specific field syntax
+**Data Flow**:
 
-**Key Distinction**:
+1. User request → Main Thread analyzes → Spawns domain analysts (parallel)
+2. Analysts research → Persist to context files → Return concise summary
+3. Main Thread reads context → Implements recommendations → Updates context logs
+4. Slash commands orchestrate → Delegate to analysts → Execute final actions
 
-- **Commands** declare permissions via `allowed-tools` frontmatter
-- **Agents** declare capabilities via `tools` frontmatter
+## Component Interaction Patterns
 
-**Template References**:
+### Agent Coordination Pattern
 
-- Command frontmatter: See `templates/commands/command.md` and `templates/commands/command-workflow.md`
-- Agent frontmatter: See `templates/agents/agent-domain-specialist.md`
+**Parallel Research**: Main thread spawns multiple domain analysts concurrently, each analyzing different aspects (security + performance + quality). Analysts work in isolated contexts, cannot parallelize internally.
 
-## 🏗️ Domain Analyst Framework
+**Context Persistence**: Every analyst MUST persist findings to `.agent/context/{session-id}/{agent-name}.md` (lean, actionable format). Incremental updates use strikethrough for obsolete items, increment iteration count.
 
-### Research Analyst
+**Context Elision**: Analysts return concise summaries with task counts to main thread, keeping main context clean. Full analysis details remain in context files.
 
-**research-analyst** - Comprehensive sequential research across multiple domains with synthesized findings (uses Context7)
+### MCP Server Integration Pattern
+
+**Tool Access**: All components can invoke MCP tools (Context7 for docs, Playwright for browser automation, Terraform for IaC). Commands delegate to analysts for complex MCP operations.
+
+**Data Retrieval**: Context7 resolves library IDs → fetches docs. Playwright navigates → takes snapshots → evaluates. Terraform searches providers/modules → retrieves specs.
+
+### Session Lifecycle Pattern
+
+**Initialization**: `python3 ~/.claude/scripts/session/session_manager.py init [topic]` → Creates session ID → Establishes context directory
+
+**Execution**: Domain analysts invoked → Create/update context files → Return summaries → Main thread implements → Updates "Main Thread Log"
+
+**Completion**: Context files preserve full analysis history, session metadata tracks agents invoked and overall summary
+
+### Git Operation Pattern
+
+**Strict Delegation**: ALL git operations routed through `/git:*` or `/git-flow:*` commands. No direct git calls from main thread, other commands, or analysts.
+
+**Workflow Detection**: System auto-detects Conventional Commits (single main, type-prefixed branches) vs Git-Flow (main+develop, workflow branches)
+
+## Critical Constraints
+
+**Git Operations**: ONLY `/git/*` and `/git-flow/*` commands perform Git operations
+**Cross-Platform**: No hardcoded user paths (use `~/.claude/`)
+**Agent Uniqueness**: Each agent has single, unique responsibility
+**MCP Integration**: Use Context7/Playwright where appropriate
+**Atomic Design**: Keep commands single-purpose
+**CLAUDE.md Sync**: Update after creating/modifying/deleting agents or commands
+
+### CLAUDE.md Disambiguation
+
+**Rule**: ALWAYS ask which CLAUDE.md (user `~/CLAUDE.md` vs project `~/.claude/CLAUDE.md`)
+**Dual System**: `CLAUDE-GLOBAL.md` (repo) syncs with `~/CLAUDE.md` (installed)
+**Update Protocol**: Sync both files when changing global patterns
+**Sync Command**: Use `/claude:apply-config-to-user-claude-md` to merge CLAUDE-GLOBAL.md updates into ~/CLAUDE.md with intelligent conflict detection
+
+## Frontmatter Standards
+
+- Frontmatter syntax defined in templates only (single source of truth)
+- Commands use `allowed-tools` frontmatter, agents use `tools` frontmatter
+- Reference templates: `templates/commands/*.md`, `templates/agents/*.md`
+- Do NOT duplicate YAML examples or field syntax in CLAUDE.md
+
+## Domain Analyst Framework
 
 ### Domain Analysts
 
-**Framework/Technology:** react-analyst, typescript-analyst, python-analyst, api-analyst, shadcn-analyst
-**Quality/Architecture:** quality-analyst, architecture-analyst (opus+ultrathink), refactoring-analyst
-**Security/Performance:** security-analyst, performance-analyst
-**Testing/Accessibility:** testing-analyst, accessibility-analyst
-**Documentation/Data:** documentation-analyst, database-analyst, frontend-analyst
+| Domain | Analysts |
+|--------|----------|
+| **API** | api-rest-analyst, api-graphql-analyst, api-docs-analyst |
+| **Database** | database-analyst, database-sql-analyst, database-nosql-analyst, database-architecture-analyst |
+| **Frontend** | frontend-analyst, frontend-react-analyst, frontend-nextjs-analyst, frontend-accessibility-analyst, frontend-shadcn-analyst |
+| **Code Quality** | code-python-analyst, code-typescript-analyst, code-javascript-analyst, code-csharp-analyst, code-quality-analyst |
+| **Infrastructure** | infrastructure-terraform-analyst, infrastructure-cloud-analyst, infrastructure-network-analyst, infrastructure-devops-analyst, infrastructure-monitoring-analyst |
+| **Mobile** | mobile-react-native-analyst, mobile-flutter-analyst, mobile-ios-swift-analyst |
+| **Research** | research-codebase-analyst, research-web-analyst |
+| **Documentation** | docs-analyst (multi-perspective: IA, content quality, user journey, semantic coherence), docs-docusaurus-analyst |
+| **UI/UX** | ui-ux-analyst, ui-ux-cli-analyst |
+| **Standalone** | architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst |
+| **Engineering** | prompt-analyst |
+| **Meta** | agent-expert, command-expert, git-flow-analyst |
 
-**Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary with task counts (context elision)
+**Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary with task counts
+
+**Total**: 43 agents (40 domain analysts + 3 meta agents: agent-expert, command-expert, git-flow-analyst)
 
 ### Agent Coordination
 
-**Main Thread:** Parallelizes Task tools, invokes multiple domain analysts concurrently, runs one slash command at a time
+- **Main Thread**: Parallelizes Task tools, invokes multiple domain analysts concurrently, runs one slash command at a time
+- **Slash Commands**: Absorb main thread capabilities (unless restricted), coordinate domain analysts (series/parallel), can daisy-chain ONE other command as final action (no post-processing)
+- **Domain Analysts**: Must persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md`, update incrementally if file exists, cannot invoke other analysts or slash commands reliably
+- **System**: Changes to CLAUDE.md/commands/agents require Claude Code restart
 
-**Slash Commands:** Absorb main thread capabilities (unless restricted), coordinate domain analysts (series/parallel), can daisy-chain ONE other command as final action (no post-processing)
+## Model Inheritance
 
-**Domain Analysts:** Must persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md`, update incrementally if file exists, cannot invoke other analysts or slash commands reliably
+**Default**: `model: inherit` (inherits from main thread)
+**Complex reasoning**: `model: opus` + `thinking: ultrathink` (architecture, system design only)
 
-**System:** Changes to CLAUDE.md/commands/agents require Claude Code restart
+## Context Management System
 
-## 🧠 Model Inheritance
+**Directory Structure**: `.agent/context/{session-id}/session.md` (metadata), `{agent-name}.md` (one per agent)
 
-**Default:** `model: inherit` (inherits from main thread)
-**Complex reasoning:** `model: opus` + `thinking: ultrathink` (architecture, system design only)
+**Required**: All domain analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
 
-## 📦 Context Management System
+**Session Commands**: `python3 ~/.claude/scripts/session/session_manager.py [current|context_dir|init [topic]|list_agents|archive]`
 
-**Directory Structure**:
-
-```text
-.agent/context/
-└── {session-id}/
-    ├── session.md              # Session metadata and summary
-    ├── python-analyst.md       # One file per agent
-    ├── security-analyst.md
-    └── {agent-name}.md
-```
-
-**Required:** All domain analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
-
-**Session Commands**:
-
-- Get session ID: `python3 ~/.claude/.agent/scripts/session_manager.py current`
-- Get context directory: `python3 ~/.claude/.agent/scripts/session_manager.py context_dir`
-- Initialize session: `python3 ~/.claude/.agent/scripts/session_manager.py init [topic]`
-- List agents invoked: `python3 ~/.claude/.agent/scripts/session_manager.py list_agents`
-- Archive session: `python3 ~/.claude/.agent/scripts/session_manager.py archive`
-
-**Lean Context Principle**: Context files must be scannable in <30 seconds - focus on actionable tasks, not verbose analysis
-
-**Why:** Enables multi-analyst coordination, incremental updates, and clean organization without context pollution
+**Lean Context Principle**: Context files must be quickly scannable - focus on actionable tasks, not verbose analysis
 
 **Main Thread Responsibility**: After executing agent recommendations, update context file's "Main Thread Log" section with completion status
 
-## 🚀 Parallel Research Pattern
+## Parallel Research Pattern
 
-**Workflow:** Parallel research (multiple analysts) → Sequential implementation → Parallel QA
+**Workflow**: Parallel research (multiple analysts) → Sequential implementation → Parallel QA
 
-**Performance:** Significantly faster than sequential execution through concurrent analyst invocations
+**Performance**: Significantly faster than sequential execution through concurrent analyst invocations
 
-## 📁 Command System
+## Command System
 
-**Categories:** analyze, artifact, clean, docs, explain, fix, git, implement, plan, prompt, refactor, review, spec-kit, to-do, workflows
+**Organization**: Commands organized in `commands/` directory by category (claude, docs, explain, git, git-flow, github, lint, prompt, speckit, system, task, workflows)
 
-**Atomic Design:** Single-purpose, clear responsibility, composable, template-compliant (use `templates/commands/command.md` or `templates/commands/command-workflow.md`)
+**Atomic Design**: Single-purpose, clear responsibility, composable, template-compliant
 
-**Frontmatter**: See templates for complete specifications
+**Discovery**: Use file explorer or `ls commands/*/` to discover available commands. Each command file contains purpose, usage, and examples.
 
-## 🔌 MCP Integration
+## MCP Integration
 
-**Context7:** Library/framework documentation (docs, review, analysis commands)
-**Playwright:** Browser automation (design review, testing workflows)
+**Configuration**: `~/.claude.json` (per-project user-local)
 
-## 🌐 Cross-Platform
+| Server | Purpose | Type |
+|--------|---------|------|
+| fetch | Web content fetching | Python/uvx |
+| context7 | Library/framework docs | HTTP+API |
+| markitdown | Document to Markdown | Docker |
+| terraform | Terraform registry/docs | Docker |
+| playwright | Browser automation/testing | npm |
+| shadcn | shadcn/ui components | HTTP |
+| sequential-thinking | Multi-step reasoning | npm |
+
+**Critical Constraint**: Commands delegate to agents for MCP tool usage
+
+**Setup**: See [MCP User Setup](MCP-USER-SETUP.md) and [MCP Configuration Guide](docs/user/mcp-configuration-guide.md)
+
+## Cross-Platform
 
 All automation uses Python with `pathlib.Path` for Windows/macOS/Linux compatibility. Use `Path.home()` for user directories.
 
-## 🔐 Security & Git Constraints
+## Hooks & Infrastructure
 
-**CRITICAL:** Only `/git/*` commands perform Git operations. All other agents/commands use SlashCommand tool for Git delegation.
+**Statusline**: Real-time context monitoring, session metrics, color-coded alerts (`scripts/statusline/status-line.py`)
 
-**Git Conventions:** Conventional commit format with auto-detected types from file analysis (feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert)
+**Hooks** (configured in `settings.json`):
 
-**Permissions:** Context7/Playwright tools allowed. Block secrets (.env, *.key, credentials). Restrict dangerous operations (rm -rf, sudo). See `settings.json`.
+- `init-session.py` - SessionStart: Initializes session context and logging
+- `log-prompt.py` - UserPromptSubmit: Logs user prompts to session log file
+- `notify.py` - Stop: Sends notifications when operations complete
+- `validate-branch-name.py` - PreToolUse (git checkout): Enforces Git-Flow branch naming conventions
+- `prevent-direct-push.py` - PreToolUse (git push): Prevents direct pushes to protected branches
+- `update-search-year.py` - PreToolUse (WebSearch): Updates search queries with current year
 
-## 📦 Artifact Management
+**Integration**: Git-Flow hooks reference `/git-flow:*` commands for guidance
 
-Use `/artifact:save` to capture Claude outputs (plans, reviews, research) in `.artifacts/` with type-based organization.
+## Security & Git Constraints
 
-## 🤖 AI Code Review
+**Git Workflows**: Conventional Commits (single main, type-prefixed branches) or Git-Flow (main+develop, workflow branches) with auto-detection
 
-Use `/review:code` for comprehensive code review with domain analyst delegation. For multi-perspective reviews, use `/workflows:run-comprehensive-review` with dynamic analyst selection, parallel execution, and unified reporting.
+**Git Conventions**: Conventional commit format with auto-detected types (feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert)
 
-## 📚 Documentation
+**Permissions**: Context7/Playwright allowed. Block secrets (.env, *.key, credentials). Restrict dangerous operations (rm -rf, sudo)
 
-Docs in `docs/` following Diátaxis framework (tutorials, guides, reference, explanation). Start with `README.md` and `docs/user-guide.md`.
+## Documentation
 
-## 🔧 Development Standards
+Docs in `docs/` following Diátaxis framework (tutorials, guides, reference, explanation).
+
+### Documentation Workflow
+
+**Command**: `/workflows:docs [--scope=changes|project]`
+
+**Multi-Perspective Analysis Pattern**: Single enhanced docs-analyst invoked 4 times in parallel with different objectives to analyze documentation from multiple perspectives simultaneously:
+
+1. **Information Architecture** - Structure, navigation, taxonomy, findability
+2. **Content Quality & Reality Alignment** - Cross-reference with codebase, validate entity references, detect mismatches
+3. **User Journey Validation** - Test onboarding paths, validate tutorials, check learning progression
+4. **Semantic Coherence** - Terminology consistency, conceptual model accuracy, mental model clarity
+
+Plus architecture-analyst (technical accuracy) and code-quality-analyst (code examples) = 6 concurrent analyses.
+
+**Scope Modes**:
+
+- `--scope=changes` (default) - Analyze docs related to uncommitted git changes (fast, 30-60s, iterative)
+- `--scope=project` - Analyze all documentation (comprehensive, 4-6min, audit)
+
+**Categorization**: Findings grouped as FUNDAMENTAL (reality mismatches), STRUCTURAL (architecture/IA), SURFACE (polish).
+
+**Benefits**: Catches fundamental issues (non-existent entity references, conceptual conflicts, broken onboarding paths) that traditional completeness checks miss.
+
+## Development Standards
 
 ### Markdown Linting
 
@@ -145,67 +230,30 @@ Follow `.markdownlint.yml`: 150-char lines (code: 200), ATX headers with blank l
 
 ### Command Development
 
-**Templates:** `templates/commands/command.md` (atomic), `templates/commands/command-workflow.md` (orchestration)
+**Templates**: `templates/commands/command.md` (atomic), `templates/commands/command-workflow.md` (orchestration)
 
-**Frontmatter:** See templates for complete specifications and required fields
+**Requirements**: Single-purpose, clear responsibility, composable design
 
-**Key Requirements:** Single-purpose, clear responsibility, composable design
+**User Input Standard**: A/B/C/D table format with "Skip" option (max 5 choices, scannability)
+
+**Creating Commands**: Use template from `templates/commands/*.md`, place in `commands/{category}/{name}.md`, assign to domain analyst, include MCP tools if relevant, ensure atomic design. Update CLAUDE.md after changes.
 
 ### Agent Development
 
-**Requirements:** Single responsibility, no overlap, follow domain-analyst pattern, model: inherit (default) or opus (complex reasoning), use SlashCommand for delegation
+**Requirements**: Single responsibility, no overlap, domain-analyst pattern, model: inherit (default) or opus (complex reasoning), SlashCommand delegation
 
-**Frontmatter:** See `templates/agents/agent-domain-specialist.md` for complete specifications
-
-**Key Requirements:** Clear domain focus, advisory role (analyze and recommend, not execute)
+**Focus**: Advisory role (analyze and recommend, not execute)
 
 ### Spec-Kit Integration
 
 When `.specify/` exists: reference `spec.md` (requirements), `plan.md` (architecture), `tasks.md` (completion), `contracts/` (API compliance)
 
-**Cross-Repository Paths:** Use `~/.claude/.specify/scripts/` and `~/.claude/.specify/templates/` (reapply with `/utility:apply-spec-kit-mods`)
+**Cross-Repository Paths**: `~/.claude/.specify/scripts/` and `~/.claude/.specify/templates/`
 
-## 🔄 CRUD Operations
+## Task Management System
 
-### TODO Location Constraint
+**Architecture**: Unified task management via `/task:*` commands with origin tagging (adhoc, code-comment, github-issue)
 
-**CRITICAL:** All TODO operations use `{project_root}/.claude/.todos/TODO.md` ONLY. Prohibited: TODO files elsewhere.
+**Storage**: Tasks stored in `{project_root}/.agent/tasks.md` (active) and `tasks-archive.md` (completed)
 
-### Creating Commands
-
-1. Use template from `docs/command-template.md`
-2. Place in `commands/{category}/{name}.md`
-3. Assign to existing domain analyst
-4. Include MCP tools if relevant
-5. Ensure atomic design
-
-**Reapply Spec-Kit Mods:**
-
-```bash
-/utility:apply-spec-kit-mods
-```
-
-## 🔄 Workflows
-
-**TODO Management:** Use standardized location `{project_root}/.claude/.todos/TODO.md` via `/to-do:*` commands
-
-**Command/Agent Changes:** Follow templates, maintain atomic design, update CLAUDE.md after changes
-
-## ⚠️ Critical Constraints
-
-**Git Operations:** ONLY `/git/*` commands can perform Git operations
-**Cross-Platform:** No hardcoded user paths (use `~/.claude/`)
-**Agent Uniqueness:** Each agent has single, unique responsibility
-**MCP Integration:** Use Context7/Playwright where appropriate
-**Atomic Design:** Keep commands single-purpose
-**CLAUDE.md Sync:** Update after creating/modifying/deleting agents or commands
-
-### CLAUDE.md Disambiguation Protocol
-
-**When working with multiple CLAUDE.md files, ALWAYS ask:** "Are you referring to user CLAUDE.md (global patterns in ~/CLAUDE.md) or project CLAUDE.md (project-specific in /Users/thomasholknielsen/.claude/CLAUDE.md)?"
-
-**NO EXCEPTIONS** - applies to reading, editing, referencing, suggesting updates, or ANY mention of CLAUDE.md.
-
----
-
-**Note:** This configuration provides comprehensive instructions for working with all repository artifacts while maintaining quality, security, and cross-platform compatibility standards.
+**GitHub Integration**: Bidirectional sync with GitHub issues via `/github:*` commands for team collaboration

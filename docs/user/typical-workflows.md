@@ -83,14 +83,14 @@ flowchart TD
 
 ```mermaid
 graph TB
-    UserStory["User Story: E-commerce Checkout"] --> Constitution[/spec-kit:constitution]
+    UserStory["User Story: E-commerce Checkout"] --> Constitution[/speckit:constitution]
 
     Constitution --> Principles{Project Principles}
     Principles --> P1[Security First]
     Principles --> P2[Performance Standards]
     Principles --> P3[Accessibility Requirements]
 
-    P1 --> Specify[/spec-kit:specify]
+    P1 --> Specify[/speckit:specify]
     P2 --> Specify
     P3 --> Specify
 
@@ -99,24 +99,24 @@ graph TB
     Requirements --> NonFunc[Non-Functional Requirements]
     Requirements --> UserStories[User Stories]
 
-    Functional --> Clarify1[/spec-kit:clarify Round 1]
+    Functional --> Clarify1[/speckit:clarify Round 1]
     NonFunc --> Clarify1
     UserStories --> Clarify1
 
     Clarify1 --> Questions1[Questions about Edge Cases]
     Questions1 --> Answers1[User Provides Answers]
-    Answers1 --> Clarify2[/spec-kit:clarify Round 2]
+    Answers1 --> Clarify2[/speckit:clarify Round 2]
 
     Clarify2 --> Questions2[Questions about Integration]
     Questions2 --> Answers2[User Provides Answers]
-    Answers2 --> Plan[/spec-kit:plan]
+    Answers2 --> Plan[/speckit:plan]
 
     Plan --> Architecture{Architecture Design}
     Architecture --> Frontend[Frontend Strategy]
     Architecture --> Backend[Backend Strategy]
     Architecture --> Database[Database Design]
 
-    Frontend --> Tasks[/spec-kit:tasks]
+    Frontend --> Tasks[/speckit:tasks]
     Backend --> Tasks
     Database --> Tasks
 
@@ -126,13 +126,13 @@ graph TB
     TaskList --> Integration[Integration Tasks]
     TaskList --> Testing[Testing Tasks]
 
-    Setup --> Analyze[/spec-kit:analyze]
+    Setup --> Analyze[/speckit:analyze]
     Core --> Analyze
     Integration --> Analyze
     Testing --> Analyze
 
     Analyze --> Quality{Quality Assessment}
-    Quality -->|Pass| Implement[/spec-kit:implement]
+    Quality -->|Pass| Implement[/speckit:implement]
     Quality -->|Fail| FixIssues[Address Issues]
     FixIssues --> Analyze
 
@@ -333,7 +333,7 @@ sequenceDiagram
 ```mermaid
 graph LR
     subgraph "Documentation Audit"
-        Start([/workflows:run-docs-workflow]) --> Audit[Execute /docs:analyze]
+        Start([/workflows:docs]) --> Audit[Execute /docs:analyze]
         Audit --> Gaps[Identify Documentation Gaps]
     end
 
@@ -496,7 +496,7 @@ flowchart TD
 
     Assess -->|Complex| Complex[Workflow Commands]
     Complex --> C1["/workflows:run-comprehensive-review"]
-    Complex --> C2["/spec-kit:* (full workflow)"]
+    Complex --> C2["/speckit:* (full workflow)"]
     Complex --> C3["/workflows:run-cleanup-workflow"]
 
     Assess -->|Architectural| Architectural[Planning Required]
@@ -507,15 +507,15 @@ flowchart TD
 
 ### Agent Selection Matrix
 
-| Task Type | Primary Specialist | Secondary Specialists | Commands Used |
-|-----------|-------------------|----------------------|---------------|
-| **Quick Fixes** | task-analysis-specialist | bug-fixer (advisory) | /fix:bug-quickly |
-| **Research Tasks** | research-analysis-specialist | Various specialists (advisory) | /analyze:*, /explain:* |
-| **Implementation** | implementation-strategy-specialist | code-writer, test-writer (advisory) | /implement, /spec-kit:implement |
-| **Code Review** | task-analysis-specialist | reviewer (advisory) | /review:*, /workflows:run-comprehensive-review |
-| **Documentation** | task-analysis-specialist | documenter (advisory) | /docs:*, /workflows:run-docs-workflow |
-| **Cleanup Operations** | task-analysis-specialist | Various specialists (advisory) | /clean:*, /workflows:run-cleanup-workflow |
-| **Complex Features** | task-analysis-specialist | All specialists (advisory) | /spec-kit:* (full workflow) |
+| Task Type | Domain Analysts Used | Commands Used |
+|-----------|----------------------|---------------|
+| **Quick Fixes** | debugger-analyst, code-quality-analyst | Manual fixes → /git:commit |
+| **Research Tasks** | research-codebase-analyst, research-web-analyst | /explain:*, domain analysts |
+| **Implementation** | architecture-analyst, relevant domain analysts | /speckit:implement, manual implementation |
+| **Code Review** | Multiple domain analysts in parallel | /workflows:run-comprehensive-review |
+| **Documentation** | docs-analyst (multi-perspective), architecture-analyst | /workflows:docs, /docs:changelog |
+| **Cleanup Operations** | code-quality-analyst, refactoring-analyst | /workflows:run-cleanup-workflow, /lint:correct-all |
+| **Complex Features** | All relevant domain analysts | /speckit:* (full workflow) |
 
 ## Best Practices
 

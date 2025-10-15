@@ -62,4 +62,4 @@ All 16 domain analysts persist findings here:
 - security-analyst, performance-analyst, testing-analyst, accessibility-analyst
 - documentation-analyst, database-analyst, frontend-analyst, shadcn-analyst
 
-Agents obtain session ID via: `python3 ~/.claude/.agent/scripts/session_manager.py current`
+Agents obtain session ID via: `python3 ~/.claude/scripts/session/session_manager.py current`

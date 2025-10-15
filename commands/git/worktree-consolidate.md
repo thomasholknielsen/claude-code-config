@@ -1,9 +1,23 @@
 ---
 description: "Merge changes from multiple worktrees into a single feature branch with intelligent conflict resolution"
-allowed-tools: Bash, Read, Grep, TodoWrite
+allowed-tools: Bash, Read, Grep, TodoWrite, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Worktree Consolidate
+
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Merge multiple worktree branches into single feature branch with modes (interactive selection, batch branches, staging mode), create safety checkpoints (backup/ branches), detect conflicts, provide guided resolution (manual/ours/theirs/skip/abort), validate merged state
+
+**P**urpose: Consolidate parallel development work into unified branch for single PR, support parallel mode (multiple PRs → one PR) and staging mode (staging parent + children → consolidated), maintain safe rollback capability
+
+**E**xpectation: All selected worktree branches merged into target branch, automatic backup created (backup/consolidate-{timestamp}), conflicts detected with resolution guidance, consolidation summary with total commits/files, next steps for commit/push/PR
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% merge operations, Accuracy >90% conflict detection, Relevance >85% resolution guidance, Efficiency <30s for typical consolidation)
 
 ## Purpose
 
@@ -183,7 +197,7 @@ git reset --hard backup/consolidate-2025-09-30-1430
 
 - **Follows**: /git:worktree (add-multiple or add-staging)
 - **Followed by**: /git:commit, /git:push, /git:pr
-- **Related**: /git:merge, /git:branch, /git:full-workflow
+- **Related**: /git:merge, /git:branch, /workflows:git
 
 ## Quality Standards
 

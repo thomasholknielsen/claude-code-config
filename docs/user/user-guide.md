@@ -22,7 +22,8 @@
 2. **Make scripts executable:**
 
    ```bash
-   chmod +x scripts/*.sh
+   chmod +x scripts/**/*.py
+   ```
 
 3. **Test the setup:**
 
@@ -84,7 +85,7 @@ The system uses a allowlist approach in `settings.json`:
 4. **Generate documentation:**
 
    ```bash
-   claude /docs:generate
+   claude /workflows:docs
    ```
 
 ### Understanding Command Categories
@@ -97,7 +98,7 @@ Commands are organized by action type:
 - **`/fix/*`** - Bug fixes and issue resolution
 - **`/git/*`** - Git operations
 - **`/review/*`** - Code review and quality analysis
-- **`/spec-kit/*`** - Complete feature development workflow
+- **`/speckit/*`** - Complete feature development workflow
 
 ## Hooks System
 
@@ -121,55 +122,65 @@ The system includes three automatic hooks:
 - **Action**: Updates search queries with current year
 - **Purpose**: Get current information
 
-## Agent Specialist Framework
+## Domain Analyst Framework
 
-The system uses 8 specialized agents as advisory subagents. Only the main Claude Code thread can orchestrate parallel execution:
+The system uses **43 domain analysts** as advisory subagents. Only the main Claude Code thread can orchestrate parallel execution. Domain analysts conduct comprehensive research in their specialty, persist findings to `.agent/context/` files, and return concise summaries.
 
-### Analysis Specialists (Strategic Guidance)
+### Analyst Organization (12 Domains)
 
-- **task-analysis-specialist** - Complexity analysis and execution recommendations
-- **research-analysis-specialist** - Multi-domain research and synthesis
-- **implementation-strategy-specialist** - Dependency analysis and sequential guidance
+- **API** - api-rest-analyst, api-graphql-analyst, api-docs-analyst
+- **Database** - database-analyst, database-sql-analyst, database-nosql-analyst, database-architecture-analyst
+- **Frontend** - frontend-analyst, frontend-react-analyst, frontend-nextjs-analyst, frontend-accessibility-analyst, frontend-shadcn-analyst
+- **Code Quality** - code-python-analyst, code-typescript-analyst, code-javascript-analyst, code-csharp-analyst, code-quality-analyst
+- **Infrastructure** - infrastructure-terraform-analyst, infrastructure-cloud-analyst, infrastructure-network-analyst, infrastructure-devops-analyst, infrastructure-monitoring-analyst
+- **Mobile** - mobile-react-native-analyst, mobile-flutter-analyst, mobile-ios-swift-analyst
+- **Research** - research-codebase-analyst, research-web-analyst
+- **Documentation** - docs-analyst, docs-docusaurus-analyst
+- **UI/UX** - ui-ux-analyst, ui-ux-cli-analyst
+- **Standalone** - architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst
+- **Engineering** - prompt-analyst
+- **Meta** - agent-expert, command-expert, git-flow-analyst
 
-### Execution Specialists (Domain Expertise)
+**Pattern**: Main thread invokes analysts → Analysts research → Persist to `.agent/context/{session-id}/{analyst-name}.md` → Return summary → Main thread implements
 
-- **code-writer** - Code generation
-- **test-writer** - Test creation
-- **bug-fixer** - Debugging
-- **reviewer** - Code analysis
-- **documenter** - Documentation
+For complete analyst details, see [Agent Specialist System](../concepts/agent-specialist-system.md)
 
 ## Common Workflows
 
 ### Feature Development
 
 ```bash
-# Full featured workflow
-claude /spec-kit:specify "User authentication system"
-claude /spec-kit:plan
-claude /spec-kit:implement
+# Full featured workflow with spec-kit
+claude /speckit:specify "User authentication system"
+claude /speckit:plan
+claude /speckit:tasks
+claude /speckit:implement
 
-# Or quick implementation
-claude /implement "Add user authentication"
+# Task-based workflow
+claude /task:add "Implement user authentication"
+claude /task:execute TASK-001
 ```
 
 ### Code Quality
 
 ```bash
-# Full review
+# Comprehensive review
 claude /workflows:run-comprehensive-review
 
-# Specific reviews
-claude /review:security
-claude /review:code
-claude /clean:apply-style-rules
+# Specific workflows
+claude /workflows:run-security-audit
+claude /workflows:run-refactor-workflow
+claude /lint:correct-all
 ```
 
-### Bug Fixing
+### Documentation
 
 ```bash
-claude /fix:bug-quickly "Login button not working"
-claude /analyze:potential-issues
+# Smart documentation workflow (idempotent)
+claude /workflows:docs
+
+# Changelog management
+claude /docs:changelog 1.2.0 --add-entry
 ```
 
 ## Customization
@@ -188,11 +199,12 @@ claude /analyze:potential-issues
 
 ### Agent Configuration
 
-Agents are pre-configured but can be extended:
+Agents are pre-configured in a flat structure at `agents/*.md`. To create new agents:
 
-1. Add new execution specialists in `agents/execution-specialists/`
-2. Add new analysis specialists in `agents/analysis-specialists/`
-3. Follow the Agent Specialist Framework patterns
+1. Use `/claude:create-agent` with agent-expert consultation
+2. Follow domain analyst patterns (analyze, persist, summarize)
+3. Place in `agents/{analyst-name}.md`
+4. Update CLAUDE.md agent tables
 
 ## Troubleshooting
 
@@ -205,7 +217,7 @@ Agents are pre-configured but can be extended:
 
 **Hook not executing**
 
-- Ensure scripts are executable: `chmod +x scripts/*.sh`
+- Ensure scripts are executable: `chmod +x scripts/**/*.py`
 - Check Python is available and scripts have no syntax errors
 
 **Permission denied**
@@ -227,7 +239,7 @@ Agents are pre-configured but can be extended:
 ## Next Steps
 
 1. **Set up MCP integration** - Follow the [MCP Setup Guide](mcp-setup-guide.md) for Context7 and Playwright
-2. **Try the spec-kit workflow** for complex features
+2. **Try the speckit workflow** for complex features
 3. **Set up custom notifications** by modifying hook scripts
 4. **Explore advanced commands** in each category
 5. **Customize agents** for your specific needs

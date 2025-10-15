@@ -10,13 +10,13 @@ and integration with the Agent Specialist Framework to ensure consistent, high-q
 
 ```mermaid
 flowchart TD
-    Start([New Feature Request]) --> Constitution[/spec-kit:constitution]
-    Constitution --> |Project Principles| Specify[/spec-kit:specify]
-    Specify --> |Feature Specification| Plan[/spec-kit:plan]
-    Plan --> |Implementation Plan| Clarify[/spec-kit:clarify]
-    Clarify --> |Refined Specification| Tasks[/spec-kit:tasks]
-    Tasks --> |Task Breakdown| Analyze[/spec-kit:analyze]
-    Analyze --> |Quality Validation| Implement[/spec-kit:implement]
+    Start([New Feature Request]) --> Constitution[/speckit:constitution]
+    Constitution --> |Project Principles| Specify[/speckit:specify]
+    Specify --> |Feature Specification| Plan[/speckit:plan]
+    Plan --> |Implementation Plan| Clarify[/speckit:clarify]
+    Clarify --> |Refined Specification| Tasks[/speckit:tasks]
+    Tasks --> |Task Breakdown| Analyze[/speckit:analyze]
+    Analyze --> |Quality Validation| Implement[/speckit:implement]
     Implement --> |Working Feature| Done([Complete])
 
     subgraph "Validation Points"
@@ -50,7 +50,7 @@ flowchart TD
 
 ## Workflow Steps Detailed
 
-### 1. Constitution (`/spec-kit:constitution`)
+### 1. Constitution (`/speckit:constitution`)
 
 **Purpose**: Establish project principles and constraints
 
@@ -96,7 +96,7 @@ stateDiagram-v2
 - [Rule 2]
 ```
 
-### 2. Specify (`/spec-kit:specify`)
+### 2. Specify (`/speckit:specify`)
 
 **Purpose**: Create detailed feature specification from natural language description
 
@@ -153,7 +153,7 @@ graph LR
 - [External dependencies]
 ```
 
-### 3. Plan (`/spec-kit:plan`)
+### 3. Plan (`/speckit:plan`)
 
 **Purpose**: Generate implementation plan using design templates
 
@@ -162,7 +162,7 @@ graph LR
 ```mermaid
 sequenceDiagram
     participant User
-    participant PlanCommand as /spec-kit:plan
+    participant PlanCommand as /speckit:plan
     participant IO as implementation-strategy-specialist
     participant Templates as .specify/templates
     participant Memory as .specify/memory
@@ -215,7 +215,7 @@ sequenceDiagram
 - [Quality gates]
 ```
 
-### 4. Clarify (`/spec-kit:clarify`)
+### 4. Clarify (`/speckit:clarify`)
 
 **Purpose**: Identify and resolve underspecified areas
 
@@ -245,7 +245,7 @@ graph TD
 
 **Output**: Updated `spec.md` with clarified requirements
 
-### 5. Tasks (`/spec-kit:tasks`)
+### 5. Tasks (`/speckit:tasks`)
 
 **Purpose**: Generate actionable, dependency-ordered task breakdown
 
@@ -294,7 +294,7 @@ flowchart LR
 
 **Output**: `tasks.md` with ordered task list
 
-### 6. Analyze (`/spec-kit:analyze`)
+### 6. Analyze (`/speckit:analyze`)
 
 **Purpose**: Cross-artifact consistency and quality analysis
 
@@ -332,7 +332,7 @@ mindmap
 3. **Gap Identification**: Areas needing attention
 4. **Recommendations**: Actionable improvements
 
-### 7. Implement (`/spec-kit:implement`)
+### 7. Implement (`/speckit:implement`)
 
 **Purpose**: Execute implementation plan with Agent Specialist Framework coordination
 
@@ -341,7 +341,7 @@ mindmap
 ```mermaid
 sequenceDiagram
     participant User
-    participant IC as /spec-kit:implement
+    participant IC as /speckit:implement
     participant IO as implementation-strategy-specialist
     participant CW as code-writer
     participant TW as test-writer
@@ -548,32 +548,32 @@ def gate_validation(phase, artifacts):
 
 ```bash
 # Initial specification
-claude /spec-kit:specify "User authentication system"
+claude /speckit:specify "User authentication system"
 
 # Refine through multiple clarification rounds
-claude /spec-kit:clarify
+claude /speckit:clarify
 # [Answer questions]
 
-claude /spec-kit:clarify
+claude /speckit:clarify
 # [Answer more questions]
 
 # Generate plan when specification is complete
-claude /spec-kit:plan
-claude /spec-kit:tasks
-claude /spec-kit:analyze
-claude /spec-kit:implement
+claude /speckit:plan
+claude /speckit:tasks
+claude /speckit:analyze
+claude /speckit:implement
 ```
 
 ### Partial Workflow Usage
 
 ```bash
 # Use only planning components
-claude /spec-kit:constitution
-claude /spec-kit:plan
+claude /speckit:constitution
+claude /speckit:plan
 claude /implement  # Direct implementation
 
 # Use only quality components
-claude /spec-kit:analyze
+claude /speckit:analyze
 claude /review:comprehensive
 ```
 
@@ -581,10 +581,10 @@ claude /review:comprehensive
 
 ```bash
 # Build on existing constitution
-claude /spec-kit:specify "Payment integration" --use-existing-constitution
+claude /speckit:specify "Payment integration" --use-existing-constitution
 
 # Reference existing features
-claude /spec-kit:plan --reference-feature "user-auth"
+claude /speckit:plan --reference-feature "user-auth"
 ```
 
 ## Troubleshooting & Best Practices

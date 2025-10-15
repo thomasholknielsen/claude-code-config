@@ -2,8 +2,12 @@
 # Generated from project .gitignore for linting consistency
 
 # Protected/stale command directories
-commands/spec-kit/
+commands/speckit/
 .specify/
+
+# Agent and command files (technical documentation with inline HTML and code blocks)
+agents/
+commands/
 
 # Template files with placeholder HTML tags
 templates/

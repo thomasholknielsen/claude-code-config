@@ -1,10 +1,24 @@
 ---
 description: "Push with safety checks, force-push protection, and team coordination"
 argument-hint: "[remote] [branch]"
-allowed-tools: Bash
+allowed-tools: Bash, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Push
+
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Push commits to remote with validation (local branch state, commit history, remote conflicts), set up branch tracking with -u flag (first push), execute git push with safety checks, provide remote branch information
+
+**P**urpose: Safely share local commits with team, establish remote tracking for collaboration, prevent force-push accidents (requires explicit confirmation), coordinate with remote repository state
+
+**E**xpectation: Commits pushed to origin/remote, branch tracking established, clear push status with commit counts, remote branch URL provided, next steps guidance (PR creation if needed)
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% push requirements, Accuracy >90% remote sync, Relevance >85% safety checks, Efficiency <10s typical push)
 
 ## Purpose
 
@@ -66,7 +80,7 @@ Safely pushes commits to remote repository with tracking setup and team coordina
 
 - **Follows**: /git:commit, local development completion
 - **Followed by**: /git:pr, team collaboration
-- **Related**: /git:branch, /git:full-workflow
+- **Related**: /git-flow:feature, /workflows:git
 
 ## Quality Standards
 

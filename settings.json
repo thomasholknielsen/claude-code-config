@@ -46,7 +46,9 @@
       "WebSearch",
       "mcp__context7",
       "mcp__ide__executeCode",
-      "mcp__playwright"
+      "mcp__playwright",
+      "mcp__shadcn",
+      "mcp__sequential-thinking"
     ],
     "deny": [
       "Read(.env)",
@@ -91,6 +93,16 @@
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/init-session.py')).read())\""
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -120,12 +132,30 @@
             "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/update-search-year.py')).read())\""
           }
         ]
+      },
+      {
+        "matcher": "Bash(git checkout:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/validate-branch-name.py')).read())\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(git push:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/prevent-direct-push.py')).read())\""
+          }
+        ]
       }
     ]
   },
   "statusLine": {
     "type": "command",
-    "command": "python3 .claude/scripts/context-monitor.py"
+    "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/statusline/status-line.py')).read())\""
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": false
 }

@@ -11,33 +11,35 @@
 
 | Agent | Context7 | Playwright | Rationale |
 |-------|----------|------------|-----------|
-| **react-analyst** | ✅ | ✅ | React documentation lookup + visual component testing |
-| **typescript-analyst** | ✅ | ❌ | TypeScript documentation only |
-| **python-analyst** | ✅ | ❌ | Python library documentation only |
-| **api-analyst** | ✅ | ❌ | REST/GraphQL framework documentation only |
+| **frontend-react-analyst** | ✅ | ✅ | React documentation lookup + visual component testing |
+| **code-typescript-analyst** | ✅ | ❌ | TypeScript documentation only |
+| **code-python-analyst** | ✅ | ❌ | Python library documentation only |
+| **api-rest-analyst** | ✅ | ❌ | REST API framework documentation only |
+| **api-graphql-analyst** | ✅ | ❌ | GraphQL framework documentation only |
 | **frontend-analyst** | ✅ | ✅ | Build tool documentation + UI/UX testing |
 | **testing-analyst** | ✅ | ✅ | Testing framework documentation + e2e testing |
-| **accessibility-analyst** | ✅ | ✅ | WCAG/ARIA documentation + browser accessibility testing |
+| **frontend-accessibility-analyst** | ✅ | ✅ | WCAG/ARIA documentation + browser accessibility testing |
 | **database-analyst** | ✅ | ❌ | Database and ORM documentation only |
 | **security-analyst** | ❌ | ✅ | Browser-based security testing (XSS, CSRF) only |
 | **performance-analyst** | ❌ | ❌ | Analyzes code patterns, no external docs needed |
 | **architecture-analyst** | ❌ | ❌ | Analyzes design patterns, no external docs needed |
-| **quality-analyst** | ❌ | ❌ | Analyzes code quality, no external docs needed |
-| **documentation-analyst** | ❌ | ❌ | Analyzes documentation, doesn't need external docs |
+| **code-quality-analyst** | ❌ | ❌ | Analyzes code quality, no external docs needed |
+| **docs-analyst** | ❌ | ❌ | Analyzes documentation, doesn't need external docs |
 | **refactoring-analyst** | ❌ | ❌ | Analyzes code smells, no external docs needed |
-| **research-analyst** | ✅ | ❌ | General research needs framework documentation |
+| **research-codebase-analyst** | ✅ | ❌ | General research needs framework documentation |
+| **research-web-analyst** | ✅ | ❌ | Web research needs external documentation |
 
 ## Usage Guidelines
 
-### Context7 MCP (9 agents)
+### Context7 MCP (11 agents)
 
 **When to use**: Analyst needs current framework or library documentation
 
 **Agents with access**:
 
-- Framework/Technology analysts: react, typescript, python, api
-- Specialized analysts: frontend, testing, accessibility, database
-- General research: research-analyst
+- Framework/Technology analysts: frontend-react, code-typescript, code-python, api-rest, api-graphql
+- Specialized analysts: frontend, testing, frontend-accessibility, database
+- General research: research-codebase-analyst, research-web-analyst
 
 **Usage pattern**:
 
@@ -53,7 +55,7 @@
 
 **Agents with access**:
 
-- UI testing: react, frontend, accessibility
+- UI testing: frontend-react-analyst, frontend-analyst, frontend-accessibility-analyst
 - Testing coverage: testing-analyst
 - Security testing: security-analyst
 

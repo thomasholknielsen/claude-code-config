@@ -25,25 +25,29 @@ This document provides realistic workflow patterns using the Claude Code Command
 - `/workflows:run-security-audit` - Security vulnerability assessment
 - `/workflows:run-refactor-workflow` - Code quality improvements
 - `/workflows:run-lint-and-correct-all` - Auto-fix formatting/style
-- `/workflows:run-docs-workflow` - Documentation generation/updates
+- `/workflows:docs` - Idempotent documentation workflow
 - `/workflows:run-cleanup-workflow` - Code cleanup orchestration
 - `/workflows:run-complete-overhaul` - Comprehensive analysis
 - `/workflows:run-optimization` - Performance optimization
 
 **Git (8)**: Direct git operations
 
-- `/git:full-workflow [branch]` - Complete flow: branch → commit → push → PR
+- `/workflows:git [branch]` - Complete flow: branch → commit → push → PR
 - `/git:branch`, `/git:commit`, `/git:push`, `/git:pr`
 - `/git:merge`, `/git:worktree`, `/git:worktree-consolidate`
 
 **Development Commands**: See `docs/command-decision-guide.md` for complete catalog
 
-**Domain Analysts**: 16 specialized analysts for comprehensive analysis
+**Domain Analysts**: 43 domain analysts across 12 domains for comprehensive analysis
 
-- research-analyst, quality-analyst, architecture-analyst
-- security-analyst, performance-analyst, testing-analyst
-- accessibility-analyst, documentation-analyst, database-analyst
-- frontend-analyst, react-analyst, typescript-analyst, python-analyst, api-analyst, refactoring-analyst, shadcn-analyst
+- **Research**: research-codebase-analyst, research-web-analyst
+- **Standalone**: architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst
+- **Code Quality**: code-python-analyst, code-typescript-analyst, code-javascript-analyst, code-csharp-analyst, code-quality-analyst
+- **Frontend**: frontend-analyst, frontend-react-analyst, frontend-nextjs-analyst, frontend-accessibility-analyst, frontend-shadcn-analyst
+- **API**: api-rest-analyst, api-graphql-analyst, api-docs-analyst
+- **Database**: database-analyst, database-sql-analyst, database-nosql-analyst, database-architecture-analyst
+- **Documentation**: docs-analyst, docs-docusaurus-analyst
+- **Others**: Mobile (3), Infrastructure (5), UI/UX (2), Engineering (1), Meta (3)
 
 ---
 
@@ -93,7 +97,7 @@ npm test  # or pytest, cargo test, etc.
 → Verify nothing broke
 
 # 6. Commit and push (quick)
-/git:full-workflow <branch-name>
+/workflows:git <branch-name>
 → Creates branch, commits, pushes, creates PR
 → PR is clean - team review is significantly faster
 ```
@@ -114,7 +118,7 @@ sequenceDiagram
     participant Fix as /fix:bug-quickly
     participant Review as /workflows:run-comprehensive-review
     participant Lint as /workflows:run-lint-and-correct-all
-    participant Git as /git:full-workflow
+    participant Git as /workflows:git
 
     Dev->>Fix: "login form validation broken"
     Fix->>Fix: Invoke quality-analyst + testing-analyst (parallel)
@@ -165,7 +169,7 @@ npm test
 → All tests pass
 
 # Step 6: Commit and create PR (quick)
-/git:full-workflow fix-login-validation
+/workflows:git fix-login-validation
 → Branch created, committed, pushed, PR created
 → PR URL: https://github.com/org/repo/pull/123
 ```
@@ -205,17 +209,17 @@ Task("database-analyst: Review schema design for user credentials")
 ### Phase 2: Implementation (sequential, structured)
 
 ```bash
-# Structured development with spec-kit
-/spec-kit:specify
+# Structured development with speckit
+/speckit:specify
 → Creates feature spec from requirements
 
-/spec-kit:plan
+/speckit:plan
 → Generates implementation plan
 
-/spec-kit:tasks
+/speckit:tasks
 → Creates dependency-ordered tasks
 
-/implement:spec-kit-tasks
+/implement:speckit-tasks
 → Executes tasks with quality validation
 ```
 
@@ -270,7 +274,7 @@ npm run build  # verify build succeeds
 ### Phase 7: Git Workflow (quick)
 
 ```bash
-/git:full-workflow feature-auth-system
+/workflows:git feature-auth-system
 
 → Creates branch: feature-auth-system
 → Commits changes with conventional format
@@ -310,7 +314,7 @@ npm test
 → Verify behavior preserved
 
 # Step 5: Commit (quick)
-/git:full-workflow refactor-remove-duplication
+/workflows:git refactor-remove-duplication
 ```
 
 ### Comprehensive Large-Scale Refactoring
@@ -353,7 +357,7 @@ graph TD
 npm test
 
 # Step 4: Commit (quick)
-/git:full-workflow refactor-architecture
+/workflows:git refactor-architecture
 ```
 
 **Performance**: Significantly faster than sequential analysis
@@ -504,7 +508,7 @@ npm test  # or pytest, cargo test, etc.
 ✅ **THEN commit with clean code**
 
 ```bash
-/git:full-workflow <branch-name>
+/workflows:git <branch-name>
 ```
 
 ### During Feature Development
@@ -518,10 +522,10 @@ Task("analyst-3: research Z")
 # Significantly faster than sequential execution
 ```
 
-✅ Use spec-kit for structured development
+✅ Use speckit for structured development
 
 ```bash
-/spec-kit:specify → plan → tasks → implement
+/speckit:specify → plan → tasks → implement
 ```
 
 ✅ Review incrementally during development
@@ -613,7 +617,7 @@ graph LR
 → Review findings, fix issues
 /workflows:run-lint-and-correct-all
 → Run tests
-/git:full-workflow <branch>
+/workflows:git <branch>
 ```
 
 ### Pattern 2: Parallel Research → Sequential Implementation
