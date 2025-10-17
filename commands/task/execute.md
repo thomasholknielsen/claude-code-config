@@ -8,29 +8,38 @@ allowed-tools: Read, Edit, SlashCommand(/speckit:specify), SlashCommand(/develop
 
 ## EXECUTION FLOW (START HERE)
 
-### MANDATORY: Read This BEFORE Proceeding
+### CRITICAL: Read This First
 
-**This command has EXACTLY TWO workflows:**
+**This is a task management command. It ONLY works with task IDs or task search.**
 
-1. **Interactive Mode** (no arguments) → Show all tasks, offer grouping
-2. **Direct Mode** (with arguments) → STEP 1 (Smart Task Gate) → STEP 2 (Session) → STEP 3-10
+**Before doing ANYTHING else:**
+1. Check if arguments were provided
+2. **IF arguments exist**: Verify they are task-related (task IDs like "TASK-001" OR task search terms)
+3. **IF arguments are NOT task-related** (e.g., philosophical questions, general analysis requests):
+   - **STOP IMMEDIATELY**
+   - Present options in A/B/C table format:
 
-**YOU MUST NOT**:
-- ✗ Invoke agents directly (bypass STEP 4 task setup)
-- ✗ Create "run analysis" options not in specification
-- ✗ Skip STEP 1 Smart Task Resolution Gate for freeform input
-- ✗ Improvise any workflow not explicitly defined below
+```
+Your input appears to be a general request, not a task ID or task search.
 
-**IF user provides freeform text** (not TASK-XXX):
-1. Go to STEP 1 (Smart Task Resolution Gate)
-2. Search tasks.md for matches
-3. Show enhanced selection table
-4. Wait for user selection
-5. **DO NOT** directly invoke agents or create ad-hoc analysis
+This command is for task management only. Would you like to:
 
-**Violating these constraints breaks task-aware context routing.**
+| Option | Description |
+|--------|-------------|
+| A | Search for related tasks (including completed tasks) matching: "<your-input>" |
+| B | Create a new task with this description (/task:add) |
+| C | See all pending tasks (interactive mode) |
+| Skip | Exit this command |
 
----
+Your choice: _
+```
+
+   - **Handle selection**:
+     - A → Read `.agent/tasks.md` AND `tasks-archive.md`, search both for matches, present results with ` (completed)` suffix for archived tasks
+     - B → Suggest: `/task:add "<your-input>"`
+     - C → Execute Interactive Mode (show all pending tasks)
+     - Skip → Exit command
+   - **DO NOT invoke any agents or perform any other analysis**
 
 ### Step 1: Determine Mode
 
@@ -60,169 +69,7 @@ allowed-tools: Read, Edit, SlashCommand(/speckit:specify), SlashCommand(/develop
 
 **Execute these steps in order:**
 
-### STEP 1: Smart Task Resolution Gate
-
-For each argument (excluding `--status`, `--notes`, `--complete`):
-
-**A. Format Check (lazy evaluation)**:
-
-**Check format**: Does it match `TASK-\d{3}` (e.g., TASK-001)?
-
-**IF VALID task ID**:
-- Validate task exists in `.agent/tasks.md`
-- Continue to STEP 2
-- **Skip all search logic** (performance optimization)
-
-**IF INVALID (freeform text)**:
-- Continue to STEP 1a (pre-flight validation)
-
-### STEP 1a: Pre-flight Validation
-
-**Before searching, validate tasks.md**:
-
-1. Check `.agent/tasks.md` exists
-2. Check file is readable
-3. Check file is not empty (>0 tasks)
-4. Validate basic markdown structure
-
-**IF validation fails**:
-```
-Error: Cannot read tasks.md
-
-| Option | Action |
-|--------|--------|
-| A | Create first task (/task:add) |
-| B | Check file permissions |
-| Skip | Exit |
-```
-
-**IF validation passes**:
-- Continue to STEP 1b (search)
-
-### STEP 1b: Smart Task Search
-
-1. Read `.agent/tasks.md` - all pending/in-progress/blocked tasks
-2. Search for matches: title, description, category, priority
-3. Rank by relevance:
-   - Exact phrase match: 100 points
-   - All words match: 80 points
-   - Most words match (>50%): 60 points
-   - Any word match: 40 points
-   - Priority boost: +5 (critical/high), +2 (medium)
-4. Limit to top 5 results (most relevant first)
-
-### STEP 1c: Enhanced Selection Gate
-
-Display results with visual status indicators in **two-table format**:
-
-**Table 1** (task results - NO "Option" column):
-
-```
-Searching for tasks matching: "<query>"
-
-Showing 5 of 18 matches:
-
-| Status   | Priority | Task Description                                                |
-|----------|----------|-----------------------------------------------------------------|
-| [ACTIVE] | [!]      | Fix authentication bug causing login failures (GH-123)          |
-| [ACTIVE] | [*]      | Implement rate limiting for API endpoints (CODE)                |
-| [DONE]   | -        | Review authentication code (completed 2025-10-16)               |
-```
-
-**Table 2** (actions - WITH "Option" column for letter selection):
-
-```
-| Option       | Description                       |
-|--------------|-----------------------------------|
-| A            | Execute first task (start work)   |
-| B            | Execute second task (start work)  |
-| C            | Execute third task (start work)   |
-| Show more    | Display more matches (13 additional) |
-| Search again | Try different search terms        |
-| Create new   | Create new task (/task:add)       |
-| Show all     | See all pending tasks (interactive) |
-| Skip         | Exit without executing            |
-
-Your choice: _
-```
-
-**Status Indicators**:
-- `[ACTIVE]` = pending/in-progress/blocked
-- `[DONE]` = completed (only shown if in default results or "Show all")
-- `[NEW]` = recently created
-
-**Priority Indicators**:
-- `[!]` = critical or high priority
-- `[*]` = medium priority
-- `-` = low or normal priority
-
-**Handle selection**:
-
-**IF task selected (A-Z)**:
-- **IF pending/in-progress/blocked** → Continue to STEP 2
-- **IF completed**:
-  ```
-  Task TASK-029 is marked complete (2025-10-16).
-
-  | Option | Action |
-  |--------|--------|
-  | A | Re-run with fresh analysis (full workflow) |
-  | B | View previous results only |
-  | Skip | Return to task selection |
-  ```
-  - **If A**: Change status to "pending", proceed to STEP 2 (full STEP 1-2 then STEP 3-10 workflow)
-  - **If B**: Display previous results, exit
-  - **If Skip**: Return to selection gate
-
-**IF "Show more"**:
-- Extend results to next 5-10 matches
-- Re-display gate with expanded list
-- Pagination support (max 26 tasks per page, A-Z)
-
-**IF "Search again"**:
-- Prompt: "Enter new search query: _"
-- Return to STEP 1b with new query
-
-**IF "Create new"**:
-- Suggest: `/task:add "<current-query>"`
-- Exit command
-
-**IF "Show all"**:
-- Execute Interactive Mode (show all pending tasks with grouping)
-
-**IF "Skip"**:
-- Exit command
-
-### Anti-Patterns (DO NOT DO THIS)
-
-❌ **WRONG**: "Perfect. Let me invoke two subagents for analysis..."
-✅ **CORRECT**: Show the enhanced selection gate with task options
-
-❌ **WRONG**: Creating off-spec option: "B) Run analysis directly without task management"
-✅ **CORRECT**: Only show options from specification (Show more/Search again/Create/Show all/Skip)
-
-❌ **WRONG**: Bypassing search: "I'll just run the analysis in the current session"
-✅ **CORRECT**: Execute STEP 1b search, show results, wait for selection
-
-❌ **WRONG**: "I see the input is not a task ID, so I'll search and then directly invoke agents"
-✅ **CORRECT**: "I see the input is not a task ID, so I'll show the Smart Task Resolution Gate and wait for user to select a task"
-
-**CRITICAL: When Re-Running Completed Tasks**
-
-**YOU MUST execute the full flow, not create ad-hoc analysis.**
-
-When user selects to re-run a completed task:
-1. **DO NOT** manually invoke agents
-2. **DO NOT** create a fresh "analysis session"
-3. **YOU MUST** go through STEP 2 (validate/create session)
-4. **YOU MUST** go through STEP 3 (load task)
-5. **YOU MUST** go through STEP 4 (setup task directories with setup_task)
-6. **YOU MUST** go through STEP 5 (validate)
-7. **YOU MUST** go through STEP 8 (invoke agents)
-
-This ensures agents save to correct task-specific directory, not session-level context.
-
-### STEP 2: Validate or Create Session
+### STEP 1: Validate or Create Session
 
 **YOU MUST validate session exists. If not, create one.**
 
@@ -230,52 +77,9 @@ This ensures agents save to correct task-specific directory, not session-level c
 SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
 ```
 
-**IF SESSION is empty (no active session for current terminal)**:
+**IF SESSION is empty (no active session)**:
 
-Check for existing active sessions:
-
-```bash
-SESSIONS_JSON=$(python3 ~/.claude/scripts/session/session_manager.py list)
-SESSION_COUNT=$(echo $SESSIONS_JSON | python3 -c "import sys, json; print(json.load(sys.stdin)['count'])")
-```
-
-**IF SESSION_COUNT > 0 (existing sessions found)**:
-
-Display existing sessions in **two-table format** (per user requirement):
-
-**Table 1** (existing sessions list - NO "Option" column):
-
-```
-Existing sessions found:
-
-| Session | Topic | Started | Terminals |
-|---------|-------|---------|-----------|
-| task-029 | analyze meaning of life from coding... | 2025-10-18 19:20 | 1 |
-| feature-auth | Authentication implementation | 2025-10-17 14:30 | 2 |
-```
-
-**Table 2** (actions - WITH "Option" column for letter selection):
-
-```
-| Option | Description |
-|--------|-------------|
-| A | Link to session task-029 |
-| B | Link to session feature-auth |
-| C | Create new session |
-| Skip | Exit |
-
-Your choice: _
-```
-
-**Handle selection**:
-
-- **If A/B/etc selected (link to existing)**: Link to selected session using `python3 ~/.claude/scripts/session/session_manager.py select "<session-name>"`. Display: `✓ Linked to session: <session-name>`
-- **If C selected (new session)**: Go to "Create New Session" flow below
-- **If Skip selected**: Exit command
-
-**ELIF SESSION_COUNT == 0 (no existing sessions)**:
-
-Present session creation options:
+Present options in A/B/C table:
 
 ```
 No active session for current terminal. Would you like to:
@@ -290,47 +94,87 @@ No active session for current terminal. Would you like to:
 Your choice: _
 ```
 
-**Create New Session Flow** (for both paths):
-
-- **If A selected**: Extract first task ID from arguments, create session using `python3 ~/.claude/scripts/session/session_manager.py start "task-{id}" "{task-description}"`. Display: `✓ Created session: task-029`
+- **If A selected**: Extract first task ID from arguments, create session: `/session:start "task-{id}" "{task-description}"`. Display: `✓ Created session: Session-task-029-fix-auth`
 - **If B selected**: Prompt user for session name, create session with optional topic
 - **If C selected**: Exit command with message: "Run `/session:start <name> [topic]` to create session"
 - **If Skip selected**: Exit command
 
-**IF SESSION exists (terminal already linked)**:
+**IF SESSION exists**:
 
 Display: `✓ Session active: {SESSION}`
 
-Continue to STEP 3
+Continue to STEP 2
+
+### STEP 2: Validate Task ID Format
+
+For each argument (excluding `--status`, `--notes`, `--complete`):
+
+**Check format**: Does it match `TASK-\d{3}` (e.g., TASK-001)?
+
+**IF INVALID (freeform text)**:
+1. Read `.agent/tasks.md` - get pending/in-progress/blocked tasks
+2. Search for matches: title, description, category, priority, file locations
+3. Rank by relevance: exact phrase > word match > partial match
+4. Present selection table:
+
+```
+Your input appears to be a task description, not a task ID.
+
+Searching for tasks matching: "<text>"
+
+Found X matching task(s):
+
+| Option | Task ID | Title | Priority | Status |
+|--------|---------|-------|----------|--------|
+| A | TASK-001 | <title> | <priority> | <status> |
+| B | TASK-015 | <title> | <priority> | <status> |
+| Search completed | Search tasks-archive.md for completed tasks too | - | - |
+| Skip | Create new task instead | - | - |
+
+Your choice: _
+```
+
+5. **Handle selection**:
+   - **A/B/C (pending tasks)** → Extract task ID(s), allow multiple selections ("A B"), proceed to STEP 3
+   - **"Search completed" (option in table)** → Read `tasks-archive.md`, search completed tasks, present results with ` (completed)` suffix for each
+     - **IF completed tasks found**: Present options:
+       ```
+       Found completed task(s):
+
+       | Option | Task ID | Title | Status |
+       |--------|---------|-------|--------|
+       | A | TASK-029 | Analyze meaning | ✓ Complete (2025-10-16) |
+       | Reopen | A | Re-open and re-run TASK-029 | - |
+       | Create new | - | Create new task with same topic | - |
+       | Skip | - | Exit search | - |
+       ```
+       - **If "Reopen" selected**: Extract task ID, proceed to STEP 3 (will re-execute with fresh session)
+   - **Skip → Suggest** `/task:add "<text>"`
+6. **IF no matches** → Offer: A) Create task, B) Search completed tasks, C) See all pending tasks, Skip) Cancel
+
+**CRITICAL: When Re-Running Completed Tasks**
+
+**YOU MUST execute the full flow, not create ad-hoc analysis.**
+
+When user selects to re-run a completed task:
+1. **DO NOT** manually invoke agents
+2. **DO NOT** create a fresh "analysis session"
+3. **YOU MUST** go through STEP 1 (validate/create session)
+4. **YOU MUST** go through STEP 3 (load task)
+5. **YOU MUST** go through STEP 4 (setup task directories with setup_task)
+6. **YOU MUST** go through STEP 4.5 (validate)
+7. **YOU MUST** go through STEP 6 (invoke agents)
+
+This ensures agents save to correct task-specific directory, not session-level context.
+
+**IF VALID** → Continue to STEP 3
 
 ### STEP 3: Load and Display Tasks
 
-**YOU MUST execute this step to extract full task content for STEP 4.**
-
-For each task ID:
-
-1. **Read `.agent/tasks.md`** and extract the **full markdown section** for the task
-2. **Extract task section** from `## [TASK-XXX]` header to next `## [TASK-` or EOF:
-   ```bash
-   # This captures ALL task content including:
-   # - ## [TASK-029] {title}
-   # - **Status**: pending
-   # - **Priority**: medium
-   # - **Description**: ...
-   # - **Notes**: ... (if exists)
-   ```
-3. **Store in variable** `FULL_TASK_CONTENT` for use in STEP 4
-4. **Display task summary**:
-   ```
-   ⏺ Loading TASK-029...
-
-   Task: analyze the meaning of life from coding perspective using 2 subagents
-   Status: pending → will be set to in-progress
-   Priority: medium
-   Category: research
-   ```
-
-**CRITICAL**: The `FULL_TASK_CONTENT` variable MUST contain the complete markdown section including the `## [TASK-XXX] {title}` header. This is required for proper title extraction in STEP 4.
+1. Parse arguments: extract task IDs and options
+2. Read `.agent/tasks.md`
+3. Find tasks by ID
+4. Display full task information
 
 ### STEP 4: Create Task Directories
 
@@ -340,8 +184,7 @@ For each task ID (process first task in current implementation):
 
 ```bash
 # Atomic task setup: copy + set + validate in single operation
-# CRITICAL: Pass FULL_TASK_CONTENT from STEP 3 (not just description)
-RESULT=$(python3 ~/.claude/scripts/session/session_manager.py setup_task <TASK-ID> "$FULL_TASK_CONTENT")
+RESULT=$(python3 ~/.claude/scripts/session/session_manager.py setup_task <TASK-ID> "<full-task-content>")
 
 # Parse JSON result
 SESSION=$(echo $RESULT | python3 -c "import sys, json; print(json.load(sys.stdin)['session'])")
@@ -360,7 +203,7 @@ Display progress:
 - Show diagnostics: task_dir_exists, marker_set, context_valid
 - STOP - Do not proceed to STEP 5
 
-### STEP 5: MANDATORY VALIDATION GATE
+### STEP 4.5: MANDATORY VALIDATION GATE
 
 **YOU MUST NOT skip this step. Validation is critical before agent invocation.**
 
@@ -369,7 +212,7 @@ Verify task setup succeeded:
 ```
 ✓ Validating task setup...
   ✓ Task directory exists: {TASK_DIR}
-  ✓ Active task marker set: session.env:CURRENT_TASK → {TASK_ID}
+  ✓ Active task marker set: .current_task → {TASK_ID}
   ✓ Context routing correct: {CONTEXT_DIR} contains Task-{ID}
 
 ✓ Task setup validated - Ready for analysis
@@ -385,60 +228,20 @@ Verify task setup succeeded:
 - **STOP execution**
 
 **IF all validations pass**:
-- Continue to STEP 6
+- Continue to STEP 5
 
-### STEP 6: Update Task Metadata (Both Files)
-
-**CRITICAL**: Update both tasks.md AND task.md to keep status synchronized.
+### STEP 5: Update Task Metadata
 
 1. Auto-set status to `in-progress` if currently `pending` (unless `--status` specified)
-2. Add **Details** field pointing to task directory path (if not already present)
-3. Add notes if `--notes` provided
-4. Update "Last Updated" timestamp
-5. **Write changes to tasks.md** (master file in `.agent/tasks.md`)
-6. **Sync changes to task.md** (task directory copy in `{TASK_DIR}/task.md`)
-
-**Implementation**:
-
-```python
-# Read current tasks.md
-tasks_md_content = Path('.agent/tasks.md').read_text()
-
-# Get task directory relative path from STEP 4
-# Example: .agent/Session-task-029/Task-029--analyze-the-meaning-of-life-from-coding-perspectiv
-task_dir_relative = TASK_DIR.replace(str(Path.cwd()) + '/', '')
-
-# Find task section by ID and update fields
-# Update: **Status**: pending → in-progress
-# Add/Update: **Details**: {task_dir_relative} (placed after Status field)
-# Update: **Last Updated**: {current_timestamp}
-# Add: **Notes**: {notes} (if --notes provided)
-
-# Pattern for adding Details field:
-# Find line with **Status**:
-# Insert **Details**: line immediately after it (if not exists)
-
-# Write to tasks.md
-Path('.agent/tasks.md').write_text(updated_content)
-
-# CRITICAL: Sync same changes to task.md in task directory
-task_md_path = Path(TASK_DIR) / 'task.md'
-task_md_content = task_md_path.read_text()
-
-# Apply same updates to task.md content
-# (same status, same Details field, same timestamp, same notes)
-
-# Write to task.md
-task_md_path.write_text(updated_task_md_content)
-```
+2. Add notes if `--notes` provided
+3. Update "Last Updated" timestamp
+4. Write changes to `tasks.md`
 
 Display progress:
 - `⏳ Updating task metadata...`
-- `✓ Status: pending → in-progress (synced to both files)`
-- `✓ Details: {task_dir_relative}`
-- `✓ Timestamp updated: {timestamp}`
+- `✓ Status: pending → in-progress`
 
-### STEP 7: Context Path Preview
+### STEP 5.5: Context Path Preview
 
 **BEFORE invoking agents, show user where files will be saved.**
 
@@ -459,7 +262,7 @@ Files will include:
 This creates isolated, task-specific context for all analysis findings.
 ```
 
-### STEP 8: Invoke Agents (Optional)
+### STEP 6: Invoke Agents (Optional)
 
 **IF task requires analysis**, use Task tool with **explicit context path**:
 
@@ -477,131 +280,12 @@ Task(
 )
 ```
 
-### STEP 8.5: Synthesize Research Findings to task.md
-
-**CRITICAL**: Execute this step AFTER agents complete to append research synthesis to task.md.
-
-**Purpose**: task.md should contain a synthesized summary of research findings, not just the task definition.
-
-**Implementation**:
-
-1. **Read agent response summaries** from STEP 8 (from Task tool results)
-2. **Extract key insights**:
-   - Main conclusions from each agent
-   - Critical findings or recommendations
-   - Cross-agent patterns or conflicts
-3. **Synthesize findings** into concise summary (3-5 bullet points)
-4. **Append to task.md** in task directory:
-
-```markdown
-## Research Findings
-
-**Analysis Completed**: {timestamp}
-
-**Key Insights**:
-- {Insight 1 from agent A}
-- {Insight 2 from agent B}
-- {Cross-agent observation}
-
-**Recommendations**:
-- {Action item 1}
-- {Action item 2}
-
-**Full Analysis**:
-- See {TASK_DIR}/research-codebase-analyst.md (17KB)
-- See {TASK_DIR}/research-web-analyst.md (17KB)
-
-**Conclusion**: {2-3 sentence synthesis of overall findings}
-```
-
-**Example**:
-
-```markdown
-## Research Findings
-
-**Analysis Completed**: 2025-10-18T17:30:00Z
-
-**Key Insights**:
-- Codebase analyst: Architecture as clarity of purpose, technical debt as regrets
-- Web analyst: Meaning is created not discovered, achievement ≠ fulfillment
-- Both emphasize: Systematic problem-solving and maintainability = sustainability
-
-**Recommendations**:
-- Apply DRY principle to reduce conceptual debt
-- Align work with personal values for meaning
-- Build maintainable systems with clear purpose
-
-**Full Analysis**:
-- See TASK-029--analyze-the-meaning-of-life/research-codebase-analyst.md (17KB)
-- See TASK-029--analyze-the-meaning-of-life/research-web-analyst.md (17KB)
-
-**Conclusion**: Both perspectives converge on deliberate creation of meaning through systematic, maintainable work aligned with clear purpose and values.
-```
-
-Display progress:
-- `⏳ Synthesizing research findings...`
-- `✓ Research summary appended to task.md`
-
-### STEP 9: Offer Handover
+### STEP 7: Offer Handover
 
 Present implementation options:
 - A) Create specification (`/speckit:specify`) - RECOMMENDED
 - B) Start implementation (`/development:small`)
 - C) Continue manually
-
-### STEP 10: Mark Task Complete (Optional)
-
-**Execute this step when analysis/research is complete and user selects completion.**
-
-1. **Check if task should be marked complete**:
-   - User selected option "C) Mark task complete" from handover menu
-   - OR `--complete` flag was provided in arguments
-   - OR agents completed all analysis and no further work needed
-
-2. **Update tasks.md** (master file):
-   ```python
-   # Read current tasks.md
-   tasks_md_content = Path('.agent/tasks.md').read_text()
-
-   # Find task section by ID and update fields:
-   **Status**: in-progress → completed
-   **Completed**: {current_timestamp}
-   **Last Updated**: {current_timestamp}
-   # Preserve **Details**: field (historical record of where work was done)
-   # Preserve **Notes**: field with agent summaries
-
-   # Write to tasks.md
-   Path('.agent/tasks.md').write_text(updated_content)
-   ```
-
-3. **Sync completion status to task.md** (task directory copy):
-   ```python
-   # CRITICAL: Apply same updates to task.md in task directory
-   task_md_path = Path(TASK_DIR) / 'task.md'
-   task_md_content = task_md_path.read_text()
-
-   # Update same fields:
-   **Status**: in-progress → completed
-   **Completed**: {current_timestamp}
-   **Last Updated**: {current_timestamp}
-   # Preserve **Details**: field (historical record)
-
-   # Write to task.md
-   task_md_path.write_text(updated_task_md_content)
-   ```
-
-4. **Display completion**:
-   ```
-   ✓ Task TASK-029 marked complete
-
-   Analysis saved to:
-   📁 {TASK_DIR}/
-   ├── task.md
-   ├── research-codebase-analyst.md
-   └── research-web-analyst.md
-   ```
-
-**CRITICAL**: Use regex replacement to avoid duplicate "Last Updated" prefixes. Ensure status change is atomic and timestamp format is ISO 8601.
 
 ---
 
@@ -633,36 +317,3 @@ Present implementation options:
 **Integration Points**:
 - Follows: `/task:add`, `/task:scan-project`, `/github:convert-issues-to-tasks`
 - Followed by: `/speckit:specify`, `/development:small`, `/task:archive`
-- Complemented by: `/task:search` (dedicated search without execution)
-
-## Implementation Notes
-
-### CRITICAL: Enforcement Guards
-
-**YOU MUST NOT**:
-- Add "run directly without task management" options
-- Invoke agents before STEP 4 (task setup)
-- Bypass session validation
-- Create any options not listed in this specification
-
-**ANY selection that proceeds with a task MUST**:
-1. Go through STEP 3 (load task)
-2. Go through STEP 4 (atomic task setup)
-3. Go through STEP 5 (mandatory validation)
-4. Then STEP 8 (invoke agents with explicit context paths)
-
-### Performance Optimization
-
-**Lazy Evaluation Pattern** (STEP 1):
-- Check format FIRST (is it TASK-XXX?)
-- Search ONLY for freeform input
-- Result: 100% performance improvement for valid task IDs
-- Avoids unnecessary file reads and search operations
-
-### Search Algorithm
-
-**Task Search Utility** (`~/.claude/scripts/task/task_search.py`):
-- Extracted for testability
-- Reusable by `/task:execute` and `/task:search`
-- Supports ranking, filtering, pagination
-- Handles edge cases (empty files, corrupted data)

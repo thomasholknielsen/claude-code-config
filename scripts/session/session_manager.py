@@ -45,10 +45,6 @@ def get_terminal_identifier():
         # Get parent process ID
         ppid = os.getppid()
 
-        # Defensive validation - ensure ppid is valid
-        if not str(ppid).isdigit():
-            return None
-
         # Use ps command to get grandparent PID (Claude Code process)
         # This is stable across all commands in same terminal session
         result = subprocess.run(["ps", "-p", str(ppid), "-o", "ppid="], capture_output=True, text=True, timeout=1)
@@ -196,10 +192,10 @@ def atomic_write(target_path, content):
 
         # Atomic rename (POSIX standard, works on Windows/macOS/Linux)
         Path(temp_path).replace(target_path)
-    except Exception:
+    except Exception as e:
         # Clean up temp file on error
         Path(temp_path).unlink(missing_ok=True)
-        raise
+        raise RuntimeError(f"Atomic write failed: {e}") from e
 
 
 def get_session_file():
@@ -273,16 +269,14 @@ def create_session(session_name, topic=""):
     session_dir.mkdir(parents=True, exist_ok=True)
     (session_dir / "context").mkdir(exist_ok=True)
 
-    # Create session.md metadata file (consolidates session.env + session.md)
+    # Create session.env with 4 fields (T018)
     timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")  # ISO 8601 format
-    session_md_content = f"""# Session: {session_name}
-
-**Started**: {timestamp}
-**Topic**: {topic if topic else "(no topic)"}
-**Status**: active
-**Current Task**: (none)
+    env_content = f"""SESSION_ID={session_name}
+SESSION_START_DATETIME={timestamp}
+SESSION_TOPIC={topic}
+SESSION_STATUS=active
 """
-    atomic_write(session_dir / "session.md", session_md_content)
+    atomic_write(session_dir / "session.env", env_content)
 
     # Add to registry with atomic write (T020)
     registry["sessions"][session_name] = {
@@ -388,7 +382,7 @@ def copy_task_to_session(task_id, task_content):
         raise RuntimeError("No active session for current terminal")
 
     # Extract task title from content (T039)
-    title_match = re.search(r"^##\s+\[TASK-\d{3}\]\s+(.+)$", task_content, re.MULTILINE)
+    title_match = re.search(r"^##\s+TASK-\d{3}:\s+(.+)$", task_content, re.MULTILINE)
     task_title = title_match.group(1) if title_match else "untitled"
 
     # Create task directory (T040)
@@ -409,8 +403,6 @@ def set_current_task(task_id):
     """
     Set active task for current session (T012).
 
-    Updates **Current Task** field in session.md.
-
     Args:
         task_id: Task ID to set as active
 
@@ -425,40 +417,15 @@ def set_current_task(task_id):
         raise RuntimeError("No active session for current terminal")
 
     session_dir = Path.cwd() / ".agent" / f"Session-{session_name}"
-    session_md = session_dir / "session.md"
+    current_task_file = session_dir / ".current_task"
 
-    # Read session.md content
-    if not session_md.exists():
-        # Restore from registry if session.md missing
-        registry = load_sessions_registry()
-        if session_name in registry["sessions"]:
-            session_data = registry["sessions"][session_name]
-            timestamp = session_data.get("started", datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
-            content = f"""# Session: {session_name}
-
-**Started**: {timestamp}
-**Topic**: {session_data.get("topic", "(no topic)")}
-**Status**: {session_data.get("status", "active")}
-**Current Task**: {task_id}
-"""
-            atomic_write(session_md, content)
-            return
-        raise RuntimeError(f"Session {session_name} not found in registry")
-
-    content = session_md.read_text()
-
-    # Update **Current Task** field
-    updated_content = re.sub(r"(\*\*Current Task\*\*:)\s*.*", f"\\1 {task_id}", content)
-
-    # Write atomically
-    atomic_write(session_md, updated_content)
+    # Write task ID atomically (T042)
+    atomic_write(current_task_file, task_id)
 
 
 def get_current_task():
     """
     Get active task ID for current session (T013).
-
-    Reads from **Current Task** field in session.md.
 
     Returns:
         str | None: Task ID if task is active, None otherwise
@@ -472,20 +439,10 @@ def get_current_task():
         return None
 
     session_dir = Path.cwd() / ".agent" / f"Session-{session_name}"
-    session_md = session_dir / "session.md"
+    current_task_file = session_dir / ".current_task"
 
-    if not session_md.exists():
-        return None
-
-    content = session_md.read_text()
-
-    # Extract **Current Task** field
-    task_match = re.search(r"\*\*Current Task\*\*:\s*(.+)", content)
-    if task_match:
-        task_value = task_match.group(1).strip()
-        # Return None if value is "(none)" or empty
-        if task_value and task_value != "(none)":
-            return task_value
+    if current_task_file.exists():
+        return current_task_file.read_text().strip()
 
     return None
 
@@ -713,7 +670,14 @@ def migrate_legacy_contexts():
 **Started**: {date_str} 00:00:00
 **Topic**: {topic}
 **Status**: archived
-**Current Task**: (none)
+
+## Agents Invoked
+
+## Overview
+
+Migrated from legacy context structure.
+
+## Key Artifacts
 """
                 atomic_write(session_file, session_content)
 
@@ -753,8 +717,8 @@ def archive_session_new(session_id):
     if not session_dir.exists():
         raise FileNotFoundError(f"Session directory not found: {session_id}")
 
-    # Create archive directory (project-local per T005)
-    archive_dir = Path.cwd() / ".agent" / "archive"
+    # Create archive directory
+    archive_dir = Path.home() / ".claude" / ".agent" / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
 
     # Move session to archive
@@ -853,12 +817,13 @@ def get_context_dir():
         raise RuntimeError("No active session for current terminal")
 
     session_dir = get_session_dir(session_name)
+    current_task_file = session_dir / ".current_task"
 
     # Task-aware routing logic (T014, T043)
-    task_id = get_current_task()
-
-    if task_id:
+    if current_task_file.exists():
         # Task is active - route to task directory
+        task_id = current_task_file.read_text().strip()
+
         # Find task directory matching task_id pattern (T045)
         task_pattern = f"{task_id}--*"
         matching_dirs = list(session_dir.glob(task_pattern))
@@ -928,9 +893,11 @@ def setup_task_atomic(task_id, task_content):
         context_dir = get_context_dir()
 
         # Step 4: Validate all operations succeeded
+        current_task_file = session_dir / ".current_task"
+
         validation = {
             "task_dir_exists": task_dir.exists(),
-            "marker_set": get_current_task() == task_id,
+            "marker_set": current_task_file.exists(),
             "context_valid": Path(context_dir).exists() and task_id in context_dir,
         }
 
@@ -948,15 +915,13 @@ def setup_task_atomic(task_id, task_content):
         }
 
     except Exception as e:
-        # Rollback: clear **Current Task** field in session.md if it was set
+        # Rollback: clear .current_task marker if it was created
         import contextlib
 
-        with contextlib.suppress(Exception):
-            session_md = session_dir / "session.md"
-            if session_md.exists():
-                content = session_md.read_text()
-                updated = re.sub(r"(\*\*Current Task\*\*:)\s*.*", r"\1 (none)", content)
-                atomic_write(session_md, updated)
+        current_task_file = session_dir / ".current_task"
+        if current_task_file.exists():
+            with contextlib.suppress(Exception):
+                current_task_file.unlink()
 
         raise ValueError(f"Task setup failed: {e}") from e
 
@@ -987,46 +952,12 @@ def list_agents():
     return agent_files
 
 
-def list_sessions():
-    """
-    List all active sessions with metadata (new command for improved UX).
-
-    Returns:
-        dict: JSON structure with list of active sessions
-        {
-            "sessions": [
-                {"name": "task-work", "topic": "...", "started": "...", "terminals": [...]},
-                ...
-            ]
-        }
-    """
-    registry = load_sessions_registry()
-
-    sessions_list = []
-    for session_name, session_data in registry["sessions"].items():
-        if session_data.get("status") == "active":
-            sessions_list.append(
-                {
-                    "name": session_name,
-                    "topic": session_data.get("topic", ""),
-                    "started": session_data.get("started", ""),
-                    "terminals": session_data.get("terminals", []),
-                    "terminal_count": len(session_data.get("terminals", [])),
-                }
-            )
-
-    return {
-        "sessions": sessions_list,
-        "count": len(sessions_list),
-    }
-
-
 def main():
     """Main entry point (T022 - updated CLI support)"""
     if len(sys.argv) < 2:
-        print("Usage: session_manager.py [current|start <name> [topic]|select <name>|list|context_dir")
-        print("|copy_task <task-id> <content>|set_task <task-id>|clear_task|setup_task <task-id> <content>")
-        print("|list_agents]")
+        print("Usage: session_manager.py [current|start <name> [topic]|select <name>")
+        print("|context_dir|copy_task <task-id> <content>|set_task <task-id>")
+        print("|clear_task|setup_task <task-id> <content>|list_agents]")
         sys.exit(1)
 
     command = sys.argv[1]
@@ -1065,11 +996,6 @@ def main():
             # Get context directory path (task-aware routing)
             print(get_context_dir())
 
-        elif command == "list":
-            # List all active sessions
-            result = list_sessions()
-            print(json.dumps(result, indent=2))
-
         elif command == "list_agents":
             # List agents invoked in current session
             list_agents()
@@ -1102,14 +1028,12 @@ def main():
             session_name = get_session_for_terminal()
             if session_name:
                 session_dir = get_session_dir(session_name)
-                session_md = session_dir / "session.md"
-                if session_md.exists():
-                    content = session_md.read_text()
-                    updated = re.sub(r"(\*\*Current Task\*\*:)\s*.*", r"\1 (none)", content)
-                    atomic_write(session_md, updated)
+                current_task_file = session_dir / ".current_task"
+                if current_task_file.exists():
+                    current_task_file.unlink()
                     print("Active task cleared")
                 else:
-                    print("No session.md file found")
+                    print("No active task to clear")
             else:
                 print("Error: No active session for current terminal")
                 sys.exit(1)
@@ -1128,9 +1052,9 @@ def main():
 
         else:
             print(f"Unknown command: {command}")
-            print("Usage: session_manager.py [current|start <name> [topic]|select <name>|list|context_dir")
-            print("|copy_task <task-id> <content>|set_task <task-id>|clear_task|setup_task <task-id> <content>")
-            print("|list_agents]")
+            print("Usage: session_manager.py [current|start <name> [topic]|select <name>")
+            print("|context_dir|copy_task <task-id> <content>|set_task <task-id>")
+            print("|clear_task|setup_task <task-id> <content>|list_agents]")
             sys.exit(1)
 
     except (ValueError, RuntimeError, FileNotFoundError) as e:
