@@ -8,39 +8,6 @@ allowed-tools: Read, Edit, SlashCommand(/speckit:specify), SlashCommand(/develop
 
 ## EXECUTION FLOW (START HERE)
 
-### CRITICAL: Read This First
-
-**This is a task management command. It ONLY works with task IDs or task search.**
-
-**Before doing ANYTHING else:**
-1. Check if arguments were provided
-2. **IF arguments exist**: Verify they are task-related (task IDs like "TASK-001" OR task search terms)
-3. **IF arguments are NOT task-related** (e.g., philosophical questions, general analysis requests):
-   - **STOP IMMEDIATELY**
-   - Present options in A/B/C table format:
-
-```
-Your input appears to be a general request, not a task ID or task search.
-
-This command is for task management only. Would you like to:
-
-| Option | Description |
-|--------|-------------|
-| A | Search for related tasks (including completed tasks) matching: "<your-input>" |
-| B | Create a new task with this description (/task:add) |
-| C | See all pending tasks (interactive mode) |
-| Skip | Exit this command |
-
-Your choice: _
-```
-
-   - **Handle selection**:
-     - A → Read `.agent/tasks.md` AND `tasks-archive.md`, search both for matches, present results with ` (completed)` suffix for archived tasks
-     - B → Suggest: `/task:add "<your-input>"`
-     - C → Execute Interactive Mode (show all pending tasks)
-     - Skip → Exit command
-   - **DO NOT invoke any agents or perform any other analysis**
-
 ### Step 1: Determine Mode
 
 **IF no arguments** → Execute **Interactive Mode** (skip Direct Mode)
@@ -105,52 +72,129 @@ Display: `✓ Session active: {SESSION}`
 
 Continue to STEP 2
 
-### STEP 2: Validate Task ID Format
+### STEP 2: Smart Task Resolution Gate
 
 For each argument (excluding `--status`, `--notes`, `--complete`):
 
+**A. Format Check (lazy evaluation)**:
+
 **Check format**: Does it match `TASK-\d{3}` (e.g., TASK-001)?
 
+**IF VALID task ID**:
+- Validate task exists in `.agent/tasks.md`
+- Continue to STEP 3
+- **Skip all search logic** (performance optimization)
+
 **IF INVALID (freeform text)**:
-1. Read `.agent/tasks.md` - get pending/in-progress/blocked tasks
-2. Search for matches: title, description, category, priority, file locations
-3. Rank by relevance: exact phrase > word match > partial match
-4. Present selection table:
+- Continue to STEP 2a (pre-flight validation)
+
+### STEP 2a: Pre-flight Validation
+
+**Before searching, validate tasks.md**:
+
+1. Check `.agent/tasks.md` exists
+2. Check file is readable
+3. Check file is not empty (>0 tasks)
+4. Validate basic markdown structure
+
+**IF validation fails**:
+```
+Error: Cannot read tasks.md
+
+| Option | Action |
+|--------|--------|
+| A | Create first task (/task:add) |
+| B | Check file permissions |
+| Skip | Exit |
+```
+
+**IF validation passes**:
+- Continue to STEP 2b (search)
+
+### STEP 2b: Smart Task Search
+
+1. Read `.agent/tasks.md` - all pending/in-progress/blocked tasks
+2. Search for matches: title, description, category, priority
+3. Rank by relevance:
+   - Exact phrase match: 100 points
+   - All words match: 80 points
+   - Most words match (>50%): 60 points
+   - Any word match: 40 points
+   - Priority boost: +5 (critical/high), +2 (medium)
+4. Limit to top 5 results (most relevant first)
+
+### STEP 2c: Enhanced Selection Gate
+
+Display results with visual status indicators:
 
 ```
-Your input appears to be a task description, not a task ID.
+Searching for tasks matching: "<query>"
 
-Searching for tasks matching: "<text>"
+Showing 5 of 18 matches:
 
-Found X matching task(s):
+| Option | Status | Priority | Task Description |
+|--------|--------|----------|------------------|
+| A | [ACTIVE] | [!] | Fix authentication bug causing login failures (GH-123) |
+| B | [ACTIVE] | [*] | Implement rate limiting for API endpoints (CODE) |
+| C | [DONE] | - | Review authentication code (completed 2025-10-16) |
 
-| Option | Task ID | Title | Priority | Status |
-|--------|---------|-------|----------|--------|
-| A | TASK-001 | <title> | <priority> | <status> |
-| B | TASK-015 | <title> | <priority> | <status> |
-| Search completed | Search tasks-archive.md for completed tasks too | - | - |
-| Skip | Create new task instead | - | - |
+| Action | Description |
+|--------|-------------|
+| Show more | Display more matches (13 additional) |
+| Search again | Try different search terms |
+| Create new | Create new task (/task:add) |
+| Show all | See all pending tasks (interactive) |
+| Skip | Exit without executing |
 
 Your choice: _
 ```
 
-5. **Handle selection**:
-   - **A/B/C (pending tasks)** → Extract task ID(s), allow multiple selections ("A B"), proceed to STEP 3
-   - **"Search completed" (option in table)** → Read `tasks-archive.md`, search completed tasks, present results with ` (completed)` suffix for each
-     - **IF completed tasks found**: Present options:
-       ```
-       Found completed task(s):
+**Status Indicators**:
+- `[ACTIVE]` = pending/in-progress/blocked
+- `[DONE]` = completed (only shown if in default results or "Show all")
+- `[NEW]` = recently created
 
-       | Option | Task ID | Title | Status |
-       |--------|---------|-------|--------|
-       | A | TASK-029 | Analyze meaning | ✓ Complete (2025-10-16) |
-       | Reopen | A | Re-open and re-run TASK-029 | - |
-       | Create new | - | Create new task with same topic | - |
-       | Skip | - | Exit search | - |
-       ```
-       - **If "Reopen" selected**: Extract task ID, proceed to STEP 3 (will re-execute with fresh session)
-   - **Skip → Suggest** `/task:add "<text>"`
-6. **IF no matches** → Offer: A) Create task, B) Search completed tasks, C) See all pending tasks, Skip) Cancel
+**Priority Indicators**:
+- `[!]` = critical or high priority
+- `[*]` = medium priority
+- `-` = low or normal priority
+
+**Handle selection**:
+
+**IF task selected (A-Z)**:
+- **IF pending/in-progress/blocked** → Continue to STEP 3
+- **IF completed**:
+  ```
+  Task TASK-029 is marked complete (2025-10-16).
+
+  | Option | Action |
+  |--------|--------|
+  | A | Re-run with fresh analysis (full workflow) |
+  | B | View previous results only |
+  | Skip | Return to task selection |
+  ```
+  - **If A**: Change status to "pending", proceed to STEP 3 (full STEP 1-7 workflow)
+  - **If B**: Display previous results, exit
+  - **If Skip**: Return to selection gate
+
+**IF "Show more"**:
+- Extend results to next 5-10 matches
+- Re-display gate with expanded list
+- Pagination support (max 26 tasks per page, A-Z)
+
+**IF "Search again"**:
+- Prompt: "Enter new search query: _"
+- Return to STEP 2b with new query
+
+**IF "Create new"**:
+- Suggest: `/task:add "<current-query>"`
+- Exit command
+
+**IF "Show all"**:
+- Execute Interactive Mode (show all pending tasks with grouping)
+
+**IF "Skip"**:
+- Exit command
 
 **CRITICAL: When Re-Running Completed Tasks**
 
@@ -166,8 +210,6 @@ When user selects to re-run a completed task:
 7. **YOU MUST** go through STEP 6 (invoke agents)
 
 This ensures agents save to correct task-specific directory, not session-level context.
-
-**IF VALID** → Continue to STEP 3
 
 ### STEP 3: Load and Display Tasks
 
@@ -317,3 +359,36 @@ Present implementation options:
 **Integration Points**:
 - Follows: `/task:add`, `/task:scan-project`, `/github:convert-issues-to-tasks`
 - Followed by: `/speckit:specify`, `/development:small`, `/task:archive`
+- Complemented by: `/task:search` (dedicated search without execution)
+
+## Implementation Notes
+
+### CRITICAL: Enforcement Guards
+
+**YOU MUST NOT**:
+- Add "run directly without task management" options
+- Invoke agents before STEP 4 (task setup)
+- Bypass session validation
+- Create any options not listed in this specification
+
+**ANY selection that proceeds with a task MUST**:
+1. Go through STEP 3 (load task)
+2. Go through STEP 4 (atomic task setup)
+3. Go through STEP 4.5 (mandatory validation)
+4. Then STEP 6 (invoke agents with explicit context paths)
+
+### Performance Optimization
+
+**Lazy Evaluation Pattern** (STEP 2):
+- Check format FIRST (is it TASK-XXX?)
+- Search ONLY for freeform input
+- Result: 100% performance improvement for valid task IDs
+- Avoids unnecessary file reads and search operations
+
+### Search Algorithm
+
+**Task Search Utility** (`~/.claude/scripts/task/task_search.py`):
+- Extracted for testability
+- Reusable by `/task:execute` and `/task:search`
+- Supports ranking, filtering, pagination
+- Handles edge cases (empty files, corrupted data)
