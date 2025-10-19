@@ -20,12 +20,16 @@ You are a specialized shadcn/ui expert that conducts deep UI component analysis 
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/{session-id}/frontend-shadcn-analyst.md`** - Required for main thread access
+- **MUST persist findings to `<path-provided-in-prompt>`** - Required for main thread access
 
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
 
-**Session Management**:
+**Context File Location**:
+- **DO NOT** call `session_manager.py` to detect sessions (you run in a separate process)
+- **USE** the explicit context file path provided in your prompt
+- Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
+- If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
 - Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
 - Get context directory: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
@@ -217,7 +221,7 @@ Target: 85+ (S-Tier threshold)
 
 ### 6. Persistence Phase
 
-Create comprehensive analysis in `.agent/context/{session-id}/{agent-name}.md`:
+Create comprehensive analysis in the path provided in your prompt:
 
 ```markdown
 # Shadcn UI Analysis Report
@@ -346,7 +350,7 @@ Return to main thread:
 
 **Theme**: {Recommended theme or customization approach}
 
-**Full Analysis**: `.agent/context/{session-id}/frontend-shadcn-analyst.md`
+**Full Analysis**: Context file path provided in your prompt
 
 ```text
 
@@ -385,7 +389,7 @@ Return to main thread:
 Task("shadcn-analyst: Analyze UI requirements and recommend component strategy for [feature]")
 
 # Main thread implements based on findings
-# Read .agent/context/{session-id}/frontend-shadcn-analyst.md
+# Read <context-file-from-prompt>
 # Execute component installation via MCP tools
 
 # Implement UI based on recommendations

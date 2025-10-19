@@ -6,589 +6,663 @@ allowed-tools: Read, Edit, SlashCommand(/speckit:specify), SlashCommand(/develop
 
 # Command: Task Execute
 
-## Framework Structure (S-Tier Pattern)
+## EXECUTION FLOW (START HERE)
 
-### APE Framework (General Purpose)
+### MANDATORY: Read This BEFORE Proceeding
 
-**A**ction: Intelligent task management via three modes (interactive triaging with 0-3 contextual questions + grouping, direct execution by TASK-ID with auto-status updates, quick update for metadata-only changes), read .agent/tasks.md, analyze patterns (priority/origin/category distribution), detect logical groupings (same module/related features/GitHub milestones), present selection with rationale, seamless handover to /speckit:specify or /development:small
+**This command has EXACTLY TWO workflows:**
 
-**P**urpose: Reduce decision paralysis through smart contextual questions, maximize efficiency via automatic task grouping (related work done together), enable flexible workflows (from exploration to structured speckit), maintain unified task tracking with origin-aware filtering, support seamless transition from triaging to implementation
+1. **Interactive Mode** (no arguments) → Show all tasks, offer grouping
+2. **Direct Mode** (with arguments) → STEP 1 (Smart Task Gate) → STEP 2 (Session) → STEP 3-10
 
-**E**xpectation: Interactive Mode → 0-3 questions + selected tasks with grouping rationale + implementation path options. Direct Mode → task details display + auto-status to in-progress + metadata updates + handover offer. Quick Update Mode → metadata-only changes + confirmation. All modes preserve history with ISO timestamps
+**YOU MUST NOT**:
+- ✗ Invoke agents directly (bypass STEP 4 task setup)
+- ✗ Create "run analysis" options not in specification
+- ✗ Skip STEP 1 Smart Task Resolution Gate for freeform input
+- ✗ Improvise any workflow not explicitly defined below
 
-## Quality Standards (CARE)
+**IF user provides freeform text** (not TASK-XXX):
+1. Go to STEP 1 (Smart Task Resolution Gate)
+2. Search tasks.md for matches
+3. Show enhanced selection table
+4. Wait for user selection
+5. **DO NOT** directly invoke agents or create ad-hoc analysis
 
-**Target**: 85+ overall (Completeness >95% task metadata, Accuracy >90% grouping logic, Relevance >85% question contextuality, Efficiency <10s triaging)
+**Violating these constraints breaks task-aware context routing.**
 
-## Explicit Constraints
+---
 
-**IN SCOPE**: Task triaging (pattern analysis, contextual questions, grouping detection), direct execution (TASK-ID lookup, status updates, notes), metadata management (auto-status, timestamps), speckit/development handover, origin filtering (adhoc/code-comment/github-issue)
-**OUT OF SCOPE**: Task implementation (delegates to /speckit:*or /development:*), duplicate detection/merging, task dependencies/ordering, GitHub sync (status updates don't sync to GitHub), bulk operations (use individual /task:execute calls)
+### Step 1: Determine Mode
 
-## Purpose
+**IF no arguments** → Execute **Interactive Mode** (skip Direct Mode)
+**IF task-related arguments provided** → Execute **Direct Mode** (skip Interactive Mode)
 
-Intelligent task management command that analyzes your task backlog, asks contextual questions to identify relevant work, and seamlessly hands off to implementation workflows.
+---
 
-**Three Modes**:
+## INTERACTIVE MODE (No Arguments)
 
-1. **Interactive Triaging** - Analyzes tasks, asks smart questions, helps you focus
-2. **Direct Execution** - Work on specific tasks by ID
-3. **Quick Update** - Update status/notes without full display
+**Execute these steps in order:**
 
-## Usage
+1. Read `.agent/tasks.md` - get all pending/blocked tasks
+2. Analyze patterns: priority (critical/high/medium/low), origin (github-issue/code-comment/adhoc), category (bug/feature/refactor/docs/test)
+3. Detect groupings: same module, related features, GitHub milestone, code comment clusters
+4. Ask 0-3 contextual questions based on task diversity
+5. Present selected task(s) with grouping rationale
+6. Offer implementation path:
+   - A) Create specification (`/speckit:specify`) - RECOMMENDED for complex tasks
+   - B) Start implementation (`/development:small`) - for clear requirements
+   - C) Mark in-progress manually - for exploratory work
+   - D) Show different tasks
 
-### Mode 1: Interactive Triaging (No arguments)
+---
+
+## DIRECT MODE (With Arguments)
+
+**Execute these steps in order:**
+
+### STEP 1: Smart Task Resolution Gate
+
+For each argument (excluding `--status`, `--notes`, `--complete`):
+
+**A. Format Check (lazy evaluation)**:
+
+**Check format**: Does it match `TASK-\d{3}` (e.g., TASK-001)?
+
+**IF VALID task ID**:
+- Validate task exists in `.agent/tasks.md`
+- Continue to STEP 2
+- **Skip all search logic** (performance optimization)
+
+**IF INVALID (freeform text)**:
+- Continue to STEP 1a (pre-flight validation)
+
+### STEP 1a: Pre-flight Validation
+
+**Before searching, validate tasks.md**:
+
+1. Check `.agent/tasks.md` exists
+2. Check file is readable
+3. Check file is not empty (>0 tasks)
+4. Validate basic markdown structure
+
+**IF validation fails**:
+```
+Error: Cannot read tasks.md
+
+| Option | Action |
+|--------|--------|
+| A | Create first task (/task:add) |
+| B | Check file permissions |
+| Skip | Exit |
+```
+
+**IF validation passes**:
+- Continue to STEP 1b (search)
+
+### STEP 1b: Smart Task Search
+
+1. Read `.agent/tasks.md` - all pending/in-progress/blocked tasks
+2. Search for matches: title, description, category, priority
+3. Rank by relevance:
+   - Exact phrase match: 100 points
+   - All words match: 80 points
+   - Most words match (>50%): 60 points
+   - Any word match: 40 points
+   - Priority boost: +5 (critical/high), +2 (medium)
+4. Limit to top 5 results (most relevant first)
+
+### STEP 1c: Enhanced Selection Gate
+
+Display results with visual status indicators in **two-table format**:
+
+**Table 1** (task results - NO "Option" column):
+
+```
+Searching for tasks matching: "<query>"
+
+Showing 5 of 18 matches:
+
+| Status   | Priority | Task Description                                                |
+|----------|----------|-----------------------------------------------------------------|
+| [ACTIVE] | [!]      | Fix authentication bug causing login failures (GH-123)          |
+| [ACTIVE] | [*]      | Implement rate limiting for API endpoints (CODE)                |
+| [DONE]   | -        | Review authentication code (completed 2025-10-16)               |
+```
+
+**Table 2** (actions - WITH "Option" column for letter selection):
+
+```
+| Option       | Description                       |
+|--------------|-----------------------------------|
+| A            | Execute first task (start work)   |
+| B            | Execute second task (start work)  |
+| C            | Execute third task (start work)   |
+| Show more    | Display more matches (13 additional) |
+| Search again | Try different search terms        |
+| Create new   | Create new task (/task:add)       |
+| Show all     | See all pending tasks (interactive) |
+| Skip         | Exit without executing            |
+
+Your choice: _
+```
+
+**Status Indicators**:
+- `[ACTIVE]` = pending/in-progress/blocked
+- `[DONE]` = completed (only shown if in default results or "Show all")
+- `[NEW]` = recently created
+
+**Priority Indicators**:
+- `[!]` = critical or high priority
+- `[*]` = medium priority
+- `-` = low or normal priority
+
+**Handle selection**:
+
+**IF task selected (A-Z)**:
+- **IF pending/in-progress/blocked** → Continue to STEP 2
+- **IF completed**:
+  ```
+  Task TASK-029 is marked complete (2025-10-16).
+
+  | Option | Action |
+  |--------|--------|
+  | A | Re-run with fresh analysis (full workflow) |
+  | B | View previous results only |
+  | Skip | Return to task selection |
+  ```
+  - **If A**: Change status to "pending", proceed to STEP 2 (full STEP 1-2 then STEP 3-10 workflow)
+  - **If B**: Display previous results, exit
+  - **If Skip**: Return to selection gate
+
+**IF "Show more"**:
+- Extend results to next 5-10 matches
+- Re-display gate with expanded list
+- Pagination support (max 26 tasks per page, A-Z)
+
+**IF "Search again"**:
+- Prompt: "Enter new search query: _"
+- Return to STEP 1b with new query
+
+**IF "Create new"**:
+- Suggest: `/task:add "<current-query>"`
+- Exit command
+
+**IF "Show all"**:
+- Execute Interactive Mode (show all pending tasks with grouping)
+
+**IF "Skip"**:
+- Exit command
+
+### Anti-Patterns (DO NOT DO THIS)
+
+❌ **WRONG**: "Perfect. Let me invoke two subagents for analysis..."
+✅ **CORRECT**: Show the enhanced selection gate with task options
+
+❌ **WRONG**: Creating off-spec option: "B) Run analysis directly without task management"
+✅ **CORRECT**: Only show options from specification (Show more/Search again/Create/Show all/Skip)
+
+❌ **WRONG**: Bypassing search: "I'll just run the analysis in the current session"
+✅ **CORRECT**: Execute STEP 1b search, show results, wait for selection
+
+❌ **WRONG**: "I see the input is not a task ID, so I'll search and then directly invoke agents"
+✅ **CORRECT**: "I see the input is not a task ID, so I'll show the Smart Task Resolution Gate and wait for user to select a task"
+
+**CRITICAL: When Re-Running Completed Tasks**
+
+**YOU MUST execute the full flow, not create ad-hoc analysis.**
+
+When user selects to re-run a completed task:
+1. **DO NOT** manually invoke agents
+2. **DO NOT** create a fresh "analysis session"
+3. **YOU MUST** go through STEP 2 (validate/create session)
+4. **YOU MUST** go through STEP 3 (load task)
+5. **YOU MUST** go through STEP 4 (setup task directories with setup_task)
+6. **YOU MUST** go through STEP 5 (validate)
+7. **YOU MUST** go through STEP 8 (invoke agents)
+
+This ensures agents save to correct task-specific directory, not session-level context.
+
+### STEP 2: Validate or Create Session
+
+**YOU MUST validate session exists. If not, create one.**
 
 ```bash
+SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
+```
+
+**IF SESSION is empty (no active session for current terminal)**:
+
+Check for existing active sessions:
+
+```bash
+SESSIONS_JSON=$(python3 ~/.claude/scripts/session/session_manager.py list)
+SESSION_COUNT=$(echo $SESSIONS_JSON | python3 -c "import sys, json; print(json.load(sys.stdin)['count'])")
+```
+
+**IF SESSION_COUNT > 0 (existing sessions found)**:
+
+Display existing sessions in **two-table format** (per user requirement):
+
+**Table 1** (existing sessions list - NO "Option" column):
+
+```
+Existing sessions found:
+
+| Session | Topic | Started | Terminals |
+|---------|-------|---------|-----------|
+| task-029 | analyze meaning of life from coding... | 2025-10-18 19:20 | 1 |
+| feature-auth | Authentication implementation | 2025-10-17 14:30 | 2 |
+```
+
+**Table 2** (actions - WITH "Option" column for letter selection):
+
+```
+| Option | Description |
+|--------|-------------|
+| A | Link to session task-029 |
+| B | Link to session feature-auth |
+| C | Create new session |
+| Skip | Exit |
+
+Your choice: _
+```
+
+**Handle selection**:
+
+- **If A/B/etc selected (link to existing)**: Link to selected session using `python3 ~/.claude/scripts/session/session_manager.py select "<session-name>"`. Display: `✓ Linked to session: <session-name>`
+- **If C selected (new session)**: Go to "Create New Session" flow below
+- **If Skip selected**: Exit command
+
+**ELIF SESSION_COUNT == 0 (no existing sessions)**:
+
+Present session creation options:
+
+```
+No active session for current terminal. Would you like to:
+
+| Option | Description | Impact |
+|--------|-------------|--------|
+| A | Auto-create adhoc session from task ID | ~3s, creates registry file |
+| B | Create named session with custom name | ~5s, prompts for name |
+| C | Exit and run /session:start manually | 0s, requires manual session setup |
+| Skip | Cancel task execution | 0s, no changes |
+
+Your choice: _
+```
+
+**Create New Session Flow** (for both paths):
+
+- **If A selected**: Extract first task ID from arguments, create session using `python3 ~/.claude/scripts/session/session_manager.py start "task-{id}" "{task-description}"`. Display: `✓ Created session: task-029`
+- **If B selected**: Prompt user for session name, create session with optional topic
+- **If C selected**: Exit command with message: "Run `/session:start <name> [topic]` to create session"
+- **If Skip selected**: Exit command
+
+**IF SESSION exists (terminal already linked)**:
+
+Display: `✓ Session active: {SESSION}`
+
+Continue to STEP 3
+
+### STEP 3: Load and Display Tasks
+
+**YOU MUST execute this step to extract full task content for STEP 4.**
+
+For each task ID:
+
+1. **Read `.agent/tasks.md`** and extract the **full markdown section** for the task
+2. **Extract task section** from `## [TASK-XXX]` header to next `## [TASK-` or EOF:
+   ```bash
+   # This captures ALL task content including:
+   # - ## [TASK-029] {title}
+   # - **Status**: pending
+   # - **Priority**: medium
+   # - **Description**: ...
+   # - **Notes**: ... (if exists)
+   ```
+3. **Store in variable** `FULL_TASK_CONTENT` for use in STEP 4
+4. **Display task summary**:
+   ```
+   ⏺ Loading TASK-029...
+
+   Task: analyze the meaning of life from coding perspective using 2 subagents
+   Status: pending → will be set to in-progress
+   Priority: medium
+   Category: research
+   ```
+
+**CRITICAL**: The `FULL_TASK_CONTENT` variable MUST contain the complete markdown section including the `## [TASK-XXX] {title}` header. This is required for proper title extraction in STEP 4.
+
+### STEP 4: Create Task Directories
+
+**YOU MUST execute this step. It sets up task directories and context routing.**
+
+For each task ID (process first task in current implementation):
+
+```bash
+# Atomic task setup: copy + set + validate in single operation
+# CRITICAL: Pass FULL_TASK_CONTENT from STEP 3 (not just description)
+RESULT=$(python3 ~/.claude/scripts/session/session_manager.py setup_task <TASK-ID> "$FULL_TASK_CONTENT")
+
+# Parse JSON result
+SESSION=$(echo $RESULT | python3 -c "import sys, json; print(json.load(sys.stdin)['session'])")
+TASK_DIR=$(echo $RESULT | python3 -c "import sys, json; print(json.load(sys.stdin)['task_dir'])")
+CONTEXT_DIR=$(echo $RESULT | python3 -c "import sys, json; print(json.load(sys.stdin)['context_dir'])")
+VALIDATION=$(echo $RESULT | python3 -c "import sys, json; v=json.load(sys.stdin)['validation']; print('PASS' if all(v.values()) else 'FAIL')")
+```
+
+Display progress:
+- `⏳ Creating task workspace...`
+- `✓ Directory created: {TASK_DIR}`
+- `✓ Active task set: {TASK_ID}`
+
+**IF VALIDATION fails**:
+- Display error: "Task setup validation failed"
+- Show diagnostics: task_dir_exists, marker_set, context_valid
+- STOP - Do not proceed to STEP 5
+
+### STEP 5: MANDATORY VALIDATION GATE
+
+**YOU MUST NOT skip this step. Validation is critical before agent invocation.**
+
+Verify task setup succeeded:
+
+```
+✓ Validating task setup...
+  ✓ Task directory exists: {TASK_DIR}
+  ✓ Active task marker set: session.env:CURRENT_TASK → {TASK_ID}
+  ✓ Context routing correct: {CONTEXT_DIR} contains Task-{ID}
+
+✓ Task setup validated - Ready for analysis
+```
+
+**IF any validation fails**:
+- **DO NOT invoke agents**
+- Display clear error message with diagnostics
+- Present A/B/C recovery table:
+  - A) Retry task setup with fresh session
+  - B) View session/task directory structure for debugging
+  - C) Exit command
+- **STOP execution**
+
+**IF all validations pass**:
+- Continue to STEP 6
+
+### STEP 6: Update Task Metadata (Both Files)
+
+**CRITICAL**: Update both tasks.md AND task.md to keep status synchronized.
+
+1. Auto-set status to `in-progress` if currently `pending` (unless `--status` specified)
+2. Add **Details** field pointing to task directory path (if not already present)
+3. Add notes if `--notes` provided
+4. Update "Last Updated" timestamp
+5. **Write changes to tasks.md** (master file in `.agent/tasks.md`)
+6. **Sync changes to task.md** (task directory copy in `{TASK_DIR}/task.md`)
+
+**Implementation**:
+
+```python
+# Read current tasks.md
+tasks_md_content = Path('.agent/tasks.md').read_text()
+
+# Get task directory relative path from STEP 4
+# Example: .agent/Session-task-029/Task-029--analyze-the-meaning-of-life-from-coding-perspectiv
+task_dir_relative = TASK_DIR.replace(str(Path.cwd()) + '/', '')
+
+# Find task section by ID and update fields
+# Update: **Status**: pending → in-progress
+# Add/Update: **Details**: {task_dir_relative} (placed after Status field)
+# Update: **Last Updated**: {current_timestamp}
+# Add: **Notes**: {notes} (if --notes provided)
+
+# Pattern for adding Details field:
+# Find line with **Status**:
+# Insert **Details**: line immediately after it (if not exists)
+
+# Write to tasks.md
+Path('.agent/tasks.md').write_text(updated_content)
+
+# CRITICAL: Sync same changes to task.md in task directory
+task_md_path = Path(TASK_DIR) / 'task.md'
+task_md_content = task_md_path.read_text()
+
+# Apply same updates to task.md content
+# (same status, same Details field, same timestamp, same notes)
+
+# Write to task.md
+task_md_path.write_text(updated_task_md_content)
+```
+
+Display progress:
+- `⏳ Updating task metadata...`
+- `✓ Status: pending → in-progress (synced to both files)`
+- `✓ Details: {task_dir_relative}`
+- `✓ Timestamp updated: {timestamp}`
+
+### STEP 7: Context Path Preview
+
+**BEFORE invoking agents, show user where files will be saved.**
+
+Display:
+
+```
+Agent context files will be saved to:
+  📁 {CONTEXT_DIR}
+
+  Where CONTEXT_DIR = .agent/Session-{session}/Task-{id}--{title}/
+
+Files will include:
+  - architecture-analyst.md (if invoked)
+  - security-analyst.md (if invoked)
+  - performance-analyst.md (if invoked)
+  - [other agent-name].md files
+
+This creates isolated, task-specific context for all analysis findings.
+```
+
+### STEP 8: Invoke Agents (Optional)
+
+**IF task requires analysis**, use Task tool with **explicit context path**:
+
+```
+Task(
+  subagent_type="<agent-name>",
+  prompt="<analysis task>
+
+  **Context File Location**: Save your findings to:
+  {CONTEXT_DIR}/<agent-name>.md
+
+  Where CONTEXT_DIR = <absolute-path-from-step-4>
+
+  Do NOT attempt to detect session - use the path provided above."
+)
+```
+
+### STEP 8.5: Synthesize Research Findings to task.md
+
+**CRITICAL**: Execute this step AFTER agents complete to append research synthesis to task.md.
+
+**Purpose**: task.md should contain a synthesized summary of research findings, not just the task definition.
+
+**Implementation**:
+
+1. **Read agent response summaries** from STEP 8 (from Task tool results)
+2. **Extract key insights**:
+   - Main conclusions from each agent
+   - Critical findings or recommendations
+   - Cross-agent patterns or conflicts
+3. **Synthesize findings** into concise summary (3-5 bullet points)
+4. **Append to task.md** in task directory:
+
+```markdown
+## Research Findings
+
+**Analysis Completed**: {timestamp}
+
+**Key Insights**:
+- {Insight 1 from agent A}
+- {Insight 2 from agent B}
+- {Cross-agent observation}
+
+**Recommendations**:
+- {Action item 1}
+- {Action item 2}
+
+**Full Analysis**:
+- See {TASK_DIR}/research-codebase-analyst.md (17KB)
+- See {TASK_DIR}/research-web-analyst.md (17KB)
+
+**Conclusion**: {2-3 sentence synthesis of overall findings}
+```
+
+**Example**:
+
+```markdown
+## Research Findings
+
+**Analysis Completed**: 2025-10-18T17:30:00Z
+
+**Key Insights**:
+- Codebase analyst: Architecture as clarity of purpose, technical debt as regrets
+- Web analyst: Meaning is created not discovered, achievement ≠ fulfillment
+- Both emphasize: Systematic problem-solving and maintainability = sustainability
+
+**Recommendations**:
+- Apply DRY principle to reduce conceptual debt
+- Align work with personal values for meaning
+- Build maintainable systems with clear purpose
+
+**Full Analysis**:
+- See TASK-029--analyze-the-meaning-of-life/research-codebase-analyst.md (17KB)
+- See TASK-029--analyze-the-meaning-of-life/research-web-analyst.md (17KB)
+
+**Conclusion**: Both perspectives converge on deliberate creation of meaning through systematic, maintainable work aligned with clear purpose and values.
+```
+
+Display progress:
+- `⏳ Synthesizing research findings...`
+- `✓ Research summary appended to task.md`
+
+### STEP 9: Offer Handover
+
+Present implementation options:
+- A) Create specification (`/speckit:specify`) - RECOMMENDED
+- B) Start implementation (`/development:small`)
+- C) Continue manually
+
+### STEP 10: Mark Task Complete (Optional)
+
+**Execute this step when analysis/research is complete and user selects completion.**
+
+1. **Check if task should be marked complete**:
+   - User selected option "C) Mark task complete" from handover menu
+   - OR `--complete` flag was provided in arguments
+   - OR agents completed all analysis and no further work needed
+
+2. **Update tasks.md** (master file):
+   ```python
+   # Read current tasks.md
+   tasks_md_content = Path('.agent/tasks.md').read_text()
+
+   # Find task section by ID and update fields:
+   **Status**: in-progress → completed
+   **Completed**: {current_timestamp}
+   **Last Updated**: {current_timestamp}
+   # Preserve **Details**: field (historical record of where work was done)
+   # Preserve **Notes**: field with agent summaries
+
+   # Write to tasks.md
+   Path('.agent/tasks.md').write_text(updated_content)
+   ```
+
+3. **Sync completion status to task.md** (task directory copy):
+   ```python
+   # CRITICAL: Apply same updates to task.md in task directory
+   task_md_path = Path(TASK_DIR) / 'task.md'
+   task_md_content = task_md_path.read_text()
+
+   # Update same fields:
+   **Status**: in-progress → completed
+   **Completed**: {current_timestamp}
+   **Last Updated**: {current_timestamp}
+   # Preserve **Details**: field (historical record)
+
+   # Write to task.md
+   task_md_path.write_text(updated_task_md_content)
+   ```
+
+4. **Display completion**:
+   ```
+   ✓ Task TASK-029 marked complete
+
+   Analysis saved to:
+   📁 {TASK_DIR}/
+   ├── task.md
+   ├── research-codebase-analyst.md
+   └── research-web-analyst.md
+   ```
+
+**CRITICAL**: Use regex replacement to avoid duplicate "Last Updated" prefixes. Ensure status change is atomic and timestamp format is ISO 8601.
+
+---
+
+## Quick Reference
+
+**Usage**:
+```bash
+# Interactive mode
 /task:execute
-```
 
-**Behavior**:
-
-1. Reads all pending/blocked tasks from `.agent/tasks.md`
-2. Analyzes patterns (related tasks, priority distribution, origins)
-3. Identifies logical groupings (same module, related features, GitHub milestones)
-4. Asks 0-3 contextual multiple-choice questions
-5. Presents selected task(s) with rationale
-6. Offers seamless handover to `/speckit:specify` or `/development:small`
-
-**Question Examples**:
-
-```
-Found 15 pending tasks. Let me help you focus:
-
-Q1: What should we prioritize?
-A) Critical bugs (2 tasks) - authentication & database issues
-B) High-priority features (4 tasks) - OAuth & user management
-C) Technical debt (6 tasks) - code comments from recent scan
-D) Show me everything
-
-Q2: Which area needs attention?
-A) Authentication module (3 related tasks)
-B) Database layer (2 tasks)
-C) API endpoints (4 tasks)
-D) No preference
-
-Q3: Task grouping preference?
-A) Work on related tasks together (recommended: 3 auth tasks)
-B) One task at a time
-```
-
-### Mode 2: Direct Execution (With task IDs)
-
-```bash
-/task:execute TASK-XXX [TASK-YYY ...]
-```
-
-**Arguments**:
-
-- `TASK-XXX` - One or more task IDs (space-separated)
-- `--status=state` - Update status: `pending | in-progress | blocked | completed`
-- `--notes="text"` - Add progress note with timestamp
-- `--complete` - Shorthand for `--status=completed`
-
-**Behavior**:
-
-- Shows task details immediately
-- Auto-sets status to `in-progress` if currently `pending`
-- Displays full task information (metadata, description, notes, code context)
-- Offers speckit handover for implementation
-
-**Examples**:
-
-```bash
-# Start work on single task
+# Direct mode (task IDs)
 /task:execute TASK-001
-
-# Work on multiple related tasks
 /task:execute TASK-001 TASK-002 TASK-003
 
-# Mark task complete with note
+# Direct mode (search)
+/task:execute fix authentication bug
+
+# Status updates
+/task:execute TASK-001 --status=blocked --notes="Waiting for API key"
 /task:execute TASK-001 --complete --notes="Tests passing, PR created"
-
-# Update status to blocked
-/task:execute TASK-005 --status=blocked --notes="Waiting for API key from DevOps"
 ```
 
-### Mode 3: Quick Update (Status/Notes only)
-
-```bash
-/task:execute TASK-XXX --notes="progress update"
-/task:execute TASK-XXX --status=in-progress
-```
-
-**Behavior**:
-
-- Updates metadata only
-- No full task display
-- Quick status/progress tracking
-
-## Process
-
-### Interactive Mode Process
-
-1. **Read Tasks**: Load all pending/blocked tasks from `.agent/tasks.md`
-
-2. **Analyze Task Set**:
-   - Count by priority (critical, high, medium, low)
-   - Count by origin (github-issue, code-comment, adhoc)
-   - Count by category (bug, feature, refactor, docs, test, research, chore)
-   - Identify patterns and groupings
-
-3. **Detect Logical Groupings**:
-   - **Same Module**: Tasks referencing same file/directory
-   - **Related Features**: Tasks with similar descriptions or linked features
-   - **GitHub Milestone**: Tasks from same GitHub milestone
-   - **Code Comment Clusters**: Multiple TODOs/FIXMEs in same area
-
-4. **Generate Smart Questions** (0-3 based on analysis):
-   - **0 questions**: Only 1-2 obvious tasks (go straight to presentation)
-   - **1 question**: Clear pattern needs confirmation (e.g., "Focus on critical bugs?")
-   - **2 questions**: Need priority + area narrowing
-   - **3 questions**: Diverse task set + grouping preference
-
-5. **Present Selected Task(s)**:
-
-   ```
-   Selected: Authentication Bug Fix Group (3 tasks)
-
-   [TASK-015] Fix login validation - CRITICAL
-   Priority: critical | Origin: github-issue | Category: bug
-
-   [TASK-018] Add session timeout - HIGH
-   Priority: high | Origin: code-comment | Location: src/auth/session.ts:67
-
-   [TASK-022] Refactor auth middleware - HIGH
-   Priority: high | Origin: code-comment | Location: src/middleware/auth.ts:34
-
-   Rationale: All three tasks touch the authentication system.
-   Fixing them together will provide better context and avoid
-   rework. Estimated combined effort: 3-4 hours.
-   ```
-
-6. **Offer Implementation Path**:
-
-   ```
-   Ready to implement? Choose your approach:
-
-   A) Create detailed specification (/speckit:specify) - RECOMMENDED
-      Best for: Complex tasks, unclear requirements, need planning
-
-   B) Start small implementation (/development:small)
-      Best for: Clear requirements, straightforward changes
-
-   C) Mark as in-progress and work manually
-      Best for: Exploratory work, research tasks
-
-   D) Show me different tasks
-   ```
-
-### Direct Mode Process
-
-1. **Parse Arguments**: Extract task IDs and options
-2. **Read tasks.md**: Load `.agent/tasks.md`
-3. **Find Tasks**: Locate specified tasks by ID
-4. **Display Details**: Show full task information for each task
-5. **Update Metadata**:
-   - Auto-set to `in-progress` if currently `pending` (unless different status specified)
-   - Add notes if provided
-   - Update "Last Updated" timestamp
-6. **Save Changes**: Write updated tasks.md
-7. **Offer Handover**: Present speckit/development options
-
-## Task Grouping Logic
-
-### Pattern Detection Examples
-
-**Same Module Pattern**:
-
-```
-Detected: 3 code-comment tasks in src/services/auth.ts
-- TASK-010: Extract validation logic (line 45)
-- TASK-015: Add error handling (line 78)
-- TASK-020: Improve type safety (line 120)
-
-Grouping rationale: All in same file, can be refactored together efficiently.
-```
-
-**Related Features Pattern**:
-
-```
-Detected: OAuth Integration Suite (4 tasks)
-- TASK-025: Design OAuth flow - PENDING
-- TASK-026: Implement OAuth backend - PENDING
-- TASK-027: Add OAuth UI components - PENDING
-- TASK-028: Write OAuth tests - PENDING
-
-Grouping rationale: Sequential dependencies. Best done in order.
-```
-
-**GitHub Milestone Pattern**:
-
-```
-Detected: Sprint 5 Critical Bugs (3 tasks)
-- TASK-030: Fix checkout race condition (#145) - CRITICAL
-- TASK-031: Database connection leak (#148) - CRITICAL
-- TASK-032: API timeout handling (#152) - HIGH
-
-Grouping rationale: All tagged for Sprint 5 milestone, team priority.
-```
-
-**Priority Clustering Pattern**:
-
-```
-Detected: Multiple critical issues requiring immediate attention
-- TASK-005: Security vulnerability in auth - CRITICAL
-- TASK-012: Data corruption bug - CRITICAL
-- TASK-018: API endpoint crash - CRITICAL
-
-Grouping rationale: All critical priority, block other work.
-```
-
-## Spec-Kit Integration
-
-### Handover Flow
-
-After task selection, command offers implementation options:
-
-```
-Selected task(s) ready for implementation.
-
-Choose your approach:
-
-A) Create specification with /speckit:specify (RECOMMENDED)
-   → Detailed requirements gathering
-   → Architecture planning
-   → Implementation roadmap
-   → Best for complex or unclear tasks
-
-B) Start small implementation with /development:small
-   → Direct implementation for clear tasks
-   → Focused, atomic changes
-   → Best for straightforward fixes
-
-C) Manual implementation
-   → Mark as in-progress
-   → Work directly without framework
-   → Best for exploration/research
-```
-
-**If user chooses A**:
-
-```
-Invoking /speckit:specify with selected task(s)...
-
-[Context passed to speckit:specify]
-- Task IDs: TASK-015, TASK-018, TASK-022
-- Feature: Authentication system improvements
-- Related files: src/auth/*, src/middleware/auth.ts
-- Priority: Critical/High
-- Estimated scope: 3-4 hours
-
-[Spec-kit takes over from here]
-```
-
-**If user chooses B**:
-
-```
-Invoking /development:small...
-
-[Context passed to development:small]
-- Task IDs: TASK-015
-- Scope: Fix login validation
-- Files: src/auth/validate.ts
-- Priority: Critical
-
-[Development workflow takes over]
-```
-
-## Agent Integration
-
-- **No agents required** for basic operation
-- **Specialist Options**:
-  - code-quality-analyst: Can help prioritize technical debt
-  - architecture-analyst: Can advise on grouped refactoring tasks
-  - research-codebase-analyst: Can provide context for complex task groups
-
-## Examples
-
-### Example 1: Interactive Triaging (Diverse Tasks)
-
-```bash
-/task:execute
-# where $ARGUMENTS = ""
-
-# Expected interaction:
-→ Analyzing 18 pending tasks...
-→
-→ Found diverse workload. Let me help you focus:
-→
-→ Q1: What should we prioritize?
-→ A) Critical bugs (2 tasks) - authentication & database
-→ B) High-priority features (5 tasks) - OAuth & user management
-→ C) Technical debt (8 tasks) - code comments from scan
-→ D) Medium priority work (3 tasks) - docs & tests
-→
-User: B
-→
-→ Q2: Which feature area?
-→ A) OAuth integration (3 related tasks)
-→ B) User management (2 tasks)
-→ C) All features
-→
-User: A
-→
-→ Selected: OAuth Integration Suite (3 tasks)
-→
-→ [TASK-025] Design OAuth flow - HIGH
-→ [TASK-026] Implement OAuth backend - HIGH
-→ [TASK-027] Add OAuth UI components - MEDIUM
-→
-→ Rationale: Sequential implementation recommended.
-→ Start with design, then backend, then UI.
-→
-→ Ready to implement?
-→ A) Create specification (/speckit:specify) - RECOMMENDED
-→ B) Start implementation (/development:small)
-→ C) Mark in-progress manually
-→
-User: A
-→
-→ Invoking /speckit:specify for OAuth integration...
-```
-
-### Example 2: Interactive Triaging (Focused Priority)
-
-```bash
-/task:execute
-
-# Expected interaction:
-→ Analyzing 6 pending tasks...
-→
-→ Q1: Priority focus?
-→ A) Critical bug (1 task) - needs immediate attention
-→ B) High-priority tasks (3 tasks) - planned for sprint
-→ C) All tasks
-→
-User: A
-→
-→ Selected: [TASK-015] Security vulnerability in authentication - CRITICAL
-→
-→ Origin: github-issue (#145)
-→ Category: bug
-→ Priority: critical
-→
-→ Description:
-→ SQL injection vulnerability in login endpoint allows
-→ unauthorized access. Reported by security audit.
-→
-→ This is a critical security issue requiring immediate attention.
-→
-→ Ready to implement?
-→ A) Create specification (/speckit:specify) - RECOMMENDED
-→ B) Start implementation (/development:small)
-→ C) Mark in-progress manually
-```
-
-### Example 3: Direct Task Execution
-
-```bash
-/task:execute TASK-001
-# where $ARGUMENTS = "TASK-001"
-
-# Expected behavior:
-→ [TASK-001] Fix login validation error
-→
-→ Status: pending → in-progress (auto-updated)
-→ Priority: high
-→ Category: bug
-→ Origin: adhoc
-→ Created: 2025-10-13T10:00:00Z
-→ Last Updated: 2025-10-13T16:30:00Z
-→
-→ Description:
-→ Fix validation error when users login with special characters.
-→
-→ Ready to implement?
-→ A) Create specification (/speckit:specify)
-→ B) Start implementation (/development:small)
-→ C) Continue manually
-```
-
-### Example 4: Multiple Tasks Direct
-
-```bash
-/task:execute TASK-010 TASK-015 TASK-020
-# where $ARGUMENTS = "TASK-010 TASK-015 TASK-020"
-
-# Expected behavior:
-→ Selected 3 related tasks:
-→
-→ [TASK-010] Extract validation logic (code-comment)
-→ [TASK-015] Add error handling (code-comment)
-→ [TASK-020] Improve type safety (code-comment)
-→
-→ All tasks in: src/services/auth.ts
-→ Auto-grouped for efficient refactoring
-→
-→ Status updated: pending → in-progress (all 3 tasks)
-→
-→ Ready to implement?
-→ A) Create specification (/speckit:specify) - RECOMMENDED
-→ B) Start implementation (/development:small)
-→ C) Continue manually
-```
-
-### Example 5: Quick Status Update
-
-```bash
-/task:execute TASK-001 --notes="Found issue in regex pattern at line 45"
-
-# Expected behavior:
-→ TASK-001 updated
-→ Note added: "Found issue in regex pattern at line 45" (2025-10-13T16:35:00Z)
-```
-
-### Example 6: Mark Complete
-
-```bash
-/task:execute TASK-001 --complete --notes="Tests passing, PR #123 created"
-
-# Expected behavior:
-→ TASK-001 completed
-→ Status: in-progress → completed
-→ Completed: 2025-10-13T17:00:00Z
-→ Note added: "Tests passing, PR #123 created"
-→
-→ Great work! Run /task:archive to clean up completed tasks.
-```
-
-## Integration Points
-
-- **Follows**: `/task:add`, `/task:scan-project --consolidate`, `/github:convert-issues-to-tasks`
-- **Followed by**: `/speckit:specify`, `/development:small`, `/task:archive`
-- **Related**: `/github:create-issue-from-task` (create issues from tasks)
-
-## Quality Standards
-
-- **Smart Analysis**: Contextual questions based on actual task patterns
-- **Logical Grouping**: Detect related tasks automatically
-- **Clear Rationale**: Explain why tasks are grouped
-- **Seamless Handover**: Smooth transition to implementation workflows
-- **Auto-Status**: Intelligently update status based on context
-- **Preserve History**: All notes and updates timestamped
-
-## Output
-
-- Task analysis summary
-- Contextual questions (0-3)
-- Selected task(s) with details
-- Grouping rationale (if applicable)
-- Implementation path options
-- Handover to speckit or development commands
-
-## Workflow Examples
-
-### Daily Development Workflow
-
-```bash
-# Morning: See what's next
-/task:execute
-# Answer questions: A (critical bugs)
-# Choose: A (speckit)
-
-# Work on task
-[speckit workflow]
-
-# Update progress
-/task:execute TASK-001 --notes="Fixed validation, running tests"
-
-# Complete
-/task:execute TASK-001 --complete
-
-# Get next task
-/task:execute
-```
-
-### Sprint Planning Workflow
-
-```bash
-# Import GitHub issues
-/github:fetch-issues --milestone=sprint-5
-/github:convert-issues-to-tasks --source-file=.agent/github-issues.md
-
-# Review and start work
-/task:execute
-# Answer: A (GitHub issues)
-# Answer: A (speckit)
-```
-
-### Technical Debt Workflow
-
-```bash
-# Scan codebase
-/task:scan-project src/ --types=TODO,FIXME --consolidate
-
-# Triage technical debt
-/task:execute
-# Answer: C (technical debt)
-# Answer: A (authentication module)
-# Choose: A (speckit - grouped refactoring)
-```
-
-## Best Practices
-
-1. **Use Interactive Mode** - Let the command help you focus
-2. **Trust Grouping** - Related tasks are more efficient together
-3. **Choose Spec-Kit** - Complex tasks benefit from planning
-4. **Update Progress** - Use `--notes` to track work
-5. **Complete Promptly** - Mark done when finished, archive regularly
-6. **Ask Questions** - Command will guide you with contextual options
-
-## Task Selection Algorithm
-
-**Priority Sorting**:
-
-1. Critical priority tasks first
-2. High priority tasks second
-3. Within same priority: github-issue > code-comment > adhoc
-4. Within same origin: older tasks first (by created date)
-
-**Grouping Detection**:
-
-1. Same file/module (for code-comment origin)
-2. Related descriptions (keyword matching)
-3. GitHub milestone (for github-issue origin)
-4. Category clusters (multiple bugs in same area)
-
-**Question Generation Logic**:
-
-- **0 questions**: ≤2 tasks OR all same priority+origin
-- **1 question**: Clear pattern (e.g., all bugs, need priority choice)
-- **2 questions**: Mixed priorities + multiple areas
-- **3 questions**: Diverse set + grouping opportunity
-
-## Notes on Command Behavior
-
-**Auto-Status Update**:
-
-- First time executing a `pending` task → auto-sets to `in-progress`
-- Subsequent executions → keep current status unless explicitly changed
-- `--complete` flag → sets to `completed` + adds completion timestamp
-
-**Task Display**:
-
-- Interactive mode: Shows selected tasks with rationale
-- Direct mode (task IDs): Shows full task details
-- Quick update (with --notes/--status only): Minimal output
-
-**Spec-Kit Context Passing**:
-When handing off to `/speckit:specify`, command passes:
-
-- Task IDs
-- Task descriptions
-- Related files (for code-comment tasks)
-- Priority/category information
-- Grouping rationale
-
-This context helps speckit generate better specifications aligned with the actual work needed.
+**Key Features**:
+- Smart task search: Use freeform text instead of task IDs
+- Intelligent grouping: Detects related tasks automatically
+- Session-aware: Requires active named session for context routing
+- Seamless handover: Smooth transition to speckit or development workflows
+
+**Integration Points**:
+- Follows: `/task:add`, `/task:scan-project`, `/github:convert-issues-to-tasks`
+- Followed by: `/speckit:specify`, `/development:small`, `/task:archive`
+- Complemented by: `/task:search` (dedicated search without execution)
+
+## Implementation Notes
+
+### CRITICAL: Enforcement Guards
+
+**YOU MUST NOT**:
+- Add "run directly without task management" options
+- Invoke agents before STEP 4 (task setup)
+- Bypass session validation
+- Create any options not listed in this specification
+
+**ANY selection that proceeds with a task MUST**:
+1. Go through STEP 3 (load task)
+2. Go through STEP 4 (atomic task setup)
+3. Go through STEP 5 (mandatory validation)
+4. Then STEP 8 (invoke agents with explicit context paths)
+
+### Performance Optimization
+
+**Lazy Evaluation Pattern** (STEP 1):
+- Check format FIRST (is it TASK-XXX?)
+- Search ONLY for freeform input
+- Result: 100% performance improvement for valid task IDs
+- Avoids unnecessary file reads and search operations
+
+### Search Algorithm
+
+**Task Search Utility** (`~/.claude/scripts/task/task_search.py`):
+- Extracted for testability
+- Reusable by `/task:execute` and `/task:search`
+- Supports ranking, filtering, pagination
+- Handles edge cases (empty files, corrupted data)

@@ -69,7 +69,7 @@ FOLLOW-UP TODOS:
 
 **Every session must maintain structured context with incremental updates.**
 
-- All sessions initialized via `session_manager.py init [topic]`
+- All sessions initialized via `session_manager.py start <name> [topic]`
 - Context structure: `.agent/context/{session-id}/session.md` + `{agent-name}.md`
 - Domain analysts MUST persist lean, actionable findings (not verbose analysis)
 - Main thread updates context file "Main Thread Log" after implementing recommendations
@@ -162,7 +162,7 @@ FOLLOW-UP TODOS:
 ## Development Workflow
 
 **Session Workflow**:
-1. Initialize: `python ~/.claude/scripts/session/session_manager.py init [topic]`
+1. Initialize: `python ~/.claude/scripts/session/session_manager.py start <name> [topic]`
 2. Work: Invoke analysts → Read context → Implement → Update context log
 3. Archive: `session_manager.py archive` (optional)
 

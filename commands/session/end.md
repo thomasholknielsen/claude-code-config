@@ -1,14 +1,28 @@
 ---
 description: "End current session and optionally archive context files for future reference"
 argument-hint: "[--archive]"
-allowed-tools: Bash, Read, Glob
+allowed-tools: Bash, Read, Glob, mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: End Session
 
+## Framework Structure (S-Tier Pattern)
+
+### APE Framework (General Purpose)
+
+**A**ction: Display current session summary (session ID, started timestamp, topic, context files created, task directories created), present interactive A/B/C cleanup prompt (Delete/Archive/Keep/Skip), execute cleanup_session(session_id, action) based on user choice, update session.md status field accordingly, confirm final action taken
+
+**P**urpose: Gracefully conclude work sessions with user control over session lifecycle, support three cleanup strategies (atomic delete, archive for reference, keep active), provide clear session summary before cleanup, enable organized session management with explicit user choice
+
+**E**xpectation: Session summary displayed with context file count and task directory count, interactive A/B/C table prompt presented, cleanup action executed based on user choice (delete → directory removed, archive → moved to .agent/archive/, keep → marked completed), confirmation message with action taken and next steps
+
+## Quality Standards (CARE)
+
+**Target**: 85+ overall (Completeness >95% session summary, Accuracy >90% cleanup execution, Relevance >85% prompt clarity, Efficiency <5s operation)
+
 ## Purpose
 
-Ends the current session by displaying session summary and optionally archiving context files. Prepares for starting a new session with clean context.
+Ends the current session by displaying session summary and providing interactive cleanup options. Supports three cleanup strategies: delete (atomic removal), archive (preserve for reference), or keep (mark completed).
 
 ## Usage
 
@@ -18,133 +32,212 @@ Ends the current session by displaying session summary and optionally archiving 
 
 ## Arguments
 
-- `--archive` (optional): Move context files to organized archive
-  - Archives to: `.agent/context/archive/{YYYY-MM-DD}-{sessionid}/`
-  - Preserves all context files created during this session
-  - Default: Context files remain in `.agent/context/` (rotated by creation date)
+- `--archive` (optional, DEPRECATED): Use interactive prompt instead
+  - If provided: Automatically selects "Archive" option
+  - Recommended: Use interactive prompt for explicit choice
 
 ## Process
 
 1. **Read Current Session:**
-   - Get session ID from `.current_session`
-   - Display current session ID and duration
+   - Get session ID via `session_manager.py current`
+   - Get session directory via `session_manager.py` using `get_session_dir(session_id)`
+   - Read session.md metadata for session details
 
-2. **List Session Context Files:**
-   - Find all `.agent/context/*-{sessionid}.md` files
-   - Display count and total size
-   - List context file topics created during session
-
-3. **Archive (if --archive flag):**
-   - Create archive directory: `.agent/context/archive/{YYYY-MM-DD}-{sessionid}/`
-   - Move all session context files to archive
-   - Display archive location
-
-4. **Session Summary:**
+2. **Display Session Summary:**
    - Session ID
-   - Context files created
-   - Archive status
-   - Ready for new session
+   - Started timestamp (from session.md)
+   - Topic (from session.md)
+   - Status (from session.md)
+   - Context files created (count files in Session-{date}-{id}/context/)
+   - Task directories created (count Task-XXX--* subdirectories)
+   - List of agents invoked (from session.md or context file listing)
 
-5. **Cleanup:**
-   - Session file remains (will be overwritten by next `/session:start`)
-   - User can start new session immediately
+3. **Present Interactive Cleanup Prompt:**
+   - Show A/B/C table format with cleanup options:
+     * **A (Delete)**: Permanently remove session directory recursively
+     * **B (Archive)**: Move Session-{date}-{id}/ to .agent/archive/ and update status to "archived"
+     * **C (Keep)**: Mark session.md status as "completed" but leave directory active
+     * **Skip**: Exit without cleanup
+   - If `--archive` flag provided: Auto-select option B
+   - Validate user input (A/B/C/Skip, case-insensitive)
+
+4. **Execute Cleanup Action:**
+   - **Delete (A)**: Call `session_manager.cleanup_session(session_id, "delete")`
+     * Removes Session-{date}-{id}/ directory recursively
+     * Confirmation: "Session {id} deleted. All files removed."
+   - **Archive (B)**: Call `session_manager.cleanup_session(session_id, "archive")`
+     * Moves to .agent/archive/Session-{date}-{id}/
+     * Updates session.md status to "archived"
+     * Confirmation: "Session {id} archived to .agent/archive/Session-{date}-{id}/"
+   - **Keep (C)**: Call `session_manager.cleanup_session(session_id, "keep")`
+     * Updates session.md status to "completed"
+     * Leaves directory in .agent/
+     * Confirmation: "Session {id} marked as completed (kept active)"
+   - **Skip**: No action taken
+     * Confirmation: "Session cleanup cancelled. Session remains active."
+
+5. **Next Steps:**
+   - Ready to start new session with `/session:start`
+
+## Explicit Constraints
+
+**IN SCOPE**: Session summary display (session ID, timestamps, topic, status, file counts), interactive A/B/C cleanup prompt, cleanup_session() execution (delete/archive/keep), session.md status updates, .current_session preservation, --archive flag backward compatibility
+**OUT OF SCOPE**: Automatic cleanup decisions (user must choose), permanent session history tracking (no central registry), session recovery after deletion, cross-session context merging, multi-session cleanup (one at a time)
 
 ## Agent Integration
 
-- **Tools**: Bash for file operations, Read for session file, Glob for finding context files
+- **Tools**: Bash for session_manager.py execution, Read for session.md parsing, Glob for context file discovery
 - **No Domain Analysts**: This is a simple utility command
 
 ## Examples
 
-### Example 1: End session without archiving
+### Example 1: End session with interactive prompt (Delete)
 
 ```bash
 /session:end
 
 # Output:
-# Session a3f8b2c1 ended.
-# Context files created: 3
-#   - 2025-10-06-cleanup-quality-a3f8b2c1.md
-#   - 2025-10-06-cleanup-readability-a3f8b2c1.md
-#   - 2025-10-06-security-audit-a3f8b2c1.md
+# Session Summary:
+# - Session ID: a3f8b2c1
+# - Started: 2025-10-16 09:23:14
+# - Topic: feature-implementation
+# - Status: active
+# - Context files: 3 (architecture-analyst.md, security-analyst.md, performance-analyst.md)
+# - Task directories: 2 (Task-015--refactor-context, Task-022--add-validation)
 #
-# Context files remain in .agent/context/ for reference.
+# ## How would you like to handle this session?
+#
+# | Option | Action | Effect |
+# |--------|--------|--------|
+# | A | Delete session | Permanently remove Session-2025-10-16-a3f8b2c1/ directory |
+# | B | Archive session | Move to .agent/archive/Session-2025-10-16-a3f8b2c1/ |
+# | C | Keep session | Mark as completed but leave in .agent/ |
+# | Skip | Cancel | No changes, session remains active |
+#
+# Your choice: A
+#
+# Session a3f8b2c1 deleted. All files removed.
 # Ready to start new session with /session:start
 ```
 
-### Example 2: End session with archiving
+### Example 2: End session with --archive flag (Auto-select Archive)
 
 ```bash
 /session:end --archive
 
 # Output:
-# Session d7e4a9f2 ended.
-# Context files created: 5
-#   - 2025-10-06-authentication-design-d7e4a9f2.md
-#   - 2025-10-06-security-review-d7e4a9f2.md
-#   - 2025-10-06-api-analysis-d7e4a9f2.md
-#   - 2025-10-06-database-schema-d7e4a9f2.md
-#   - 2025-10-06-testing-strategy-d7e4a9f2.md
+# Session Summary:
+# - Session ID: d7e4a9f2
+# - Started: 2025-10-16 14:45:32
+# - Topic: authentication-feature
+# - Status: active
+# - Context files: 5
+# - Task directories: 1
 #
-# Archived to: .agent/context/archive/2025-10-06-d7e4a9f2/
+# Auto-selecting Archive (--archive flag provided)
+#
+# Session d7e4a9f2 archived to .agent/archive/Session-2025-10-16-d7e4a9f2/
 # Ready to start new session with /session:start
 ```
 
-### Example 3: End session with no context files
+### Example 3: End session and keep (Mark completed)
 
 ```bash
 /session:end
 
 # Output:
-# Session 9c2b5f1a ended.
-# No context files created during this session.
+# Session Summary:
+# - Session ID: 9c2b5f1a
+# - Started: 2025-10-16 16:12:08
+# - Topic: bug-fix-validation
+# - Status: active
+# - Context files: 2
+# - Task directories: 0
+#
+# ## How would you like to handle this session?
+#
+# | Option | Action | Effect |
+# |--------|--------|--------|
+# | A | Delete session | Permanently remove Session-2025-10-16-9c2b5f1a/ directory |
+# | B | Archive session | Move to .agent/archive/Session-2025-10-16-9c2b5f1a/ |
+# | C | Keep session | Mark as completed but leave in .agent/ |
+# | Skip | Cancel | No changes, session remains active |
+#
+# Your choice: C
+#
+# Session 9c2b5f1a marked as completed (kept active)
+# Session directory: .agent/Session-2025-10-16-9c2b5f1a/
 # Ready to start new session with /session:start
+```
+
+### Example 4: End session and skip cleanup
+
+```bash
+/session:end
+
+# (After displaying session summary and prompt)
+#
+# Your choice: Skip
+#
+# Session cleanup cancelled. Session remains active.
 ```
 
 ## Output
 
-- Session ID and summary
-- List of context files created
-- Archive location (if --archive used)
+- Session summary with file/directory counts
+- Interactive A/B/C cleanup prompt (unless --archive flag)
+- Cleanup action confirmation
 - Ready status for new session
 
 ## Integration Points
 
-- **Follows**: Completed work session with domain analyst coordination
+- **Follows**: Completed work session with domain analyst coordination and task execution
 - **Preceded by**: `/session:start` at beginning of work
-- **Related**: All domain analyst commands that created context files
+- **Related**: All domain analyst commands and `/task:execute` that created session files
 
 ## Quality Standards
 
-- Non-destructive by default (files remain for reference)
-- Optional archiving for organized long-term storage
-- Clear summary of session work
-- Maintains context file integrity
-- Cross-platform file operations
+- User-controlled cleanup (explicit choice required)
+- Three lifecycle options: delete (atomic), archive (preserve), keep (reference)
+- Clear session summary before cleanup decision
+- Safe default (Skip option always available)
+- Cross-platform file operations via session_manager.py
+- Backward compatible with --archive flag
 
 ## Session Lifecycle
 
 **Complete Session Workflow:**
 
 1. **Start:** `/session:start feature-implementation`
-2. **Work:** Execute commands, domain analysts create context files
-3. **Review:** Check `.agent/context/` for analyst findings
-4. **End:** `/session:end` or `/session:end --archive`
+2. **Work:** Execute commands, domain analysts create context files, tasks create subdirectories
+3. **Review:** Check `.agent/Session-{date}-{id}/` for analyst findings and task artifacts
+4. **End:** `/session:end` with interactive cleanup choice
 5. **Restart:** `/session:start next-feature`
 
-**Context File Management:**
+**Cleanup Strategy Guide:**
 
-- **No Archive**: Files stay in `.agent/context/` indefinitely
-  - Good for: Ongoing reference, recent work
-  - Cleanup: Manual review and deletion when needed
+- **Delete (Option A)**: Completed, no future reference needed
+  - Use when: Session work fully integrated, no historical value
+  - Effect: Atomic removal of entire Session-{date}-{id}/ directory
+  - Pros: Clean slate, minimal disk usage
+  - Cons: Irreversible, loses all session context
 
-- **With Archive**: Files moved to timestamped archive
-  - Good for: Completed features, long-term storage
-  - Organization: Easy to find historical analysis by date/session
+- **Archive (Option B)**: Completed, preserve for reference
+  - Use when: Session work complete, may need historical reference
+  - Effect: Moves to .agent/archive/Session-{date}-{id}/
+  - Pros: Organized long-term storage, easy to find by date
+  - Cons: Disk usage grows over time
+
+- **Keep (Option C)**: Ongoing reference needed
+  - Use when: Session context still relevant, iterative work
+  - Effect: Marks session.md status="completed" but leaves in .agent/
+  - Pros: Immediate access, no file movement
+  - Cons: Active directory grows with completed sessions
 
 ## Notes
 
-- Session file (`.current_session`) is not deleted, just ready for next session
-- Archive directories use date + session ID for unique naming
-- Context files use session ID in filename for easy identification
-- Archiving is optional - only use when session work is truly complete
+- Session file (`.current_session`) is preserved (overwritten by next `/session:start`)
+- Archive directories maintain Session-{date}-{id}/ naming for uniqueness
+- Cleanup actions are atomic (delete all or nothing)
+- --archive flag provides backward compatibility with old usage pattern
+- Invalid input re-prompts once, then defaults to Skip

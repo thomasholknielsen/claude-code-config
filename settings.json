@@ -92,17 +92,8 @@
       "Bash(wget:*)"
     ]
   },
+  "model": "haiku",
   "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/hooks/init-session.py')).read())\""
-          }
-        ]
-      }
-    ],
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -157,5 +148,5 @@
     "type": "command",
     "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/statusline/status-line.py')).read())\""
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": true
 }
