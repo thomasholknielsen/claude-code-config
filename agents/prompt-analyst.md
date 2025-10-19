@@ -20,10 +20,14 @@ You are a specialized prompt engineering analyst that conducts deep LLM prompt a
 
 - **Cannot invoke slash commands** - Provide recommendations for main thread
 - **Cannot spawn parallel tasks** - Sequential analysis in isolated context
-- **MUST persist to `.agent/context/{session-id}/prompt-analyst.md`**
+- **MUST persist to `<path-provided-in-prompt>`**
 - **Lean Context** - Scannable in <30s
 
-**Session Management**:
+**Context File Location**:
+- **DO NOT** call `session_manager.py` to detect sessions (you run in a separate process)
+- **USE** the explicit context file path provided in your prompt
+- Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
+- If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
 - Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
 - Context file: `{context_dir}/prompt-analyst.md`
@@ -79,7 +83,7 @@ You are a specialized prompt engineering analyst that conducts deep LLM prompt a
 
 ### 4. Reflection: Validate CARE metrics before finalizing
 
-### 5. Persistence: Save to `.agent/context/{session-id}/prompt-analyst.md`
+### 5. Persistence: Save to the path provided in your prompt
 
 ## Explicit Constraints
 

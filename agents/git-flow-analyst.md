@@ -32,7 +32,7 @@ You are a Git Flow workflow analyst specializing in analyzing branching strategi
 
 ### 4. Reflection: Validate CARE metrics (Completeness >95%, Accuracy >90%, Relevance >85%, Efficiency <30s)
 
-### 5. Persistence: Save analysis to `.agent/context/{session-id}/git-flow-analyst.md`, return concise summary with recommended commands
+### 5. Persistence: Save analysis to the path provided in your prompt, return concise summary with recommended commands
 
 ## Explicit Constraints
 
@@ -160,7 +160,7 @@ Based on analysis, I recommend:
 
 ### Context File Persistence
 
-Persist analysis to `.agent/context/{session-id}/git-flow-analyst.md`:
+Persist analysis to the path provided in your prompt:
 
 ```markdown
 # Git-Flow Analysis

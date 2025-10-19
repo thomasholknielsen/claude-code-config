@@ -16,18 +16,34 @@ The context management system provides a hierarchical, incremental, collaborativ
 
 ## Directory Structure
 
+**Hierarchical Session-Based Organization**:
+
 ```text
-.agent/context/
-└── {session-id}/
-    ├── session.md              # Session metadata and high-level summary
-    ├── python-analyst.md       # Python-specific findings
-    ├── security-analyst.md     # Security-specific findings
-    ├── quality-analyst.md      # Quality-specific findings
-    └── {agent-name}.md         # One file per agent
+.agent/
+├── tasks.md                                  # Master task registry
+├── .sessions                                 # Session registry (JSON)
+└── Session-{name}/                           # Named session directory
+    ├── session.md                            # Session metadata (consolidated)
+    ├── context/                              # Session-level analyst context
+    │   ├── architecture-analyst.md           # General codebase analysis
+    │   ├── security-analyst.md               # Security findings
+    │   └── {agent-name}.md                   # One file per agent
+    └── Task-XXX--{title}/                    # Task-specific subdirectories
+        ├── task.md                           # Task content copy
+        ├── research-codebase-analyst.md      # Task-specific research
+        ├── research-web-analyst.md           # Task-specific research
+        └── {agent-name}.md                   # Task-specific analyst files
 ```
+
+**Context Routing**:
+
+- **Session-level**: `.agent/Session-{name}/context/{agent-name}.md` - General analysis not tied to a specific task
+- **Task-level**: `.agent/Session-{name}/Task-XXX--{title}/{agent-name}.md` - Task-specific analysis and research
 
 **Benefits**:
 
+- Clean separation between session-level and task-level context
+- Task directories named with sanitized title for easy navigation
 - No date/session in filename (cleaner)
 - Easy to locate specific agent output
 - Better for git diffs
@@ -38,7 +54,7 @@ The context management system provides a hierarchical, incremental, collaborativ
 ### Initialize Session
 
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py init [topic]
+python3 ~/.claude/scripts/session/session_manager.py start <name> [topic]
 ```
 
 Creates session directory and `session.md` file with metadata.
@@ -247,7 +263,8 @@ This creates audit trail without bloat.
 
 **Started**: {timestamp}
 **Topic**: {optional topic label}
-**Status**: active | completed
+**Status**: active | completed | archived
+**Current Task**: {task-id} | (none)
 
 ## Agents Invoked
 - python-analyst - {timestamp}
@@ -260,7 +277,32 @@ This creates audit trail without bloat.
 - {files created/modified}
 ```
 
-**No bloat**: Just essential tracking information.
+**No bloat**: Just essential metadata fields - no placeholder sections.
+
+**Current Task Field**: Tracks active task for task-aware context routing. Set to "(none)" when no task is active, or "TASK-XXX" when working on a specific task.
+
+## Task Directory Reference
+
+When a task is being worked on, tasks.md includes a **Details** field pointing to the task directory:
+
+```markdown
+## [TASK-029] analyze the meaning of life from coding perspective
+
+**Status**: in-progress
+**Details**: .agent/Session-task-029/TASK-029--analyze-the-meaning-of-life-from-coding-perspectiv
+**Priority**: medium
+**Category**: research
+**Origin**: adhoc
+**Created**: 2025-10-16T10:31:00Z
+**Last Updated**: 2025-10-19T06:33:47Z
+
+**Description**:
+analyze the meaning of life from coding perspective using 2 subagents
+```
+
+**Purpose**: Provides direct path to where task research and analysis files are located.
+
+**Lifecycle**: Field is added when task becomes in-progress and preserved after completion as historical record.
 
 ## Avoiding Duplicate Work
 
@@ -443,7 +485,7 @@ python3 ~/.claude/scripts/session/session_manager.py current
 python3 ~/.claude/scripts/session/session_manager.py context_dir
 
 # Initialize if needed
-python3 ~/.claude/scripts/session/session_manager.py init
+python3 ~/.claude/scripts/session/session_manager.py start my-session
 ```
 
 ### Subagent Not Creating Context File

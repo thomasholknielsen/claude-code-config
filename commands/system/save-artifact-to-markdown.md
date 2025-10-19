@@ -1,5 +1,5 @@
 ---
-description: "Captures Claude conversation artifacts (plans, reviews, research) and saves them to organized folders in .agent/artifacts/"
+description: "Captures Claude conversation artifacts (plans, reviews, research) and saves them to session/task directories in .agent/Session-{date}-{id}/"
 argument-hint: "[type] [--title=\"Custom Title\"]"
 allowed-tools: Write, Read, Bash, mcp__sequential-thinking__sequentialthinking
 ---
@@ -10,11 +10,11 @@ allowed-tools: Write, Read, Bash, mcp__sequential-thinking__sequentialthinking
 
 ### APE Framework (General Purpose)
 
-**A**ction: Capture Claude conversation artifacts (plans, reviews, research, analysis, specs, docs, reports), auto-detect type from context keywords or use explicit type arg, extract content with formatting preservation, generate filename ({type}-{YYYY-MM-DD}-{title-slug}.md), create directory structure (.agent/artifacts/{type}/), add metadata headers (artifact_type, created, project, status)
+**A**ction: Capture Claude conversation artifacts (plans, reviews, research, analysis, specs, docs, reports), auto-detect type from context keywords or use explicit type arg, extract content with formatting preservation, generate filename ({type}-{title-slug}.md), determine save location (current task directory if executing task, else session context/), add metadata headers (artifact_type, created, session_id, task_id, status)
 
-**P**urpose: Preserve valuable Claude outputs in organized project-specific storage, enable team sharing and documentation, provide searchable dated filenames, maintain logical folder structure by artifact type, support custom titles via --title flag
+**P**urpose: Preserve valuable Claude outputs in session-organized storage, consolidate all session artifacts in one location, enable atomic session cleanup, support both session-level and task-specific artifacts, provide context-aware file organization
 
-**E**xpectation: Artifact saved to .agent/artifacts/{type}/{filename}.md with metadata headers, original formatting preserved, confirmation message with full path, organized in type-specific folder (plans/, reviews/, research/, analysis/, specifications/, documentation/, reports/)
+**E**xpectation: Artifact saved to Session-{date}-{id}/context/{type}-{title}.md (session-level) or Session-{date}-{id}/Task-XXX--{title}/{type}-{title}.md (task-level) with metadata headers, original formatting preserved, confirmation message with full path, consolidated with other session context files
 
 ## Quality Standards (CARE)
 
@@ -23,8 +23,7 @@ allowed-tools: Write, Read, Bash, mcp__sequential-thinking__sequentialthinking
 ## Purpose
 
 Captures various types of Claude outputs (plans, reviews, research, analysis, specifications, documentation,
-reports) and saves them as organized markdown files in the `.agent/artifacts/` directory with logical folder
-structure.
+reports) and saves them as organized markdown files in the current session directory (`.agent/Session-{date}-{id}/`) with context-aware organization (session-level or task-specific).
 
 ## Usage
 
@@ -69,48 +68,55 @@ structure.
    - For research: Extract research findings and conclusions
    - Preserve formatting, code blocks, and structure
 
-3. **Generate filename:**
-   - If `--title` provided: Use custom title
-   - Otherwise: Extract meaningful title from content (first heading or summary)
-   - Format: `{type}-{YYYY-MM-DD}-{title-slug}.md`
-   - Example: `plan-2025-09-30-authentication-feature.md`
+3. **Detect current context:**
+   - Get current session ID via `session_manager.py current`
+   - Check if currently executing a task (task_id in context)
+   - Determine if this is session-level or task-level artifact
 
-4. **Create directory structure:**
-   - Detect project root directory
-   - Create `.agent/artifacts/{type}/` if it doesn't exist
-   - Folder structure:
+4. **Determine save location:**
+   - If task context active: Use task directory via `session_manager.get_task_dir(session_id, task_id, task_title)`
+   - Else: Use session context directory via `session_manager.get_context_dir(session_id)`
+   - Directory structure:
 
      ```text
-     .agent/artifacts/
-     ├── plans/           # Planning outputs
-     ├── reviews/         # Code/security/design reviews
-     ├── research/        # Research and analysis
-     ├── analysis/        # System diagnostics
-     ├── specifications/  # Feature specs
-     ├── documentation/   # Generated docs
-     └── reports/         # Status reports
+     .agent/Session-{YYYY-MM-DD}-{session-id}/
+     ├── context/                          # Session-level artifacts
+     │   ├── plan-feature-design.md
+     │   ├── review-security-audit.md
+     │   └── research-database-options.md
+     └── Task-015--refactor-context/       # Task-specific artifacts
+         ├── plan-implementation.md
+         ├── review-code-quality.md
+         └── analysis-performance.md
      ```
 
-5. **Add metadata headers:**
+5. **Generate filename:**
+   - If `--title` provided: Use custom title
+   - Otherwise: Extract meaningful title from content (first heading or summary)
+   - Format: `{type}-{title-slug}.md` (no date prefix - session already dated)
+   - Example: `plan-authentication-feature.md`
+
+6. **Add metadata headers:**
 
    ```markdown
    ---
    artifact_type: {type}
    created: {YYYY-MM-DD HH:MM:SS}
-   project: {auto-detected project name}
+   session_id: {session_id}
+   task_id: {task_id}  # Optional, only for task-level artifacts
    status: draft
    ---
    ```
 
-6. **Save file:**
-   - Write to `.agent/artifacts/{type}/{filename}.md`
+7. **Save file:**
+   - Write to determined location with atomic write for concurrency safety
    - Report saved location to user
    - Confirm successful save with full path
 
 ## Explicit Constraints
 
-**IN SCOPE**: Artifact capture from conversation, type detection (7 types: plan, review, research, analysis, spec, docs, report), content extraction with formatting, filename generation (dated, kebab-case), directory structure creation, metadata headers (type, created, project, status), custom title support
-**OUT OF SCOPE**: Artifact versioning/history, content editing/modification, cross-project artifact sharing, binary file storage, automatic artifact generation from code, artifact search/indexing
+**IN SCOPE**: Artifact capture from conversation, type detection (7 types: plan, review, research, analysis, spec, docs, report), content extraction with formatting, filename generation (kebab-case), session/task context detection, save location determination (session context/ vs task subdirectory), metadata headers (type, created, session_id, task_id, status), atomic write for concurrency safety, custom title support
+**OUT OF SCOPE**: Artifact versioning/history, content editing/modification, cross-project artifact sharing, binary file storage, automatic artifact generation from code, artifact search/indexing, migration of existing .agent/artifacts/ files (manual)
 
 ## Agent Integration
 
@@ -119,40 +125,40 @@ structure.
 
 ## Examples
 
-### Example 1: Save plan with auto-detection
+### Example 1: Save plan with auto-detection (session-level)
 
 ```bash
 # After creating a plan in plan mode (Shift+Tab twice)
 /artifact:save
 
-# Output: Saved to .agent/artifacts/plans/plan-2025-09-30-user-authentication.md
+# Output: Saved to .agent/Session-2025-10-16-d141362d/context/plan-user-authentication.md
 ```
 
-### Example 2: Save review with explicit type
+### Example 2: Save review with explicit type (session-level)
 
 ```bash
 # After performing a security review
 /artifact:save review
 
-# Output: Saved to .agent/artifacts/reviews/review-2025-09-30-security-audit.md
+# Output: Saved to .agent/Session-2025-10-16-d141362d/context/review-security-audit.md
 ```
 
-### Example 3: Save research with custom title
+### Example 3: Save research with custom title (task-level)
 
 ```bash
-# After researching database options
+# While executing TASK-015 - After researching database options
 /artifact:save research --title="Database Comparison Study"
 
-# Output: Saved to .agent/artifacts/research/research-2025-09-30-database-comparison-study.md
+# Output: Saved to .agent/Session-2025-10-16-d141362d/Task-015--refactor-context/research-database-comparison-study.md
 ```
 
-### Example 4: Save specification
+### Example 4: Save specification (task-level)
 
 ```bash
-# After creating feature specification
+# While executing TASK-022 - After creating feature specification
 /artifact:save spec --title="Payment Integration Spec"
 
-# Output: Saved to .agent/artifacts/specifications/spec-2025-09-30-payment-integration-spec.md
+# Output: Saved to .agent/Session-2025-10-16-d141362d/Task-022--payment-feature/spec-payment-integration-spec.md
 ```
 
 ## Output
@@ -182,17 +188,28 @@ structure.
 
 ## Artifact Organization
 
-The `.agent/artifacts/` folder provides a centralized location for all Claude-generated artifacts:
+All Claude-generated artifacts are now organized within session directories for consolidated context management:
 
-**Plans** (`plans/`) - Strategic planning outputs, feature plans, implementation strategies
-**Reviews** (`reviews/`) - Code quality reviews, security audits, design critiques
-**Research** (`research/`) - Technology investigations, option comparisons, feasibility studies
-**Analysis** (`analysis/`) - System diagnostics, performance analysis, dependency audits
-**Specifications** (`specifications/`) - Feature specs, requirements documents, API contracts
-**Documentation** (`documentation/`) - Generated guides, README files, API documentation
-**Reports** (`reports/`) - Status reports, progress summaries, general artifacts
+**Session-Level Artifacts** (`.agent/Session-{date}-{id}/context/`) - General work products from the session:
+- **Plans** - Strategic planning outputs, feature plans, implementation strategies
+- **Reviews** - Code quality reviews, security audits, design critiques
+- **Research** - Technology investigations, option comparisons, feasibility studies
+- **Analysis** - System diagnostics, performance analysis, dependency audits
+- **Documentation** - Generated guides, README files, documentation
+- **Reports** - Status reports, progress summaries
+
+**Task-Level Artifacts** (`.agent/Session-{date}-{id}/Task-XXX--{title}/`) - Task-specific work products:
+- **Specifications** - Feature specs created during task execution
+- **Plans** - Task-specific implementation plans
+- **Reviews** - Code reviews specific to task changes
+- **Analysis** - Performance or quality analysis for task scope
+
+**Benefits of Session-Based Organization:**
+- Atomic cleanup (delete entire session directory)
+- Clear context boundaries (all session work in one place)
+- Task isolation (task-specific artifacts separate from general session work)
+- No scattered `.agent/artifacts/` files across different type subdirectories
 
 ## Migration Note
 
-This command replaces the previous `/plan:save-plan-to-markdown` command with broader functionality. Existing
-plans saved in `.claude/.plans/` remain accessible and are not affected by this change.
+Artifacts are now saved to session directories instead of `.agent/artifacts/`. Existing artifacts in `.agent/artifacts/` remain accessible but are not automatically migrated. Manual migration recommended when convenient.

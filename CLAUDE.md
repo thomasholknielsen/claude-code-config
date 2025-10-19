@@ -117,8 +117,31 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 - **Main Thread**: Parallelizes Task tools, invokes multiple domain analysts concurrently, runs one slash command at a time
 - **Slash Commands**: Absorb main thread capabilities (unless restricted), coordinate domain analysts (series/parallel), can daisy-chain ONE other command as final action (no post-processing)
-- **Domain Analysts**: Must persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md`, update incrementally if file exists, cannot invoke other analysts or slash commands reliably
+- **Domain Analysts**: Must persist lean, actionable findings using explicit context file path provided in prompts, update incrementally if file exists, cannot invoke other analysts or slash commands reliably
 - **System**: Changes to CLAUDE.md/commands/agents require Claude Code restart
+
+**Explicit Path Passing Pattern** (CRITICAL for cross-process session detection):
+
+Agents run in separate Claude processes and **cannot detect sessions via GPPID**. All commands that invoke agents MUST:
+
+1. Get context directory: `CONTEXT_DIR=$(python3 ~/.claude/scripts/session/session_manager.py context_dir)`
+2. Pass explicit path in agent prompt:
+
+```
+Task(
+  subagent_type="<agent-name>",
+  prompt="<analysis task>
+
+  **Context File Location**: Save your findings to:
+  {CONTEXT_DIR}/<agent-name>.md
+
+  Do NOT attempt to detect session - use the path provided above."
+)
+```
+
+3. Agents will use the provided path instead of trying to detect sessions themselves
+
+This pattern solves cross-process detection issues and avoids environment variable collisions in multi-terminal scenarios.
 
 ## Model Inheritance
 
@@ -127,15 +150,44 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 ## Context Management System
 
-**Directory Structure**: `.agent/context/{session-id}/session.md` (metadata), `{agent-name}.md` (one per agent)
+**Directory Structure**: Hierarchical session-based organization
 
-**Required**: All domain analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
+```text
+.agent/
+├── Session-{YYYY-MM-DD}-{session-id}/    # Active sessions
+│   ├── session.md                         # Session metadata
+│   ├── context/                           # Session-level analyst context
+│   │   ├── architecture-analyst.md
+│   │   ├── security-analyst.md
+│   │   └── {agent-name}.md
+│   └── Task-XXX--{title}/                 # Task-specific subdirectories
+│       ├── plan-implementation.md
+│       ├── analysis-performance.md
+│       └── {agent-name}.md
+└── archive/                               # Archived sessions
+    └── Session-{YYYY-MM-DD}-{session-id}/
+```
 
-**Session Commands**: `python3 ~/.claude/scripts/session/session_manager.py [current|context_dir|init [topic]|list_agents|archive]`
+**Context File Routing**:
+
+- **Session-level context**: `.agent/Session-{name}/context/{agent-name}.md` (general analysis)
+- **Task-level context**: `.agent/Session-{name}/Task-XXX--{title}/{agent-name}.md` (task-specific)
+
+**Required**: All commands invoking agents MUST provide explicit context file paths in prompts (agents cannot detect sessions from separate processes)
+
+**Session Commands**: `python3 ~/.claude/scripts/session/session_manager.py [current|new [topic]|init [topic]|context_dir|list_agents|archive]`
+
+**Session Lifecycle**:
+
+1. **Start**: `/session:start [topic]` → Creates Session-{date}-{id}/ with context/ subdirectory
+2. **Work**: Analysts write to context/, tasks create Task-XXX--{title}/ subdirectories
+3. **End**: `/session:end` → Interactive cleanup (Delete/Archive/Keep)
 
 **Lean Context Principle**: Context files must be quickly scannable - focus on actionable tasks, not verbose analysis
 
 **Main Thread Responsibility**: After executing agent recommendations, update context file's "Main Thread Log" section with completion status
+
+**Migration**: Use `python3 ~/.claude/scripts/session/migration_helper.py` to migrate legacy `.agent/context/` files to hierarchical structure
 
 ## Parallel Research Pattern
 

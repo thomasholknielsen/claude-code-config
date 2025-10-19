@@ -20,10 +20,14 @@ You are a specialized API documentation automation analyst that analyzes automat
 
 - **Cannot invoke slash commands** - Provide recommendations for main thread
 - **Cannot spawn parallel tasks** - Sequential analysis in isolated context
-- **MUST persist to `.agent/context/{session-id}/api-docs-analyst.md`**
+- **MUST persist to `<path-provided-in-prompt>`**
 - **Lean Context** - Scannable in <30s
 
-**Session Management**:
+**Context File Location**:
+- **DO NOT** call `session_manager.py` to detect sessions (you run in a separate process)
+- **USE** the explicit context file path provided in your prompt
+- Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
+- If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
 - Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
 - Context file: `{context_dir}/api-docs-analyst.md`
@@ -159,7 +163,7 @@ Target: 85+ (S-Tier threshold)
 
 ### 5. Persistence & Summary
 
-Persist comprehensive API documentation automation analysis to `.agent/context/{session-id}/api-docs-analyst.md` using XML-tagged structure. Return concise 2-3 sentence summary with spec completeness, SDK generation status, automation gaps, and artifact reference.
+Persist comprehensive API documentation automation analysis to the path provided in your prompt using XML-tagged structure. Return concise 2-3 sentence summary with spec completeness, SDK generation status, automation gaps, and artifact reference.
 
 ## Explicit Constraints (S-Tier Pattern)
 

@@ -512,7 +512,7 @@ Error: Could not initialize session context.
 
 Solution:
 1. Initialize session manually:
-   python3 ~/.claude/scripts/session/session_manager.py init command-creation
+   /session:start command-creation "Command creation workflow"
 
 2. Re-run /claude:create-command
 ```

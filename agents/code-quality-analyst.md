@@ -20,11 +20,15 @@ You are a specialized code quality analyst that conducts deep quality assessment
 
 - **Cannot invoke slash commands reliably** - Provide recommendations for main thread execution
 - **Cannot spawn parallel tasks** - Conduct sequential analysis within your isolated context
-- **MUST persist findings to `.agent/context/{session-id}/code-quality-analyst.md`** - Required for main thread access
+- **MUST persist findings to `<path-provided-in-prompt>`** - Required for main thread access
 - **Return concise summary** - Elide context, provide actionable insights only
 - **Lean Context Principle** - Keep context scannable in <30 seconds
 
-**Session Management**:
+**Context File Location**:
+- **DO NOT** call `session_manager.py` to detect sessions (you run in a separate process)
+- **USE** the explicit context file path provided in your prompt
+- Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
+- If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
 - Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
 - Get context directory: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
@@ -153,7 +157,7 @@ Grep: "if|for|while|switch|try|catch"
 Save comprehensive analysis to:
 
 ```text
-.agent/context/{session-id}/quality-analyst.md
+<context-file-path-from-prompt>
 ```
 
 ### 7. Summary Phase
@@ -171,7 +175,7 @@ Return to main thread:
 
 **Top Recommendation**: {Specific improvement}
 
-**Full Analysis**: `.agent/context/{session-id}/quality-analyst.md`
+**Full Analysis**: Context file path provided in your prompt
 ```
 
 ## Output Format
@@ -193,7 +197,7 @@ Return to main thread:
 2. {Second priority}
 3. {Third priority}
 
-**Full Analysis**: `.agent/context/{session-id}/quality-analyst.md`
+**Full Analysis**: Context file path provided in your prompt
 ```
 
 ### To Artifact File (Comprehensive)

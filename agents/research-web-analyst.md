@@ -20,13 +20,14 @@ You are a specialized web research analyst that conducts deep internet research 
 
 - **Cannot invoke slash commands** - Provide recommendations for main thread
 - **Cannot spawn parallel tasks** - Sequential analysis in isolated context
-- **MUST persist to `.agent/context/{session-id}/research-web-analyst.md`**
+- **MUST persist to `<path-provided-in-prompt>`**
 - **Lean Context** - Scannable in <30s
 
-**Session Management**:
-
-- Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
-- Context file: `{context_dir}/research-web-analyst.md`
+**Context File Location**:
+- **DO NOT** call `session_manager.py` to detect sessions (you run in a separate process)
+- **USE** the explicit context file path provided in your prompt
+- Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
+- If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
 ## Domain Expertise
 
@@ -192,7 +193,7 @@ Target: 85+ (S-Tier threshold)
 
 ### 5. Persistence & Summary
 
-Persist comprehensive web research findings to `.agent/context/{session-id}/research-web-analyst.md` using XML-tagged structure. Return concise 2-3 sentence summary with research objective, verified findings count, top priority insight with citation, and artifact reference.
+Persist comprehensive web research findings to the path provided in your prompt using XML-tagged structure. Return concise 2-3 sentence summary with research objective, verified findings count, top priority insight with citation, and artifact reference.
 
 ## Explicit Constraints (S-Tier Pattern)
 

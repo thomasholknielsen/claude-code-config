@@ -184,11 +184,12 @@ Review argument hints for commands + include marker for defaults
 
 ## [TASK-015] Use speckit to refactor context management file structure for session and task organization
 
-**Status**: pending
+**Status**: in-progress
 **Priority**: high
 **Category**: refactor
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Use speckit to refactor the context management file structure to enable session work as well as task work. Proposed structure:
@@ -260,11 +261,12 @@ Add an agent with expertise in GDPR to ensure that solutions are GDPR compliant
 
 ## [TASK-019] Review and refactor any command or agent that saves to artifacts directory
 
-**Status**: pending
+**Status**: in-progress
 **Priority**: medium
 **Category**: refactor
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Review and refactor any command or agent that saves to artifacts directory
@@ -362,5 +364,85 @@ When committing on git the process should also evaluate if any of the changes sh
 **Description**:
 Fix the issue when claude engages with a pr on github:
 Error: Prepare step failed with error: Workflow initiated by non-human actor: claude (type: Bot). Add bot to allowed_bots list or use '*' to allow all bots.
+
+---
+
+## [TASK-027] Document MCP server requirements (Docker Engine, etc.) for complete setup guide
+
+**Status**: pending
+**Priority**: medium
+**Category**: docs
+**Origin**: adhoc
+**Created**: 2025-10-16T00:00:00Z
+
+**Description**:
+Docker engine is required for some MCPs to work - there might also be other requirements for other MCPs. This should be documented.
+
+---
+
+## [TASK-028] test haiku 4.5 model for speedy work
+
+**Status**: pending
+**Priority**: medium
+**Category**: research
+**Origin**: adhoc
+**Created**: 2025-10-16T10:30:00Z
+
+**Description**:
+test haiku 4.5 model for speedy work
+
+---
+
+## [TASK-029] analyze the meaning of life from coding perspective using 2 subagents
+
+**Status**: completed
+**Priority**: medium
+**Category**: research
+**Origin**: adhoc
+**Created**: 2025-10-16T10:31:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Details**: .agent/Session-task-029/TASK-029--analyze-the-meaning-of-life-from-coding-perspectiv/
+
+---
+
+
+
+## [TASK-030] change name of task:execute to task:implement
+
+**Status**: pending
+**Priority**: medium
+**Category**: refactor
+**Origin**: adhoc
+**Created**: 2025-10-16T10:32:00Z
+
+**Description**:
+change name of task:execute to task:implement
+
+---
+
+## [TASK-031] ensure that sequential thinking is applied for complex problems only and evaluate MCP usage
+
+**Status**: pending
+**Priority**: high
+**Category**: research
+**Origin**: adhoc
+**Created**: 2025-10-16T10:33:00Z
+
+**Description**:
+ensure that sequantial thinking is applied for complex problems only and also evaualte how the sequantial thinking mcp is actually utilized, how is depth of thinking controlled etc
+
+---
+
+## [TASK-032] ensure smarter model selection with simple agent template configuration
+
+**Status**: pending
+**Priority**: high
+**Category**: feature
+**Origin**: adhoc
+**Created**: 2025-10-16T10:41:00Z
+
+**Description**:
+ensure smarter model selection - haiku for speed and specific tasks, sonnet for complexity - ensure agent tempalte offer a simple way to manage model and sequential thinking options
 
 ---

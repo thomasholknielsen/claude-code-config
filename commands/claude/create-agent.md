@@ -455,7 +455,7 @@ Error: Could not initialize session context.
 
 Solution:
 1. Initialize session manually:
-   python3 ~/.claude/scripts/session/session_manager.py init agent-creation
+   /session:start agent-creation "Agent creation workflow"
 
 2. Re-run /claude:create-agent
 ```
