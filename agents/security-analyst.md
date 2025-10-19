@@ -396,11 +396,6 @@ For each category (Broken Access Control, Cryptographic Failures, Insecure Desig
 ### Authentication
 
 - **Password Storage**: {bcrypt/pbkdf2/PLAIN TEXT/weak hash}
-- **Context File Location**:
-- **DO NOT** call `session_manager.py` to detect sessions (you run in a separate process)
-- **USE** the explicit context file path provided in your prompt
-- Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
-- If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
 ### Authorization
 
