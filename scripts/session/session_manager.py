@@ -45,6 +45,10 @@ def get_terminal_identifier():
         # Get parent process ID
         ppid = os.getppid()
 
+        # Defensive validation - ensure ppid is valid
+        if not str(ppid).isdigit():
+            return None
+
         # Use ps command to get grandparent PID (Claude Code process)
         # This is stable across all commands in same terminal session
         result = subprocess.run(["ps", "-p", str(ppid), "-o", "ppid="], capture_output=True, text=True, timeout=1)
@@ -192,10 +196,10 @@ def atomic_write(target_path, content):
 
         # Atomic rename (POSIX standard, works on Windows/macOS/Linux)
         Path(temp_path).replace(target_path)
-    except Exception as e:
+    except Exception:
         # Clean up temp file on error
         Path(temp_path).unlink(missing_ok=True)
-        raise RuntimeError(f"Atomic write failed: {e}") from e
+        raise
 
 
 def get_session_file():
@@ -749,8 +753,8 @@ def archive_session_new(session_id):
     if not session_dir.exists():
         raise FileNotFoundError(f"Session directory not found: {session_id}")
 
-    # Create archive directory
-    archive_dir = Path.home() / ".claude" / ".agent" / "archive"
+    # Create archive directory (project-local per T005)
+    archive_dir = Path.cwd() / ".agent" / "archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
 
     # Move session to archive
