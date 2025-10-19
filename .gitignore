@@ -64,6 +64,10 @@ file-history/
 # Agent context files (session-specific, not committed)
 .agent/context/
 
+# Session directories (new hierarchical structure)
+.agent/Session-*/
+.agent/archive/
+
 # Lock files (platform-specific)
 *.lock
 yarn.lock
@@ -88,5 +92,8 @@ settings.local.json
 .env
 .env.local
 .env.*.local
+
+# Specification files (project-local, not committed)
+specs/
 
 # Allow agents, commands, and scripts directories (explicitly not ignored)
