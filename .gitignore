@@ -97,3 +97,4 @@ settings.local.json
 specs/
 
 # Allow agents, commands, and scripts directories (explicitly not ignored)
+__pycache__/

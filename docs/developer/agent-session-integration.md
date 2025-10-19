@@ -7,72 +7,76 @@ Agents run in **separate Claude processes** with different process trees, so the
 ### Symptom
 
 ```bash
-# Agent tries to get current session
+# Agent tries to get current session from parent GPPID
 python3 session_manager.py current
 # Returns empty - agent's GPPID is different from main thread
 ```
 
-## Solution: Environment Variable Fallback
+## Solution: Explicit Path Passing
 
-The session manager now supports `CLAUDE_SESSION` environment variable for cross-process session sharing.
+Agents receive context file paths explicitly in the prompt, avoiding environment variable collisions and multi-terminal issues.
 
 ### Implementation
 
 **Main Thread Responsibility** (before invoking agents):
 
 ```bash
-# 1. Get current session
-SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
+# 1. Get context directory for current session
+CONTEXT_DIR=$(python3 ~/.claude/scripts/session/session_manager.py context_dir)
 
-# 2. Export for child processes
-export CLAUDE_SESSION="$SESSION"
-
-# 3. Now invoke agents - they'll inherit CLAUDE_SESSION
+# 2. Pass explicit path in agent prompt (no environment variable needed)
+# 3. Agent writes findings to the provided path
 ```
 
 **Agent Behavior**:
 
-- Agents automatically check `CLAUDE_SESSION` environment variable first
-- Falls back to GPPID detection if env var not set
-- No changes needed to agent code
+- Agents receive context file path in the prompt
+- Write findings to the provided location
+- No need to detect session or use environment variables
 
 ### Agent Prompt Pattern
 
-When invoking agents from commands, include this setup:
+When invoking agents from commands, use this pattern:
 
-1. Get current session:
+```python
+CONTEXT_DIR=$(python3 ~/.claude/scripts/session/session_manager.py context_dir)
 
-   ```bash
-   SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
-   export CLAUDE_SESSION="$SESSION"
-   ```
+Task(
+  subagent_type="<agent-name>",
+  prompt="<analysis task>
 
-2. Invoke agent with Task tool:
+  **Context File Location**: Save your findings to:
+  {CONTEXT_DIR}/<agent-name>.md
 
-   ```python
-   Task(subagent_type="<agent-name>", prompt="...")
-   ```
+  Do NOT attempt to detect session - use the path provided above."
+)
+```
 
-3. Agent will automatically use CLAUDE_SESSION for context routing
+**Key Points**:
+
+- Get context directory once in main thread
+- Pass absolute path to agent
+- Agent writes directly to provided location
+- No environment variable needed
 
 ## Command Integration
 
 ### `/task:execute` Command
 
-Already includes session check at step 1:
+Already includes session context setup:
 
 1. **Check Active Session** (REQUIRED):
-   - Call: `python3 ~/.claude/scripts/session/session_manager.py current`
+   - Call: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
    - If empty: Prompt user to start/link session
-   - If exists: Export CLAUDE_SESSION before invoking agents
+   - If exists: Pass path to agent in prompt
 
 ### Workflow Commands
 
 Any command that invokes agents should:
 
-1. Check for active session first
-2. Export CLAUDE_SESSION before agent invocation
-3. Agents will inherit the environment variable
+1. Check for active session: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
+2. Pass explicit path in agent prompt
+3. Agents write to provided location directly
 
 ## Testing
 
@@ -80,28 +84,24 @@ Any command that invokes agents should:
 # Terminal 1: Start session
 /session:start test-session "Test"
 
-# Verify session
-python3 ~/.claude/scripts/session/session_manager.py current
-# Output: test-session
-
-# Export for testing
-export CLAUDE_SESSION="test-session"
-
-# Now agents will detect the session
+# Verify session context path
 python3 ~/.claude/scripts/session/session_manager.py context_dir
-# Output: .agent/Session-test-session/context
+# Output: /path/to/project/.agent/Session-test-session/context
+
+# Pass this path to agents in prompts
+# Agent will write findings to: /path/to/project/.agent/Session-test-session/context/<agent-name>.md
 ```
 
 ## Architecture
 
 ```text
-Main Thread (GPPID: 12345)
-  - Session detected via GPPID → "my-session"
-  - Export CLAUDE_SESSION="my-session"
-  - Spawn Agent (GPPID: 67890 - different!)
-    - Check CLAUDE_SESSION env var → "my-session" ✅
-    - Fall back to GPPID → different, no match ❌
-    - Uses env var session for context routing
+Main Thread
+  - Get context dir: .agent/Session-{name}/context
+  - Spawn Agent with prompt containing path
+    - Receives explicit path: {CONTEXT_DIR}/<agent-name>.md
+    - Writes findings to exact location
+    - No GPPID detection needed ✅
+    - No environment variables needed ✅
 ```
 
 ## Migration Path
