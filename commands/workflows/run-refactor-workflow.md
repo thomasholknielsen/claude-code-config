@@ -5,6 +5,49 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Refactor Workflow
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute comprehensive refactoring using parallel analysis to improve code quality, readability, and maintainability.
+
+**YOU MUST:**
+1. ✓ Establish baseline complexity metrics
+2. ✓ Launch refactoring-analyst, code-quality-analyst, architecture-analyst in parallel
+3. ✓ Read all context files with refactoring recommendations
+4. ✓ Consolidate findings and prioritize by impact
+5. ✓ Implement refactoring improvements while preserving behavior
+6. ✓ Validate quality improvements through tests and metrics
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip behavior-preserving validation
+- ✗ Implement without test coverage
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-Refactoring Assessment
+Baseline complexity metrics, identify high-priority targets
+
+### Step 2: Parallel Analysis
+Launch 3 refactoring specialists concurrently
+
+### Step 3: Read Context Files
+Collect findings and recommendations
+
+### Step 4: Consolidate & Prioritize
+Aggregate findings, prioritize by impact (complexity reduction)
+
+### Step 5: Implement Refactoring
+Apply refactoring patterns while preserving behavior
+
+### Step 6: Validate
+Run tests and measure quality improvements
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

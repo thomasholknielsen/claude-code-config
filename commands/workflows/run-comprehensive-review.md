@@ -6,6 +6,52 @@ github_integration: true
 
 # Command: Run Comprehensive Review
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute multi-perspective code review by dynamically selecting domain analysts based on changed files and running them in parallel.
+
+**YOU MUST:**
+1. ✓ Parse feature-branch and base-branch arguments
+2. ✓ Run git diff to detect changed files
+3. ✓ Dynamically select applicable analysts based on file types
+4. ✓ Launch 6-12 analysts in parallel concurrently (Task tool)
+5. ✓ Read all analyst context files from .agent/context/
+6. ✓ Deduplicate findings and organize by severity
+7. ✓ Generate unified report (.artifacts/reviews/)
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Run all analysts regardless of file types (only applicable ones)
+- ✗ Skip deduplication of overlapping findings
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Analyze Changed Files
+Run git diff to detect modified files and categorize by type/path
+
+### Step 2: Dynamic Analyst Selection
+Match file types to applicable analysts:
+- Frontend files (.tsx) → frontend-analyst
+- Database files (.sql) → database-analyst
+- API routes → api-rest-analyst
+- Security paths (auth/) → security-analyst
+- Performance concerns → performance-analyst
+
+### Step 3: Launch Parallel Analysis
+Invoke 6-12 selected analysts concurrently via Task tool
+
+### Step 4: Synthesize Results
+Read all context files, deduplicate overlapping issues, prioritize by severity
+
+### Step 5: Generate Report
+Create unified review report in .artifacts/reviews/
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

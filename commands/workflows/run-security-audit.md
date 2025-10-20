@@ -5,6 +5,49 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Security Audit
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute comprehensive security audit using parallel analysis for OWASP Top 10, vulnerability detection, and compliance.
+
+**YOU MUST:**
+1. ✓ Launch security-analyst to analyze application code
+2. ✓ Launch api-rest-analyst for API security assessment
+3. ✓ Launch database-analyst for database security review
+4. ✓ Read all context files and consolidate findings by CVSS score
+5. ✓ Organize findings by severity (Critical/High/Medium/Low)
+6. ✓ Generate audit report with remediation roadmap
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip any security domain
+- ✗ Provide findings without CVSS scores
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-Audit Assessment
+Detect security-critical files and existing security tools
+
+### Step 2: Parallel Security Analysis
+Launch 3 security specialists concurrently via Task tool
+
+### Step 3: Read Context Files
+Collect findings from all analysts
+
+### Step 4: Consolidate & Deduplicate
+Aggregate findings, calculate CVSS scores, organize by severity
+
+### Step 5: Prioritize
+Create remediation roadmap (Immediate/High/Medium/Low)
+
+### Step 6: Generate Report
+Create comprehensive security audit report
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

@@ -5,6 +5,51 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch, m
 
 # Command: Docs
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Idempotent documentation workflow - analyze needs and execute CRUD operations on all documentation types.
+
+**YOU MUST:**
+1. ✓ Analyze documentation scope (changes vs project)
+2. ✓ Launch 6 domain analysts in parallel (4x docs-analyst perspectives + architecture + code-quality)
+3. ✓ Detect CRUD operations needed (Create/Read/Update/Delete)
+4. ✓ Present user choice: A=full workflow, B=fundamental fixes, C=show plan, Skip
+5. ✓ Execute chosen operations (create missing docs, update outdated, delete obsolete)
+6. ✓ Validate completeness (README, CHANGELOG, CONTRIBUTING, SECURITY, API docs)
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Make changes without user confirmation
+- ✗ Skip validation step
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Scope Detection
+Detect scope (--scope=changes or --scope=project) and launch parallel analysis
+
+### Step 2: Parallel Analysis (6 concurrent analysts)
+- docs-analyst x4 (IA, content quality, user journey, semantic coherence)
+- architecture-analyst (technical accuracy)
+- code-quality-analyst (code examples)
+
+### Step 3: Present Findings
+Show categorized findings: FUNDAMENTAL (reality mismatches) | STRUCTURAL (architecture) | SURFACE (polish)
+
+### Step 4: User Confirmation
+Present A/B/C/Skip choices and get user input
+
+### Step 5: Execute Operations
+Create missing docs, update outdated content, delete obsolete sections
+
+### Step 6: Validate
+Check README links, CHANGELOG format, API docs accuracy, cross-references
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

@@ -5,6 +5,49 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Cleanup Workflow
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute cleanup workflow - remove artifacts, standardize formatting, improve readability, reduce technical debt.
+
+**YOU MUST:**
+1. ✓ Identify cleanup targets (temp files, formatting violations, naming issues)
+2. ✓ Launch code-quality-analyst and refactoring-analyst in parallel
+3. ✓ Read all context files with cleanup recommendations
+4. ✓ Consolidate findings and prioritize by impact
+5. ✓ Implement cleanup (remove artifacts, fix formatting, improve naming)
+6. ✓ Validate improvements (tests still passing, no functionality lost)
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Remove code without understanding impact
+- ✗ Skip test validation
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-Cleanup Assessment
+Identify targets: temp files, formatting issues, naming problems
+
+### Step 2: Parallel Cleanup Analysis
+Launch 2 cleanup specialists concurrently
+
+### Step 3: Read Context Files
+Collect cleanup recommendations
+
+### Step 4: Consolidate & Prioritize
+Aggregate by impact, prioritize critical artifacts first
+
+### Step 5: Implement Cleanup
+Remove artifacts, standardize formatting, improve naming
+
+### Step 6: Validate
+Run tests, verify functionality maintained
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)
