@@ -288,6 +288,7 @@ for type in $(printf '%s\n' "${!file_groups[@]}" | sort); do
   message=$(generate_commit_message "$type" "$scope" "$file_count")
 
   # Stage only files of this type
+  # shellcheck disable=SC2086
   git add $files
 
   # Create commit
@@ -350,9 +351,9 @@ for msg in "${commit_messages[@]}"; do
   PR_BODY+="- $msg"$'\n'
 done
 PR_BODY+=$'\n'"## Commits\n\n"
-git log --oneline "origin/${PR_BASE}...${BRANCH_NAME}" | while read -r line; do
+while read -r line; do
   PR_BODY+="- $line"$'\n'
-done
+done < <(git log --oneline "origin/${PR_BASE}...${BRANCH_NAME}")
 
 # Attempt PR creation
 if PR_URL=$(gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base "$PR_BASE" 2>&1); then
