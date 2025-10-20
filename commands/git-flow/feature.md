@@ -6,6 +6,46 @@ allowed-tools: Bash(git:*), mcp__sequential-thinking__sequentialthinking
 
 # Git Flow Feature Branch
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create a new Git Flow feature branch from develop with proper naming and tracking.
+
+**YOU MUST:**
+1. ✓ Parse feature-name from $ARGUMENTS
+2. ✓ Validate branch name format (kebab-case)
+3. ✓ Switch to develop branch
+4. ✓ Pull latest changes from remote
+5. ✓ Create feature/<name> branch
+6. ✓ Set up remote tracking
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Create branch from wrong base
+- ✗ Use non-kebab-case names
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Feature Name
+Extract and validate feature name
+
+### Step 2: Switch to Develop
+Checkout develop branch
+
+### Step 3: Sync with Remote
+Pull latest develop changes
+
+### Step 4: Create Feature Branch
+Create feature/<name> from develop
+
+### Step 5: Setup Tracking
+Push with -u flag to set up remote tracking
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

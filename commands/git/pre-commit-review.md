@@ -6,6 +6,49 @@ allowed-tools: Task, Bash, Read, Grep
 
 # Command: /git:pre-commit-review
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute comprehensive multi-domain code review using dynamic analyst selection based on file types.
+
+**YOU MUST:**
+1. ✓ Parse scope (uncommitted/repo/folder) and path from $ARGUMENTS
+2. ✓ Detect changed files and categorize by type
+3. ✓ Dynamically select applicable analysts (8-20 based on files)
+4. ✓ Launch analysts in parallel via Task tool
+5. ✓ Read all context files and consolidate findings
+6. ✓ Generate prioritized fix plan with execution order
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Run all analysts (only applicable ones)
+- ✗ Skip fix plan prioritization
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Scope & Path
+Extract scope (default: uncommitted) and path
+
+### Step 2: Detect Changed Files
+Analyze file types and paths
+
+### Step 3: Select Analysts
+Match file types to applicable analysts (8-20 based on context)
+
+### Step 4: Launch Parallel Analysis
+Invoke selected analysts concurrently via Task
+
+### Step 5: Consolidate Findings
+Read context files, deduplicate, prioritize by impact
+
+### Step 6: Generate Fix Plan
+Create logical execution sequence with effort estimates
+
+---
+
 ## Purpose
 
 Execute comprehensive analysis of code changes (uncommitted, full repo, or specific folder) across multiple quality domains (security, performance, code quality, architecture, testing, refactoring, documentation, accessibility, UX) with smart analyst selection based on file types and project configuration. Generate prioritized fix plan with logical execution sequence.

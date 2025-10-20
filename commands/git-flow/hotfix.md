@@ -6,6 +6,46 @@ allowed-tools: Bash(git:*), Read, Edit, Write, mcp__sequential-thinking__sequent
 
 # Git Flow Hotfix Branch
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create a new Git Flow hotfix branch from main for emergency production fixes.
+
+**YOU MUST:**
+1. ✓ Parse hotfix-name from $ARGUMENTS
+2. ✓ Validate branch name format
+3. ✓ Switch to main branch
+4. ✓ Pull latest from main
+5. ✓ Create hotfix/<name> branch
+6. ✓ Set up remote tracking
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Create from develop (must be main)
+- ✗ Skip remote sync
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Hotfix Name
+Extract and validate hotfix name
+
+### Step 2: Switch to Main
+Checkout main branch
+
+### Step 3: Sync with Remote
+Pull latest main changes
+
+### Step 4: Create Hotfix Branch
+Create hotfix/<name> from main
+
+### Step 5: Setup Tracking
+Push with -u flag
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

@@ -6,6 +6,46 @@ allowed-tools: Bash(git:*), Read, Edit, mcp__sequential-thinking__sequentialthin
 
 # Git Flow Finish Branch
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Complete and merge current Git Flow branch with proper cleanup and tagging.
+
+**YOU MUST:**
+1. ✓ Detect branch type (feature/release/hotfix)
+2. ✓ Validate clean working directory and tests passing
+3. ✓ Merge to appropriate targets (feature→develop, release/hotfix→main+develop)
+4. ✓ Create tags for release/hotfix
+5. ✓ Delete local and remote branches
+6. ✓ Push all changes
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Merge without tests passing
+- ✗ Skip tagging for releases/hotfixes
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Detect Branch Type
+Identify feature/release/hotfix
+
+### Step 2: Validate State
+Check clean working directory, tests pass
+
+### Step 3: Merge to Targets
+Merge to develop for feature, main+develop for release/hotfix
+
+### Step 4: Create Tags
+Tag releases and hotfixes
+
+### Step 5: Cleanup
+Delete branches locally and remotely
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

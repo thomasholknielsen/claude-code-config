@@ -6,6 +6,46 @@ allowed-tools: Bash, mcp__sequential-thinking__sequentialthinking
 
 # Command: Push
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Push commits to remote with safety checks and tracking setup.
+
+**YOU MUST:**
+1. ✓ Parse remote and branch from $ARGUMENTS
+2. ✓ Validate local branch state (no conflicts)
+3. ✓ Check remote repository status
+4. ✓ Set up branch tracking with -u flag
+5. ✓ Push commits
+6. ✓ Report push status with commit count
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Allow force-push without confirmation
+- ✗ Push without validation
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Validate Local State
+Check for conflicts, uncommitted changes
+
+### Step 2: Check Remote Status
+Verify remote exists and is reachable
+
+### Step 3: Setup Tracking
+Prepare -u flag for first push
+
+### Step 4: Push Commits
+Execute git push with safety flags
+
+### Step 5: Report Status
+Show commits pushed and remote URL
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

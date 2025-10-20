@@ -6,6 +6,46 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 # Command: Pr
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create pull request with auto-detected base branch and generated description.
+
+**YOU MUST:**
+1. ✓ Parse PR title from $ARGUMENTS
+2. ✓ Detect workflow mode (git-flow vs conventional)
+3. ✓ Validate gh CLI auth
+4. ✓ Auto-generate PR description from file changes
+5. ✓ Create PR with appropriate base branch
+6. ✓ Return PR URL
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip auth validation
+- ✗ Use wrong base branch
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Detect Workflow Mode
+Check for develop/main (git-flow) or main only (conventional)
+
+### Step 2: Validate GH CLI Auth
+Confirm GitHub authentication
+
+### Step 3: Analyze Changes
+Run git diff to generate description
+
+### Step 4: Determine Base Branch
+Auto-detect (feature→develop, release→main)
+
+### Step 5: Create PR
+Execute gh pr create with title/description
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

@@ -6,6 +6,42 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 # Command: Commit
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create conventional commit with smart type detection and pre-commit quality checks.
+
+**YOU MUST:**
+1. ✓ Parse commit message from $ARGUMENTS
+2. ✓ Detect file types to infer conventional type (feat/fix/docs/test)
+3. ✓ Run pre-commit linting with auto-fix
+4. ✓ Validate conventional format (type, scope, 72-char limit)
+5. ✓ Create single or multiple logical commits
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip linting checks
+- ✗ Commit without type prefix
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Analyze Uncommitted Files
+Detect file types and infer conventional type
+
+### Step 2: Run Pre-Commit Linting
+Execute linters with auto-fix
+
+### Step 3: Validate Message Format
+Check conventional format compliance
+
+### Step 4: Create Commit(s)
+Create single or multiple grouped commits
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

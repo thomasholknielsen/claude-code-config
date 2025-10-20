@@ -6,6 +6,49 @@ allowed-tools: Read, Edit, Bash(gh:*), mcp__sequential-thinking__sequentialthink
 
 # Command: GitHub Create Issue From Task
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create GitHub issue from task with proper labeling and linking.
+
+**YOU MUST:**
+1. ✓ Parse TASK-XXX from $ARGUMENTS
+2. ✓ Read task details from .agent/tasks.md
+3. ✓ Format issue (title, body with metadata)
+4. ✓ Apply labels (explicit + auto-inferred)
+5. ✓ Create issue via gh CLI
+6. ✓ Update task with GitHub URL
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Fail to update task with URL
+- ✗ Skip label application
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Task ID
+Extract TASK-XXX from $ARGUMENTS
+
+### Step 2: Read Task Details
+Load from .agent/tasks.md
+
+### Step 3: Format Issue
+Create title and body with metadata
+
+### Step 4: Apply Labels
+Add explicit + auto-inferred labels
+
+### Step 5: Create Issue
+Execute gh issue create
+
+### Step 6: Update Task
+Link task to GitHub issue URL
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

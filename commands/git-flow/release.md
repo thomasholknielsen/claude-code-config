@@ -6,6 +6,46 @@ allowed-tools: Bash(git:*), Read, Edit, Write, mcp__sequential-thinking__sequent
 
 # Git Flow Release Branch
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create a new Git Flow release branch from develop for version preparation and final testing.
+
+**YOU MUST:**
+1. ✓ Parse version from $ARGUMENTS
+2. ✓ Validate version format (semantic versioning)
+3. ✓ Switch to develop branch
+4. ✓ Pull latest from develop
+5. ✓ Create release/<version> branch
+6. ✓ Set up remote tracking
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Create from main (must be develop)
+- ✗ Use invalid version format
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Version
+Extract and validate version (semver)
+
+### Step 2: Switch to Develop
+Checkout develop branch
+
+### Step 3: Sync with Remote
+Pull latest develop changes
+
+### Step 4: Create Release Branch
+Create release/<version> from develop
+
+### Step 5: Setup Tracking
+Push with -u flag
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

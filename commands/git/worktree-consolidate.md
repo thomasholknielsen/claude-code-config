@@ -5,6 +5,49 @@ allowed-tools: Bash, Read, Grep, TodoWrite, mcp__sequential-thinking__sequential
 
 # Command: Worktree Consolidate
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Merge multiple worktree branches into a single feature branch with conflict resolution.
+
+**YOU MUST:**
+1. ✓ Validate current branch is clean
+2. ✓ Create safety checkpoint (backup branch)
+3. ✓ Merge selected worktree branches sequentially
+4. ✓ Detect conflicts and guide resolution
+5. ✓ Validate merged state
+6. ✓ Report consolidation summary
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Merge without safety checkpoint
+- ✗ Skip conflict detection
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Validate State
+Check current branch is clean, no uncommitted changes
+
+### Step 2: List Worktrees
+Show available worktrees for consolidation
+
+### Step 3: Create Backup
+Create safety checkpoint branch
+
+### Step 4: Merge Sequentially
+Merge each worktree branch, detect conflicts
+
+### Step 5: Resolve Conflicts
+Guide user through resolution (manual/ours/theirs/skip)
+
+### Step 6: Report Summary
+Show total commits, files, and next steps
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
