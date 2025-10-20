@@ -1,7 +1,7 @@
 ---
 name: database-architecture-analyst
 description: "MUST BE USED for database architecture analysis - provides microservices data patterns, polyglot persistence strategy, database technology selection, sharding strategies, CQRS/event sourcing, and scalability planning. This agent conducts comprehensive database architecture analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes database architecture and persists findings to .agent/context/{session-id}/database-architecture-analyst.md files. Invoke when: keywords 'database architecture', 'microservices data', 'polyglot persistence', 'database selection', 'sharding', 'CQRS', 'event sourcing', 'database scalability'."
-tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
+tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__markitdown__convert_to_markdown, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: orange
 ---

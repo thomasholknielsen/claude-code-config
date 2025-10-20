@@ -84,6 +84,60 @@ SlashCommand(/next:command $ARGS)
 # Command ends here - no post-processing
 ```
 
+## MCP Availability Checking (If Applicable)
+
+**Use this section if your command or its delegated agents require MCP tools**
+
+### Checking Required MCPs
+
+If your command depends on specific MCPs (via agents), check availability upfront:
+
+```bash
+# Example: Check if fetch MCP is available before running research-analyst
+
+# In your command implementation:
+if command_requires_mcp("fetch"):
+    # Check if MCP is configured
+    if not mcp_available("fetch"):
+        return "❌ This command requires fetch MCP. Please run /system:setup-mcp to configure it."
+
+# If required MCPs available, proceed
+invoke_agent("research-analyst", task)
+```
+
+### Handling Agent MCP Failures
+
+If an agent fails due to missing MCPs:
+
+```
+# Agent returns error like: "❌ Fetch MCP failed..."
+# Show user clear guidance:
+
+"Research failed due to missing external tool.
+Run /system:setup-mcp to configure fetch, or proceed with local resources."
+```
+
+### Key Pattern
+
+1. **Check upfront**: If MCPs required, verify availability BEFORE starting work
+2. **Clear message**: If missing, tell user exactly which MCP is needed and how to fix it
+3. **Delegate handling**: Agents handle MCP errors internally
+4. **Report to user**: Display agent error messages with setup guidance if needed
+
+### Documentation
+
+If your command delegates to agents that use MCPs:
+
+```markdown
+## MCP Dependencies
+
+This command delegates to:
+- **research-analyst**: Uses fetch (required), markitdown (optional)
+- **security-analyst**: Uses sequential-thinking (required)
+
+If MCPs are unavailable, command will report which MCP failed and suggest setup.
+```
+
 ## Interactive User Input (Optional)
 
 _Include this section if your command requires interactive user choices_

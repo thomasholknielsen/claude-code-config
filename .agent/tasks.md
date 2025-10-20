@@ -2,11 +2,17 @@
 
 ## [TASK-001] Ensure all configured MCP servers are integrated into the repository
 
-**Status**: pending
+**Status**: completed
+**Details**: .agent/Session-chores/TASK-001--ensure-all-configured-mcp-servers-are-integrated-i
 **Priority**: medium
 **Category**: chore
+**Epic**: MCP Integration
+**Depends On**: (none)
+**Related**: TASK-011, TASK-021
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T10:29:41.271837+00:00
+**Last Updated**: 2025-10-19T10:29:41.271837+00:00
 
 **Description**:
 Ensure all configured mcpservers{} are integrated into the repos, meaning that relevant commands and subagents and templates are "aware" of all mcps
@@ -18,8 +24,13 @@ Ensure all configured mcpservers{} are integrated into the repos, meaning that r
 **Status**: pending
 **Priority**: high
 **Category**: feature
+**Epic**: Pre-Commit Workflow
+**Depends On**: (none)
+**Related**: TASK-008, TASK-022, TASK-023
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Review current workflow commands for coverage of this already - we need one command to launch a comprehensive review of either the entire repos or the uncommitted changes. The objective is to provide a list of critical issues and discrepancies that we should consider fixing before committing - similar to a PR review.
@@ -31,8 +42,13 @@ Review current workflow commands for coverage of this already - we need one comm
 **Status**: pending
 **Priority**: high
 **Category**: refactor
+**Epic**: Template Standardization
+**Depends On**: (none)
+**Related**: TASK-004, TASK-005, TASK-006
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Critical review of command template(s) perhaps consolidate into one?
@@ -44,8 +60,13 @@ Critical review of command template(s) perhaps consolidate into one?
 **Status**: pending
 **Priority**: medium
 **Category**: chore
+**Epic**: Template Standardization
+**Depends On**: (none)
+**Related**: TASK-003, TASK-005, TASK-006
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Critical review of mermaid template
@@ -57,8 +78,13 @@ Critical review of mermaid template
 **Status**: pending
 **Priority**: medium
 **Category**: chore
+**Epic**: Template Standardization
+**Depends On**: TASK-003
+**Related**: TASK-003, TASK-004, TASK-006
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Align agents with template
@@ -70,8 +96,13 @@ Align agents with template
 **Status**: pending
 **Priority**: medium
 **Category**: chore
+**Epic**: Template Standardization
+**Depends On**: TASK-003
+**Related**: TASK-003, TASK-004, TASK-005
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Align mermaid with template
@@ -83,8 +114,13 @@ Align mermaid with template
 **Status**: pending
 **Priority**: medium
 **Category**: chore
+**Epic**: Template Standardization
+**Depends On**: TASK-003
+**Related**: TASK-003, TASK-004, TASK-005
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Align commands with template, except speckit
@@ -96,8 +132,13 @@ Align commands with template, except speckit
 **Status**: pending
 **Priority**: high
 **Category**: bug
+**Epic**: Pre-Commit Workflow
+**Depends On**: (none)
+**Related**: TASK-002, TASK-022, TASK-023
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 /workflow:docs starts work without confirmation - it should perform a detailed analysis and suggest actions
@@ -109,8 +150,13 @@ Align commands with template, except speckit
 **Status**: pending
 **Priority**: medium
 **Category**: feature
+**Epic**: Task Management Enhancement
+**Depends On**: (none)
+**Related**: TASK-030
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 When adding tasks - automatically create enhanced prompt and relate to tasks in task.md
@@ -122,8 +168,12 @@ When adding tasks - automatically create enhanced prompt and relate to tasks in 
 **Status**: pending
 **Priority**: medium
 **Category**: research
+**Epic**: Speckit Enhancement
+**Depends On**: (none)
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 The speckit functions are great and should be changed as little as possible. Some changes have already been applied through speckit:apply-user-settings-fix command. But we should also evaluate if the speckit:implement command makes use of the subagents - does it already do this or should we imply this more directly through the users claude.md file?
@@ -132,11 +182,18 @@ The speckit functions are great and should be changed as little as possible. Som
 
 ## [TASK-011] Subagents/commands that depend on MCP tools should handle missing/failing MCP gracefully
 
-**Status**: pending
+**Status**: completed
+**Completed**: 2025-10-19T15:09:07.603873
+**Details**: .agent/Session-chores/TASK-011--subagentscommands-that-depend-on-mcp-tools-should-
 **Priority**: high
 **Category**: feature
+**Epic**: MCP Integration
+**Depends On**: (none)
+**Related**: TASK-001, TASK-021
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T12:33:13.301159+00:00
 
 **Description**:
 Subagents/commands that depend on mcp tools should be able to handle missing/failing mcp gracefully
@@ -148,8 +205,13 @@ Subagents/commands that depend on mcp tools should be able to handle missing/fai
 **Status**: pending
 **Priority**: medium
 **Category**: refactor
+**Epic**: Template Standardization
+**Depends On**: TASK-003
+**Related**: TASK-003, TASK-004, TASK-005
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Review the commands template from a UX perspective and integrate any template changes onto existing commands
@@ -161,8 +223,13 @@ Review the commands template from a UX perspective and integrate any template ch
 **Status**: pending
 **Priority**: medium
 **Category**: docs
+**Epic**: Documentation
+**Depends On**: (none)
+**Related**: TASK-024, TASK-027
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Apply reasoning for complex tasks think deeply and sequentially - add this to user claude.md and repos copy
@@ -174,8 +241,12 @@ Apply reasoning for complex tasks think deeply and sequentially - add this to us
 **Status**: pending
 **Priority**: medium
 **Category**: refactor
+**Epic**: UI/UX
+**Depends On**: (none)
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Review argument hints for commands + include marker for defaults
@@ -184,33 +255,19 @@ Review argument hints for commands + include marker for defaults
 
 ## [TASK-015] Use speckit to refactor context management file structure for session and task organization
 
-**Status**: in-progress
+**Status**: in
 **Priority**: high
 **Category**: refactor
+**Epic**: Context Management
+**Depends On**: (none)
+**Related**: TASK-019
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
 **Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Use speckit to refactor the context management file structure to enable session work as well as task work. Proposed structure:
-
-```
-.agent/
- - tasks.md (list of all tasks)
- - Session-YYYY-MM-DD-{id}/
-    - Task-XXX--{TaskTitle}/ (files and context related to tasks)
-        - enhanced-prompt
-        - analyst-x.md
-        - analyst-y.md
-        - save-to-markdown.md
-    - context/ (unrelated to a task)
-        - enhanced-prompt
-        - analyst-x.md
-        - analyst-y.md
-        - save-to-markdown.md
-```
-
-On session end, prompt to delete .agent dir.
 
 ---
 
@@ -219,8 +276,13 @@ On session end, prompt to delete .agent dir.
 **Status**: pending
 **Priority**: high
 **Category**: feature
+**Epic**: Git Workflow
+**Depends On**: (none)
+**Related**: TASK-025, TASK-026
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Ensure that when /git:commit tries to commit and precommit hooks fail, then it should resolve these errors, stage the changes again and recommit. This is also true for other workflows that perform commits. Also ensure that every command that performs a commit should review which files should be committed together based on best practice.
@@ -232,8 +294,13 @@ Ensure that when /git:commit tries to commit and precommit hooks fail, then it s
 **Status**: pending
 **Priority**: high
 **Category**: refactor
+**Epic**: Template Standardization
+**Depends On**: (none)
+**Related**: TASK-003, TASK-004, TASK-005
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Ensure that command and agent template balance impact with simplicity and maintainability. Guiding principles:
@@ -242,8 +309,6 @@ Ensure that command and agent template balance impact with simplicity and mainta
 - "Less, but better." – Dieter Rams
 - "The ability to simplify means to eliminate the unnecessary so that the necessary may speak." – Hans Hofmann
 
-Core principle: "Simplify: take away until only the essential remains."
-
 ---
 
 ## [TASK-018] Add GDPR compliance analyst agent
@@ -251,8 +316,12 @@ Core principle: "Simplify: take away until only the essential remains."
 **Status**: pending
 **Priority**: medium
 **Category**: feature
+**Epic**: Security
+**Depends On**: (none)
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
 Add an agent with expertise in GDPR to ensure that solutions are GDPR compliant
@@ -261,11 +330,15 @@ Add an agent with expertise in GDPR to ensure that solutions are GDPR compliant
 
 ## [TASK-019] Review and refactor any command or agent that saves to artifacts directory
 
-**Status**: in-progress
+**Status**: in
 **Priority**: medium
 **Category**: refactor
+**Epic**: Context Management
+**Depends On**: TASK-015
+**Related**: TASK-015
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
 **Last Updated**: 2025-10-19T05:01:49.175447Z
 
 **Description**:
@@ -275,11 +348,17 @@ Review and refactor any command or agent that saves to artifacts directory
 
 ## [TASK-020] Rename /prompt:enhance-prompt to /prompt:enhance
 
-**Status**: pending
+**Status**: completed
+**Details**: .agent/Session-chores/TASK-020--rename-promptenhance-prompt-to-promptenhance
 **Priority**: low
 **Category**: refactor
+**Epic**: Misc
+**Depends On**: (none)
+**Related**: TASK-029
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T09:52:23.328857+00:00
+**Last Updated**: 2025-10-19T09:52:23.328857+00:00
 
 **Description**:
 Rename /prompt:enhance-prompt to /prompt:enhance
@@ -288,11 +367,17 @@ Rename /prompt:enhance-prompt to /prompt:enhance
 
 ## [TASK-021] Review /system:setup-mcp for support for all available MCP servers
 
-**Status**: pending
+**Status**: completed
+**Completed**: 2025-10-19T15:09:07.603884
 **Priority**: medium
 **Category**: feature
+**Epic**: MCP Integration
+**Depends On**: (none)
+**Related**: TASK-001, TASK-011
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Details**: .agent/Session-chores/TASK-021--review-systemsetup-mcp-for-support-for-all-availab
+**Last Updated**: 2025-10-19T16:45:00Z
 
 **Description**:
 Review /system:setup-mcp for support for all available mcp servers
@@ -304,8 +389,13 @@ Review /system:setup-mcp for support for all available mcp servers
 **Status**: pending
 **Priority**: high
 **Category**: refactor
+**Epic**: Pre-Commit Workflow
+**Depends On**: TASK-002
+**Related**: TASK-002, TASK-008, TASK-023
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
 
 **Description**:
 Replace command workflows (except git) with a single precommit workflow essentially does a multi vector review (replaces a pr review) on a chosen scope
@@ -317,8 +407,13 @@ Replace command workflows (except git) with a single precommit workflow essentia
 **Status**: pending
 **Priority**: medium
 **Category**: feature
+**Epic**: Pre-Commit Workflow
+**Depends On**: TASK-002
+**Related**: TASK-002, TASK-008, TASK-022
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
 
 **Description**:
 For the precommit workflow. Input for prompt: conduct a thorough analysis of the uncommitted changes using parallel tasks and review if we need to modify or add something
@@ -330,8 +425,13 @@ For the precommit workflow. Input for prompt: conduct a thorough analysis of the
 **Status**: pending
 **Priority**: medium
 **Category**: feature
+**Epic**: Documentation
+**Depends On**: (none)
+**Related**: TASK-013, TASK-027
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
 
 **Description**:
 The review-claude-md command should also have the capability to review last x PRs and suggest improvements to the claude.md
@@ -345,8 +445,13 @@ The review-claude-md command should also have the capability to review last x PR
 **Status**: pending
 **Priority**: medium
 **Category**: feature
+**Epic**: Git Workflow
+**Depends On**: (none)
+**Related**: TASK-016, TASK-026
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
 
 **Description**:
 When committing on git the process should also evaluate if any of the changes should be added to gitignore
@@ -358,8 +463,13 @@ When committing on git the process should also evaluate if any of the changes sh
 **Status**: pending
 **Priority**: high
 **Category**: bug
+**Epic**: Git Workflow
+**Depends On**: (none)
+**Related**: TASK-016, TASK-025
 **Origin**: adhoc
 **Created**: 2025-10-15T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
 
 **Description**:
 Fix the issue when claude engages with a pr on github:
@@ -372,8 +482,13 @@ Error: Prepare step failed with error: Workflow initiated by non-human actor: cl
 **Status**: pending
 **Priority**: medium
 **Category**: docs
+**Epic**: Documentation
+**Depends On**: (none)
+**Related**: TASK-013, TASK-024
 **Origin**: adhoc
 **Created**: 2025-10-16T00:00:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
 
 **Description**:
 Docker engine is required for some MCPs to work - there might also be other requirements for other MCPs. This should be documented.
@@ -385,8 +500,13 @@ Docker engine is required for some MCPs to work - there might also be other requ
 **Status**: pending
 **Priority**: medium
 **Category**: research
+**Epic**: Model & Performance
+**Depends On**: (none)
+**Related**: TASK-031, TASK-032
 **Origin**: adhoc
 **Created**: 2025-10-16T10:30:00Z
+**Completed**: 2025-10-19T07:05:00Z
+**Last Updated**: 2025-10-19T07:05:00Z
 
 **Description**:
 test haiku 4.5 model for speedy work
@@ -398,21 +518,27 @@ test haiku 4.5 model for speedy work
 **Status**: completed
 **Priority**: medium
 **Category**: research
+**Epic**: Misc
+**Depends On**: (none)
+**Related**: TASK-020
 **Origin**: adhoc
 **Created**: 2025-10-16T10:31:00Z
-**Last Updated**: 2025-10-19T07:05:00Z
 **Completed**: 2025-10-19T07:05:00Z
-**Details**: .agent/Session-task-029/TASK-029--analyze-the-meaning-of-life-from-coding-perspectiv/
+**Last Updated**: 2025-10-19T07:05:00Z
+
+**Description**:
+change name of task:execute to task:implement
 
 ---
-
-
 
 ## [TASK-030] change name of task:execute to task:implement
 
 **Status**: pending
 **Priority**: medium
 **Category**: refactor
+**Epic**: Task Management Enhancement
+**Depends On**: (none)
+**Related**: TASK-009
 **Origin**: adhoc
 **Created**: 2025-10-16T10:32:00Z
 
@@ -426,6 +552,9 @@ change name of task:execute to task:implement
 **Status**: pending
 **Priority**: high
 **Category**: research
+**Epic**: Model & Performance
+**Depends On**: (none)
+**Related**: TASK-028, TASK-032
 **Origin**: adhoc
 **Created**: 2025-10-16T10:33:00Z
 
@@ -439,10 +568,65 @@ ensure that sequantial thinking is applied for complex problems only and also ev
 **Status**: pending
 **Priority**: high
 **Category**: feature
+**Epic**: Model & Performance
+**Depends On**: (none)
+**Related**: TASK-028, TASK-031
 **Origin**: adhoc
 **Created**: 2025-10-16T10:41:00Z
 
 **Description**:
 ensure smarter model selection - haiku for speed and specific tasks, sonnet for complexity - ensure agent tempalte offer a simple way to manage model and sequential thinking options
+
+---
+
+## [TASK-033] Consider adding "claude skills" as a vector of productivity into the repos
+
+**Status**: pending
+**Priority**: medium
+**Category**: feature
+**Epic**: (none)
+**Depends On**: (none)
+**Related**: (none)
+**Origin**: adhoc
+**Created**: 2025-10-19T07:10:00Z
+
+**Description**:
+Consider adding "claude skills" as a vector of productivity into the repos
+
+---
+
+## [TASK-034] Update 8 existing agents to use newly-integrated MCP tools
+
+**Status**: completed
+**Priority**: medium
+**Category**: refactor
+**Epic**: MCP Integration
+**Depends On**: (none)
+**Related**: TASK-001, TASK-011, TASK-021
+**Origin**: adhoc
+**Created**: 2025-10-19T10:36:14.512216+00:00
+
+**Description**:
+Update 8 existing agents to use newly-integrated MCP tools (fetch, markitdown, terraform):
+
+**Fetch MCP (4 agents)**:
+- api-docs-analyst
+- docs-docusaurus-analyst
+- seo-analyst
+- research-web-analyst (already has)
+
+**Markitdown MCP (4 agents)**:
+- api-docs-analyst
+- database-architecture-analyst
+- docs-docusaurus-analyst
+- research-web-analyst (already has)
+
+**Terraform MCP (4 agents)**:
+- infrastructure-cloud-analyst
+- infrastructure-devops-analyst
+- infrastructure-monitoring-analyst
+- infrastructure-network-analyst
+
+Template is already updated (TASK-001), this backfills existing agents.
 
 ---

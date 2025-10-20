@@ -13,7 +13,33 @@
       "started": "2025-10-19T07:30:11",
       "status": "active",
       "terminals": [
-        "claude-31410"
+        "claude-31410",
+        "claude-81592"
+      ]
+    },
+    "chores": {
+      "topic": "Small maintenance tasks and cleanup",
+      "started": "2025-10-19T11:50:30",
+      "status": "active",
+      "terminals": [
+        "claude-70421"
+      ]
+    },
+    "pre-commit-review": {
+      "topic": "",
+      "started": "2025-10-19T18:11:23",
+      "status": "active",
+      "terminals": [
+        "claude-11184",
+        "claude-68980"
+      ]
+    },
+    "documentation-analysis": {
+      "topic": "004-task-002 changes",
+      "started": "2025-10-19T21:13:11",
+      "status": "active",
+      "terminals": [
+        "claude-30866"
       ]
     }
   }

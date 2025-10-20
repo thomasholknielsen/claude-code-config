@@ -1,7 +1,7 @@
 ---
 name: infrastructure-cloud-analyst
 description: "Use PROACTIVELY for cloud infrastructure analysis - provides AWS/Azure/GCP architecture, cost optimization, multi-region strategies, and cloud best practices. This agent conducts comprehensive cloud infrastructure analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes cloud architecture and persists findings to .agent/context/{session-id}/infrastructure-cloud-analyst.md files. Invoke when: keywords 'AWS', 'Azure', 'GCP', 'cloud architecture', 'cost optimization', 'multi-region'; cloud configuration files."
-tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
+tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__terraform__get_latest_provider_version, mcp__terraform__get_latest_module_version, mcp__terraform__get_provider_details, mcp__terraform__get_module_details, mcp__terraform__search_providers, mcp__terraform__search_modules, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue
 ---

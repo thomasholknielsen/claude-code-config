@@ -16,6 +16,19 @@ allowed-tools: Read, Grep, Glob, Write, Edit, mcp__sequential-thinking__sequenti
 
 **E**xpectation: Without --consolidate → organized findings list (type/file/line/text) + summary count. With --consolidate → new tasks in .agent/tasks.md (origin=code-comment, file:line metadata, code context snippet, inferred priority/category) + task IDs + confirmation
 
+## Quick Start
+
+```bash
+# Scan for TODO/FIXME comments
+/task:scan-project
+
+# Scan and consolidate to tasks.md
+/task:scan-project --consolidate
+
+# Search specific path
+/task:scan-project src/ --types=TODO,FIXME,HACK
+```
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% comment detection, Accuracy >90% context extraction, Relevance >85% priority inference, Efficiency <15s typical scan)

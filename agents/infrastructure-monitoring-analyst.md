@@ -1,7 +1,7 @@
 ---
 name: infrastructure-monitoring-analyst
 description: "Use PROACTIVELY for monitoring/observability analysis - provides metrics collection, alerting systems, log aggregation, distributed tracing, and SLA monitoring. This agent conducts comprehensive monitoring analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes monitoring setup and persists findings to .agent/context/{session-id}/infrastructure-monitoring-analyst.md files. Invoke when: keywords 'monitoring', 'observability', 'metrics', 'alerting', 'logs', 'tracing', 'Prometheus', 'Grafana'."
-tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
+tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__terraform__get_latest_provider_version, mcp__terraform__get_latest_module_version, mcp__terraform__get_provider_details, mcp__terraform__get_module_details, mcp__terraform__search_providers, mcp__terraform__search_modules, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue
 ---
