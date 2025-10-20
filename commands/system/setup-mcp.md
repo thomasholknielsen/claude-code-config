@@ -6,6 +6,23 @@ allowed-tools: Read, Write, Bash(docker:*), Bash(npm:*), Bash(brew:*), Bash(whic
 
 # Command: Setup MCP Servers
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -84,7 +101,41 @@ Interactive wizard that guides users through setting up Model Context Protocol (
 /system:setup-mcp
 # where $ARGUMENTS = "" (run interactive wizard)
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Output:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 🔧 MCP Server Setup Wizard
 ===========================
 
@@ -155,7 +206,41 @@ Verification commands:
 /system:setup-mcp "context7"
 # where $ARGUMENTS = "context7"
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Output:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 🔧 Setting up Context7 MCP Server
 ===================================
 
@@ -190,7 +275,41 @@ I should use mcp__context7__resolve-library-id and mcp__context7__get-library-do
 /system:setup-mcp "playwright"
 # where $ARGUMENTS = "playwright"
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Output:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 🔧 Setting up Playwright MCP Server
 ====================================
 
@@ -218,9 +337,60 @@ Would you like me to install Node.js via Homebrew? [y/N]:
 /system:setup-mcp "all"
 # where $ARGUMENTS = "all"
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Configures all servers with defaults (skips Context7 API key prompt if not provided)
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Output:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 🔧 Setting up All MCP Servers
 ==============================
 
@@ -246,9 +416,43 @@ Restart Claude Code to load servers.
 
 ```bash
 # Check Docker installed and running
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 docker ps > /dev/null 2>&1
 
 # If failed:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Install Docker Desktop: brew install --cask docker"
 else
@@ -260,32 +464,168 @@ fi
 
 ```bash
 # Check Node.js and npm
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 node --version  # Require v18+
 npm --version
 
 # If failed:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 brew install node  # macOS
 # Or: https://nodejs.org/
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 ```
 
 ### Python-Based Servers (fetch)
 
 ```bash
 # Check uv/uvx
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 uvx --version
 
 # If failed:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 brew install uv  # macOS
 # Or: pip install uv
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 ```
 
 ### API Key Servers (context7)
 
 ```bash
 # Interactive prompt with validation
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 read -p "Enter Context7 API key: " api_key
 
 # Validate format (starts with ctx7sk-)
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 if [[ ! $api_key =~ ^ctx7sk- ]]; then
   echo "❌ Invalid format. Key should start with 'ctx7sk-'"
   exit 1
@@ -298,9 +638,43 @@ fi
 
 ```bash
 # Always create backup before modifying
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 cp ~/.claude.json ~/.claude.json.backup
 
 # If error occurs, restore:
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 cp ~/.claude.json.backup ~/.claude.json
 ```
 
@@ -310,6 +684,23 @@ cp ~/.claude.json.backup ~/.claude.json
 import json
 
 # Validate before writing
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 try:
     config = json.loads(updated_content)
     # Write if valid
@@ -327,16 +718,84 @@ import os
 from pathlib import Path
 
 # Get this repository's path
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 repo_root = Path.cwd()
 
 # Read ~/.claude.json
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 claude_config = Path.home() / ".claude.json"
 
 # Find matching project
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 with open(claude_config) as f:
     config = json.load(f)
 
 # Look for this project
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 for project_path in config.get("projects", {}):
     if Path(project_path) == repo_root:
         # Found our project

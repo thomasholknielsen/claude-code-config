@@ -6,6 +6,23 @@ allowed-tools: Read, Grep, Glob, Task, mcp__sequential-thinking__sequentialthink
 
 # Command: Code
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -96,14 +113,116 @@ Provides clear code explanations with context-appropriate depth, helping underst
 
 ```bash
 # Explain specific function
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /explain:code $ARGUMENTS
 # where $ARGUMENTS = "getUserById --depth=detailed"
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Focus on algorithmic logic
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /explain:code $ARGUMENTS
 # where $ARGUMENTS = "sorting-algorithm.js --focus=logic"
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Comprehensive explanation with examples
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /explain:code $ARGUMENTS
 # where $ARGUMENTS = "auth-service.py --depth=comprehensive --include-examples"
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 ```

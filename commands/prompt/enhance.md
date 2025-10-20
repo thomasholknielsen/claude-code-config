@@ -6,6 +6,23 @@ allowed-tools: Read, Write, Edit, Grep, Glob, TodoWrite, mcp__sequential-thinkin
 
 # Command: Enhance Prompt
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -515,6 +532,23 @@ Your choice: _
 
 # User selects: B
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 → Applying Complete mode
 
 ---
@@ -809,14 +843,65 @@ Design and implement secure user authentication system...
 
 ```bash
 # 1. Capture tasks during brainstorming
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /task:add "Add user authentication" --priority=high --category=feature
 /task:add "Optimize database queries" --priority=medium --category=refactor
 /task:add "Fix login validation" --priority=high --category=bug
 
 # 2. Batch enhance all tasks
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /prompt:enhance --from-tasks
 
 # 3. Execute tasks with enhanced prompts
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /task:execute TASK-042  # Uses enhanced prompt automatically
 ```
 

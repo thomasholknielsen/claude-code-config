@@ -6,6 +6,23 @@ allowed-tools: Glob, Read, Grep, Bash, Task, mcp__sequential-thinking__sequentia
 
 # Command: Architecture
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -148,14 +165,116 @@ sequenceDiagram
 
 ```bash
 # Comprehensive architecture analysis
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /explain:architecture $ARGUMENTS
 # where $ARGUMENTS = "--depth=comprehensive"
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Focus on data flow patterns
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /explain:architecture $ARGUMENTS
 # where $ARGUMENTS = "data-flow --format=diagram"
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 # Include external dependencies
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 /explain:architecture $ARGUMENTS
 # where $ARGUMENTS = "--include-dependencies"
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 ```
