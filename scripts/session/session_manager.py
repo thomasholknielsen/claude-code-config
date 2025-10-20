@@ -27,7 +27,7 @@ def get_terminal_identifier():
     Get stable terminal identifier using grandparent process PID.
 
     Works in both TTY and non-TTY contexts (Claude Code Bash execution).
-    Cross-platform: macOS, Linux, WSL, Git Bash on Windows.
+    Cross-platform: macOS, Linux, WSL, Git Bash on Windows, native Windows.
 
     Returns:
         str: Terminal identifier (e.g., "claude-86258") or None if detection fails
@@ -35,7 +35,8 @@ def get_terminal_identifier():
     Platform Examples:
         - macOS: "claude-86258" (Claude Code process PID)
         - Linux: "claude-12345"
-        - Windows (Git Bash): "claude-67890"
+        - Windows (Git Bash): "claude-12345" (direct ppid)
+        - Windows (native): "claude-proc-{ppid}"
 
     Example:
         >>> identifier = get_terminal_identifier()
@@ -49,16 +50,34 @@ def get_terminal_identifier():
         if not str(ppid).isdigit():
             return None
 
-        # Use ps command to get grandparent PID (Claude Code process)
-        # This is stable across all commands in same terminal session
-        result = subprocess.run(["ps", "-p", str(ppid), "-o", "ppid="], capture_output=True, text=True, timeout=1)
+        # Try Unix-style ps command first (macOS, Linux, WSL, Git Bash)
+        try:
+            result = subprocess.run(
+                ["ps", "-p", str(ppid), "-o", "ppid="],
+                capture_output=True,
+                text=True,
+                timeout=1
+            )
 
-        if result.returncode == 0:
-            gppid = result.stdout.strip()
-            if gppid:
-                return f"claude-{gppid}"
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        # ps command not available or timeout
+            if result.returncode == 0:
+                gppid = result.stdout.strip()
+                if gppid and gppid.isdigit():
+                    return f"claude-{gppid}"
+        except (FileNotFoundError, subprocess.TimeoutExpired):
+            # ps command not available (Git Bash or native Windows)
+            pass
+
+        # Fallback 1: Git Bash - use ppid directly
+        import platform
+        if platform.system() == "Windows" or "MSYSTEM" in os.environ:
+            # Git Bash or native Windows
+            return f"claude-{ppid}"
+
+        # Fallback 2: Use ppid directly for other Unix-like systems where ps failed
+        return f"claude-{ppid}"
+
+    except Exception:
+        # Any other errors
         pass
 
     return None

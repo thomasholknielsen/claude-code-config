@@ -16,7 +16,7 @@ model: inherit
 **YOU MUST:**
 1. ✓ Parse session-name and optional topic from $ARGUMENTS
 2. ✓ Validate session name format (lowercase alphanumeric + hyphens only)
-3. ✓ Call Python script: `python3 ~/.claude/scripts/session/session_manager.py start <name> [topic]`
+3. ✓ Call Python script: `python ~/.claude/scripts/session/session_manager.py start <name> [topic]`
 4. ✓ Display confirmation with session name, directory path, and terminal
 5. ✓ Inform user that all domain analysts will use this session directory
 
@@ -39,7 +39,7 @@ Extract session-name (required) and optional topic from $ARGUMENTS
 
 ### Step 3: Execute Session Creation
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py start <name> [topic]
+python ~/.claude/scripts/session/session_manager.py start <name> [topic]
 ```
 
 ### Step 4: Display Confirmation
@@ -90,7 +90,7 @@ Creates a new named session in the current project and links the current termina
    - If no arguments: prompt interactively
 
 2. **Create Session:**
-   - Call `python3 ~/.claude/scripts/session/session_manager.py start <session-name> [topic]`
+   - Call `python ~/.claude/scripts/session/session_manager.py start <session-name> [topic]`
    - This function:
      * Validates session name format (lowercase alphanumeric + hyphens)
      * Checks uniqueness in `.agent/.sessions` registry
@@ -237,8 +237,8 @@ Creates a new named session in the current project and links the current termina
 
 All domain analysts automatically use the current session directory via TTY lookup:
 
-- `python3 ~/.claude/scripts/session/session_manager.py current` returns session name for current terminal
-- `python3 ~/.claude/scripts/session/session_manager.py context_dir` returns context directory (task-aware routing)
+- `python ~/.claude/scripts/session/session_manager.py current` returns session name for current terminal
+- `python ~/.claude/scripts/session/session_manager.py context_dir` returns context directory (task-aware routing)
 - Context files: `.agent/Session-{name}/context/{agent-name}.md`
 - Task-specific files: `.agent/Session-{name}/Task-XXX--{title}/{agent-name}.md`
 - No manual session tracking needed - TTY-based detection is automatic

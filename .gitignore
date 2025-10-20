@@ -99,3 +99,6 @@ specs/
 
 # Allow agents, commands, and scripts directories (explicitly not ignored)
 __pycache__/
+
+# Windows null file (git artifact)
+nul
