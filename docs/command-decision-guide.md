@@ -295,7 +295,7 @@ Commands automatically detect repository mode:
 
 **Available Commands**:
 
-- `/prompt:enhance-prompt` - Transform prompts using frameworks (RISEN, COSTAR, APE, auto)
+- `/prompt:enhance` - Transform prompts using frameworks (RISEN, COSTAR, APE, auto)
 
 **Characteristics**:
 
