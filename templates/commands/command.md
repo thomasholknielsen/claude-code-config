@@ -1,411 +1,250 @@
 ---
 description: "<Single clear sentence describing command purpose>"
 argument-hint: "[arg1] [--flag=value]"
-allowed-tools: Tool1, Tool2, Bash(command:*), Bash(another-cmd:*)
+allowed-tools: Tool1, Tool2, Bash(command:*), mcp__sequential-thinking__sequentialthinking
 # CRITICAL: Commands NEVER use MCP tools directly. Always delegate to domain analysts with MCP access.
 # ❌ Bad: allowed-tools: mcp__context7__get-library-docs
 # ✅ Good: Invoke documentation-analyst (which has context7 tools)
-# Rationale: Keeps commands focused on orchestration, leverages agent domain expertise
 ---
 
-# Command: <Action Verb> <Object>
+# Command: [Action Verb] [Object]
 
-## Purpose
+## EXECUTION INSTRUCTIONS (START HERE)
 
-<Single sentence describing the primary function of this command>
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** [Single clear sentence explaining core purpose]
+
+**YOU MUST:**
+1. ✓ [Specific action 1] (example: "Parse argument from $ARGUMENTS")
+2. ✓ [Specific action 2] (example: "Call Python script: python3 ~/.claude/scripts/...")
+3. ✓ [Specific action 3] (example: "Display confirmation with results")
+
+**YOU MUST NOT:**
+- ✗ [Anti-pattern 1 to avoid] (e.g., "Do nothing silently")
+- ✗ [Anti-pattern 2 to avoid] (e.g., "Skip the implementation")
+- ✗ [Anti-pattern 3 to avoid] (e.g., "Use placeholder values")
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: [Action Name]
+[Clear description of what to do]
+
+**Example bash command (if applicable):**
+```bash
+command example here
+```
+
+### Step 2: [Next Action]
+[Clear description]
+
+**Details:**
+- Sub-point 1
+- Sub-point 2
+
+### Step 3: [Final Action]
+[Outcome or result delivery]
+
+---
 
 ## Usage
 
-```
-/<category>:<command-name> $ARGUMENTS
-```
-
-**Arguments**:
-
-- `$1` (<name>): <Description> (optional/required)
-- `$2` (<flag>): <Description> (optional)
-- `$3` (<flag>): <Description> (optional)
-
-**$ARGUMENTS Examples**:
-
-- `$ARGUMENTS = "value1"` - <Description of what this does>
-- `$ARGUMENTS = "value1 --flag=value2"` - <Description with flag>
-- `$ARGUMENTS = "--flag-only"` - <Description>
-
-## Process
-
-1. **Step 1**: <Clear action description>
-
-   - <Sub-step or detail>
-   - <Sub-step or detail>
-
-2. **Step 2**: <Next action>
-
-   - <Sub-step or detail>
-
-3. **Step 3**: <Final outcome>
-   - <Sub-step or detail>
-
-## Agent Integration
-
-- **Specialist Options**: <agent-name> can be spawned to <describe role and coordination>
-- **Primary Agent**: <agent-name> - <Role description>
-- **Coordination**: <How agent coordinates with other specialists if applicable>
-
-**Coordination Pattern Guidance:**
-
-- **Thread Absorption**: Does this command absorb main thread capabilities, or restrict via `allowed-tools` frontmatter?
-
-  - If unrestricted: Command has full main thread access (can parallelize, invoke agents/commands)
-  - If restricted: Document specific tool permissions in `allowed-tools`
-
-- **Agent Usage**: If this command invokes agents:
-
-  - Agents provide advisory recommendations (not direct execution)
-  - Agents must persist findings to `.artifacts/context/*.md`
-  - Agents cannot reliably invoke slash commands themselves
-
-- **Command Delegation**: If this command invokes other commands:
-  - Use SlashCommand tool for delegation
-  - Delegation should be final action (no post-processing after)
-  - Document daisy-chain pattern if applicable
-
-**Examples of Compliant Patterns:**
-
-```
-# Tool restriction example (frontmatter)
-allowed-tools: Read, Grep, Bash(ls:*), Bash(git status)
-
-# Agent coordination example
-Agent analyzes → saves to .artifacts/context/analysis.md → reports location
-
-# Command delegation example (daisy-chain)
-SlashCommand(/next:command $ARGS)
-# Command ends here - no post-processing
-```
-
-## MCP Availability Checking (If Applicable)
-
-**Use this section if your command or its delegated agents require MCP tools**
-
-### Checking Required MCPs
-
-If your command depends on specific MCPs (via agents), check availability upfront:
-
 ```bash
-# Example: Check if fetch MCP is available before running research-analyst
-
-# In your command implementation:
-if command_requires_mcp("fetch"):
-    # Check if MCP is configured
-    if not mcp_available("fetch"):
-        return "❌ This command requires fetch MCP. Please run /system:setup-mcp to configure it."
-
-# If required MCPs available, proceed
-invoke_agent("research-analyst", task)
+/<category>:<command> $ARGUMENTS
 ```
 
-### Handling Agent MCP Failures
+**Arguments:**
 
-If an agent fails due to missing MCPs:
+- `arg1` (required): [Description] (e.g., task name, file path)
+- `--flag1`: [Description] (optional, default: value)
+- `--flag2`: [Description] (optional)
 
-```
-# Agent returns error like: "❌ Fetch MCP failed..."
-# Show user clear guidance:
+**$ARGUMENTS Examples:**
 
-"Research failed due to missing external tool.
-Run /system:setup-mcp to configure fetch, or proceed with local resources."
-```
+- `$ARGUMENTS = "value1"` - [Scenario 1 and outcome]
+- `$ARGUMENTS = "value1 --flag=value2"` - [Scenario 2 and outcome]
+- `$ARGUMENTS = ""` - [Default behavior scenario]
 
-### Key Pattern
-
-1. **Check upfront**: If MCPs required, verify availability BEFORE starting work
-2. **Clear message**: If missing, tell user exactly which MCP is needed and how to fix it
-3. **Delegate handling**: Agents handle MCP errors internally
-4. **Report to user**: Display agent error messages with setup guidance if needed
-
-### Documentation
-
-If your command delegates to agents that use MCPs:
-
-```markdown
-## MCP Dependencies
-
-This command delegates to:
-- **research-analyst**: Uses fetch (required), markitdown (optional)
-- **security-analyst**: Uses sequential-thinking (required)
-
-If MCPs are unavailable, command will report which MCP failed and suggest setup.
-```
-
-## Interactive User Input (Optional)
-
-_Include this section if your command requires interactive user choices_
-
-**When to Use:**
-
-- Command has multiple distinct execution paths
-- User needs to choose between 2-5 mutually exclusive options
-- Decision significantly impacts what the command will do
-
-**Standard Format (A/B/C/D Table):**
-
-Present options using a Markdown table:
-
-```markdown
-## How would you like to proceed?
-
-| Option | Description                                  |
-| ------ | -------------------------------------------- |
-| A      | <First option description>                   |
-| B      | <Second option description>                  |
-| C      | <Third option description>                   |
-| D      | <Fourth option (optional)>                   |
-| Skip   | Exit without making changes (always include) |
-
-Your choice: \_
-```
-
-**Implementation Guidelines:**
-
-- Maximum 5 options (A-E), keep choices focused
-- Each option must be mutually exclusive (no overlap)
-- Always include "Skip" option for exit without changes
-- Validate user input (A/B/C/D/Skip, case-insensitive)
-- If invalid input, re-prompt once then default to Skip
-- Use descriptive option text (not just "Option A")
-
-**Benefits of A/B/C/D Format:**
-
-- Cleaner, more scannable than numbered lists
-- Letter-based options more intuitive than complex syntax (e.g., "1,3,5" or "critical+high")
-- Consistent with speckit command patterns
-- Table format groups related options visually
-- Easy to add impact columns or additional context
-
-**Example with Impact Column:**
-
-```markdown
-| Option | Description   | Impact              |
-| ------ | ------------- | ------------------- |
-| A      | Quick fix     | 3 changes, ~5 min   |
-| B      | Recommended   | 10 changes, ~15 min |
-| C      | Comprehensive | 20 changes, ~30 min |
-| Skip   | Exit          | No changes          |
-
-Your choice: \_
-```
-
-**Validation Example:**
-
-```
-User enters: B
-→ Validated: Applying recommended fixes
-→ Proceeding with 10 changes...
-
-User enters: xyz
-→ Invalid input. Please enter A, B, C, D, or Skip.
-→ Your choice: _
-
-(Second invalid input)
-→ No valid selection. Defaulting to Skip.
-```
+---
 
 ## Examples
 
-### Example 1: <Scenario Name>
+### Example 1: [Common Use Case]
 
-```
-/<category>:<command> $ARGUMENTS
-# where $ARGUMENTS = "<specific values>"
+```bash
+/<category>:<command> specific-args
 
-# Expected behavior:
-→ <What happens>
-→ <Result>
-```
-
-### Example 2: <Another Scenario>
-
-```
-/<category>:<command> $ARGUMENTS
-# where $ARGUMENTS = "<different values>"
-
-# Expected behavior:
-→ <What happens>
-→ <Result>
+# Expected output:
+→ [What happens]
+→ [Result confirmation]
 ```
 
-## Parallelization Patterns (Optional)
+### Example 2: [Another Use Case]
 
-_Include this section if the command supports parallel execution_
+```bash
+/<category>:<command> different-args
 
-**Use Case**: <When parallel execution is beneficial>
-
-```
-# Example parallel task coordination
-Task("Parallel task 1 description")
-Task("Parallel task 2 description")
-Task("Parallel task 3 description")
+# Expected output:
+→ [What happens]
+→ [Result confirmation]
 ```
 
-**Coordination Strategy**:
+---
 
-- <How tasks are coordinated>
-- <Dependencies between parallel tasks>
-- <Result aggregation approach>
+## Agent Integration (CONDITIONAL: Include only if command uses agents)
+
+**If this command delegates to domain analysts:**
+
+**Analysts Invoked:**
+- [Analyst 1]: [Specific role - what analysis they perform]
+- [Analyst 2]: [Specific role - what analysis they perform]
+
+**Pattern:**
+1. Analysts conduct independent analysis
+2. Persist detailed findings to `.agent/context/{session-id}/{analyst-name}.md`
+3. Return concise summary with actionable recommendations
+4. Main thread reads context files and implements changes
+
+**Key Constraint:** Analysts provide recommendations only - main thread implements all changes
+
+### FOR WORKFLOW COMMANDS ONLY: Parallel Orchestration
+
+This section applies ONLY to `/workflows/*` commands.
+
+**Parallelization Strategy:**
+
+```
+Phase 1: Parallel Analysis (concurrent analyst invocations)
+├─ Task: analyst-1 analyzes [domain] → persists findings → returns summary
+├─ Task: analyst-2 analyzes [domain] → persists findings → returns summary
+└─ Task: analyst-3 analyzes [domain] → persists findings → returns summary
+
+Phase 2: Sequential Synthesis
+├─ Main thread reads all context files
+├─ Consolidates findings → removes duplicates → prioritizes by impact
+└─ Generates unified recommendations
+
+Phase 3: Parallel Implementation
+├─ Edit/Bash: Fix issue 1 in file A
+├─ Edit/Bash: Fix issue 2 in file B
+└─ Bash: Run validation/tests
+```
+
+**Forbidden Pattern (NEVER do this):**
+```
+❌ WRONG: Task("analyst: Fix the issues")
+❌ WRONG: Task("analyst: Apply auto-fixes")
+✅ CORRECT: Task("analyst: Analyze X and identify issues")
+```
+
+---
+
+## Interactive Prompts (CONDITIONAL: Include only if command needs user choice)
+
+_Use this section if command requires interactive user input to choose between distinct execution paths (max 5 options)_
+
+**When to Show This:**
+- Command has 2-4 mutually exclusive options
+- User decision significantly affects what command does
+- Option details need explanation
+
+**Format (A/B/C/D Table):**
+
+| Option | Description | Impact |
+|--------|-------------|--------|
+| A | [Choice 1 description] | [Effect/outcome] |
+| B | [Choice 2 description] | [Effect/outcome] |
+| C | [Choice 3 description] | [Effect/outcome] |
+| Skip | Exit without making changes | No changes made |
+
+**User Flow:**
+```
+→ Command displays table above
+→ Prompt: "Your choice: _"
+→ Validate: A/B/C or Skip (case-insensitive)
+→ If valid: Proceed with chosen action
+→ If invalid (first time): Re-prompt
+→ If invalid (second time): Default to Skip
+```
+
+---
+
+## Error Handling
+
+**Common Issues & Solutions:**
+
+| Issue | Example | Solution |
+|-------|---------|----------|
+| [Error type 1] | User provides invalid input | Validate and re-prompt or default to safe option |
+| [Error type 2] | Required file/tool missing | Check prerequisites upfront, provide clear install instructions |
+| [Error type 3] | Operation fails | Provide rollback/recovery steps if applicable |
+
+---
 
 ## Integration Points
 
-- **Follows**: <Commands that typically run before this one>
-- **Followed by**: <Commands that typically run after this one>
-- **Related**: <Related commands in the same domain>
+- **Precedes**: [Commands that typically run after this one]
+- **Follows**: [Commands that typically run before this one]
+- **Related**: [Related commands in same domain or workflow]
 
-## Success Criteria (S-Tier Pattern)
+**Workflow Example:**
+```
+/command:step1 → /command:step2 → /command:step3
+```
 
-**Command succeeds when** (measurable outcomes):
+---
 
-- [ ] {Specific outcome 1} (e.g., "All linters pass with zero errors")
-- [ ] {Specific outcome 2} (e.g., "Context files created for each analyst invoked")
-- [ ] {Specific outcome 3} (e.g., "User receives actionable summary with clear next steps")
+## Output Format
 
-**Quality Metrics (CARE Framework)**:
+**What User Receives:**
 
-- **C**ompleteness: >95% - Command addresses all aspects of user request
-- **A**ccuracy: >90% - Outputs are factually correct and verifiable
-- **R**elevance: >85% - Results align with user intent and solve stated problem
-- **E**fficiency: Optimal - Completes in reasonable time with appropriate resource use
+- ✓ Clear success/failure indication
+- ✓ Summary of what was accomplished
+- ✓ File references with line numbers (if applicable)
+- ✓ Actionable next steps
+- ✓ Execution time (if relevant)
 
-**S-Tier Threshold**: 85+ overall quality score
+**Example Output Structure:**
 
-## Explicit Constraints (S-Tier Pattern)
+```markdown
+✅ Command Complete: [Summary in 1-2 sentences]
+
+**Results:**
+- [Key outcome 1]
+- [Key outcome 2]
+- [Key outcome 3]
+
+**Next Steps:**
+1. [Suggested action 1]
+2. [Suggested action 2]
+```
+
+---
+
+## Explicit Constraints (CONDITIONAL: Include only if command has important scope boundaries)
 
 ### Scope Boundaries
 
-**IN SCOPE**:
+**IN SCOPE:**
+- [What this command handles]
+- [Specific use cases]
 
-- {What this command handles}
-- {Specific use cases}
-- {Supported workflows}
+**OUT OF SCOPE:**
+- [What this command does NOT handle]
+- [Limitations or edge cases]
+- [Functionality handled by other commands]
 
-**OUT OF SCOPE**:
-
-- {What this command does NOT handle}
-- {Edge cases or limitations}
-- {Functionality handled by other commands}
-
-### What NOT to Do
-
-**Anti-Patterns to Avoid**:
-
-- ❌ {Anti-pattern 1 with example} → ✅ {Correct approach}
-- ❌ {Anti-pattern 2 with example} → ✅ {Correct approach}
-- ❌ {Anti-pattern 3 with example} → ✅ {Correct approach}
-
-### Pre-Execution Checklist
-
-Before running command, verify:
-
-- [ ] Required arguments provided (no placeholders)
-- [ ] Session initialized if using context system
-- [ ] User intent is clear (ask if ambiguous)
-- [ ] Command is appropriate for task (not overengineered)
+---
 
 ## Quality Standards
 
-- **Analysis Depth**: Comprehensive examination when delegating to analysts
-- **Context Persistence**: All agent findings saved to `.agent/context/{session-id}/`
-- **User Communication**: Clear, concise updates with progress indicators
-- **Error Handling**: Graceful failures with actionable error messages
-- **Success Validation**: Verify command completed successfully before reporting
-- **Anti-Pattern Avoidance**: Follow checklist above
-- **Quality Threshold**: Achieve 85+ CARE score
+**Command succeeds when:**
+- ✓ Execution instructions are clear and followed
+- ✓ Implementation flow steps are completed in order
+- ✓ User receives clear output with next steps
+- ✓ No silent failures or missing steps
+- ✓ Error handling is graceful with actionable messages
 
-## Format Specification (S-Tier Pattern)
-
-**Command Output Structure**:
-
-```json
-{
-  "status": "success|failure|partial",
-  "summary": "1-2 sentence outcome",
-  "metrics": {
-    "quality_score": 92,
-    "care_breakdown": { "C": 95, "A": 90, "R": 88, "E": 95 }
-  },
-  "details": {
-    "analysts_invoked": ["agent-name-1", "agent-name-2"],
-    "tasks_completed": 5,
-    "tasks_pending": 0,
-    "files_modified": ["file1.ts", "file2.ts"],
-    "context_files": [".agent/context/{session-id}/agent-name.md"]
-  },
-  "next_steps": ["Recommended action 1", "Recommended action 2"],
-  "execution_time": "2.3s"
-}
-```
-
-**User-Facing Output** (Markdown):
-
-```markdown
-✅ Command Complete: {Summary}
-
-**Quality Score**: 92/100 (CARE: C:95 A:90 R:88 E:95)
-
-**Results**:
-
-- {Key outcome 1}
-- {Key outcome 2}
-- {Key outcome 3}
-
-**Context Files**: {count} analyst reports in `.agent/context/{session-id}/`
-
-**Next Steps**:
-
-1. {Recommended action 1}
-2. {Recommended action 2}
-```
-
-## Chain-of-Thought Process (S-Tier Pattern)
-
-**For complex multi-step commands, follow systematic approach**:
-
-### Execution Phases
-
-<execution>
-1. **Parse & Validate**: Extract arguments → Validate inputs → Check prerequisites
-2. **Invoke Agents** (if applicable): Launch in parallel → Monitor completion → Read context files
-3. **Synthesize**: Consolidate findings → Deduplicate → Prioritize by impact
-4. **Implement**: Execute changes → Validate results → Update context logs
-5. **Report**: Generate summary → Include metrics → Provide next steps
-</execution>
-
-**Use sequential-thinking MCP for complex decision trees or multi-branch logic**
-
-### Self-Reflection Before Completion
-
-<reflection>
-- [ ] All success criteria met?
-- [ ] Quality metrics at 85+ threshold?
-- [ ] User receives clear, actionable output?
-- [ ] Context files updated (Main Thread Log)?
-- [ ] No placeholder values in output?
-- [ ] Anti-patterns avoided?
-- [ ] Error handling tested?
-</reflection>
-
-## Output
-
-**Command Produces**:
-
-- {Primary output (files, analysis, changes)}
-- {Feedback to user (summary, metrics, recommendations)}
-- {Context artifacts (if agents invoked)}
-- {Logs or audit trails (if applicable)}
-
-**User Receives**:
-
-- Clear success/failure indication with quality score
-- Summary of what was accomplished
-- File references with line numbers where applicable
-- Actionable next steps or recommendations
-- Execution time and resource usage (if relevant)
+**Quality Threshold:** If command completed all steps and user has clear results, success target met.

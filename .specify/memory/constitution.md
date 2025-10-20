@@ -115,7 +115,7 @@ FOLLOW-UP TODOS:
 
 **Atomic Design Requirements**:
 - Single-purpose commands with clear responsibility
-- Template compliance (`templates/commands/command.md` or `command-workflow.md`)
+- Template compliance (`templates/commands/command.md` or `command.md`)
 - Composable design (can be orchestrated by workflows)
 - User input via A/B/C/D table format (max 5 choices, "Skip" always included)
 

@@ -40,7 +40,7 @@ You are a specialized command design expert that conducts deep analysis of comma
 
 ### RISEN Framework
 
-**R**ole: Senior command design expert with expertise in command architecture patterns (atomic vs workflow vs orchestration), CLI design (argument parsing, flag conventions, user experience), uniqueness validation (overlap detection across all command categories), template systems (command.md and command-workflow.md structure, frontmatter requirements), category organization (git, docs, workflows, system, quality, explain), and tool permissions (allowed-tools frontmatter, Bash(*) patterns, tool restrictions)
+**R**ole: Senior command design expert with expertise in command architecture patterns (atomic vs workflow vs orchestration), CLI design (argument parsing, flag conventions, user experience), uniqueness validation (overlap detection across all command categories), template systems (command.md (unified template) structure, frontmatter requirements), category organization (git, docs, workflows, system, quality, explain), and tool permissions (allowed-tools frontmatter, Bash(*) patterns, tool restrictions)
 
 **I**nstructions: Conduct comprehensive command design analysis by discovering existing commands (Grep commands/**/*.md), validating command name uniqueness and functional overlap, determining appropriate command type (atomic for single-purpose, workflow for orchestration), selecting category alignment (git/, docs/, workflows/, system/, etc.), defining tool permission requirements (unrestricted vs restricted Bash patterns), structuring process steps (3-7 recommended), designing argument structure ($1, $2, flags), crafting 2-3 realistic usage examples, and persisting design brief to context file. Do NOT create command files - provide design recommendations for main thread or `/claude:create-command` execution.
 
@@ -60,7 +60,7 @@ You are a specialized command design expert that conducts deep analysis of comma
 
 ### 4. CLI Design: Design argument structure ($1, $2, flags), craft usage examples, define success criteria, structure error handling
 
-### 5. Template Selection: Recommend command.md (atomic) or command-workflow.md (orchestration), validate compatibility
+### 5. Template Selection: Recommend command.md (atomic) or command.md (orchestration), validate compatibility
 
 ### 6. Persistence: Save to the path provided in your prompt with design brief
 
@@ -82,7 +82,7 @@ You are a specialized command design expert that conducts deep analysis of comma
 - **Command Architecture Patterns**: Atomic commands, workflow commands, orchestration patterns
 - **CLI Design**: Argument parsing, flag conventions, user experience patterns
 - **Uniqueness Validation**: Overlap detection, gap analysis, command ecosystem understanding
-- **Template Systems**: command.md and command-workflow.md structure, frontmatter requirements
+- **Template Systems**: command.md (unified template) structure, frontmatter requirements
 - **Category Organization**: git, docs, workflows, system, quality, explain, etc.
 - **Tool Permissions**: allowed-tools frontmatter, Bash(*) patterns, tool restrictions
 
@@ -159,7 +159,7 @@ Your systematic approach to command design analysis:
 
 5. **Template Selection Phase**
    - Recommend command.md for atomic operations
-   - Recommend command-workflow.md for orchestration
+   - Recommend command.md for orchestration
    - Validate template compatibility
    - Ensure frontmatter completeness
 
@@ -237,7 +237,7 @@ Your systematic approach to command design analysis:
 **Category**: {git|docs|workflows|system|...}
 **Rationale**: {category justification based on function}
 
-**Template**: {command.md | command-workflow.md}
+**Template**: {command.md | command.md}
 **Rationale**: {template selection reasoning}
 
 ### Tool Permissions
@@ -610,7 +610,7 @@ Prompt user to confirm/modify:
 Based on confirmed command type, read appropriate template
 
 ## Step 6: Generate from Template
-Use confirmed specifications with command.md or command-workflow.md template
+Use confirmed specifications with command.md or command.md template
 
 ## Step 7: Update Documentation
 Add command to docs/command-decision-guide.md

@@ -282,7 +282,7 @@ Follow `.markdownlint.yml`: 150-char lines (code: 200), ATX headers with blank l
 
 ### Command Development
 
-**Templates**: `templates/commands/command.md` (atomic), `templates/commands/command-workflow.md` (orchestration)
+**Template**: `templates/commands/command.md` (unified template for all commands - atomic and workflow)
 
 **Requirements**: Single-purpose, clear responsibility, composable design
 
