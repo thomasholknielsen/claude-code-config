@@ -6,6 +6,47 @@ allowed-tools: Bash, Read, Glob, mcp__sequential-thinking__sequentialthinking
 
 # Command: End Session
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** End the current session by displaying a summary and providing interactive cleanup options.
+
+**YOU MUST:**
+1. ✓ Get current session via `python ~/.claude/scripts/session/session_manager.py current`
+2. ✓ Display session summary (started, topic, context files, tasks created)
+3. ✓ Present interactive A/B/C cleanup prompt (Delete/Archive/Keep/Skip)
+4. ✓ Execute cleanup action based on user choice
+5. ✓ Display confirmation of action taken
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Delete session without user confirmation
+- ✗ Skip the interactive prompt
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Get Current Session
+```bash
+python ~/.claude/scripts/session/session_manager.py current
+```
+
+### Step 2: Build & Display Summary
+Show session metadata: name, started timestamp, topic, context file count, task directories
+
+### Step 3: Present Interactive Cleanup Prompt
+Show A/B/C table format (Delete/Archive/Keep/Skip options)
+
+### Step 4: Execute Cleanup
+Call appropriate cleanup function based on user selection
+
+### Step 5: Confirm Action
+Display confirmation with action taken
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

@@ -6,6 +6,57 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 # Command: Commit
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create conventional commit with smart type detection and pre-commit quality checks.
+
+**YOU MUST:**
+1. ✓ Parse commit message from $ARGUMENTS
+2. ✓ Detect file types to infer conventional type (feat/fix/docs/test)
+3. ✓ Run pre-commit linting with auto-fix
+4. ✓ Validate conventional format (type, scope, 72-char limit)
+5. ✓ Create single or multiple logical commits
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip linting checks
+- ✗ Commit without type prefix
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+1. ✓ Analyze uncommitted files using `git diff HEAD --name-only`
+2. ✓ Detect file types and infer conventional commit type (feat/fix/docs/test)
+3. ✓ Run pre-commit linting with auto-fix: `python -m ruff format .` and `markdownlint --fix`
+4. ✓ Validate conventional format: `<type>(<scope>): <description>`
+5. ✓ Execute `git add .` and `git commit -m "<message>"` to create commit
+6. ✓ Verify commit was created successfully
+
+Do NOT just describe what should happen - actively execute this git commit workflow NOW using the Bash tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Analyze Uncommitted Files
+Detect file types and infer conventional type
+
+### Step 2: Run Pre-Commit Linting
+Execute linters with auto-fix
+
+### Step 3: Validate Message Format
+Check conventional format compliance
+
+### Step 4: Create Commit(s)
+Create single or multiple grouped commits
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

@@ -5,6 +5,63 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Security Audit
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute comprehensive security audit using parallel analysis for OWASP Top 10, vulnerability detection, and compliance.
+
+**YOU MUST:**
+1. ✓ Launch security-analyst to analyze application code
+2. ✓ Launch api-rest-analyst for API security assessment
+3. ✓ Launch database-analyst for database security review
+4. ✓ Read all context files and consolidate findings by CVSS score
+5. ✓ Organize findings by severity (Critical/High/Medium/Low)
+6. ✓ Generate audit report with remediation roadmap
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip any security domain
+- ✗ Provide findings without CVSS scores
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this security audit immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Launch security-analyst, api-rest-analyst, and database-analyst in parallel concurrently
+3. Each analyst analyzes codebase and writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+4. Collect all findings, organize by CVSS score and severity (Critical/High/Medium/Low)
+5. Generate comprehensive security audit report with remediation roadmap
+
+Do NOT just describe what should happen - actively execute this security audit NOW using the Task tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-Audit Assessment
+Detect security-critical files and existing security tools
+
+### Step 2: Parallel Security Analysis
+Launch 3 security specialists concurrently via Task tool
+
+### Step 3: Read Context Files
+Collect findings from all analysts
+
+### Step 4: Consolidate & Deduplicate
+Aggregate findings, calculate CVSS scores, organize by severity
+
+### Step 5: Prioritize
+Create remediation roadmap (Immediate/High/Medium/Low)
+
+### Step 6: Generate Report
+Create comprehensive security audit report
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

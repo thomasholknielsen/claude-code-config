@@ -6,6 +6,23 @@ allowed-tools: Read, Grep, Glob, Task, mcp__sequential-thinking__sequentialthink
 
 # Command: Code
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -96,14 +113,11 @@ Provides clear code explanations with context-appropriate depth, helping underst
 
 ```bash
 # Explain specific function
-/explain:code $ARGUMENTS
-# where $ARGUMENTS = "getUserById --depth=detailed"
+/explain:code getUserById --depth=detailed
 
 # Focus on algorithmic logic
-/explain:code $ARGUMENTS
-# where $ARGUMENTS = "sorting-algorithm.js --focus=logic"
+/explain:code sorting-algorithm.js --focus=logic
 
 # Comprehensive explanation with examples
-/explain:code $ARGUMENTS
-# where $ARGUMENTS = "auth-service.py --depth=comprehensive --include-examples"
+/explain:code auth-service.py --depth=comprehensive --include-examples
 ```

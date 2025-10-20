@@ -1,10 +1,29 @@
 ---
 description: "Interactive wizard for setting up MCP servers in ~/.claude.json"
 argument-hint: "[server-name]"
-allowed-tools: Read, Write, Bash(docker:*), Bash(npm:*), Bash(brew:*), Bash(which:*), Bash(uvx:*), Bash(node:*), Bash(python3:*), mcp__sequential-thinking__sequentialthinking
+allowed-tools: Read, Write, Bash(docker:*), Bash(npm:*), Bash(brew:*), Bash(which:*), Bash(uvx:*), Bash(node:*), Bash(python:*), mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Setup MCP Servers
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Interactive wizard for setting up MCP servers in ~/.claude.json with prerequisite validation.
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
 
 ## Framework Structure (S-Tier Pattern)
 
@@ -282,7 +301,6 @@ brew install uv  # macOS
 ### API Key Servers (context7)
 
 ```bash
-# Interactive prompt with validation
 read -p "Enter Context7 API key: " api_key
 
 # Validate format (starts with ctx7sk-)

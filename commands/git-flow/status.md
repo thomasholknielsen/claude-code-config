@@ -5,6 +5,46 @@ allowed-tools: Bash(git:*), Read, mcp__sequential-thinking__sequentialthinking
 
 # Git Flow Status
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Display comprehensive Git Flow status with branch type, sync status, and merge targets.
+
+**YOU MUST:**
+1. ✓ Detect current branch type (feature/release/hotfix/main/develop)
+2. ✓ Show sync status (commits ahead/behind remote)
+3. ✓ Display working directory changes (counts)
+4. ✓ Determine merge targets
+5. ✓ Show version info (current/next suggested)
+6. ✓ List active branches
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip branch type detection
+- ✗ Fail to show actionable recommendations
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Analyze Current Branch
+Detect type and sync status
+
+### Step 2: Show Changes Summary
+Display modified/added/deleted/untracked counts
+
+### Step 3: Determine Merge Targets
+Show where branch will merge
+
+### Step 4: List Active Branches
+Show Git Flow branches (feature/release/hotfix)
+
+### Step 5: Show Recommendations
+Display next steps (commit, push, finish, etc.)
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

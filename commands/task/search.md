@@ -6,6 +6,45 @@ allowed-tools: Read, SlashCommand(/task:execute)
 
 # Command: Task Search
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Search tasks by query with intelligent relevance ranking and display matching results.
+
+**YOU MUST:**
+1. ✓ Parse search query from $ARGUMENTS
+2. ✓ Load all tasks from `.agent/tasks.md`
+3. ✓ Search titles and descriptions for matches
+4. ✓ Rank results by relevance (exact phrase > all words > partial)
+5. ✓ Display results in table format (A-Z options)
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently if tasks exist
+- ✗ Skip ranking by relevance
+- ✗ Fail to display results
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Validate Search Query
+Extract and validate search query from $ARGUMENTS (must be non-empty)
+
+### Step 2: Load Tasks
+Read `.agent/tasks.md` and parse all task entries
+
+### Step 3: Search & Rank
+Calculate relevance score for each task:
+- Exact phrase: 100 pts
+- All words match: 80 pts
+- Partial match: 60 pts
+
+### Step 4: Display Results
+Show top N results (default 5) in table format with A-Z options
+
+---
+
 ## Purpose
 
 Dedicated task search command for finding specific tasks by query. Complements `/task:execute` by providing focused search functionality separate from task execution.

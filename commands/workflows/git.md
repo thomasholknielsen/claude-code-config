@@ -6,6 +6,50 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 # Command: Workflow
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute complete git workflow - create branch, group changes into logical commits, push, and create PR.
+
+**YOU MUST:**
+1. ✓ Auto-detect workflow mode (git-flow vs conventional commits)
+2. ✓ Analyze uncommitted changes and group by type (feat/fix/docs/test)
+3. ✓ Create branch from appropriate base (develop for git-flow, HEAD for conventional)
+4. ✓ Create logical commits (one per type group)
+5. ✓ Push with tracking (-u flag)
+6. ✓ Create PR with appropriate base branch
+7. ✓ Handle errors with clear manual fallback
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Create single monolithic commit (group by type)
+- ✗ Skip PR creation
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-flight Validation
+Check gh CLI auth, validate git repo state
+
+### Step 2: Workflow Detection
+Detect git-flow (develop + main) vs conventional (main only)
+
+### Step 3: Analyze Changes
+Run git diff HEAD, group files by conventional type (feat/fix/docs/test)
+
+### Step 4: Create Branch
+Use provided name or auto-generate from primary type, create from appropriate base
+
+### Step 5: Logical Commits
+For each type group: stage files, detect scope, generate conventional message, commit
+
+### Step 6: Push & PR
+Push with -u flag, detect base branch, create PR via gh CLI
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)
@@ -48,6 +92,18 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 ## Purpose
 
 Executes complete git workflow with intelligent commit grouping - creates branch, groups changes into logical commits by type, pushes, and creates PR with comprehensive error handling.
+
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+```bash
+bash ~/.claude/scripts/workflows/git.sh "$@"
+```
+
+Do NOT just describe what should happen - actively run this command using the Bash tool right now.
+
+---
 
 ## Implementation
 

@@ -55,7 +55,7 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 ### Session Lifecycle Pattern
 
-**Initialization**: `python3 ~/.claude/scripts/session/session_manager.py init [topic]` → Creates session ID → Establishes context directory
+**Initialization**: `python ~/.claude/scripts/session/session_manager.py init [topic]` → Creates session ID → Establishes context directory
 
 **Execution**: Domain analysts invoked → Create/update context files → Return summaries → Main thread implements → Updates "Main Thread Log"
 
@@ -124,10 +124,10 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 Agents run in separate Claude processes and **cannot detect sessions via GPPID**. All commands that invoke agents MUST:
 
-1. Get context directory: `CONTEXT_DIR=$(python3 ~/.claude/scripts/session/session_manager.py context_dir)`
+1. Get context directory: `CONTEXT_DIR=$(python ~/.claude/scripts/session/session_manager.py context_dir)`
 2. Pass explicit path in agent prompt:
 
-```
+```python
 Task(
   subagent_type="<agent-name>",
   prompt="<analysis task>
@@ -139,9 +139,7 @@ Task(
 )
 ```
 
-3. Agents will use the provided path instead of trying to detect sessions themselves
-
-This pattern solves cross-process detection issues and avoids environment variable collisions in multi-terminal scenarios.
+Agents will use the provided path instead of trying to detect sessions themselves. This pattern solves cross-process detection issues and avoids environment variable collisions in multi-terminal scenarios.
 
 ## Model Inheritance
 
@@ -175,7 +173,7 @@ This pattern solves cross-process detection issues and avoids environment variab
 
 **Required**: All commands invoking agents MUST provide explicit context file paths in prompts (agents cannot detect sessions from separate processes)
 
-**Session Commands**: `python3 ~/.claude/scripts/session/session_manager.py [current|new [topic]|init [topic]|context_dir|list_agents|archive]`
+**Session Commands**: `python ~/.claude/scripts/session/session_manager.py [current|new [topic]|init [topic]|context_dir|list_agents|archive]`
 
 **Session Lifecycle**:
 
@@ -187,7 +185,7 @@ This pattern solves cross-process detection issues and avoids environment variab
 
 **Main Thread Responsibility**: After executing agent recommendations, update context file's "Main Thread Log" section with completion status
 
-**Migration**: Use `python3 ~/.claude/scripts/session/migration_helper.py` to migrate legacy `.agent/context/` files to hierarchical structure
+**Migration**: Use `python ~/.claude/scripts/session/migration_helper.py` to migrate legacy `.agent/context/` files to hierarchical structure
 
 ## Parallel Research Pattern
 
@@ -224,6 +222,44 @@ This pattern solves cross-process detection issues and avoids environment variab
 ## Cross-Platform
 
 All automation uses Python with `pathlib.Path` for Windows/macOS/Linux compatibility. Use `Path.home()` for user directories.
+
+### Python Execution Standards
+
+**Critical**: Use `python` instead of `python3` in all cross-platform examples and documentation:
+
+- **Windows**: Uses `python` command (not `python3`)
+- **macOS/Linux**: Both `python` and `python3` typically work, but `python` is preferred for consistency
+- **Documentation/Examples**: ALWAYS use `python` for cross-platform compatibility
+- **Shebang lines**: Use `#!/usr/bin/env python` for maximum portability
+
+**Examples**:
+
+```bash
+# Correct (cross-platform)
+python ~/.claude/scripts/session/session_manager.py init [topic]
+python scripts/validate_commands.py --help
+
+# Incorrect (Windows incompatible)
+python3 ~/.claude/scripts/session/session_manager.py init [topic]
+python3 scripts/validate_commands.py --help
+```
+
+**When platform-specific dispatch is needed**: Use conditional logic in code:
+
+```python
+import subprocess
+import platform
+
+cmd = ['python', 'script.py']  # Use 'python' as base
+if platform.system() == 'Windows':
+    # Windows-specific adjustments if needed
+    pass
+else:
+    # Unix-specific adjustments if needed
+    pass
+
+result = subprocess.run(cmd, capture_output=True, text=True)
+```
 
 ## Hooks & Infrastructure
 
@@ -282,13 +318,37 @@ Follow `.markdownlint.yml`: 150-char lines (code: 200), ATX headers with blank l
 
 ### Command Development
 
-**Templates**: `templates/commands/command.md` (atomic), `templates/commands/command-workflow.md` (orchestration)
+**Template**: `templates/commands/command.md` (unified template for all commands - atomic and workflow)
+
+**EXECUTE THIS NOW Pattern**: Commands MUST include explicit "EXECUTE THIS NOW" sections after "EXECUTION INSTRUCTIONS" to prevent silent failures. This section tells Claude to actually invoke tools instead of just describing the workflow.
+
+**When to use "EXECUTE THIS NOW"**:
+
+- ✅ Workflow commands orchestrating multiple tools (workflows/*, pre-commit-review)
+- ✅ Commands with bash scripts to execute (/workflows:git, git commands)
+- ✅ Commands that historically had silent failures (/task:archive, /workflows:*)
+- ✅ Commands delegating to external tools (gh CLI, git, ruff, etc.)
+- ✅ Commands launching parallel analysts (Task tool invocations)
+
+**Pattern Structure**:
+
+```markdown
+## EXECUTE THIS NOW
+
+**You MUST execute this [workflow] immediately using the [Tool] tool:**
+
+1. [Explicit action with specific tool command]
+2. [Explicit action with specific tool command]
+...
+
+Do NOT just describe what should happen - actively execute [NOW/immediately] using the [Tool].
+```
 
 **Requirements**: Single-purpose, clear responsibility, composable design
 
 **User Input Standard**: A/B/C/D table format with "Skip" option (max 5 choices, scannability)
 
-**Creating Commands**: Use template from `templates/commands/*.md`, place in `commands/{category}/{name}.md`, assign to domain analyst, include MCP tools if relevant, ensure atomic design. Update CLAUDE.md after changes.
+**Creating Commands**: Use template from `templates/commands/*.md`, place in `commands/{category}/{name}.md`, assign to domain analyst, include MCP tools if relevant, ensure atomic design, add "EXECUTE THIS NOW" section after EXECUTION INSTRUCTIONS. Update CLAUDE.md after changes.
 
 ### Agent Development
 

@@ -5,6 +5,65 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Cleanup Workflow
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute cleanup workflow - remove artifacts, standardize formatting, improve readability, reduce technical debt.
+
+**YOU MUST:**
+1. ✓ Identify cleanup targets (temp files, formatting violations, naming issues)
+2. ✓ Launch code-quality-analyst and refactoring-analyst in parallel
+3. ✓ Read all context files with cleanup recommendations
+4. ✓ Consolidate findings and prioritize by impact
+5. ✓ Implement cleanup (remove artifacts, fix formatting, improve naming)
+6. ✓ Validate improvements (tests still passing, no functionality lost)
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Remove code without understanding impact
+- ✗ Skip test validation
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this cleanup workflow immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Identify cleanup targets: temp files, formatting violations, code smells, naming issues
+3. Launch code-quality-analyst and refactoring-analyst in parallel concurrently
+4. Each analyst analyzes codebase and writes recommendations to `.agent/context/{session-id}/{analyst-name}.md`
+5. Collect all recommendations, prioritize by impact
+6. Implement cleanup (remove artifacts, fix formatting, improve naming, reduce tech debt)
+7. Validate improvements (tests still passing, no functionality lost)
+
+Do NOT just describe what should happen - actively execute this cleanup workflow NOW using the Task tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-Cleanup Assessment
+Identify targets: temp files, formatting issues, naming problems
+
+### Step 2: Parallel Cleanup Analysis
+Launch 2 cleanup specialists concurrently
+
+### Step 3: Read Context Files
+Collect cleanup recommendations
+
+### Step 4: Consolidate & Prioritize
+Aggregate by impact, prioritize critical artifacts first
+
+### Step 5: Implement Cleanup
+Remove artifacts, standardize formatting, improve naming
+
+### Step 6: Validate
+Run tests, verify functionality maintained
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

@@ -80,7 +80,7 @@ pnpm-lock.yaml
 
 # Session management
 .current_session
-.sessions
+.agent/.sessions
 
 # MCP configuration (user-local only, use template)
 .mcp.json
@@ -99,3 +99,6 @@ specs/
 
 # Allow agents, commands, and scripts directories (explicitly not ignored)
 __pycache__/
+
+# Windows null file (git artifact)
+nul

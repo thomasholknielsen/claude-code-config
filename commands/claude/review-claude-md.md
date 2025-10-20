@@ -1,7 +1,7 @@
 ---
 description: "Conduct thorough CLAUDE.md quality review with interactive fix selection to reduce verbosity and improve clarity"
 argument-hint: "[--scope=project|user] [--output=file] [--no-interactive]"
-allowed-tools: Read, Write, Edit, Grep, Glob, Task, Bash(python3:*), Bash(cp:*)
+allowed-tools: Read, Write, Edit, Grep, Glob, Task, Bash(python:*), Bash(cp:*)
 ---
 
 # Command: Review CLAUDE.md Quality

@@ -5,6 +5,64 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Optimization
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute comprehensive performance optimization using parallel analysis for backend, database, and frontend.
+
+**YOU MUST:**
+1. ✓ Establish baseline performance benchmarks
+2. ✓ Launch performance-analyst, database-analyst, frontend-analyst in parallel
+3. ✓ Read all context files with optimization recommendations
+4. ✓ Consolidate findings and prioritize by impact (highest slowdown first)
+5. ✓ Implement optimizations (queries, algorithms, bundle reduction)
+6. ✓ Validate with before/after benchmark comparisons
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Implement without baseline metrics
+- ✗ Skip performance validation
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this optimization workflow immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Establish baseline performance metrics (response times, bundle size, query times)
+3. Launch performance-analyst, database-analyst, frontend-analyst in parallel concurrently
+4. Each analyst analyzes codebase and writes recommendations to `.agent/context/{session-id}/{analyst-name}.md`
+5. Collect all recommendations, prioritize by performance impact
+6. Implement optimizations and validate with before/after benchmark comparisons
+
+Do NOT just describe what should happen - actively execute this optimization workflow NOW using the Task tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Baseline Benchmarking
+Capture response times, bundle size, memory usage, query times
+
+### Step 2: Parallel Optimization Analysis
+Launch 3 performance specialists concurrently
+
+### Step 3: Read Context Files
+Collect optimization recommendations
+
+### Step 4: Consolidate & Prioritize
+Aggregate by impact, prioritize high-impact optimizations first
+
+### Step 5: Implement Optimizations
+Apply query optimizations, refactor algorithms, add indexes, reduce bundles
+
+### Step 6: Validate
+Measure improvements, compare before/after benchmarks
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

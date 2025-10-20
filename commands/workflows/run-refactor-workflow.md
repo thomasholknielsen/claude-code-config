@@ -5,6 +5,64 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Refactor Workflow
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute comprehensive refactoring using parallel analysis to improve code quality, readability, and maintainability.
+
+**YOU MUST:**
+1. ✓ Establish baseline complexity metrics
+2. ✓ Launch refactoring-analyst, code-quality-analyst, architecture-analyst in parallel
+3. ✓ Read all context files with refactoring recommendations
+4. ✓ Consolidate findings and prioritize by impact
+5. ✓ Implement refactoring improvements while preserving behavior
+6. ✓ Validate quality improvements through tests and metrics
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip behavior-preserving validation
+- ✗ Implement without test coverage
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this refactoring workflow immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Launch refactoring-analyst, code-quality-analyst, architecture-analyst in parallel concurrently
+3. Each analyst analyzes codebase and writes recommendations to `.agent/context/{session-id}/{analyst-name}.md`
+4. Collect all recommendations, prioritize by impact (Critical/High/Medium)
+5. Implement refactoring improvements while preserving behavior and test coverage
+6. Validate improvements through test execution and quality metrics
+
+Do NOT just describe what should happen - actively execute this refactoring workflow NOW using the Task tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-Refactoring Assessment
+Baseline complexity metrics, identify high-priority targets
+
+### Step 2: Parallel Analysis
+Launch 3 refactoring specialists concurrently
+
+### Step 3: Read Context Files
+Collect findings and recommendations
+
+### Step 4: Consolidate & Prioritize
+Aggregate findings, prioritize by impact (complexity reduction)
+
+### Step 5: Implement Refactoring
+Apply refactoring patterns while preserving behavior
+
+### Step 6: Validate
+Run tests and measure quality improvements
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

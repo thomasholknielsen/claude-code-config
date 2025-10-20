@@ -6,6 +6,23 @@ allowed-tools: Glob, Read, Grep, Bash, Task, mcp__sequential-thinking__sequentia
 
 # Command: Architecture
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -148,14 +165,11 @@ sequenceDiagram
 
 ```bash
 # Comprehensive architecture analysis
-/explain:architecture $ARGUMENTS
-# where $ARGUMENTS = "--depth=comprehensive"
+/explain:architecture --depth=comprehensive
 
 # Focus on data flow patterns
-/explain:architecture $ARGUMENTS
-# where $ARGUMENTS = "data-flow --format=diagram"
+/explain:architecture data-flow --format=diagram
 
 # Include external dependencies
-/explain:architecture $ARGUMENTS
-# where $ARGUMENTS = "--include-dependencies"
+/explain:architecture --include-dependencies
 ```

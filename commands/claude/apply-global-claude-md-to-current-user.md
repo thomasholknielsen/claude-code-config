@@ -1,7 +1,7 @@
 ---
 description: "Sync CLAUDE-GLOBAL.md template to user CLAUDE.md with intelligent conflict detection and swift resolution"
 argument-hint: "[--show-diff]"
-allowed-tools: Read, Write, Edit, Bash(python3:*)
+allowed-tools: Read, Write, Edit, Bash(python:*)
 ---
 
 # Command: Apply Config to User CLAUDE.md
@@ -384,11 +384,11 @@ target = user_home / "CLAUDE.md"
 shutil.copy2(backup, target)
 ```
 
-Or using bash/python3 one-liner:
+Or using bash/python one-liner:
 
 ```bash
-# macOS/Linux/Windows (via python3)
-python3 -c "from pathlib import Path; import shutil; shutil.copy2(Path.home() / 'CLAUDE.md.backup-20250114-152033', Path.home() / 'CLAUDE.md')"
+# macOS/Linux/Windows (via python)
+python -c "from pathlib import Path; import shutil; shutil.copy2(Path.home() / 'CLAUDE.md.backup-20250114-152033', Path.home() / 'CLAUDE.md')"
 ```
 
 **Error Handling**:

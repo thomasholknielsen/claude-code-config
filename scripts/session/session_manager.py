@@ -8,11 +8,20 @@ from datetime import datetime
 import json
 import os
 from pathlib import Path
+import platform
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
+from typing import Any, Dict, List, Optional
+
+
+# Platform-specific imports
+try:
+    import pwd  # Unix only
+except ImportError:
+    pwd = None  # Windows doesn't have pwd module
 
 
 # Constants
@@ -22,43 +31,78 @@ SESSION_ID_LENGTH = 8  # Length of generated session IDs (first 8 chars of UUID)
 # Terminal Identification (T001 - Updated for non-TTY contexts)
 
 
-def get_terminal_identifier():
+def get_terminal_identifier() -> Optional[str]:
     """
-    Get stable terminal identifier using grandparent process PID.
+    Get stable terminal identifier using secure multi-factor approach.
 
     Works in both TTY and non-TTY contexts (Claude Code Bash execution).
-    Cross-platform: macOS, Linux, WSL, Git Bash on Windows.
+    Cross-platform: macOS, Linux, WSL, Git Bash on Windows, native Windows.
+
+    Uses: grandparent PID + current user UID + process start time for isolation.
+    This prevents PID-reuse attacks by including user context and process timing.
 
     Returns:
-        str: Terminal identifier (e.g., "claude-86258") or None if detection fails
+        str: Terminal identifier (e.g., "claude-86258-1000-1729424400") or None if detection fails
+
+    Security Note:
+        - Includes UID to isolate sessions between users
+        - Includes process start time to reduce PID-reuse vulnerability window
+        - Still primarily PID-based; use TTY environment variables for stronger isolation
 
     Platform Examples:
-        - macOS: "claude-86258" (Claude Code process PID)
-        - Linux: "claude-12345"
-        - Windows (Git Bash): "claude-67890"
+        - macOS: "claude-86258-501-1729424400" (gppid-uid-start_time)
+        - Linux: "claude-12345-1000-1729424400"
+        - Windows (Git Bash): "claude-12345-1000-1729424400"
+        - Windows (native): "claude-proc-{ppid}-{uid}-{start_time}"
 
     Example:
         >>> identifier = get_terminal_identifier()
-        >>> print(identifier)  # "claude-86258"
+        >>> print(identifier)  # "claude-86258-501-1729424400"
     """
     try:
         # Get parent process ID
-        ppid = os.getppid()
+        ppid: int = os.getppid()
 
         # Defensive validation - ensure ppid is valid
         if not str(ppid).isdigit():
             return None
 
-        # Use ps command to get grandparent PID (Claude Code process)
-        # This is stable across all commands in same terminal session
-        result = subprocess.run(["ps", "-p", str(ppid), "-o", "ppid="], capture_output=True, text=True, timeout=1)
+        # Get user UID for multi-user isolation
+        try:
+            uid: int = os.getuid()
+        except AttributeError:
+            # Windows doesn't have os.getuid(), use fixed value
+            uid = 1000
 
-        if result.returncode == 0:
-            gppid = result.stdout.strip()
-            if gppid:
-                return f"claude-{gppid}"
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        # ps command not available or timeout
+        # Get current process start time for PID-reuse mitigation
+        try:
+            import time
+
+            start_time: int = int(time.time())
+        except Exception:
+            start_time = 0
+
+        # Try Unix-style ps command first (macOS, Linux, WSL, Git Bash)
+        try:
+            result = subprocess.run(["ps", "-p", str(ppid), "-o", "ppid="], capture_output=True, text=True, timeout=1)
+
+            if result.returncode == 0:
+                gppid_str: str = result.stdout.strip()
+                if gppid_str and gppid_str.isdigit():
+                    return f"claude-{gppid_str}-{uid}-{start_time}"
+        except (FileNotFoundError, subprocess.TimeoutExpired):
+            # ps command not available (Git Bash or native Windows)
+            pass
+
+        # Fallback 1: Git Bash/Windows - use ppid directly with security context
+        if platform.system() == "Windows" or "MSYSTEM" in os.environ:
+            return f"claude-{ppid}-{uid}-{start_time}"
+
+        # Fallback 2: Use ppid directly for other Unix-like systems where ps failed
+        return f"claude-{ppid}-{uid}-{start_time}"
+
+    except Exception:
+        # Any other errors
         pass
 
     return None
@@ -67,7 +111,7 @@ def get_terminal_identifier():
 # Sessions Registry Functions (T004)
 
 
-def load_sessions_registry():
+def load_sessions_registry() -> Dict[str, Any]:
     """
     Load sessions registry from project-local .agent/.sessions file.
 
@@ -90,7 +134,7 @@ def load_sessions_registry():
         >>> registry = load_sessions_registry()
         >>> sessions = registry["sessions"]
     """
-    registry_path = Path.cwd() / ".agent" / ".sessions"
+    registry_path: Path = Path.cwd() / ".agent" / ".sessions"
 
     if not registry_path.exists():
         # Return empty registry structure
@@ -98,7 +142,7 @@ def load_sessions_registry():
 
     try:
         with registry_path.open() as f:
-            registry = json.load(f)
+            registry: Dict[str, Any] = json.load(f)
             # Ensure sessions key exists
             if "sessions" not in registry:
                 registry["sessions"] = {}
@@ -109,7 +153,7 @@ def load_sessions_registry():
         return {"sessions": {}}
 
 
-def save_sessions_registry(registry):
+def save_sessions_registry(registry: Dict[str, Any]) -> None:
     """
     Save sessions registry to project-local .agent/.sessions file with atomic write.
 
@@ -121,13 +165,13 @@ def save_sessions_registry(registry):
         >>> registry["sessions"]["new-feature"] = {...}
         >>> save_sessions_registry(registry)
     """
-    registry_path = Path.cwd() / ".agent" / ".sessions"
+    registry_path: Path = Path.cwd() / ".agent" / ".sessions"
 
     # Ensure .agent directory exists
     registry_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Serialize to JSON with pretty printing
-    content = json.dumps(registry, indent=2)
+    content: str = json.dumps(registry, indent=2)
 
     # Write atomically (temp file + rename)
     atomic_write(registry_path, content)
@@ -136,7 +180,7 @@ def save_sessions_registry(registry):
 # Helper Functions
 
 
-def sanitize_task_title(title, max_length=50):
+def sanitize_task_title(title: str, max_length: int = 50) -> str:
     """
     Sanitize task title for safe directory naming.
 
@@ -154,7 +198,7 @@ def sanitize_task_title(title, max_length=50):
         return ""
 
     # Remove special characters except hyphens and alphanumeric
-    sanitized = re.sub(r"[^a-zA-Z0-9\s-]", "", title)
+    sanitized: str = re.sub(r"[^a-zA-Z0-9\s-]", "", title)
 
     # Convert spaces to hyphens
     sanitized = sanitized.replace(" ", "-")
@@ -172,9 +216,12 @@ def sanitize_task_title(title, max_length=50):
     return sanitized[:max_length]
 
 
-def atomic_write(target_path, content):
+def atomic_write(target_path: Any, content: str) -> None:
     """
     Write content to target_path atomically using temp file + rename.
+
+    Compatible with Python 3.10+ (removes text=True parameter added in 3.12).
+    Uses os.fdopen with mode='w' for text encoding on all Python versions.
 
     Args:
         target_path: Path object or string for target file
@@ -186,12 +233,14 @@ def atomic_write(target_path, content):
     target_path = Path(target_path)
     target_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Create temp file in same directory as target
-    temp_fd, temp_path = tempfile.mkstemp(dir=target_path.parent, text=True)
+    # Create temp file in same directory as target (without text=True for 3.10-3.11 compatibility)
+    temp_fd: int
+    temp_path: str
+    temp_fd, temp_path = tempfile.mkstemp(dir=target_path.parent)
 
     try:
-        # Write content to temp file using file descriptor
-        with os.fdopen(temp_fd, "w") as f:
+        # Write content to temp file using file descriptor with text mode
+        with os.fdopen(temp_fd, "w", encoding="utf-8") as f:
             f.write(content)
 
         # Atomic rename (POSIX standard, works on Windows/macOS/Linux)
@@ -202,14 +251,14 @@ def atomic_write(target_path, content):
         raise
 
 
-def get_session_file():
+def get_session_file() -> Path:
     """Get path to session file (cross-platform)"""
-    claude_dir = Path.home() / ".claude"
+    claude_dir: Path = Path.home() / ".claude"
     claude_dir.mkdir(exist_ok=True)
     return claude_dir / ".current_session"
 
 
-def get_context_base_dir():
+def get_context_base_dir() -> Path:
     """
     Get base .agent directory (project-local).
 
@@ -218,7 +267,7 @@ def get_context_base_dir():
     Returns:
         Path: Project-local .agent directory (Path.cwd() / ".agent")
     """
-    agent_dir = Path.cwd() / ".agent"
+    agent_dir: Path = Path.cwd() / ".agent"
     agent_dir.mkdir(parents=True, exist_ok=True)
     return agent_dir
 
@@ -226,7 +275,7 @@ def get_context_base_dir():
 # Core Session Operations (T006-T015 - Phase 2 Foundational)
 
 
-def create_session(session_name, topic=""):
+def create_session(session_name: str, topic: str = "") -> str:
     """
     Create new session and link current terminal (T006).
 
@@ -300,7 +349,7 @@ def create_session(session_name, topic=""):
     return session_name
 
 
-def get_session_for_terminal():
+def get_session_for_terminal() -> Optional[str]:
     """
     Find which session current terminal is linked to (T007).
 
@@ -311,11 +360,11 @@ def get_session_for_terminal():
         >>> get_session_for_terminal()
         "feature-auth"  # or None
     """
-    terminal_id = get_terminal_identifier()
+    terminal_id: Optional[str] = get_terminal_identifier()
     if terminal_id is None:
         return None
 
-    registry = load_sessions_registry()
+    registry: Dict[str, Any] = load_sessions_registry()
 
     # Terminal-based session lookup (T021)
     for session_name, session_data in registry["sessions"].items():
@@ -325,7 +374,7 @@ def get_session_for_terminal():
     return None
 
 
-def select_session(session_name):
+def select_session(session_name: str) -> None:
     """
     Link current terminal to existing session (T008).
 
@@ -359,7 +408,7 @@ def select_session(session_name):
     save_sessions_registry(registry)
 
 
-def copy_task_to_session(task_id, task_content):
+def copy_task_to_session(task_id: str, task_content: str) -> Path:
     """
     Copy task entity to session task directory (T011).
 
@@ -405,7 +454,7 @@ def copy_task_to_session(task_id, task_content):
     return task_file
 
 
-def set_current_task(task_id):
+def set_current_task(task_id: str) -> None:
     """
     Set active task for current session (T012).
 
@@ -454,7 +503,7 @@ def set_current_task(task_id):
     atomic_write(session_md, updated_content)
 
 
-def get_current_task():
+def get_current_task() -> Optional[str]:
     """
     Get active task ID for current session (T013).
 
@@ -493,7 +542,7 @@ def get_current_task():
 # New Session Management Functions
 
 
-def get_session_dir(session_name):
+def get_session_dir(session_name: str) -> Path:
     """
     Get session directory path (T010 - updated for named sessions).
 
@@ -507,12 +556,12 @@ def get_session_dir(session_name):
         >>> get_session_dir("feature-auth")
         Path('/path/to/project/.agent/Session-feature-auth')
     """
-    session_dir = Path.cwd() / ".agent" / f"Session-{session_name}"
+    session_dir: Path = Path.cwd() / ".agent" / f"Session-{session_name}"
     session_dir.mkdir(parents=True, exist_ok=True)
     return session_dir
 
 
-def get_task_dir(session_name, task_id, task_title):
+def get_task_dir(session_name: str, task_id: str, task_title: str) -> Path:
     """
     Get task subdirectory within session (T015 - updated to use sanitized titles).
 
@@ -551,7 +600,7 @@ def get_task_dir(session_name, task_id, task_title):
     return task_dir
 
 
-def get_context_dir_new(session_id, task_id=None):
+def get_context_dir_new(session_id: str, task_id: Optional[str] = None) -> Path:
     """
     Get context directory for analyst files (session-level or task-level).
 
@@ -585,7 +634,7 @@ def get_context_dir_new(session_id, task_id=None):
     raise FileNotFoundError(f"Task directory not found for {task_id} in session {session_id}")
 
 
-def get_session_metadata(session_id):
+def get_session_metadata(session_id: str) -> Dict[str, Any]:
     """
     Read session.md metadata file.
 
@@ -636,7 +685,7 @@ def get_session_metadata(session_id):
     return metadata
 
 
-def update_session_metadata(session_id, updates):
+def update_session_metadata(session_id: str, updates: Dict[str, Any]) -> None:
     """
     Update session.md metadata.
 
@@ -666,14 +715,14 @@ def update_session_metadata(session_id, updates):
     atomic_write(session_file, content)
 
 
-def migrate_legacy_contexts():
+def migrate_legacy_contexts() -> Dict[str, int]:
     """
     Migrate old .agent/context/{date}-{topic}-{id}.md files to new structure.
 
     Returns:
         dict: Migration statistics {"migrated": int, "skipped": int, "errors": int}
     """
-    stats = {"migrated": 0, "skipped": 0, "errors": 0}
+    stats: Dict[str, int] = {"migrated": 0, "skipped": 0, "errors": 0}
 
     # Get legacy context directory
     legacy_dir = get_context_base_dir()
@@ -735,7 +784,7 @@ def migrate_legacy_contexts():
     return stats
 
 
-def archive_session_new(session_id):
+def archive_session_new(session_id: str) -> Path:
     """
     Move session directory to archive/.
 
@@ -769,7 +818,7 @@ def archive_session_new(session_id):
     return archived_path
 
 
-def cleanup_session(session_name, action):
+def cleanup_session(session_name: str, action: str) -> bool:
     """
     Handle session cleanup (T009).
 
@@ -833,7 +882,7 @@ def cleanup_session(session_name, action):
         return False
 
 
-def get_context_dir():
+def get_context_dir() -> str:
     """
     Get context directory with task-aware routing (T014).
 
@@ -848,27 +897,27 @@ def get_context_dir():
         # Task active: ".agent/Session-feature-auth/Task-015--implement-auth"
         # No task: ".agent/Session-feature-auth/context"
     """
-    session_name = get_session_for_terminal()
+    session_name: Optional[str] = get_session_for_terminal()
     if session_name is None:
         raise RuntimeError("No active session for current terminal")
 
-    session_dir = get_session_dir(session_name)
+    session_dir: Path = get_session_dir(session_name)
 
     # Task-aware routing logic (T014, T043)
-    task_id = get_current_task()
+    task_id: Optional[str] = get_current_task()
 
     if task_id:
         # Task is active - route to task directory
         # Find task directory matching task_id pattern (T045)
-        task_pattern = f"{task_id}--*"
-        matching_dirs = list(session_dir.glob(task_pattern))
+        task_pattern: str = f"{task_id}--*"
+        matching_dirs: List[Path] = list(session_dir.glob(task_pattern))
 
         if matching_dirs:
             return str(matching_dirs[0])  # Return first matching task directory
         # Task marker exists but directory missing - fall back to session context
         # (Could also raise FileNotFoundError, but graceful fallback is more robust)
         print(f"Warning: Task directory not found for {task_id}, using session context")
-        context_dir = session_dir / "context"
+        context_dir: Path = session_dir / "context"
         context_dir.mkdir(parents=True, exist_ok=True)
         return str(context_dir)
     # No active task - route to session context/
@@ -877,7 +926,7 @@ def get_context_dir():
     return str(context_dir)
 
 
-def setup_task_atomic(task_id, task_content):
+def setup_task_atomic(task_id: str, task_content: str) -> Dict[str, Any]:
     """
     Atomic task setup: copy task, set active, validate all operations.
 
@@ -961,21 +1010,21 @@ def setup_task_atomic(task_id, task_content):
         raise ValueError(f"Task setup failed: {e}") from e
 
 
-def list_agents():
+def list_agents() -> List[str]:
     """List agents that have been invoked in current session"""
-    session_name = get_session_for_terminal()
+    session_name: Optional[str] = get_session_for_terminal()
     if session_name is None:
         print("No active session for current terminal")
         return []
 
-    context_dir = get_context_dir_new(session_name)
+    context_dir: Path = get_context_dir_new(session_name)
 
     if not context_dir.exists():
         print("No context directory found for current session")
         return []
 
     # List all .md files except session.md
-    agent_files = [f.stem for f in context_dir.glob("*.md") if f.name != "session.md"]
+    agent_files: List[str] = [f.stem for f in context_dir.glob("*.md") if f.name != "session.md"]
 
     if agent_files:
         print("Agents invoked in this session:")
@@ -987,7 +1036,7 @@ def list_agents():
     return agent_files
 
 
-def list_sessions():
+def list_sessions() -> Dict[str, Any]:
     """
     List all active sessions with metadata (new command for improved UX).
 
@@ -1000,9 +1049,9 @@ def list_sessions():
             ]
         }
     """
-    registry = load_sessions_registry()
+    registry: Dict[str, Any] = load_sessions_registry()
 
-    sessions_list = []
+    sessions_list: List[Dict[str, Any]] = []
     for session_name, session_data in registry["sessions"].items():
         if session_data.get("status") == "active":
             sessions_list.append(

@@ -5,6 +5,23 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch, m
 
 # Command: Lint and Correct All
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**YOU MUST:**
+1. ✓ Parse input from $ARGUMENTS
+2. ✓ Execute core operation
+3. ✓ Generate or update required outputs
+4. ✓ Report status and results
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip required operations
+- ✗ Leave work incomplete
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -103,6 +120,7 @@ Task("frontend-react-analyst: Analyze React-specific patterns and identify viola
 
 # Phase 2: Parallel Implementation (Main thread executes multiple linters concurrently)
 # Single message with multiple concurrent operations for maximum performance:
+
 Bash("markdownlint *.md --fix")        # Parallel linting
 Bash("python -m ruff check . --fix")   # Parallel linting
 Bash("npm run lint:typescript")        # Parallel linting

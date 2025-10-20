@@ -6,6 +6,61 @@ allowed-tools: Bash, mcp__sequential-thinking__sequentialthinking
 
 # Command: Push
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Push commits to remote with safety checks and tracking setup.
+
+**YOU MUST:**
+1. ✓ Parse remote and branch from $ARGUMENTS
+2. ✓ Validate local branch state (no conflicts)
+3. ✓ Check remote repository status
+4. ✓ Set up branch tracking with -u flag
+5. ✓ Push commits
+6. ✓ Report push status with commit count
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Allow force-push without confirmation
+- ✗ Push without validation
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+1. ✓ Parse remote and branch from arguments (default: origin, current branch)
+2. ✓ Validate local branch state: `git status --porcelain` (no uncommitted changes)
+3. ✓ Check for conflicts: `git diff --name-only --diff-filter=U`
+4. ✓ Verify remote branch exists or confirm tracking setup
+5. ✓ Execute push: `git push -u origin <branch>` with tracking
+6. ✓ Report success with commit count and branch information
+
+Do NOT just describe what should happen - actively execute this git push NOW using the Bash tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Validate Local State
+Check for conflicts, uncommitted changes
+
+### Step 2: Check Remote Status
+Verify remote exists and is reachable
+
+### Step 3: Setup Tracking
+Prepare -u flag for first push
+
+### Step 4: Push Commits
+Execute git push with safety flags
+
+### Step 5: Report Status
+Show commits pushed and remote URL
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

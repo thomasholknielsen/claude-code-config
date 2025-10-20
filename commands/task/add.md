@@ -1,10 +1,54 @@
 ---
 description: "Capture adhoc tasks with smart metadata inference from noisy input"
 argument-hint: "\"noisy task description\" [--priority=level] [--category=type] [--epic=name] [--depends=TASK-XXX]"
-allowed-tools: Read, Write, Edit, Bash(python3:*), Bash(git:status), mcp__sequential-thinking__sequentialthinking
+allowed-tools: Read, Write, Edit, Bash(python:*), Bash(git:status), mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Task Add
+
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Capture noisy task descriptions with smart metadata inference (dependencies, epic, priority, category).
+
+**YOU MUST:**
+1. ✓ Parse task description and optional override flags from $ARGUMENTS
+2. ✓ Run TaskAnalyzer for 10-phase semantic analysis
+3. ✓ Display inferred metadata with confidence scores
+4. ✓ Allow user to override any inferred field
+5. ✓ Auto-generate TASK-ID and create entry in tasks.md
+6. ✓ Report success with new TASK-ID
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Implement or execute the task (capture only)
+- ✗ Skip the inference display
+- ✗ Make code changes
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Input
+Extract task description and optional flags (--priority, --category, --epic, --depends)
+
+### Step 2: Load Existing Tasks
+Read `.agent/tasks.md` and find highest TASK-ID for auto-increment
+
+### Step 3: Run TaskAnalyzer
+Execute 10-phase semantic analysis on input
+
+### Step 4: Display Inference Results
+Show inferred metadata with confidence scores and reasoning
+
+### Step 5: Create Task Entry
+Auto-increment TASK-ID and create formatted entry with inferred/overridden values
+
+### Step 6: Save & Report
+Append to tasks.md and report success
+
+---
 
 ## Framework Structure (S-Tier Pattern)
 
@@ -157,7 +201,7 @@ This command MUST use `scripts/task/task_analyzer.py` module:
 
 ```bash
 # Internal step in /task:add
-python3 ~/.claude/scripts/task/task_analyzer.py analyze ~/.claude/.agent/tasks.md "user_input"
+python ~/.claude/scripts/task/task_analyzer.py analyze ~/.claude/.agent/tasks.md "user_input"
 
 # Returns JSON:
 {

@@ -6,6 +6,66 @@ allowed-tools: Task, Bash, Read, Grep
 
 # Command: /git:pre-commit-review
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute comprehensive multi-domain code review using dynamic analyst selection based on file types.
+
+**YOU MUST:**
+1. ✓ Parse scope (uncommitted/repo/folder) and path from $ARGUMENTS
+2. ✓ Detect changed files and categorize by type
+3. ✓ Dynamically select applicable analysts (8-20 based on files)
+4. ✓ Launch analysts in parallel via Task tool
+5. ✓ Read all context files and consolidate findings
+6. ✓ Generate prioritized fix plan with execution order
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Run all analysts (only applicable ones)
+- ✗ Skip fix plan prioritization
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Task tool for parallel analysis:**
+
+1. ✓ Parse scope from arguments (default: uncommitted files)
+2. ✓ Get current session context: `python ~/.claude/scripts/session/session_manager.py context_dir`
+3. ✓ Detect changed files: `git diff HEAD --name-only` or by scope
+4. ✓ Categorize files by type and determine applicable analysts
+5. ✓ Launch 8-20 analysts in parallel concurrently via Task tool
+6. ✓ Each analyst writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+7. ✓ Consolidate findings, deduplicate overlaps, prioritize by severity
+8. ✓ Generate prioritized fix plan with execution order
+
+Do NOT just describe what should happen - actively execute this parallel code review NOW using the Task tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Scope & Path
+Extract scope (default: uncommitted) and path
+
+### Step 2: Detect Changed Files
+Analyze file types and paths
+
+### Step 3: Select Analysts
+Match file types to applicable analysts (8-20 based on context)
+
+### Step 4: Launch Parallel Analysis
+Invoke selected analysts concurrently via Task
+
+### Step 5: Consolidate Findings
+Read context files, deduplicate, prioritize by impact
+
+### Step 6: Generate Fix Plan
+Create logical execution sequence with effort estimates
+
+---
+
 ## Purpose
 
 Execute comprehensive analysis of code changes (uncommitted, full repo, or specific folder) across multiple quality domains (security, performance, code quality, architecture, testing, refactoring, documentation, accessibility, UX) with smart analyst selection based on file types and project configuration. Generate prioritized fix plan with logical execution sequence.
@@ -92,7 +152,7 @@ Execute comprehensive analysis of code changes (uncommitted, full repo, or speci
 
 3. Build analyst list: Start with core 8 analysts (security, performance, code-quality, architecture, refactoring, docs, accessibility, ui-ux), check for test configuration files (package.json test scripts, pytest.ini, jest.config.js, phpunit.xml, .rspec) and add testing-analyst if found, detect file extensions in analyzed files and add file-type specialists (*.py→code-python, *.ts/tsx→code-typescript, *.js/jsx→code-javascript, *.cs→code-csharp, React files→frontend-react, Next.js→frontend-nextjs, *.sql/migrations→database-sql, *.tf→infrastructure-terraform, Docker/k8s→infrastructure-devops, GraphQL→api-graphql, REST→api-rest, *.swift→mobile-ios-swift, *.kt→mobile-react-native, *.dart→mobile-flutter, CLI tools→ui-ux-cli), apply domain filter if `--domains` parameter provided, display analyst selection summary
 
-4. Get session context directory: Execute `python3 ~/.claude/scripts/session/session_manager.py context_dir` to get session context path, then create pre-commit-review subdirectory: `mkdir -p $CONTEXT_DIR/pre-commit-review`. This ensures analysts save findings to the correct location.
+4. Get session context directory: Execute `python ~/.claude/scripts/session/session_manager.py context_dir` to get session context path, then create pre-commit-review subdirectory: `mkdir -p $CONTEXT_DIR/pre-commit-review`. This ensures analysts save findings to the correct location.
 
 4a. Spawn analysts in parallel: Determine diff command based on scope: IF scope=uncommitted: `git diff HEAD --`, IF scope=repo: `git diff $(git hash-object -t tree /dev/null) HEAD`, IF scope=folder: add path filter to diff command
 

@@ -6,6 +6,61 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 # Command: Worktree
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create and manage git worktrees for parallel development in separate directories.
+
+**YOU MUST:**
+1. ✓ Parse action (add/add-multiple/remove/list/prune) from $ARGUMENTS
+2. ✓ For add: Create worktree with auto-generated path
+3. ✓ For add-multiple: Batch create worktrees in parallel mode
+4. ✓ For remove: Delete worktree directory and references
+5. ✓ For list: Show all worktrees with status
+6. ✓ Display clear status for each worktree
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Remove worktrees without confirmation
+- ✗ Skip status reporting
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+1. ✓ Parse action: add | add-multiple | remove | list | prune
+2. ✓ For add/add-multiple: Execute `git worktree add <path> [<branch>]`
+3. ✓ For remove: Execute `git worktree remove <path>`
+4. ✓ For list: Execute `git worktree list --porcelain`
+5. ✓ For prune: Execute `git worktree prune`
+6. ✓ Report status for each worktree operation
+
+Do NOT just describe what should happen - actively execute git worktree commands NOW using the Bash tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Action
+Extract action and arguments
+
+### Step 2: Validate Repository
+Check git repo status
+
+### Step 3: Execute Action
+Add/remove/list worktrees based on action
+
+### Step 4: Manage Paths
+Auto-generate or parse directory paths
+
+### Step 5: Report Status
+Show all worktrees with mode and status
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

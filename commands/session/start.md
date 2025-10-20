@@ -7,9 +7,47 @@ model: inherit
 
 # Command: /session:start
 
-**User Story**: As a developer, I want to create a named session so I can work on multiple features simultaneously with isolated contexts (US1-T016).
+## EXECUTION INSTRUCTIONS (START HERE)
 
-## Framework Structure (S-Tier Pattern)
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create a named session in the current project and link the current terminal via TTY detection.
+
+**YOU MUST:**
+1. ✓ Parse session-name and optional topic from $ARGUMENTS
+2. ✓ Validate session name format (lowercase alphanumeric + hyphens only)
+3. ✓ Call Python script: `python ~/.claude/scripts/session/session_manager.py start <name> [topic]`
+4. ✓ Display confirmation with session name, directory path, and terminal
+5. ✓ Inform user that all domain analysts will use this session directory
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Just report what would happen
+- ✗ Skip calling the Python script
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Arguments
+Extract session-name (required) and optional topic from $ARGUMENTS
+
+### Step 2: Validate Format
+- Lowercase alphanumeric + hyphens only
+- Max 50 characters
+- Must be unique in `.agent/.sessions`
+
+### Step 3: Execute Session Creation
+```bash
+python ~/.claude/scripts/session/session_manager.py start <name> [topic]
+```
+
+### Step 4: Display Confirmation
+Show session name, directory path, and terminal identifier
+
+---
+
+## User Story & Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
 
@@ -52,7 +90,7 @@ Creates a new named session in the current project and links the current termina
    - If no arguments: prompt interactively
 
 2. **Create Session:**
-   - Call `python3 ~/.claude/scripts/session/session_manager.py start <session-name> [topic]`
+   - Call `python ~/.claude/scripts/session/session_manager.py start <session-name> [topic]`
    - This function:
      * Validates session name format (lowercase alphanumeric + hyphens)
      * Checks uniqueness in `.agent/.sessions` registry
@@ -199,8 +237,8 @@ Creates a new named session in the current project and links the current termina
 
 All domain analysts automatically use the current session directory via TTY lookup:
 
-- `python3 ~/.claude/scripts/session/session_manager.py current` returns session name for current terminal
-- `python3 ~/.claude/scripts/session/session_manager.py context_dir` returns context directory (task-aware routing)
+- `python ~/.claude/scripts/session/session_manager.py current` returns session name for current terminal
+- `python ~/.claude/scripts/session/session_manager.py context_dir` returns context directory (task-aware routing)
 - Context files: `.agent/Session-{name}/context/{agent-name}.md`
 - Task-specific files: `.agent/Session-{name}/Task-XXX--{title}/{agent-name}.md`
 - No manual session tracking needed - TTY-based detection is automatic

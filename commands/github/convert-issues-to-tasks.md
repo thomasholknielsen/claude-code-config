@@ -6,6 +6,49 @@ allowed-tools: Read, Write, Edit, Bash(gh:*), mcp__sequential-thinking__sequenti
 
 # Command: GitHub Convert Issues To Tasks
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Convert GitHub issues to tasks with origin tagging for local tracking.
+
+**YOU MUST:**
+1. ✓ Parse source file or fetch with filters from $ARGUMENTS
+2. ✓ Load issues (from file OR fetch via gh CLI)
+3. ✓ Deduplicate against existing tasks
+4. ✓ Map labels to priority/category
+5. ✓ Create task entries with origin=github-issue
+6. ✓ Save to .agent/tasks.md
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Create duplicate tasks
+- ✗ Skip GitHub URL preservation
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Arguments
+Extract source file or filter options
+
+### Step 2: Load Issues
+Read from file OR fetch via gh CLI
+
+### Step 3: Deduplicate
+Check against existing tasks.md
+
+### Step 4: Map Metadata
+Convert labels to priority/category
+
+### Step 5: Create Tasks
+Add entries with origin=github-issue
+
+### Step 6: Save & Report
+Update tasks.md with import summary
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

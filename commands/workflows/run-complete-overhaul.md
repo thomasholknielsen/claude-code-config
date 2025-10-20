@@ -5,6 +5,65 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 # Command: Run Complete Overhaul
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Execute most comprehensive codebase analysis - launch 10+ domain analysts in parallel covering all quality perspectives.
+
+**YOU MUST:**
+1. ✓ Establish baseline metrics across all dimensions
+2. ✓ Launch 10+ specialist analysts in parallel (security, quality, performance, architecture, refactoring, testing, accessibility, docs, database, frontend)
+3. ✓ Read all context files from all analysts
+4. ✓ Deduplicate overlapping findings across domains
+5. ✓ Generate risk-based roadmap with phased improvement plan
+6. ✓ Deliver comprehensive overhaul summary with priorities
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Skip any major analysis domain
+- ✗ Provide roadmap without prioritization by risk/impact
+
+---
+
+## EXECUTE THIS NOW
+
+**You MUST execute this complete overhaul immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Establish baseline metrics (test coverage, security posture, performance, complexity)
+3. Launch 10+ specialist analysts in parallel concurrently (security, quality, performance, architecture, refactoring, testing, accessibility, docs, database, frontend)
+4. Each analyst analyzes codebase and writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+5. Collect all findings, deduplicate overlapping issues across domains
+6. Generate risk-based roadmap with phased improvement plan
+7. Deliver comprehensive overhaul summary with priorities and estimated impact
+
+Do NOT just describe what should happen - actively execute this complete overhaul NOW using the Task tool.
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Pre-Overhaul Assessment
+Baseline metrics: test coverage, security posture, performance, complexity
+
+### Step 2: Parallel Multi-Domain Analysis
+Launch 10+ specialists concurrently via Task tool
+
+### Step 3: Read All Context Files
+Collect findings from every analyst
+
+### Step 4: Consolidate & Deduplicate
+Aggregate all findings, identify overlaps, merge duplicate issues
+
+### Step 5: Generate Roadmap
+Create phased plan (Phase 1: Immediate | Phase 2: Short-term | Phase 3: Medium-term)
+
+### Step 6: Report
+Deliver comprehensive overhaul summary with priorities
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### CO-STAR Framework (Orchestration)

@@ -6,6 +6,46 @@ allowed-tools: Read, Write, Bash(gh:*), mcp__sequential-thinking__sequentialthin
 
 # Command: GitHub Fetch Issues
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Fetch GitHub issues to session context for reference.
+
+**YOU MUST:**
+1. ✓ Parse filter options (--filter, --milestone, --label, --state)
+2. ✓ Fetch issues via gh CLI
+3. ✓ Parse response (number, title, labels, body, assignees)
+4. ✓ Format as markdown
+5. ✓ Save to .agent/github-issues.md
+6. ✓ Display summary stats
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Auto-import as tasks (use convert command)
+- ✗ Skip formatting
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Filters
+Extract filter options from $ARGUMENTS
+
+### Step 2: Fetch Issues
+Call gh CLI with filters
+
+### Step 3: Parse Response
+Extract issue metadata
+
+### Step 4: Format Markdown
+Create formatted markdown
+
+### Step 5: Save File
+Write to .agent/github-issues.md
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

@@ -43,8 +43,8 @@ Creates commands using expert design consultation, generates with smart defaults
 1. **Initialize Session Context**
 
    ```bash
-   python3 ~/.claude/scripts/session/session_manager.py current
-   python3 ~/.claude/scripts/session/session_manager.py context_dir
+   python ~/.claude/scripts/session/session_manager.py current
+   python ~/.claude/scripts/session/session_manager.py context_dir
    ```
 
 2. **Invoke Command Expert**
@@ -589,7 +589,7 @@ Solution:
 ## See Also
 
 - `templates/commands/command.md` - Atomic command template
-- `templates/commands/command-workflow.md` - Workflow command template
+- `templates/commands/command.md` - Workflow command template
 - `agents/command-expert.md` - Design consultation agent
 - `docs/command-decision-guide.md` - Command usage guide
 - `CLAUDE.md` - Command system documentation
