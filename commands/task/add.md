@@ -1,7 +1,7 @@
 ---
 description: "Capture adhoc tasks with smart metadata inference from noisy input"
 argument-hint: "\"noisy task description\" [--priority=level] [--category=type] [--epic=name] [--depends=TASK-XXX]"
-allowed-tools: Read, Write, Edit, Bash, mcp__sequential-thinking__sequentialthinking
+allowed-tools: Read, Write, Edit, Bash(python3:*), Bash(git:status), mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Task Add

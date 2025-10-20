@@ -92,11 +92,29 @@ Execute comprehensive analysis of code changes (uncommitted, full repo, or speci
 
 3. Build analyst list: Start with core 8 analysts (security, performance, code-quality, architecture, refactoring, docs, accessibility, ui-ux), check for test configuration files (package.json test scripts, pytest.ini, jest.config.js, phpunit.xml, .rspec) and add testing-analyst if found, detect file extensions in analyzed files and add file-type specialists (*.py→code-python, *.ts/tsx→code-typescript, *.js/jsx→code-javascript, *.cs→code-csharp, React files→frontend-react, Next.js→frontend-nextjs, *.sql/migrations→database-sql, *.tf→infrastructure-terraform, Docker/k8s→infrastructure-devops, GraphQL→api-graphql, REST→api-rest, *.swift→mobile-ios-swift, *.kt→mobile-react-native, *.dart→mobile-flutter, CLI tools→ui-ux-cli), apply domain filter if `--domains` parameter provided, display analyst selection summary
 
-4a. Get session context directory (NEW): Execute `python3 ~/.claude/scripts/session/session_manager.py context_dir` to get session context path, create pre-commit-review subdirectory: `mkdir -p $CONTEXT_DIR/pre-commit-review`
+4. Get session context directory: Execute `python3 ~/.claude/scripts/session/session_manager.py context_dir` to get session context path, then create pre-commit-review subdirectory: `mkdir -p $CONTEXT_DIR/pre-commit-review`. This ensures analysts save findings to the correct location.
 
-4. Spawn analysts in parallel: Determine diff command based on scope: IF scope=uncommitted: `git diff HEAD --`, IF scope=repo: `git diff $(git hash-object -t tree /dev/null) HEAD`, IF scope=folder: add path filter to diff command, For each selected analyst: use Task tool with subagent_type="<analyst>-analyst", pass git diff output as context with explicit context file path in prompt: "$CONTEXT_DIR/pre-commit-review/<analyst>-analyst.md", request: (1) issues by severity (critical/high/medium/low), (2) file:line references for each issue, (3) fixable issues identifiable by linters (ESLint, Ruff, Prettier), (4) actionable recommendations, wait for all analysts to complete with timeout handling per `--timeout` parameter
+4a. Spawn analysts in parallel: Determine diff command based on scope: IF scope=uncommitted: `git diff HEAD --`, IF scope=repo: `git diff $(git hash-object -t tree /dev/null) HEAD`, IF scope=folder: add path filter to diff command
 
-5. Aggregate results: Collect all analyst responses from context files, count issues by severity (critical/high/medium/low), identify fixable issues (linters: ESLint, Ruff, Prettier), group by domain, calculate totals and percentages, handle timeouts by continuing with available results and tracking which analysts were skipped
+4b. Invoke each analyst with explicit context file path: For each selected analyst:
+- Use Task tool with subagent_type="<analyst-name>"
+- Include explicit context file path in prompt using the `$CONTEXT_DIR` value obtained in step 4:
+```
+Task(
+  subagent_type="security-analyst",
+  prompt="Analyze the following git diff...
+
+**Context File Location**: Save your findings to:
+${CONTEXT_DIR}/pre-commit-review/security-analyst.md
+
+Do NOT attempt to detect session - use the path provided above.
+"
+)
+```
+- Request: (1) issues by severity (critical/high/medium/low), (2) file:line references for each issue, (3) fixable issues identifiable by linters (ESLint, Ruff, Prettier), (4) actionable recommendations
+- Wait for all analysts to complete with timeout handling per `--timeout` parameter
+
+5. Aggregate results: Collect all analyst responses from context files located at `${CONTEXT_DIR}/pre-commit-review/{analyst-name}.md`, count issues by severity (critical/high/medium/low), identify fixable issues (linters: ESLint, Ruff, Prettier), group by domain, calculate totals and percentages, handle timeouts by continuing with available results and tracking which analysts were skipped
 
 5.5. Generate fix plan (NEW): Create logical 3-phase execution plan based on aggregated issues, Phase 1 (Foundation): security vulnerabilities, critical bugs, data loss risks, type system foundations (~estimate total time), Phase 2 (Quality): performance optimizations, refactoring, code quality improvements (~estimate total time), Phase 3 (Polish): documentation gaps, minor issues, style improvements (~estimate total time), For each phase list issues with file:line references and individual effort estimates, calculate total effort across phases, save plan to file: `.agent/pre-commit-fix-plan.md`, display plan file path and statistics to user
 

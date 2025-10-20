@@ -17,7 +17,17 @@ def parse_task_blocks(content: str) -> List[Tuple[str, str]]:
 
     Returns:
         List of (task_id, task_block) tuples
+
+    Raises:
+        ValueError: If content is not a string
     """
+    # Input validation
+    if not isinstance(content, str):
+        raise ValueError(f"Expected string content, got {type(content).__name__}")
+
+    if not content:
+        return []
+
     pattern = r"^##\s+\[TASK-(\d{3})\]\s+(.+?)$"
     blocks = []
 

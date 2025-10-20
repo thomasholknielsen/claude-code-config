@@ -69,7 +69,12 @@ class TaskMatcher:
         """
         matches = keywords_set & task_keywords_set
         union = keywords_set | task_keywords_set
-        return len(matches) / len(union) if union else 0
+
+        # Handle edge case: both sets empty
+        if not union:
+            return 0.0
+
+        return len(matches) / len(union)
 
     def _phrase_in_task(self, keywords: List[str], task: Dict) -> bool:
         """Check if phrase appears verbatim in task.

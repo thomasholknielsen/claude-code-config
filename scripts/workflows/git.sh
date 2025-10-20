@@ -225,9 +225,11 @@ while IFS= read -r file; do
     file_groups[$type]+=" $file"
   fi
 done < <(
-  # Get both unstaged and staged changes, in one stream
+  # Get all changes (both staged and unstaged) in a single command
+  # using git diff HEAD which includes both staged and unstaged changes
   git diff HEAD --name-only 2>/dev/null
-  git diff --cached --name-only 2>/dev/null
+  # Also include newly added files (staged only, not in HEAD)
+  git diff --cached --diff-filter=A --name-only 2>/dev/null
 )
 
 log_success "Grouped changes into ${#file_groups[@]} types"
@@ -288,8 +290,10 @@ for type in $(printf '%s\n' "${!file_groups[@]}" | sort); do
   message=$(generate_commit_message "$type" "$scope" "$file_count")
 
   # Stage only files of this type
-  # shellcheck disable=SC2086
-  git add $files
+  # Use array to properly handle filenames with spaces
+  while IFS= read -r file; do
+    git add "$file"
+  done <<< "$(echo "$files" | tr ' ' '\n')"
 
   # Create commit
   git commit -m "$message" > /dev/null 2>&1

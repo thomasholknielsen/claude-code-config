@@ -16,7 +16,7 @@ import re
 import sys
 from typing import Dict, List
 
-from markdown_parser import parse_task_blocks, parse_task_full
+from markdown_parser import extract_field, extract_text_field, parse_task_blocks, parse_task_full
 
 
 class DependencySanitizer:
@@ -39,8 +39,10 @@ class DependencySanitizer:
         blocks = parse_task_blocks(content)
 
         for task_id, task_block in blocks:
-            # Extract title from first line of block
-            first_line_match = re.match(r"^##\s+\[TASK-\d{3}\]\s+(.+?)$", content, re.MULTILINE)
+            # Extract title from first line of block only (not entire file)
+            lines = task_block.split("\n")
+            first_line = lines[0] if lines else ""
+            first_line_match = re.match(r"^##\s+\[TASK-\d{3}\]\s+(.+?)$", first_line)
             title = first_line_match.group(1).strip() if first_line_match else task_id
 
             # Parse task fields using shared parser
@@ -233,32 +235,82 @@ class DependencySanitizer:
         return fixed_count
 
     def write_tasks(self) -> None:
-        """Write updated tasks back to file."""
-        lines = ["# Active Tasks\n"]
+        """Write updated tasks back to file, preserving all original fields."""
+        # This function only modifies tasks that were fixed by fix_auto_fixable()
+        # For full schema preservation, read the original file and merge changes
+
+        original_content = self.tasks_file.read_text()
+        original_blocks = parse_task_blocks(original_content)
+
+        # Build mapping of task_id -> original block for reference
+        original_blocks_map = dict(original_blocks)
+
+        updated_lines = ["# Active Tasks\n"]
 
         for task_id in sorted(self.tasks.keys()):
             task = self.tasks[task_id]
-            lines.append(f"## [{task_id}] {task['title']}\n")
-            lines.append(f"**Status**: {task['status']}")
-            lines.append(f"**Priority**: {task['priority']}")
-            lines.append("**Category**: (preserved)")
+            original_block = original_blocks_map.get(task_id, "")
 
-            if task.get("epic"):
-                lines.append(f"**Epic**: {task['epic']}")
+            # Start with task header
+            updated_lines.append(f"## [{task_id}] {task['title']}\n")
 
-            if task.get("depends_on"):
-                lines.append(f"**Depends On**: {', '.join(task['depends_on'])}")
+            # Write core fields (these may have been modified by sanitizer)
+            updated_lines.append(f"**Status**: {task['status']}")
+            updated_lines.append(f"**Priority**: {task['priority']}")
+
+            # For other fields, preserve from original if not modified
+            # Extract original fields
+            if original_block:
+                original_category = extract_field(original_block, "Category") or ""
+                original_related = extract_text_field(original_block, "Related") or ""
+                original_origin = extract_field(original_block, "Origin") or ""
+                original_created = extract_field(original_block, "Created") or ""
+                original_description = extract_text_field(original_block, "Description") or ""
+
+                if original_category:
+                    updated_lines.append(f"**Category**: {original_category}")
+                else:
+                    updated_lines.append("**Category**: chore")
             else:
-                lines.append("**Depends On**: (none)")
+                updated_lines.append("**Category**: chore")
 
-            lines.append("**Related**: (preserved)")
-            lines.append("**Origin**: (preserved)")
-            lines.append("**Created**: (preserved)\n")
-            lines.append("**Description**: (preserved)\n")
-            lines.append("---\n")
+            # Write epic if present
+            if task.get("epic"):
+                updated_lines.append(f"**Epic**: {task['epic']}")
+            elif original_block and extract_text_field(original_block, "Epic"):
+                updated_lines.append(f"**Epic**: {extract_text_field(original_block, 'Epic')}")
 
-        # Note: This is a simplified write - in production, preserve all fields
-        content = "\n".join(lines)
+            # Write depends_on (sanitizer may have modified this)
+            if task.get("depends_on"):
+                updated_lines.append(f"**Depends On**: {', '.join(task['depends_on'])}")
+            else:
+                updated_lines.append("**Depends On**: (none)")
+
+            # Preserve Related, Origin, Created
+            if original_block:
+                original_related = extract_text_field(original_block, "Related")
+                if original_related:
+                    updated_lines.append(f"**Related**: {original_related}")
+                else:
+                    updated_lines.append("**Related**: (none)")
+
+                original_origin = extract_field(original_block, "Origin")
+                if original_origin:
+                    updated_lines.append(f"**Origin**: {original_origin}")
+
+                original_created = extract_field(original_block, "Created")
+                if original_created:
+                    updated_lines.append(f"**Created**: {original_created}")
+
+            # Preserve Description
+            if original_block:
+                original_description = extract_text_field(original_block, "Description")
+                if original_description:
+                    updated_lines.append(f"\n**Description**:\n{original_description}")
+
+            updated_lines.append("\n---\n")
+
+        content = "\n".join(updated_lines)
         self.tasks_file.write_text(content)
 
 

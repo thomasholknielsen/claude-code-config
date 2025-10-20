@@ -265,12 +265,15 @@ class TaskAnalyzer:
         hints["followup"] = bool(re.search(r"\[FOLLOW.?UP\]", text, re.I))
 
         # Temporal relationships
+        # More specific matching to avoid false positives with generic words
         hints["temporal"] = None
-        if re.search(r"\bafter\s+(?:TASK-\d+|(?:we|the|this|fixing|completing))", text, re.I):
+        if re.search(
+            r"\bafter\s+(?:TASK-\d+|(?:we\s+(?:complete|finish|test|validate)|completing|finishing))", text, re.I
+        ):
             hints["temporal"] = "after"
-        elif re.search(r"\bbefore\s+(?:TASK-\d+|(?:we|the|this|starting))", text, re.I):
+        elif re.search(r"\bbefore\s+(?:TASK-\d+|(?:we\s+(?:start|begin|launch)|starting))", text, re.I):
             hints["temporal"] = "before"
-        elif re.search(r"\bthen\s+", text, re.I):
+        elif re.search(r"\b(?:then|next|after\s+that)\s+(?:we\s+|I\s+|the\s+|this\s+)", text, re.I):
             hints["temporal"] = "sequential"
 
         # Dependency signals
@@ -450,8 +453,9 @@ class TaskAnalyzer:
         # Signal 1: Explicit task references in temporal context
         if hints.get("temporal") == "after":
             # Find TASK-XXX mentioned after "after"
+            # Limit capture to 200 chars to prevent catastrophic backtracking on malformed input
             after_match = re.search(
-                r"after\s+([A-Z0-9\-\,\s]+?)(?:\s+(?:we|then|next|complete|finish)|$)",
+                r"after\s+([A-Z0-9\-\,\s]{1,200}?)(?:\s+(?:we|then|next|complete|finish)|$)",
                 user_input,
                 re.I,
             )
