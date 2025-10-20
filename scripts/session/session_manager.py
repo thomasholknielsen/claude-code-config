@@ -77,18 +77,14 @@ def get_terminal_identifier() -> Optional[str]:
         # Get current process start time for PID-reuse mitigation
         try:
             import time
+
             start_time: int = int(time.time())
         except Exception:
             start_time = 0
 
         # Try Unix-style ps command first (macOS, Linux, WSL, Git Bash)
         try:
-            result = subprocess.run(
-                ["ps", "-p", str(ppid), "-o", "ppid="],
-                capture_output=True,
-                text=True,
-                timeout=1
-            )
+            result = subprocess.run(["ps", "-p", str(ppid), "-o", "ppid="], capture_output=True, text=True, timeout=1)
 
             if result.returncode == 0:
                 gppid_str: str = result.stdout.strip()
