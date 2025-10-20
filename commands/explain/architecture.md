@@ -165,116 +165,11 @@ sequenceDiagram
 
 ```bash
 # Comprehensive architecture analysis
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
-/explain:architecture $ARGUMENTS
-# where $ARGUMENTS = "--depth=comprehensive"
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
+/explain:architecture --depth=comprehensive
 
 # Focus on data flow patterns
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
-/explain:architecture $ARGUMENTS
-# where $ARGUMENTS = "data-flow --format=diagram"
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
+/explain:architecture data-flow --format=diagram
 
 # Include external dependencies
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
-/explain:architecture $ARGUMENTS
-# where $ARGUMENTS = "--include-dependencies"
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
+/explain:architecture --include-dependencies
 ```

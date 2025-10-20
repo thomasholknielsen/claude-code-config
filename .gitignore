@@ -80,7 +80,7 @@ pnpm-lock.yaml
 
 # Session management
 .current_session
-.sessions
+.agent/.sessions
 
 # MCP configuration (user-local only, use template)
 .mcp.json

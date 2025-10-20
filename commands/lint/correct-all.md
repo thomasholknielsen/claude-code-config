@@ -111,23 +111,6 @@ and provide a comprehensive quality report across the entire codebase.
 
 ```python
 # Phase 1: Parallel Linting Analysis (3 analysts max concurrently - ANALYSIS ONLY)
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
 Task("code-quality-analyst: Analyze all general files (markdown, yaml, json, shell) and identify linting issues")
 Task("code-typescript-analyst: Analyze TypeScript/JavaScript files and identify linting violations") # if TS/JS detected
 Task("code-python-analyst: Analyze Python files for linting issues (ruff, black compliance)") # if Python detected
@@ -135,59 +118,9 @@ Task("frontend-react-analyst: Analyze React-specific patterns and identify viola
 
 # Each analyst persists findings to .agent/context/{session-id}/ and returns recommendations
 
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
-
 # Phase 2: Parallel Implementation (Main thread executes multiple linters concurrently)
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
 # Single message with multiple concurrent operations for maximum performance:
 
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
 Bash("markdownlint *.md --fix")        # Parallel linting
 Bash("python -m ruff check . --fix")   # Parallel linting
 Bash("npm run lint:typescript")        # Parallel linting
@@ -325,23 +258,6 @@ Called by `/git:commit` before creating commits:
 
 ```yaml
 # .github/workflows/quality.yml
-
-## EXECUTION INSTRUCTIONS (START HERE)
-
-### ⚠️ MANDATORY: Read This BEFORE Proceeding
-
-**YOU MUST:**
-1. ✓ Parse input from $ARGUMENTS
-2. ✓ Execute core operation
-3. ✓ Generate or update required outputs
-4. ✓ Report status and results
-
-**YOU MUST NOT:**
-- ✗ Do nothing silently
-- ✗ Skip required operations
-- ✗ Leave work incomplete
-
----
 - name: Lint and Correct All
   run: claude-cli /lint:correct-all
 

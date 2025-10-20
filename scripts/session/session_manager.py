@@ -8,6 +8,7 @@ from datetime import datetime
 import json
 import os
 from pathlib import Path
+import platform
 import re
 import shutil
 import subprocess
@@ -68,7 +69,6 @@ def get_terminal_identifier():
             pass
 
         # Fallback 1: Git Bash - use ppid directly
-        import platform
         if platform.system() == "Windows" or "MSYSTEM" in os.environ:
             # Git Bash or native Windows
             return f"claude-{ppid}"
