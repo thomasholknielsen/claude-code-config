@@ -27,6 +27,21 @@ allowed-tools: Bash, mcp__sequential-thinking__sequentialthinking
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+1. ✓ Parse remote and branch from arguments (default: origin, current branch)
+2. ✓ Validate local branch state: `git status --porcelain` (no uncommitted changes)
+3. ✓ Check for conflicts: `git diff --name-only --diff-filter=U`
+4. ✓ Verify remote branch exists or confirm tracking setup
+5. ✓ Execute push: `git push -u origin <branch>` with tracking
+6. ✓ Report success with commit count and branch information
+
+Do NOT just describe what should happen - actively execute this git push NOW using the Bash tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Validate Local State

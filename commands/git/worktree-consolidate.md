@@ -26,6 +26,21 @@ allowed-tools: Bash, Read, Grep, TodoWrite, mcp__sequential-thinking__sequential
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+1. ✓ Validate current branch is clean: `git status --porcelain`
+2. ✓ Create safety checkpoint: `git branch checkpoint-$(date +%s)`
+3. ✓ List available worktrees: `git worktree list`
+4. ✓ Merge each worktree branch sequentially: `git merge <worktree-branch>`
+5. ✓ Detect and guide conflict resolution if conflicts occur
+6. ✓ Validate merged state and report summary
+
+Do NOT just describe what should happen - actively execute worktree consolidation NOW using the Bash tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Validate State

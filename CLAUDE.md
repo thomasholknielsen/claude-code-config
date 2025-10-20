@@ -127,7 +127,7 @@ Agents run in separate Claude processes and **cannot detect sessions via GPPID**
 1. Get context directory: `CONTEXT_DIR=$(python ~/.claude/scripts/session/session_manager.py context_dir)`
 2. Pass explicit path in agent prompt:
 
-```
+```python
 Task(
   subagent_type="<agent-name>",
   prompt="<analysis task>
@@ -139,9 +139,7 @@ Task(
 )
 ```
 
-3. Agents will use the provided path instead of trying to detect sessions themselves
-
-This pattern solves cross-process detection issues and avoids environment variable collisions in multi-terminal scenarios.
+Agents will use the provided path instead of trying to detect sessions themselves. This pattern solves cross-process detection issues and avoids environment variable collisions in multi-terminal scenarios.
 
 ## Model Inheritance
 
@@ -235,6 +233,7 @@ All automation uses Python with `pathlib.Path` for Windows/macOS/Linux compatibi
 - **Shebang lines**: Use `#!/usr/bin/env python` for maximum portability
 
 **Examples**:
+
 ```bash
 # Correct (cross-platform)
 python ~/.claude/scripts/session/session_manager.py init [topic]
@@ -246,6 +245,7 @@ python3 scripts/validate_commands.py --help
 ```
 
 **When platform-specific dispatch is needed**: Use conditional logic in code:
+
 ```python
 import subprocess
 import platform
@@ -320,11 +320,35 @@ Follow `.markdownlint.yml`: 150-char lines (code: 200), ATX headers with blank l
 
 **Template**: `templates/commands/command.md` (unified template for all commands - atomic and workflow)
 
+**EXECUTE THIS NOW Pattern**: Commands MUST include explicit "EXECUTE THIS NOW" sections after "EXECUTION INSTRUCTIONS" to prevent silent failures. This section tells Claude to actually invoke tools instead of just describing the workflow.
+
+**When to use "EXECUTE THIS NOW"**:
+
+- ✅ Workflow commands orchestrating multiple tools (workflows/*, pre-commit-review)
+- ✅ Commands with bash scripts to execute (/workflows:git, git commands)
+- ✅ Commands that historically had silent failures (/task:archive, /workflows:*)
+- ✅ Commands delegating to external tools (gh CLI, git, ruff, etc.)
+- ✅ Commands launching parallel analysts (Task tool invocations)
+
+**Pattern Structure**:
+
+```markdown
+## EXECUTE THIS NOW
+
+**You MUST execute this [workflow] immediately using the [Tool] tool:**
+
+1. [Explicit action with specific tool command]
+2. [Explicit action with specific tool command]
+...
+
+Do NOT just describe what should happen - actively execute [NOW/immediately] using the [Tool].
+```
+
 **Requirements**: Single-purpose, clear responsibility, composable design
 
 **User Input Standard**: A/B/C/D table format with "Skip" option (max 5 choices, scannability)
 
-**Creating Commands**: Use template from `templates/commands/*.md`, place in `commands/{category}/{name}.md`, assign to domain analyst, include MCP tools if relevant, ensure atomic design. Update CLAUDE.md after changes.
+**Creating Commands**: Use template from `templates/commands/*.md`, place in `commands/{category}/{name}.md`, assign to domain analyst, include MCP tools if relevant, ensure atomic design, add "EXECUTE THIS NOW" section after EXECUTION INSTRUCTIONS. Update CLAUDE.md after changes.
 
 ### Agent Development
 

@@ -27,6 +27,21 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+1. ✓ Parse action: add | add-multiple | remove | list | prune
+2. ✓ For add/add-multiple: Execute `git worktree add <path> [<branch>]`
+3. ✓ For remove: Execute `git worktree remove <path>`
+4. ✓ For list: Execute `git worktree list --porcelain`
+5. ✓ For prune: Execute `git worktree prune`
+6. ✓ Report status for each worktree operation
+
+Do NOT just describe what should happen - actively execute git worktree commands NOW using the Bash tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Parse Action

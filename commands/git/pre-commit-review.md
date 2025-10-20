@@ -27,6 +27,23 @@ allowed-tools: Task, Bash, Read, Grep
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Task tool for parallel analysis:**
+
+1. ✓ Parse scope from arguments (default: uncommitted files)
+2. ✓ Get current session context: `python ~/.claude/scripts/session/session_manager.py context_dir`
+3. ✓ Detect changed files: `git diff HEAD --name-only` or by scope
+4. ✓ Categorize files by type and determine applicable analysts
+5. ✓ Launch 8-20 analysts in parallel concurrently via Task tool
+6. ✓ Each analyst writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+7. ✓ Consolidate findings, deduplicate overlaps, prioritize by severity
+8. ✓ Generate prioritized fix plan with execution order
+
+Do NOT just describe what should happen - actively execute this parallel code review NOW using the Task tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Parse Scope & Path

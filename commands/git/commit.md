@@ -26,6 +26,21 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+1. ✓ Analyze uncommitted files using `git diff HEAD --name-only`
+2. ✓ Detect file types and infer conventional commit type (feat/fix/docs/test)
+3. ✓ Run pre-commit linting with auto-fix: `python -m ruff format .` and `markdownlint --fix`
+4. ✓ Validate conventional format: `<type>(<scope>): <description>`
+5. ✓ Execute `git add .` and `git commit -m "<message>"` to create commit
+6. ✓ Verify commit was created successfully
+
+Do NOT just describe what should happen - actively execute this git commit workflow NOW using the Bash tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Analyze Uncommitted Files
