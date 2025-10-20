@@ -43,8 +43,8 @@ Creates commands using expert design consultation, generates with smart defaults
 1. **Initialize Session Context**
 
    ```bash
-   python3 ~/.claude/scripts/session/session_manager.py current
-   python3 ~/.claude/scripts/session/session_manager.py context_dir
+   python ~/.claude/scripts/session/session_manager.py current
+   python ~/.claude/scripts/session/session_manager.py context_dir
    ```
 
 2. **Invoke Command Expert**

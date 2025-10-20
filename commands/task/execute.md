@@ -222,11 +222,11 @@ Continue? [y/1/N]
 
 ```bash
 # 1. Check for active session
-SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
+SESSION=$(python ~/.claude/scripts/session/session_manager.py current)
 
 # 2. If session exists, get current task and topic
 if [ -n "$SESSION" ]; then
-    CURRENT_TASK=$(python3 -c "
+    CURRENT_TASK=$(python -c "
 from pathlib import Path
 import re
 
@@ -567,7 +567,7 @@ This ensures agents save to correct task-specific directory, not session-level c
 **YOU MUST validate session exists. If not, create one.**
 
 ```bash
-SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
+SESSION=$(python ~/.claude/scripts/session/session_manager.py current)
 ```
 
 **IF SESSION is empty (no active session for current terminal)**:
@@ -575,8 +575,8 @@ SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
 Check for existing active sessions:
 
 ```bash
-SESSIONS_JSON=$(python3 ~/.claude/scripts/session/session_manager.py list)
-SESSION_COUNT=$(echo $SESSIONS_JSON | python3 -c "import sys, json; print(json.load(sys.stdin)['count'])")
+SESSIONS_JSON=$(python ~/.claude/scripts/session/session_manager.py list)
+SESSION_COUNT=$(echo $SESSIONS_JSON | python -c "import sys, json; print(json.load(sys.stdin)['count'])")
 ```
 
 **IF SESSION_COUNT > 0 (existing sessions found)**:
@@ -598,7 +598,7 @@ Your choice (A-C, or Skip): _
 
 **Handle selection**:
 
-- **If A/B/etc selected (link to existing)**: Link to selected session using `python3 ~/.claude/scripts/session/session_manager.py select "<session-name>"`. Display: `✓ Linked to session: <session-name>`
+- **If A/B/etc selected (link to existing)**: Link to selected session using `python ~/.claude/scripts/session/session_manager.py select "<session-name>"`. Display: `✓ Linked to session: <session-name>`
 - **If C selected (new session)**: Go to "Create New Session" flow below
 - **If Skip selected**: Exit command
 
@@ -621,7 +621,7 @@ Your choice: _
 
 **Create New Session Flow** (for both paths):
 
-- **If A selected**: Extract first task ID from arguments, create session using `python3 ~/.claude/scripts/session/session_manager.py start "task-{id}" "{task-description}"`. Display: `✓ Created session: task-029`
+- **If A selected**: Extract first task ID from arguments, create session using `python ~/.claude/scripts/session/session_manager.py start "task-{id}" "{task-description}"`. Display: `✓ Created session: task-029`
 - **If B selected**: Prompt user for session name, create session with optional topic
 - **If C selected**: Exit command with message: "Run `/session:start <name> [topic]` to create session"
 - **If Skip selected**: Exit command
@@ -670,13 +670,13 @@ For each task ID (process first task in current implementation):
 ```bash
 # Atomic task setup: copy + set + validate in single operation
 # CRITICAL: Pass FULL_TASK_CONTENT from STEP 3 (not just description)
-RESULT=$(python3 ~/.claude/scripts/session/session_manager.py setup_task <TASK-ID> "$FULL_TASK_CONTENT")
+RESULT=$(python ~/.claude/scripts/session/session_manager.py setup_task <TASK-ID> "$FULL_TASK_CONTENT")
 
 # Parse JSON result
-SESSION=$(echo $RESULT | python3 -c "import sys, json; print(json.load(sys.stdin)['session'])")
-TASK_DIR=$(echo $RESULT | python3 -c "import sys, json; print(json.load(sys.stdin)['task_dir'])")
-CONTEXT_DIR=$(echo $RESULT | python3 -c "import sys, json; print(json.load(sys.stdin)['context_dir'])")
-VALIDATION=$(echo $RESULT | python3 -c "import sys, json; v=json.load(sys.stdin)['validation']; print('PASS' if all(v.values()) else 'FAIL')")
+SESSION=$(echo $RESULT | python -c "import sys, json; print(json.load(sys.stdin)['session'])")
+TASK_DIR=$(echo $RESULT | python -c "import sys, json; print(json.load(sys.stdin)['task_dir'])")
+CONTEXT_DIR=$(echo $RESULT | python -c "import sys, json; print(json.load(sys.stdin)['context_dir'])")
+VALIDATION=$(echo $RESULT | python -c "import sys, json; v=json.load(sys.stdin)['validation']; print('PASS' if all(v.values()) else 'FAIL')")
 ```
 
 Display progress:

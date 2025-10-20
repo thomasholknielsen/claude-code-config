@@ -26,6 +26,22 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this complete overhaul immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Establish baseline metrics (test coverage, security posture, performance, complexity)
+3. Launch 10+ specialist analysts in parallel concurrently (security, quality, performance, architecture, refactoring, testing, accessibility, docs, database, frontend)
+4. Each analyst analyzes codebase and writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+5. Collect all findings, deduplicate overlapping issues across domains
+6. Generate risk-based roadmap with phased improvement plan
+7. Deliver comprehensive overhaul summary with priorities and estimated impact
+
+Do NOT just describe what should happen - actively execute this complete overhaul NOW using the Task tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Pre-Overhaul Assessment

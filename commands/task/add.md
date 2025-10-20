@@ -1,7 +1,7 @@
 ---
 description: "Capture adhoc tasks with smart metadata inference from noisy input"
 argument-hint: "\"noisy task description\" [--priority=level] [--category=type] [--epic=name] [--depends=TASK-XXX]"
-allowed-tools: Read, Write, Edit, Bash(python3:*), Bash(git:status), mcp__sequential-thinking__sequentialthinking
+allowed-tools: Read, Write, Edit, Bash(python:*), Bash(git:status), mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Task Add
@@ -201,7 +201,7 @@ This command MUST use `scripts/task/task_analyzer.py` module:
 
 ```bash
 # Internal step in /task:add
-python3 ~/.claude/scripts/task/task_analyzer.py analyze ~/.claude/.agent/tasks.md "user_input"
+python ~/.claude/scripts/task/task_analyzer.py analyze ~/.claude/.agent/tasks.md "user_input"
 
 # Returns JSON:
 {

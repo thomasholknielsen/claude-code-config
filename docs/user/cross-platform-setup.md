@@ -97,7 +97,7 @@ Add-Content $profilePath 'Set-Alias claude "C:\Path\To\Claude.exe"'
 
    ```bash
    # Check Python version
-   python3 --version
+   python --version
 
    # Check Git installation
    git --version
@@ -142,7 +142,7 @@ Add-Content $profilePath 'Set-Alias claude "C:\Path\To\Claude.exe"'
 
    ```bash
    # Test validation script
-   python3 scripts/validate_commands.py --help
+   python scripts/validate_commands.py --help
 
    # Test Claude Code
    claude /help
@@ -155,7 +155,7 @@ Add-Content $profilePath 'Set-Alias claude "C:\Path\To\Claude.exe"'
 ```bash
 # Add to ~/.zshrc for easier access
 echo 'export CLAUDE_ROOT="$HOME/.claude"' >> ~/.zshrc
-echo 'alias claude-validate="python3 $CLAUDE_ROOT/scripts/validate_commands.py"' >> ~/.zshrc
+echo 'alias claude-validate="python $CLAUDE_ROOT/scripts/validate_commands.py"' >> ~/.zshrc
 
 # Reload configuration
 source ~/.zshrc
@@ -194,7 +194,7 @@ source ~/.bash_profile
    sudo apt install python3 python3-pip git -y
 
    # Verify installation
-   python3 --version
+   python --version
    git --version
    ```
 
@@ -222,7 +222,7 @@ source ~/.bash_profile
 
    ```bash
    # Test validation
-   python3 scripts/validate_commands.py --help
+   python scripts/validate_commands.py --help
 
    # Test Claude Code
    claude /help
@@ -350,7 +350,7 @@ cd "$CLAUDE_ROOT"
 ls -la "$CLAUDE_ROOT"
 
 # Use proper quoting for paths with spaces
-python3 scripts/validate_commands.py --claude-root "$HOME/.claude"
+python scripts/validate_commands.py --claude-root "$HOME/.claude"
 ```
 
 #### 4. Git Configuration Issues
@@ -466,8 +466,8 @@ export PATH="$CLAUDE_ROOT/scripts:$PATH"
 ```bash
 # Claude Code configuration
 export CLAUDE_ROOT="$HOME/.claude"
-alias claude-validate="python3 $CLAUDE_ROOT/scripts/validate_commands.py"
-alias claude-fix="python3 $CLAUDE_ROOT/scripts/fix_command_templates.py"
+alias claude-validate="python $CLAUDE_ROOT/scripts/validate_commands.py"
+alias claude-fix="python $CLAUDE_ROOT/scripts/fix_command_templates.py"
 
 # Add to PATH for easy access
 export PATH="$CLAUDE_ROOT/scripts:$PATH"
@@ -478,8 +478,8 @@ export PATH="$CLAUDE_ROOT/scripts:$PATH"
 ```bash
 # Claude Code configuration
 export CLAUDE_ROOT="$HOME/.claude"
-alias claude-validate="python3 $CLAUDE_ROOT/scripts/validate_commands.py"
-alias claude-fix="python3 $CLAUDE_ROOT/scripts/fix_command_templates.py"
+alias claude-validate="python $CLAUDE_ROOT/scripts/validate_commands.py"
+alias claude-fix="python $CLAUDE_ROOT/scripts/fix_command_templates.py"
 
 # Auto-completion (if available)
 autoload -U compinit && compinit
@@ -545,14 +545,14 @@ with open(file_path, 'r') as f:  # May use cp1252 on Windows
 ```python
 # Good: Use subprocess with shell=False for security
 import subprocess
-result = subprocess.run(['python3', 'script.py'], capture_output=True, text=True)
+result = subprocess.run(['python', 'script.py'], capture_output=True, text=True)
 
-# Acceptable: Platform-aware shell commands
+# Platform-aware approach (usually not needed)
 import platform
 if platform.system() == 'Windows':
     cmd = ['python', 'script.py']
 else:
-    cmd = ['python3', 'script.py']
+    cmd = ['python', 'script.py']  # Both use 'python' for consistency
 ```
 
 #### Environment Variables
@@ -587,12 +587,12 @@ Run these on each platform to verify setup:
 
 ```bash
 # Basic functionality
-python3 scripts/validate_commands.py --help
-python3 scripts/fix_command_templates.py --help
-python3 hooks/security_enforcement.py --help
+python scripts/validate_commands.py --help
+python scripts/fix_command_templates.py --help
+python hooks/security_enforcement.py --help
 
 # Path resolution
-python3 -c "from pathlib import Path; print(Path.home() / '.claude')"
+python -c "from pathlib import Path; print(Path.home() / '.claude')"
 
 # File operations
 ls ~/.claude  # Unix

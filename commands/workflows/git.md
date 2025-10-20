@@ -93,6 +93,18 @@ Push with -u flag, detect base branch, create PR via gh CLI
 
 Executes complete git workflow with intelligent commit grouping - creates branch, groups changes into logical commits by type, pushes, and creates PR with comprehensive error handling.
 
+## EXECUTE THIS NOW
+
+**You MUST execute this command immediately using the Bash tool:**
+
+```bash
+bash ~/.claude/scripts/workflows/git.sh "$@"
+```
+
+Do NOT just describe what should happen - actively run this command using the Bash tool right now.
+
+---
+
 ## Implementation
 
 Execute the git workflow automation script with the provided branch name argument (or auto-generate):

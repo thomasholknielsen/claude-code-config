@@ -26,6 +26,23 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch, m
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this documentation workflow immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Detect scope (--scope=changes or --scope=project)
+3. Launch 6 analysts in parallel: docs-analyst (4x perspectives: IA, content quality, user journey, semantic coherence), architecture-analyst, code-quality-analyst
+4. Each analyst analyzes documentation and writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+5. Collect all findings, detect CRUD operations needed (Create/Read/Update/Delete)
+6. Present user with options: A=execute full workflow, B=fix fundamental issues, C=show plan, Skip
+7. Execute chosen CRUD operations (create missing, update outdated, delete obsolete)
+8. Validate completeness (README, CHANGELOG, CONTRIBUTING, SECURITY, API docs exist and are current)
+
+Do NOT just describe what should happen - actively execute this documentation workflow NOW using the Task tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Scope Detection

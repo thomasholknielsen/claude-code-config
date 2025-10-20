@@ -135,7 +135,7 @@ Execute comprehensive analysis of code changes (uncommitted, full repo, or speci
 
 3. Build analyst list: Start with core 8 analysts (security, performance, code-quality, architecture, refactoring, docs, accessibility, ui-ux), check for test configuration files (package.json test scripts, pytest.ini, jest.config.js, phpunit.xml, .rspec) and add testing-analyst if found, detect file extensions in analyzed files and add file-type specialists (*.py→code-python, *.ts/tsx→code-typescript, *.js/jsx→code-javascript, *.cs→code-csharp, React files→frontend-react, Next.js→frontend-nextjs, *.sql/migrations→database-sql, *.tf→infrastructure-terraform, Docker/k8s→infrastructure-devops, GraphQL→api-graphql, REST→api-rest, *.swift→mobile-ios-swift, *.kt→mobile-react-native, *.dart→mobile-flutter, CLI tools→ui-ux-cli), apply domain filter if `--domains` parameter provided, display analyst selection summary
 
-4. Get session context directory: Execute `python3 ~/.claude/scripts/session/session_manager.py context_dir` to get session context path, then create pre-commit-review subdirectory: `mkdir -p $CONTEXT_DIR/pre-commit-review`. This ensures analysts save findings to the correct location.
+4. Get session context directory: Execute `python ~/.claude/scripts/session/session_manager.py context_dir` to get session context path, then create pre-commit-review subdirectory: `mkdir -p $CONTEXT_DIR/pre-commit-review`. This ensures analysts save findings to the correct location.
 
 4a. Spawn analysts in parallel: Determine diff command based on scope: IF scope=uncommitted: `git diff HEAD --`, IF scope=repo: `git diff $(git hash-object -t tree /dev/null) HEAD`, IF scope=folder: add path filter to diff command
 

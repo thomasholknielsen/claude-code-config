@@ -17,7 +17,7 @@ allowed-tools: Tool1, Tool2, Bash(command:*), mcp__sequential-thinking__sequenti
 
 **YOU MUST:**
 1. ✓ [Specific action 1] (example: "Parse argument from $ARGUMENTS")
-2. ✓ [Specific action 2] (example: "Call Python script: python3 ~/.claude/scripts/...")
+2. ✓ [Specific action 2] (example: "Call Python script: python ~/.claude/scripts/...")
 3. ✓ [Specific action 3] (example: "Display confirmation with results")
 
 **YOU MUST NOT:**

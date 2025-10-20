@@ -26,6 +26,21 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this refactoring workflow immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Launch refactoring-analyst, code-quality-analyst, architecture-analyst in parallel concurrently
+3. Each analyst analyzes codebase and writes recommendations to `.agent/context/{session-id}/{analyst-name}.md`
+4. Collect all recommendations, prioritize by impact (Critical/High/Medium)
+5. Implement refactoring improvements while preserving behavior and test coverage
+6. Validate improvements through test execution and quality metrics
+
+Do NOT just describe what should happen - actively execute this refactoring workflow NOW using the Task tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Pre-Refactoring Assessment

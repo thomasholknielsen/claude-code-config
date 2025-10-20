@@ -26,6 +26,21 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this optimization workflow immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Establish baseline performance metrics (response times, bundle size, query times)
+3. Launch performance-analyst, database-analyst, frontend-analyst in parallel concurrently
+4. Each analyst analyzes codebase and writes recommendations to `.agent/context/{session-id}/{analyst-name}.md`
+5. Collect all recommendations, prioritize by performance impact
+6. Implement optimizations and validate with before/after benchmark comparisons
+
+Do NOT just describe what should happen - actively execute this optimization workflow NOW using the Task tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Baseline Benchmarking

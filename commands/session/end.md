@@ -13,7 +13,7 @@ allowed-tools: Bash, Read, Glob, mcp__sequential-thinking__sequentialthinking
 **What this command does:** End the current session by displaying a summary and providing interactive cleanup options.
 
 **YOU MUST:**
-1. ✓ Get current session via `python3 ~/.claude/scripts/session/session_manager.py current`
+1. ✓ Get current session via `python ~/.claude/scripts/session/session_manager.py current`
 2. ✓ Display session summary (started, topic, context files, tasks created)
 3. ✓ Present interactive A/B/C cleanup prompt (Delete/Archive/Keep/Skip)
 4. ✓ Execute cleanup action based on user choice
@@ -30,7 +30,7 @@ allowed-tools: Bash, Read, Glob, mcp__sequential-thinking__sequentialthinking
 
 ### Step 1: Get Current Session
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py current
+python ~/.claude/scripts/session/session_manager.py current
 ```
 
 ### Step 2: Build & Display Summary

@@ -28,6 +28,22 @@ github_integration: true
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this workflow immediately using the Task tool to parallelize analysts:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Analyze changed files using: `git diff [base]..[feature] --name-only`
+3. Dynamically select applicable analysts (frontend, security, database, API, performance, etc.) based on file types
+4. Launch ALL selected analysts in PARALLEL concurrently using the Task tool (max 10 tasks)
+5. Each analyst must write findings to `.agent/context/{session-id}/{analyst-name}.md`
+6. Collect all findings, deduplicate overlapping issues, organize by severity
+7. Generate comprehensive unified report to `.artifacts/reviews/review-{date}.md`
+
+Do NOT just describe what should happen - actively execute this workflow NOW using the Task tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Analyze Changed Files
@@ -238,7 +254,7 @@ Main thread synthesizes all analyst findings:
 ```python
 # Phase 2: Main Thread Synthesis
 # Get session context directory
-session_id = $(python3 ~/.claude/scripts/session/session_manager.py current)
+session_id = $(python ~/.claude/scripts/session/session_manager.py current)
 context_dir = .agent/context/${session_id}
 
 # Read all analyst artifacts

@@ -26,6 +26,20 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, WebFetch, WebSearch, mcp__se
 
 ---
 
+## EXECUTE THIS NOW
+
+**You MUST execute this security audit immediately using the Task tool:**
+
+1. Detect session context directory using: `python ~/.claude/scripts/session/session_manager.py context_dir`
+2. Launch security-analyst, api-rest-analyst, and database-analyst in parallel concurrently
+3. Each analyst analyzes codebase and writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+4. Collect all findings, organize by CVSS score and severity (Critical/High/Medium/Low)
+5. Generate comprehensive security audit report with remediation roadmap
+
+Do NOT just describe what should happen - actively execute this security audit NOW using the Task tool.
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Pre-Audit Assessment
