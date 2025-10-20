@@ -6,6 +6,16 @@ allowed-tools: Read, mcp__sequential-thinking__sequentialthinking
 
 # Command: Task Help
 
+## Quick Start
+
+```bash
+# Show comprehensive task system documentation
+/task:help
+
+# Get help on any command
+/task:help [command-name]
+```
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -50,20 +60,21 @@ Every task has an **origin** that indicates where it came from:
 ### Core Commands
 
 ```bash
-# 📝 Capture & Discovery
-/task:add "description" [--priority] [--category]     # Add adhoc task
-/task:scan-project [scope] [--types] [--consolidate]         # Find code comments
+# 📝 Capture & Discovery (with SMART INFERENCE)
+/task:add "noisy description [HINTS]" [--priority] [--category]  # Smart metadata inference
+/task:scan-project [scope] [--types] [--consolidate]             # Find code comments
 
-# 📋 Organization & Management
+# 📋 Organization & Management (with DEPENDENCY AWARENESS)
 /task:execute                                        # Interactive triaging
 /task:execute TASK-001 [TASK-002 ...]              # Work on specific tasks
-/task:execute TASK-001 [--notes] [--complete]      # Update task progress
-/task:archive [--completed-before]                    # Archive completed tasks
+/task:execute TASK-001 [--validate]                # Check dependencies & readiness
+/task:sanitize [--auto-fix]                        # Validate dependency integrity
+/task:archive [--completed-before]                 # Archive completed tasks
 
 # 🐙 GitHub Integration
-/github:fetch-issues [--filter] [--milestone]                # Fetch issues to context
-/github:convert-issues-to-tasks [--filter] [--source-file]             # Convert issues to tasks
-/github:create-issue-from-task TASK-001 [--labels]                    # Create issue from task
+/github:fetch-issues [--filter] [--milestone]      # Fetch issues to context
+/github:convert-issues-to-tasks [--filter]         # Convert issues to tasks
+/github:create-issue-from-task TASK-001 [--labels] # Create issue from task
 ```
 
 ## Quick Start Guide
@@ -118,6 +129,105 @@ Every task has an **origin** that indicates where it came from:
 ```
 
 **Result**: GitHub issues available for reference, imported ones become tasks
+
+---
+
+## Smart Features: Inference & Dependencies
+
+### Smart Metadata Inference (Powered by TaskAnalyzer)
+
+When you use `/task:add` with a noisy description, the system intelligently infers:
+
+- **Priority**: From [BLOCKER] and [URGENT] markers → critical/high
+- **Category**: From language patterns (fix→bug, add→feature, refactor→refactor)
+- **Epic**: From keywords and related tasks
+- **Dependencies**: From temporal hints (after TASK-XXX, before X, then)
+- **Related**: From semantic matching with existing tasks
+
+**Examples:**
+
+```bash
+# Input: "fix the auth validation thing [BLOCKER] we need before template work"
+# Smart inference detects:
+# - [BLOCKER] → priority=critical
+# - "fix" + "validation" → category=bug
+# - Keywords match existing tasks → suggests epic and related tasks
+
+/task:add "fix the auth validation thing [BLOCKER] we need before template work"
+
+# Result: TASK-051 with inferred metadata
+# ✓ Priority: critical [confidence: 0.99]
+# ✓ Category: bug [confidence: 0.92]
+# ✓ Epic: Security [confidence: 0.85]
+# ✓ Related: TASK-016 (auth-related)
+```
+
+**Smart Hint Patterns:**
+
+```
+[BLOCKER]              → priority=critical
+[URGENT]               → priority=high
+after TASK-015         → depends on TASK-015
+before starting X      → blocks related work
+related to Epic Name   → epic assignment
+similar to TASK-XXX    → suggests related task
+```
+
+**Confidence Scores:**
+
+Each inference shows a confidence score (0.0-1.0). Override with flags if needed:
+
+```bash
+# Override inferred epic
+/task:add "database refactor" --epic="Performance"
+
+# Override inferred priority
+/task:add "something important" --priority=critical
+
+# Override inferred dependencies
+/task:add "follow-up work" --depends=TASK-010,TASK-015
+```
+
+### Dependency-Aware Task Execution
+
+When executing tasks, the system checks for blockers and recommends ordering:
+
+```bash
+# Execute task - shows dependency analysis
+/task:execute TASK-005
+
+# Output:
+# 📋 Dependency Analysis for TASK-005
+# TASK-005: Align agents with template
+# ├─ Depends On: TASK-003 (pending) ⚠️ BLOCKER
+# └─ Blocked By: TASK-006, TASK-007
+
+# Recommended execution order:
+# 1. TASK-003 - Review command template
+# 2. TASK-005 - Align agents with template
+# 3. TASK-006 - Align mermaid...
+```
+
+**Dependency Check Features:**
+
+- **Blocker Detection**: Shows which tasks are blocking progress
+- **Recommended Ordering**: Automatically calculates best execution sequence
+- **Unblocking Impact**: Shows what work you'll unblock when completing task
+- **Circular Detection**: Alerts if circular dependencies exist
+
+### Task Integrity (Sanitize)
+
+Validate and repair task dependency graphs:
+
+```bash
+# Check for dependency issues
+/task:sanitize
+
+# Auto-fix orphaned dependencies
+/task:sanitize --auto-fix
+
+# Output: Reports orphaned deps, circular cycles, priority inversions, epic issues
+```
 
 ---
 

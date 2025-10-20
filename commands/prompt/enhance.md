@@ -38,7 +38,7 @@ Supports three modes: standalone prompt enhancement (Mode 1), single task enhanc
 ## Usage
 
 ```
-/prompt:enhance-prompt $ARGUMENTS
+/prompt:enhance $ARGUMENTS
 ```
 
 **Usage Modes**:
@@ -411,7 +411,7 @@ no timeout errors, SLA compliance restored.
 ### Example 1: Quick Enhancement (Auto Framework)
 
 ```
-/prompt:enhance-prompt "Fix the login bug"
+/prompt:enhance "Fix the login bug"
 
 → Analyzing: Missing specifics, context, success criteria
 → Framework: APE (simple debugging task)
@@ -453,7 +453,7 @@ Your choice: _
 ### Example 2: Complete Enhancement (Explicit Framework)
 
 ```
-/prompt:enhance-prompt "Write API docs --framework=costar --mode=complete"
+/prompt:enhance "Write API docs --framework=costar --mode=complete"
 
 → Analyzing: Missing audience, deliverables, context
 → Framework: CO-STAR (user specified)
@@ -496,7 +496,7 @@ Your choice: _
 ### Example 3: Interactive Mode Selection
 
 ```
-/prompt:enhance-prompt "Add user authentication to my app"
+/prompt:enhance "Add user authentication to my app"
 
 → Analyzing: Missing architecture, requirements, scope
 → Framework: RISEN (multi-phase feature implementation)
@@ -556,7 +556,7 @@ Your choice: _
 ### Example 4: Multi-Domain Task with Parallel Execution
 
 ```
-/prompt:enhance-prompt "Improve my e-commerce app" --mode=complete
+/prompt:enhance "Improve my e-commerce app" --mode=complete
 
 → Analyzing: Vague scope, missing domains, no specific goals
 → Framework: RISEN (complex multi-domain task)
@@ -608,7 +608,7 @@ Your choice: _
 ### Example 5: Single Task Enhancement (Mode 2)
 
 ```
-/prompt:enhance-prompt TASK-042
+/prompt:enhance TASK-042
 
 → Reading .agent/tasks.md
 → Found [TASK-042] Add user authentication to my app
@@ -654,7 +654,7 @@ Your choice: _
 ### Example 6: Batch Task Processing (Mode 3)
 
 ```
-/prompt:enhance-prompt --from-tasks
+/prompt:enhance --from-tasks
 
 → Reading .agent/tasks.md
 → Found 3 tasks without enhanced prompts: TASK-015, TASK-023, TASK-042
@@ -814,7 +814,7 @@ Design and implement secure user authentication system...
 /task:add "Fix login validation" --priority=high --category=bug
 
 # 2. Batch enhance all tasks
-/prompt:enhance-prompt --from-tasks
+/prompt:enhance --from-tasks
 
 # 3. Execute tasks with enhanced prompts
 /task:execute TASK-042  # Uses enhanced prompt automatically

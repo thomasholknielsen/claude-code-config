@@ -1,7 +1,7 @@
 ---
-description: "Capture adhoc tasks with standardized metadata and origin tagging"
-argument-hint: "\"task description\" [--priority=level] [--category=type]"
-allowed-tools: Read, Write, Edit, mcp__sequential-thinking__sequentialthinking
+description: "Capture adhoc tasks with smart metadata inference from noisy input"
+argument-hint: "\"noisy task description\" [--priority=level] [--category=type] [--epic=name] [--depends=TASK-XXX]"
+allowed-tools: Read, Write, Edit, Bash(python3:*), Bash(git:status), mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Task Add
@@ -10,40 +10,67 @@ allowed-tools: Read, Write, Edit, mcp__sequential-thinking__sequentialthinking
 
 ### APE Framework (General Purpose)
 
-**A**ction: Capture adhoc work items to .agent/tasks.md with origin=adhoc tagging, parse description + flags (--priority, --category), generate auto-incremented TASK-XXX ID, create standardized entry (status: pending, metadata, ISO timestamp), save file
+**A**ction: Capture adhoc work items with SMART METADATA INFERENCE: accept noisy user input → run TaskAnalyzer (10-phase semantic analysis) → infer dependencies/epic/priority/category → display inference results with confidence scores → allow optional flag overrides → generate auto-incremented TASK-XXX ID → create standardized entry with new schema (Depends On, Related, Epic fields)
 
-**P**urpose: Enable quick idea/bug capture without implementation commitment, maintain unified task system with origin tracking (adhoc vs code-comment vs github-issue), support filtered workflows by origin/priority/category, prevent context loss from mental notes
+**P**urpose: Zero-friction task capture from messy descriptions, intelligent extraction of dependencies and relationships, maintain unified task system with origin tracking (adhoc vs code-comment vs github-issue), enable dependency-aware workflows, prevent context loss from mental notes
 
-**E**xpectation: New task entry in .agent/tasks.md with TASK-ID, confirmation message, metadata validated, NO implementation/execution, strict capture-only operation
+**E**xpectation: New task entry in .agent/tasks.md with TASK-ID, inferred metadata (depends_on, epic, priority, category), confidence scores displayed, reasoning shown, user can override if needed, NO implementation/execution, strict capture-only operation
+
+## Quick Start
+
+```bash
+# Add a task with smart inference
+/task:add "Fix authentication bug that's blocking new users from signup"
+
+# Add with priority override
+/task:add "Refactor widget system" --priority=high
+```
 
 ## Quality Standards (CARE)
 
-**Target**: 85+ overall (Completeness >95% metadata fields, Accuracy >90% ID increment, Relevance >85% categorization, Efficiency <3s capture)
+**Target**: 90+ overall (Completeness >98% metadata fields, Inference Accuracy >85% dependencies/epic, Reasoning Clarity >90%, Efficiency <5s capture with smart inference)
 
 ## Purpose
 
-Captures adhoc work items and ideas into the unified task management system at `.agent/tasks.md` with origin tagging.
+Captures adhoc work items and ideas with SMART METADATA INFERENCE into the unified task management system at `.agent/tasks.md`. Analyzes noisy input to automatically detect dependencies, epic assignments, priority, and categories.
 
-**⚠️ STRICT CONSTRAINT: This command MUST NOT implement, code, or execute any tasks. It only captures task descriptions.**
+**⚠️ STRICT CONSTRAINT: This command MUST NOT implement, code, or execute any tasks. It only captures task descriptions with smart inference.**
 
 ## Usage
 
 ```bash
-/task:add $ARGUMENTS
+/task:add "noisy task description [hints]" [--priority=level] [--category=type] [--epic=name] [--depends=TASK-XXX]
 ```
 
 **Arguments**:
 
-- `$1` (task-description): Description of the work item or task to capture (required)
-- `--priority`: Priority level: `low | medium | high | critical` (optional, default: medium)
-- `--category`: Task category: `bug | feature | refactor | docs | test | research | chore` (optional)
+- `$1` (task-description): Noisy description of work (can include [BLOCKER], temporal hints, task refs, required)
+- `--priority`: Override inferred priority: `low | medium | high | critical` (optional)
+- `--category`: Override inferred category: `bug | feature | refactor | docs | test | research | chore` (optional)
+- `--epic`: Override inferred epic: Epic name (optional)
+- `--depends`: Override inferred dependencies: `TASK-XXX,TASK-YYY` comma-separated (optional)
 
-**$ARGUMENTS Examples**:
+**Input Examples**:
 
-- `$ARGUMENTS = "Fix login validation error"` - Basic adhoc task
-- `$ARGUMENTS = "Add user profile page --priority=high --category=feature"` - High-priority feature
-- `$ARGUMENTS = "Update API documentation --category=docs"` - Documentation task
-- `$ARGUMENTS = "Research authentication patterns --priority=high --category=research"` - Research task
+- `"fix the auth validation thing [BLOCKER] we need this before template work"` - Smart inference detects: [BLOCKER], priority=critical, related tasks
+- `"after we finish context refactor, align agents with template"` - Smart inference detects: "after" hint, temporal dependency on context refactor
+- `"refactor the database layer --priority=high"` - Inference + explicit override
+- `"related to template standardization - update examples"` - Epic detection from keywords
+
+## Smart Inference Pipeline (10 Phases)
+
+The command uses TaskAnalyzer to automatically extract from noisy input:
+
+1. **Extract Explicit References**: Find TASK-XXX and #issue references
+2. **Parse Hint Patterns**: Detect [BLOCKER], [URGENT], after/before, related to, etc.
+3. **Extract Keywords**: Tokenize and filter stopwords
+4. **Semantic Matching**: Find related existing tasks
+5. **Detect Epic**: From keywords and task context
+6. **Infer Priority**: From [BLOCKER]/[URGENT] or task relationships
+7. **Detect Category**: From language patterns (fix→bug, add→feature)
+8. **Infer Dependencies**: From temporal hints, explicit refs, phrases
+9. **Calculate Confidence**: Score each inference (0.0-1.0)
+10. **Generate Reasoning**: Explain decisions to user
 
 ## Process
 
@@ -51,18 +78,20 @@ Captures adhoc work items and ideas into the unified task management system at `
 
 **ALLOWED ACTIONS ONLY**:
 
-1. **Parse Arguments**: Extract task description, priority, and category from $ARGUMENTS
-2. **Read Existing File**: Read `{project_root}/.agent/tasks.md` (create if doesn't exist)
-3. **Generate Task ID**: Auto-increment from highest existing TASK-XXX number
-4. **Tag Origin**: Set origin to `adhoc` (distinguishes from code-comment and github-issue)
-5. **Create Task Entry**: Use standardized format with metadata
-6. **Save File**: Write updated tasks.md
-7. **Report Success**: Confirm task captured with ID
-8. **STOP IMMEDIATELY** - No further actions permitted
+1. **Call TaskAnalyzer**: Load tasks.md → run 10-phase analysis on input
+2. **Display Inferred Metadata**: Show inferred values with confidence scores and reasoning
+3. **Allow Overrides**: User can override any field with flags
+4. **Read Existing File**: Read `{project_root}/.agent/tasks.md` (create if doesn't exist)
+5. **Generate Task ID**: Auto-increment from highest existing TASK-XXX number
+6. **Tag Origin**: Set origin to `adhoc`
+7. **Create Task Entry**: Use new schema with Depends On, Related, Epic fields
+8. **Save File**: Write updated tasks.md
+9. **Report Success**: Confirm task captured with inferred metadata
+10. **STOP IMMEDIATELY** - No further actions permitted
 
 ## Task Format
 
-All adhoc tasks use this standardized format:
+All adhoc tasks use this ENHANCED standardized format with dependency tracking:
 
 ```markdown
 ## [TASK-001] Fix login validation error
@@ -70,6 +99,9 @@ All adhoc tasks use this standardized format:
 **Status**: pending
 **Priority**: high
 **Category**: bug
+**Epic**: Security
+**Depends On**: (none)
+**Related**: TASK-010
 **Origin**: adhoc
 **Created**: 2025-10-13T10:30:00Z
 
@@ -82,81 +114,203 @@ Fix the validation error that occurs when users attempt to login with special ch
 **Metadata Fields**:
 
 - **Status**: Always `pending` for new tasks
-- **Priority**: `low | medium | high | critical`
-- **Category**: `bug | feature | refactor | docs | test | research | chore`
+- **Priority**: `low | medium | high | critical` (inferred from [BLOCKER]/[URGENT] or defaults to medium)
+- **Category**: `bug | feature | refactor | docs | test | research | chore` (inferred from language patterns)
+- **Epic**: Epic name (inferred from keywords and task context, can be None)
+- **Depends On**: Comma-separated TASK-XXX IDs (inferred from temporal hints, explicit refs, phrases)
+- **Related**: Comma-separated TASK-XXX IDs (semantically related, not strict dependencies)
 - **Origin**: Always `adhoc` (user-created task)
 - **Created**: ISO 8601 timestamp (UTC)
 
+**Confidence Metadata** (shown during creation, not stored):
+
+```
+✓ Created TASK-051: Fix auth validation
+
+Inferred Metadata:
+├─ Priority: critical [confidence: 0.99]
+│  (Detected: [BLOCKER] marker)
+├─ Epic: Security [confidence: 0.85]
+│  (Inferred from: security-related keywords)
+├─ Depends On: (none) [confidence: 1.00]
+├─ Category: bug [confidence: 0.92]
+│  (Detected: "fix" + "validation" keywords)
+└─ Related: TASK-010 [confidence: 0.87]
+   (Similar: authentication validation task)
+
+Reasoning:
+- Priority elevated to 'critical' due to [BLOCKER] marker
+- Category inferred as 'bug' from language patterns
+- Inferred epic from security-related keywords
+- No dependencies detected (this blocks others, doesn't depend)
+- Related task found: similar validation work
+```
+
 ## Explicit Constraints
 
-**IN SCOPE**: Task capture only (description parsing, ID generation, metadata tagging with origin=adhoc, file write to .agent/tasks.md), priority/category flags, ISO timestamps, auto-increment logic
+**IN SCOPE**: Task capture with smart inference (TaskAnalyzer 10-phase analysis), description parsing, dependency extraction, epic detection, ID generation, metadata tagging with origin=adhoc, file write to .agent/tasks.md, confidence scoring, reasoning display, allow flag overrides
 **OUT OF SCOPE**: Task implementation/execution (FORBIDDEN), code changes, file creation beyond tasks.md, task analysis/breakdown, agent invocation, GitHub integration (use /github:create-issue-from-task)
 
-## Agent Integration
+## Integration with TaskAnalyzer
 
-- **No agents required** - Simple capture operation
-- **Specialist Options**: code-quality-analyst can help categorize/prioritize if needed
+This command MUST use `scripts/task/task_analyzer.py` module:
+
+```bash
+# Internal step in /task:add
+python3 ~/.claude/scripts/task/task_analyzer.py analyze ~/.claude/.agent/tasks.md "user_input"
+
+# Returns JSON:
+{
+    "depends_on": ["TASK-015"],
+    "epic": "Context Management",
+    "priority": "critical",
+    "category": "bug",
+    "confidence": {
+        "epic": 0.85,
+        "depends_on": 0.90,
+        "priority": 0.99,
+        "category": 0.92,
+        "overall": 0.91
+    },
+    "reasoning": [
+        "Priority elevated to 'critical' due to [BLOCKER] marker",
+        "Found temporal relationship: 'after'",
+        "Inferred epic from similar tasks: Context Management",
+        ...
+    ],
+    "related": ["TASK-010"],
+    "explicit_issues": ["#123"]
+}
+```
 
 ## Examples
 
-### Example 1: Basic Bug Task
+### Example 1: Noisy Input with [BLOCKER] Hint
 
 ```bash
-/task:add "Fix login validation error"
-# where $ARGUMENTS = "Fix login validation error"
+/task:add "fix the auth validation thing [BLOCKER] we need this before template work"
 
-# Expected behavior:
-→ Task captured in .agent/tasks.md
-→ [TASK-001] Fix login validation error
-→ Priority: medium (default)
-→ Category: (none)
-→ Origin: adhoc
-→ Status: pending
+System processes (smart inference):
+1. Extracts [BLOCKER] → priority=critical
+2. Keywords: auth, validation → finds TASK-016 (auth-related)
+3. Context: "before template work" → related to Template Standardization epic
+4. Category: "fix" + "validation" → bug
+
+✓ Created TASK-051: Fix auth validation thing
+
+Inferred Metadata:
+├─ Priority: critical [confidence: 0.99]
+│  (Detected: [BLOCKER] marker)
+├─ Epic: (none detected) [confidence: 0.50]
+│  (Suggestion: Link to security-related epic?)
+├─ Depends On: (none) [confidence: 1.00]
+│  (This is a blocker, doesn't depend on others)
+├─ Category: bug [confidence: 0.92]
+│  (Pattern: "fix" + "validation" keywords)
+└─ Related: TASK-016 [confidence: 0.87]
+   (Similar: authentication tasks)
+
+Reasoning:
+- Priority elevated to 'critical' due to [BLOCKER] marker
+- Category inferred as 'bug' from language patterns
+- This is a blocking task (doesn't depend on others)
+- Related task found: TASK-016 (auth-related)
 ```
 
-### Example 2: High-Priority Feature
+### Example 2: Temporal Hint with "after"
 
 ```bash
-/task:add "Add dark mode toggle --priority=high --category=feature"
-# where $ARGUMENTS = "Add dark mode toggle --priority=high --category=feature"
+/task:add "after we finish context refactor, align agents with template structure"
 
-# Expected behavior:
-→ Task captured in .agent/tasks.md
-→ [TASK-002] Add dark mode toggle
-→ Priority: high
-→ Category: feature
-→ Origin: adhoc
-→ Status: pending
+System processes (smart inference):
+1. Keyword: "context refactor" → finds TASK-015
+2. Temporal: "after" → depends on TASK-015
+3. Keywords: align, agents, template → suggests epic Template Standardization
+4. Category: "align" + "template" → refactor or feature
+
+✓ Created TASK-052: Align agents with template structure
+
+Inferred Metadata:
+├─ Priority: medium [confidence: 0.60]
+│  (No explicit hints, default to medium)
+├─ Epic: Template Standardization [confidence: 0.88]
+│  (Inferred from: similar tasks context)
+├─ Depends On: TASK-015 [confidence: 0.90]
+│  (Found temporal reference: "after")
+├─ Category: feature [confidence: 0.76]
+│  (Pattern: "align", "structure" keywords)
+└─ Related: TASK-005, TASK-006 [confidence: 0.83]
+   (Same epic: Template Standardization tasks)
+
+Reasoning:
+- Found temporal relationship: 'after' → depends on TASK-015
+- Inferred epic from similar tasks: Template Standardization
+- Category inferred from language patterns
+- Related tasks found in same epic
 ```
 
-### Example 3: Research Task
+### Example 3: Explicit Override
 
 ```bash
-/task:add "Investigate OAuth integration strategies --priority=medium --category=research"
-# where $ARGUMENTS = "Investigate OAuth integration strategies --priority=medium --category=research"
+/task:add "refactor database layer after auth work" --priority=high --epic="Performance"
 
-# Expected behavior:
-→ Task captured in .agent/tasks.md
-→ [TASK-003] Investigate OAuth integration strategies
-→ Priority: medium
-→ Category: research
-→ Origin: adhoc
-→ Status: pending
+System processes (smart inference + overrides):
+1. Keywords: refactor, database, layer → suggests "refactor" category
+2. Temporal: "after" → depends on auth tasks (TASK-010)
+3. Smart inference: epic=database, priority=medium
+4. FLAGS OVERRIDE: --priority=high, --epic=Performance
+
+✓ Created TASK-053: Refactor database layer
+
+Inferred Metadata:
+├─ Priority: high [OVERRIDDEN by flag]
+│  (Smart: medium, User override: high)
+├─ Epic: Performance [OVERRIDDEN by flag]
+│  (Smart: (none), User override: Performance)
+├─ Depends On: TASK-010 [confidence: 0.85]
+│  (Detected: "after auth work")
+├─ Category: refactor [confidence: 0.89]
+│  (Pattern: "refactor", "database" keywords)
+└─ Related: TASK-009, TASK-011 [confidence: 0.78]
+
+Reasoning:
+- Found temporal relationship: 'after' → depends on TASK-010
+- Category inferred as 'refactor' from language patterns
+- Priority overridden by user flag (smart: medium → high)
+- Epic overridden by user flag (smart: (none) → Performance)
 ```
 
-### Example 4: Technical Debt
+### Example 4: Complex Noisy Input
 
 ```bash
-/task:add "Refactor authentication module --category=refactor"
-# where $ARGUMENTS = "Refactor authentication module --category=refactor"
+/task:add "[URGENT] related to MCP integration - sanitize task dependencies for TASK-001 and TASK-011"
 
-# Expected behavior:
-→ Task captured in .agent/tasks.md
-→ [TASK-004] Refactor authentication module
-→ Priority: medium (default)
-→ Category: refactor
-→ Origin: adhoc
-→ Status: pending
+System processes (smart inference):
+1. Extracts [URGENT] → priority=high
+2. Keywords: MCP, integration, sanitize → related to TASK-001, TASK-011
+3. Explicit TASK refs: TASK-001, TASK-011
+4. Category: "sanitize" + "dependencies" → chore or refactor
+5. Epic: MCP Integration (from keywords)
+
+✓ Created TASK-054: Sanitize task dependencies
+
+Inferred Metadata:
+├─ Priority: high [confidence: 0.99]
+│  (Detected: [URGENT] marker)
+├─ Epic: MCP Integration [confidence: 0.81]
+│  (Inferred from: keywords + task context)
+├─ Depends On: (none) [confidence: 1.00]
+│  (This improves others, doesn't depend)
+├─ Category: chore [confidence: 0.83]
+│  (Pattern: "sanitize", "dependencies" keywords)
+└─ Related: TASK-001, TASK-011 [confidence: 0.92]
+   (Explicit mention + semantic match)
+
+Reasoning:
+- Priority set to 'high' due to [URGENT] marker
+- Explicit task references: TASK-001, TASK-011 → related
+- Inferred epic from keywords: MCP Integration
+- Category inferred as 'chore' from language patterns
 ```
 
 ## Integration Points

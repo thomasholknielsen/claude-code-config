@@ -1,10 +1,23 @@
 ---
-description: "Intelligent task triaging and execution with seamless speckit integration"
-argument-hint: "[TASK-XXX ...] [--status=state] [--notes=\"text\"] [--complete]"
-allowed-tools: Read, Edit, SlashCommand(/speckit:specify), SlashCommand(/development:small), mcp__sequential-thinking__sequentialthinking
+description: "Intelligent task execution with dependency-aware workflow and validation"
+argument-hint: "[TASK-XXX ...] [--status=state] [--notes=\"text\"] [--complete] [--validate]"
+allowed-tools: Read, Edit, Bash, SlashCommand(/speckit:*), mcp__sequential-thinking__sequentialthinking
 ---
 
 # Command: Task Execute
+
+## Quick Start
+
+```bash
+# Interactive mode - select from pending tasks
+/task:execute
+
+# Direct execution - by task ID
+/task:execute TASK-001
+
+# Search-based - find matching tasks
+/task:execute "fix authentication"
+```
 
 ## EXECUTION FLOW (START HERE)
 
@@ -12,8 +25,10 @@ allowed-tools: Read, Edit, SlashCommand(/speckit:specify), SlashCommand(/develop
 
 **This command has EXACTLY TWO workflows:**
 
-1. **Interactive Mode** (no arguments) → Show all tasks, offer grouping
-2. **Direct Mode** (with arguments) → STEP 1 (Smart Task Gate) → STEP 2 (Session) → STEP 3-10
+1. **Interactive Mode** (no arguments) → Show all tasks with dependency info, offer grouping
+2. **Direct Mode** (with arguments) → STEP 0 (Dependency Check) → STEP 1 (Smart Task Gate) → STEP 2-10
+
+**NEW**: Dependency awareness at every step - shows blockers, recommends execution order
 
 **YOU MUST NOT**:
 - ✗ Invoke agents directly (bypass STEP 4 task setup)
@@ -32,27 +47,361 @@ allowed-tools: Read, Edit, SlashCommand(/speckit:specify), SlashCommand(/develop
 
 ---
 
-### Step 1: Determine Mode
+### Step 0: Determine Mode & Pre-Flight Checks
 
 **IF no arguments** → Execute **Interactive Mode** (skip Direct Mode)
-**IF task-related arguments provided** → Execute **Direct Mode** (skip Interactive Mode)
+**IF task-related arguments provided** → Execute **Direct Mode** (include STEP 0)
+
+---
+
+## DIRECT MODE: STEP 0 - Dependency Check
+
+**BEFORE processing any task, check for dependency blockers:**
+
+### STEP 0a: Load Dependency Graph
+
+```bash
+# Parse all tasks and build depends_on graph
+# For each TASK-XXX argument:
+# - Extract Depends On list
+# - Compute Blocked By (reverse dependencies)
+# - Check circular dependencies
+```
+
+### STEP 0b: Validate Task Dependencies
+
+**For each task to execute:**
+
+1. **Check if all dependencies completed**
+   - Get Depends On list
+   - Check status of each dependency
+   - If any pending/in-progress: FLAG AS BLOCKER
+
+2. **Check if other tasks depend on this**
+   - Get Blocked By list
+   - Report if completing this unblocks work
+
+3. **Check for circular dependencies**
+   - Alert if cycle detected
+   - Suggest which relationship to break
+
+### STEP 0c: Display Dependency Analysis
+
+**IF blockers found:**
+
+```
+📋 Dependency Analysis for TASK-005
+
+TASK-005: Align agents with template
+├─ Status: pending
+├─ Depends On: TASK-003 (pending) ⚠️ BLOCKER
+└─ Blocked By: TASK-006, TASK-007 (waiting for this)
+
+⚠️ This task cannot start until:
+1. TASK-003 - Review command template (pending)
+
+Recommended execution order:
+1. TASK-003 - Review command template
+2. TASK-005 - Align agents with template
+3. TASK-006 - Align mermaid with template
+4. TASK-007 - Align commands with template
+
+Continue anyway? [y/N]
+```
+
+**IF no blockers:**
+
+```
+✓ TASK-005 ready to execute (no blockers)
+Ready: Yes (all dependencies completed)
+This task unblocks: TASK-006, TASK-007
+```
+
+**IF --validate flag:**
+
+```
+/task:execute TASK-005 --validate
+
+Validation Report:
+- Dependencies: ✓ All completed
+- Status: ready
+- Epic: Template Standardization
+- Priority: medium
+- Category: chore
+
+Estimate: 30 min (based on similar tasks)
+Ready to start: YES
+```
+
+### STEP 0d: Decision Point
+
+**User choice:**
+
+```
+| Option | Action |
+|--------|--------|
+| y | Continue with TASK-005 anyway |
+| 1 | Execute TASK-003 first (suggested) |
+| 2 | Execute TASK-003 then TASK-005 (batch) |
+| --epic | Execute all tasks in epic (ordered) |
+| N/Skip | Cancel (no execution) |
+
+Your choice: _
+```
+
+**Actions:**
+- `y` → Continue to STEP 1 with selected task
+- `1` → Change context to TASK-003, re-run STEP 0
+- `2` → Add TASK-003 to queue, then TASK-005
+- `--epic` → Load epic, sort by dependencies, confirm order
+- `N/Skip` → Exit command
+
+---
+
+## INTERACTIVE MODE with Dependency Info
+
+### STEP I2 Enhanced: Display All Tasks (WITH Dependencies)
+
+**New columns added:**
+
+```
+Available tasks (showing 10 of X):
+
+| # | Task ID   | Description                                  | Status      | Deps | Ready |
+|---|-----------|----------------------------------------------|-------------|------|-------|
+| 1 | TASK-015  | Use speckit to refactor context management   | in-progress | 2→   | ✓     |
+| 2 | TASK-019  | Review and refactor artifacts directory      | in-progress | ✓1→  | ✓     |
+| 3 | TASK-003  | Review command templates                     | pending     | -    | ✓     |
+| 4 | TASK-005  | Align agents with template                   | pending     | 3    | ⚠️    |
+| 5 | TASK-006  | Align mermaid with template                  | pending     | 3    | ⚠️    |
+```
+
+**Column Meanings:**
+- `Deps`: Dependencies (shows blockers or "-" if none)
+  - `2→` means depends on 2 completed tasks
+  - `3` means depends on pending TASK-003
+  - `-` means no dependencies
+- `Ready`: Execution readiness
+  - `✓` = All dependencies completed, ready to start
+  - `⚠️` = Blocked (has pending dependencies)
+  - `X` = Circular dependency detected
+
+---
+
+### STEP I3 Enhanced: Handle Selection with Dependencies
+
+**After task selection, run STEP 0 (Dependency Check)**
+
+Show dependency info before starting work:
+
+```
+You selected: TASK-005
+
+Dependency Check:
+├─ Depends On: TASK-003 (pending) ⚠️
+├─ Blocked By: TASK-006, TASK-007
+└─ Ready: NO
+
+Suggestion: Execute TASK-003 first
+
+Continue? [y/1/N]
+- y = Start TASK-005 anyway
+- 1 = Switch to TASK-003 first
+- N = Cancel
+```
 
 ---
 
 ## INTERACTIVE MODE (No Arguments)
 
-**Execute these steps in order:**
+**Execute these concrete steps in order:**
 
-1. Read `.agent/tasks.md` - get all pending/blocked tasks
-2. Analyze patterns: priority (critical/high/medium/low), origin (github-issue/code-comment/adhoc), category (bug/feature/refactor/docs/test)
-3. Detect groupings: same module, related features, GitHub milestone, code comment clusters
-4. Ask 0-3 contextual questions based on task diversity
-5. Present selected task(s) with grouping rationale
-6. Offer implementation path:
-   - A) Create specification (`/speckit:specify`) - RECOMMENDED for complex tasks
-   - B) Start implementation (`/development:small`) - for clear requirements
-   - C) Mark in-progress manually - for exploratory work
-   - D) Show different tasks
+### STEP I0: Session Context Check (Session-Aware Entry Point)
+
+**Execute THIS step FIRST before showing task list:**
+
+```bash
+# 1. Check for active session
+SESSION=$(python3 ~/.claude/scripts/session/session_manager.py current)
+
+# 2. If session exists, get current task and topic
+if [ -n "$SESSION" ]; then
+    CURRENT_TASK=$(python3 -c "
+from pathlib import Path
+import re
+
+session_md = Path('.agent/Session-${SESSION}/session.md').read_text()
+match = re.search(r'\*\*Current Task\*\*:\s*(.+)', session_md)
+task = match.group(1).strip() if match else '(none)'
+print(task if task != '(none)' else '')
+    ")
+
+    SESSION_TOPIC=$(grep '**Topic**:' .agent/Session-${SESSION}/session.md | sed 's/\*\*Topic\*\*:\s*//')
+fi
+```
+
+### STEP I0a: Active Task in Session
+
+**IF SESSION exists AND CURRENT_TASK is set (not empty):**
+
+Display active session context:
+
+```
+📋 Active Session: ${SESSION}
+Topic: ${SESSION_TOPIC}
+
+⏳ Task in Progress: ${CURRENT_TASK}
+${TASK_TITLE}
+Status: in-progress
+Last Updated: ${TIMESTAMP}
+
+| Option | Action |
+|--------|--------|
+| Continue | Resume work on current task |
+| Complete | Mark task complete, pick new task |
+| Switch | Pause current task, select different task |
+| Skip | Exit |
+
+Your choice: _
+```
+
+**Handle selection:**
+- `Continue` → Load CURRENT_TASK, go directly to STEP 7 (Context Path Preview) since setup already done
+- `Complete` → Run STEP 10 (mark complete), then continue to STEP I1 (show task list)
+- `Switch` → Continue to STEP I1 (show all tasks)
+- `Skip` → Exit command
+
+### STEP I0b: Session Without Active Task
+
+**ELIF SESSION exists BUT CURRENT_TASK is empty:**
+
+Display session info with filtering option:
+
+```
+📋 Active Session: ${SESSION}
+Topic: ${SESSION_TOPIC}
+Status: No active task
+
+| Option | Action |
+|--------|--------|
+| Related | Show tasks related to session topic |
+| All | Show all pending tasks |
+| Skip | Exit |
+
+Your choice: _
+```
+
+**Handle selection:**
+- `Related` → Filter tasks by session topic keywords (see Task Filtering below), show filtered list in STEP I1
+- `All` → Show all tasks (continue to STEP I1)
+- `Skip` → Exit command
+
+**Task Filtering for "Related" Option:**
+
+```python
+# Extract topic keywords (ignore common words)
+topic_keywords = [w.lower() for w in SESSION_TOPIC.split()
+                  if w.lower() not in ['the', 'a', 'an', 'of', 'for', 'to', 'in']]
+
+# Score tasks by relevance
+for task in tasks:
+    score = 0
+    task_text = (task.title + task.description + task.epic).lower()
+
+    # Count keyword matches
+    for keyword in topic_keywords:
+        if keyword in task_text:
+            score += 1
+
+    task.relevance_score = score
+
+# Sort by relevance (highest first), then priority
+tasks.sort(key=lambda t: (-t.relevance_score, priority_order[t.priority]))
+
+# Show top 10 most relevant
+tasks = tasks[:10]
+```
+
+### STEP I0c: No Active Session
+
+**ELSE (no active session):**
+
+Skip directly to STEP I1 (show all tasks normally)
+
+---
+
+### STEP I1: Read All Pending Tasks
+
+```bash
+# Read tasks.md and extract all pending/in-progress/blocked tasks
+# Use Python for reliable parsing
+```
+
+Extract task data:
+- Task ID (TASK-XXX)
+- Title/description
+- Status (pending/in-progress/blocked)
+- Priority (if present)
+
+Limit to first 10 tasks for display.
+
+### STEP I2: Display All Tasks (Merged Table Format)
+
+```
+Available tasks (showing 4 of 10):
+
+| Option | Task ID   | Description                                              | Status      | Priority |
+|--------|-----------|----------------------------------------------------------|-------------|----------|
+| A      | TASK-015  | Use speckit to refactor context management               | in-progress | high     |
+| B      | TASK-019  | Review and refactor artifacts directory                  | in-progress | medium   |
+| C      | TASK-020  | Rename /prompt:enhance-prompt to /prompt:enhance         | pending     | low      |
+| D      | TASK-030  | Change name of task:execute to task:implement            | pending     | medium   |
+| More   | —         | Show next batch of tasks                                 | —           | —        |
+| Search | —         | Search for specific task by keyword                      | —           | —        |
+| Skip   | —         | Exit without selecting                                   | —           | —        |
+
+Your choice (A-D, More, Search, or Skip): _
+```
+
+### STEP I3: Handle Selection
+
+**IF letter selected (A-D or next available)**:
+- Extract corresponding TASK-XXX ID
+- Store in variable for Direct Mode
+- **Continue to STEP 2** of Direct Mode (session validation)
+
+**IF "More" selected**:
+- Load next batch of tasks (up to 4 more)
+- Redisplay merged table with A-D letters for new batch
+- Previous options: E=More, F=Search, G=Skip
+- Wait for selection
+
+**IF "Search" selected**:
+- Prompt: "Enter search query: _"
+- Execute Direct Mode STEP 1b (Smart Task Search)
+- Show search results in merged table format
+- Wait for task selection
+- **Continue to STEP 2** of Direct Mode
+
+**IF "Skip" selected**:
+- Exit command
+
+### STEP I4: Route to Direct Mode Workflow
+
+After task selection in STEP I3, execute the full Direct Mode workflow starting from STEP 2:
+
+1. **STEP 2**: Validate or Create Session
+2. **STEP 3**: Load and Display Tasks (load selected task)
+3. **STEP 4**: Create Task Directories
+4. **STEP 5**: Mandatory Validation Gate
+5. **STEP 6**: Update Task Metadata
+6. **STEP 7**: Context Path Preview
+7. **STEP 8**: Invoke Agents (if needed)
+8. **STEP 8.5**: Synthesize Research Findings
+9. **STEP 9**: Offer Handover
+10. **STEP 10**: Mark Task Complete (optional)
+
+**CRITICAL**: Interactive Mode is just a task picker - all execution logic is in Direct Mode STEP 2-10.
 
 ---
 
@@ -111,39 +460,27 @@ Error: Cannot read tasks.md
    - Priority boost: +5 (critical/high), +2 (medium)
 4. Limit to top 5 results (most relevant first)
 
-### STEP 1c: Enhanced Selection Gate
+### STEP 1c: Enhanced Selection Gate (Merged Table Format)
 
-Display results with visual status indicators in **two-table format**:
-
-**Table 1** (task results - NO "Option" column):
+Display results with visual status indicators in a **single merged table**:
 
 ```
-Searching for tasks matching: "<query>"
+Searching for tasks matching: "authentication"
 
 Showing 5 of 18 matches:
 
-| Status   | Priority | Task Description                                                |
-|----------|----------|-----------------------------------------------------------------|
-| [ACTIVE] | [!]      | Fix authentication bug causing login failures (GH-123)          |
-| [ACTIVE] | [*]      | Implement rate limiting for API endpoints (CODE)                |
-| [DONE]   | -        | Review authentication code (completed 2025-10-16)               |
-```
+| Option   | Task ID   | Status   | Priority | Description                                        |
+|----------|-----------|----------|----------|-----------------------------------------------------|
+| A        | TASK-012  | [ACTIVE] | [!]      | Fix authentication bug causing login failures      |
+| B        | TASK-014  | [ACTIVE] | [*]      | Implement rate limiting for API endpoints          |
+| C        | TASK-006  | [DONE]   | -        | Review authentication code (completed 2025-10-16)  |
+| More     | —         | —        | —        | Display more matches (13 additional)               |
+| Search   | —         | —        | —        | Try different search terms                         |
+| Create   | —         | —        | —        | Create new task (/task:add)                        |
+| Show all | —         | —        | —        | See all pending tasks (interactive)                |
+| Skip     | —         | —        | —        | Exit without executing                             |
 
-**Table 2** (actions - WITH "Option" column for letter selection):
-
-```
-| Option       | Description                       |
-|--------------|-----------------------------------|
-| A            | Execute first task (start work)   |
-| B            | Execute second task (start work)  |
-| C            | Execute third task (start work)   |
-| Show more    | Display more matches (13 additional) |
-| Search again | Try different search terms        |
-| Create new   | Create new task (/task:add)       |
-| Show all     | See all pending tasks (interactive) |
-| Skip         | Exit without executing            |
-
-Your choice: _
+Your choice (A-C, More, Search, Create, Show all, or Skip): _
 ```
 
 **Status Indicators**:
@@ -169,21 +506,24 @@ Your choice: _
   | A | Re-run with fresh analysis (full workflow) |
   | B | View previous results only |
   | Skip | Return to task selection |
+
+  Your choice (A, B, or Skip): _
   ```
   - **If A**: Change status to "pending", proceed to STEP 2 (full STEP 1-2 then STEP 3-10 workflow)
   - **If B**: Display previous results, exit
   - **If Skip**: Return to selection gate
 
-**IF "Show more"**:
-- Extend results to next 5-10 matches
-- Re-display gate with expanded list
+**IF "More" selected**:
+- Extend results to next batch of matches
+- Re-display merged table with updated A-D letters for new batch
 - Pagination support (max 26 tasks per page, A-Z)
+- Add options: More, Search, Create, Show all, Skip
 
-**IF "Search again"**:
+**IF "Search" selected**:
 - Prompt: "Enter new search query: _"
 - Return to STEP 1b with new query
 
-**IF "Create new"**:
+**IF "Create" selected**:
 - Suggest: `/task:add "<current-query>"`
 - Exit command
 
@@ -241,30 +581,19 @@ SESSION_COUNT=$(echo $SESSIONS_JSON | python3 -c "import sys, json; print(json.l
 
 **IF SESSION_COUNT > 0 (existing sessions found)**:
 
-Display existing sessions in **two-table format** (per user requirement):
-
-**Table 1** (existing sessions list - NO "Option" column):
+Display existing sessions in **merged table format**:
 
 ```
 Existing sessions found:
 
-| Session | Topic | Started | Terminals |
-|---------|-------|---------|-----------|
-| task-029 | analyze meaning of life from coding... | 2025-10-18 19:20 | 1 |
-| feature-auth | Authentication implementation | 2025-10-17 14:30 | 2 |
-```
+| Option | Session       | Topic                              | Started          | Terminals |
+|--------|---------------|------------------------------------|------------------|-----------|
+| A      | task-029      | analyze meaning of life from c...  | 2025-10-18 19:20 | 1         |
+| B      | feature-auth  | Authentication implementation      | 2025-10-17 14:30 | 2         |
+| C      | —             | Create new session                 | —                | —         |
+| Skip   | —             | Exit without session               | —                | —         |
 
-**Table 2** (actions - WITH "Option" column for letter selection):
-
-```
-| Option | Description |
-|--------|-------------|
-| A | Link to session task-029 |
-| B | Link to session feature-auth |
-| C | Create new session |
-| Skip | Exit |
-
-Your choice: _
+Your choice (A-C, or Skip): _
 ```
 
 **Handle selection**:
@@ -544,10 +873,20 @@ Display progress:
 
 ### STEP 9: Offer Handover
 
-Present implementation options:
-- A) Create specification (`/speckit:specify`) - RECOMMENDED
-- B) Start implementation (`/development:small`)
-- C) Continue manually
+Present implementation options with workflow guidance:
+
+| Option | Description | Next Steps |
+|--------|-------------|-----------|
+| A) Specify | Create detailed specification (`/speckit:specify`) - RECOMMENDED | Generates `spec.md` with requirements and acceptance criteria |
+| B) Implement | Start implementation workflow (`/speckit:implement`) | Executes tasks from `tasks.md` with progress tracking |
+| C) Manual | Continue working manually | Review analysis files in task directory, proceed as needed |
+| D) Complete | Mark task complete | Archives analysis to task directory, updates status |
+
+**After Selection**:
+- **Option A**: User runs `/speckit:specify` to create specification, then `/speckit:implement` to execute
+- **Option B**: User runs `/speckit:implement` directly to begin task execution
+- **Option C**: User reviews context files and continues independently
+- **Option D**: Task marked complete, context files preserved
 
 ### STEP 10: Mark Task Complete (Optional)
 
@@ -632,7 +971,7 @@ Present implementation options:
 
 **Integration Points**:
 - Follows: `/task:add`, `/task:scan-project`, `/github:convert-issues-to-tasks`
-- Followed by: `/speckit:specify`, `/development:small`, `/task:archive`
+- Followed by: `/speckit:specify`, `/speckit:implement`, `/task:archive`
 - Complemented by: `/task:search` (dedicated search without execution)
 
 ## Implementation Notes

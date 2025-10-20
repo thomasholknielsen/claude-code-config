@@ -49,6 +49,16 @@ allowed-tools: Bash, Read, Grep, mcp__sequential-thinking__sequentialthinking
 
 Executes complete git workflow with intelligent commit grouping - creates branch, groups changes into logical commits by type, pushes, and creates PR with comprehensive error handling.
 
+## Implementation
+
+Execute the git workflow automation script with the provided branch name argument (or auto-generate):
+
+```bash
+bash ~/.claude/scripts/workflows/git.sh $ARGUMENTS
+```
+
+The script handles all workflow steps: pre-flight validation, workflow detection, change analysis, branch creation, logical commits, push with tracking, and PR creation.
+
 ## Usage
 
 ```bash

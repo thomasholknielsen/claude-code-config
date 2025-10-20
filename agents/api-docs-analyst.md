@@ -1,7 +1,7 @@
 ---
 name: api-docs-analyst
 description: "Use PROACTIVELY for automated API documentation analysis - provides OpenAPI/Swagger spec generation, SDK generation strategies, API documentation automation patterns, and documentation tooling recommendations. This agent conducts API documentation automation analysis (distinct from docs-analyst for manual writing). It does NOT implement changes - it only analyzes API documentation automation and persists findings to .agent/context/{session-id}/api-docs-analyst.md files. Invoke when: keywords 'OpenAPI', 'Swagger', 'API docs', 'SDK generation', 'API spec'; files swagger.json, openapi.yaml."
-tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
+tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__fetch__fetch, mcp__markitdown__convert_to_markdown, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: purple
 ---

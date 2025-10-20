@@ -11,6 +11,12 @@ tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-i
 # Context7 (Documentation): Always both tools when assigned
 # - mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 #
+# Fetch (Web Content): Single tool for fetching URLs
+# - mcp__fetch__fetch
+#
+# Markitdown (Document Conversion): Single tool for converting documents to markdown
+# - mcp__markitdown__convert_to_markdown
+#
 # Playwright (Browser): All browser tools when assigned (20+ tools)
 # - mcp__playwright__browser_navigate, mcp__playwright__browser_click, mcp__playwright__browser_type
 # - mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_close
@@ -25,6 +31,11 @@ tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-i
 #
 # Sequential Thinking (Chain-of-Thought): Always include for complex multi-step reasoning
 # - mcp__sequential-thinking__sequentialthinking
+#
+# Terraform (Infrastructure): All terraform tools when assigned (6 tools)
+# - mcp__terraform__get_latest_provider_version, mcp__terraform__get_latest_module_version
+# - mcp__terraform__get_provider_details, mcp__terraform__get_module_details
+# - mcp__terraform__search_providers, mcp__terraform__search_modules
 #
 # CORE PRINCIPLE: Complete MCP tool sets ensure agents have full capability within their domain
 ---
@@ -84,6 +95,70 @@ You are a specialized {domain} expert that conducts deep analysis and returns co
 - **USE** the explicit context file path provided in your prompt
 - Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
 - If no explicit path provided in prompt, check for legacy pattern in your prompt text
+
+## MCP Error Handling
+
+**If your agent uses MCP tools** (like fetch, terraform, markitdown, etc.), you MUST handle failures gracefully:
+
+### MCP Dependencies Declaration
+
+Add to your agent's frontmatter:
+
+```yaml
+# MCP Dependencies
+# Declare which MCPs you use and whether they're required or optional
+
+## Required MCPs (agent cannot complete without these):
+- **terraform**: Infrastructure code analysis (cannot proceed without this)
+
+## Optional MCPs (agent works better with these but can continue without):
+- **fetch**: External documentation retrieval
+- **markitdown**: Document conversion
+```
+
+### Error Handling Pattern
+
+Wrap all MCP tool calls in try-catch and respond clearly:
+
+```python
+# For REQUIRED MCP (must succeed):
+try:
+    result = await terraform_mcp.search_modules(query)
+    return result
+except Exception as e:
+    return f"❌ Terraform MCP failed: {e}. Please run /system:setup-mcp to fix it."
+
+# For OPTIONAL MCP (nice-to-have):
+try:
+    content = await fetch_mcp.fetch(url)
+    return analyze_with_docs(content)
+except Exception as e:
+    return f"⚠️ Fetch MCP unavailable ({e}). Proceeding with local analysis only."
+```
+
+### Key Rules
+
+- **Always** try-catch MCP calls (don't crash silently)
+- **Clear messages**: Tell users exactly what MCP failed and what to do
+- **Required MCPs**: Stop execution and report error
+- **Optional MCPs**: Log warning and continue with reduced capability
+- **User guidance**: Suggest `/system:setup-mcp` when MCPs are missing
+
+---
+
+## ⚠️ Important Checklist
+
+Before finalizing your agent, verify:
+
+- [ ] **MCP Dependencies documented**: If using MCPs, list required vs optional in frontmatter comment
+- [ ] **Error handling in place**: All MCP calls wrapped in try-catch with clear error messages
+- [ ] **User guidance provided**: Error messages suggest `/system:setup-mcp` when MCPs are missing
+- [ ] **Graceful degradation**: Optional MCPs can fail without stopping execution
+- [ ] **Consistent pattern**: Follow examples in "MCP Error Handling" section above
+
+See `docs/MCP-ERROR-HANDLING.md` for complete guide and patterns.
+
+---
 
 ## Domain Expertise
 
