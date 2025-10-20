@@ -6,6 +6,51 @@ allowed-tools: Read, Write, Edit, mcp__sequential-thinking__sequentialthinking
 
 # Command: Task Archive
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Archive completed tasks from tasks.md to tasks-archive.md.
+
+**YOU MUST:**
+1. ✓ Parse optional --completed-before date filter
+2. ✓ Read tasks.md and find all completed tasks
+3. ✓ Filter by date if specified
+4. ✓ Move tasks to tasks-archive.md with Archived timestamp
+5. ✓ Remove completed tasks from tasks.md
+6. ✓ Report summary with task count and IDs
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Archive tasks without removing from active tasks.md
+- ✗ Skip the summary report
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Arguments
+Extract optional --completed-before date filter (YYYY-MM-DD or relative: 7d, 30d)
+
+### Step 2: Read Active Tasks
+Load tasks.md and parse all task entries
+
+### Step 3: Filter Completed Tasks
+Find tasks with **Status**: completed
+Apply date filter if specified
+
+### Step 4: Build Archive Entries
+Extract task sections and add **Archived** timestamp
+
+### Step 5: Update Files
+Remove completed tasks from tasks.md
+Append to tasks-archive.md with Archived timestamp
+
+### Step 6: Report Results
+Show count of archived tasks and IDs
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

@@ -6,6 +6,49 @@ allowed-tools: Read, Grep, Glob, Write, Edit, mcp__sequential-thinking__sequenti
 
 # Command: Task Scan Project
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Scan codebase for TODO/FIXME/HACK/BUG comments and optionally consolidate them into tasks.md.
+
+**YOU MUST:**
+1. ✓ Parse path, comment types, and --consolidate flag from $ARGUMENTS
+2. ✓ Use Grep to search for code comments (TODO, FIXME, HACK, BUG, NOTE, OPTIMIZE)
+3. ✓ Extract file location, line number, comment text, and surrounding code
+4. ✓ Infer priority & category from comment type
+5. ✓ Display organized findings by type and file
+6. ✓ If --consolidate: Convert to tasks with origin=code-comment and add to tasks.md
+
+**YOU MUST NOT:**
+- ✗ Do nothing silently
+- ✗ Modify code files (only analyze)
+- ✗ Skip reporting found comments
+
+---
+
+## IMPLEMENTATION FLOW
+
+### Step 1: Parse Arguments
+Extract path (default: current dir), comment types (default: TODO,FIXME,HACK,BUG,NOTE,OPTIMIZE), and --consolidate flag
+
+### Step 2: Search Code Comments
+Use Grep to find comment patterns matching specified types
+
+### Step 3: Extract Metadata
+For each match: file path, line number, comment type, text, surrounding code context
+
+### Step 4: Infer Metadata
+Map comment type to priority and category
+
+### Step 5: Display Findings
+Show organized by type and file
+
+### Step 6: Consolidate (if --consolidate)
+Create task entries in tasks.md with origin=code-comment
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
