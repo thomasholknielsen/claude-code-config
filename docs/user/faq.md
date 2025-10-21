@@ -69,7 +69,7 @@ Yes! Follow these steps:
 2. Place in appropriate category: `commands/{category}/{name}.md`
 3. Include required YAML frontmatter
 4. Assign to existing agent
-5. Validate with: `python3 scripts/validate_commands.py`
+5. Validate with: `python scripts/validate_commands.py`
 
 ### Why do some commands fail with "Agent not found"
 
@@ -83,10 +83,10 @@ This usually means:
 
 ```bash
 # Auto-fix agent assignments
-python3 scripts/fix_command_templates.py
+python scripts/fix_command_templates.py
 
 # Validate after fixing
-python3 scripts/validate_commands.py
+python scripts/validate_commands.py
 ```
 
 ## Security Questions
@@ -132,10 +132,10 @@ Run security validation:
 
 ```bash
 # Comprehensive security check
-python3 scripts/system_health_monitor.py
+python scripts/system_health_monitor.py
 
 # Security-specific validation
-python3 hooks/security_enforcement.py --test-all
+python hooks/security_enforcement.py --test-all
 
 # Check security logs
 tail ~/.claude/logs/security.log
@@ -256,10 +256,10 @@ Tested on major distributions:
 
 ```bash
 # Auto-fix most issues
-python3 scripts/fix_command_templates.py
+python scripts/fix_command_templates.py
 
 # Check results
-python3 scripts/validate_commands.py
+python scripts/validate_commands.py
 ```
 
 ### The system seems slow. How can I improve performance
@@ -268,7 +268,7 @@ python3 scripts/validate_commands.py
 
 1. **Clean up logs**: `rm ~/.claude/logs/*.log`
 2. **Check disk usage**: `du -sh ~/.claude`
-3. **Monitor health**: `python3 scripts/system_health_monitor.py`
+3. **Monitor health**: `python scripts/system_health_monitor.py`
 4. **Optimize commands**: Ensure template compliance
 5. **Check system resources**: Memory and CPU usage
 
@@ -318,13 +318,13 @@ Yes! Use for automated quality gates:
 
 ```yaml
 - name: Validate Commands
-  run: python3 scripts/validate_commands.py
+  run: python scripts/validate_commands.py
 
 - name: Pre-commit Validation
-  run: python3 scripts/pre_commit_validation.py
+  run: python scripts/pre_commit_validation.py
 
 - name: System Health Check
-  run: python3 scripts/system_health_monitor.py
+  run: python scripts/system_health_monitor.py
 ```
 
 ### How do I customize the Agent Orchestra
@@ -367,13 +367,13 @@ cp -r ~/.claude.backup/docs/custom/ ~/.claude/docs/
 
 ```bash
 # Monitor every 5 minutes
-python3 scripts/system_health_monitor.py --watch 300
+python scripts/system_health_monitor.py --watch 300
 
 # Save reports for analysis
-python3 scripts/system_health_monitor.py --output health_$(date +%Y%m%d).json
+python scripts/system_health_monitor.py --output health_$(date +%Y%m%d).json
 
 # Set up cron job (Unix)
-echo "0 */6 * * * cd ~/.claude && python3 scripts/system_health_monitor.py --quiet --output logs/health_check.json" | crontab -
+echo "0 */6 * * * cd ~/.claude && python scripts/system_health_monitor.py --quiet --output logs/health_check.json" | crontab -
 ```
 
 ## Development Questions
@@ -392,7 +392,7 @@ echo "0 */6 * * * cd ~/.claude && python3 scripts/system_health_monitor.py --qui
 
 **Bug reports:**
 
-1. Run system health check: `python3 scripts/system_health_monitor.py`
+1. Run system health check: `python scripts/system_health_monitor.py`
 2. Include error messages and system information
 3. Follow issue template in GitHub repository
 4. For security issues: Use [SECURITY.md](../../SECURITY.md) process

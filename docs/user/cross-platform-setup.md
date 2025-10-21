@@ -385,11 +385,11 @@ git status
 pip3 install --user pyyaml  # Only if script requires YAML
 
 # Check Python path
-python3 -c "import sys; print(sys.path)"
+python -c "import sys; print(sys.path)"
 
 # Run from correct directory
 cd ~/.claude
-python3 scripts/validate_commands.py
+python scripts/validate_commands.py
 ```
 
 ### Platform-Specific Optimizations

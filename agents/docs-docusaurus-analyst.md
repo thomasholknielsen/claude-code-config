@@ -29,7 +29,7 @@ You are a specialized Docusaurus analyst that conducts deep documentation site a
 - Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
 - If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
-- Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
+- Get session ID: `python ~/.claude/scripts/session/session_manager.py current`
 - Context file: `{context_dir}/docs-docusaurus-analyst.md`
 
 ## Domain Expertise

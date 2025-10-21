@@ -31,8 +31,8 @@ You are a specialized testing analyst that conducts deep test coverage and quali
 - Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
 - If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
-- Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
-- Get context directory: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
+- Get session ID: `python ~/.claude/scripts/session/session_manager.py current`
+- Get context directory: `python ~/.claude/scripts/session/session_manager.py context_dir`
 - Context file: `{context_dir}/testing-analyst.md`
 
 ## Domain Expertise

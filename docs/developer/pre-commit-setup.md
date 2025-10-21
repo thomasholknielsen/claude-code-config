@@ -196,7 +196,7 @@ pre-commit validate-config
 pre-commit install --install-hooks
 
 # Or specify Python version
-pre-commit install --install-hooks --python python3.11
+pre-commit install --install-hooks --python python.11
 ```
 
 ### Skipping Hooks (Emergency Only)
