@@ -63,6 +63,7 @@ file-history/
 
 # Agent context files (session-specific, not committed)
 .agent/context/
+.agent/pre-commit-review/
 
 # Session directories (new hierarchical structure)
 .agent/Session-*/
