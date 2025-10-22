@@ -287,4 +287,81 @@ Executes parallel code review across security, quality, and design perspectives.
 - **Followed by**: /fix:*, /refactor:*, /clean:*
 - **Related**: /review:security, /review:code, /review:design
 
+## Interactive Prompts Pattern
+
+### When to Use Interactive Patterns
+
+Commands can optionally include interactive prompts when:
+1. **User Choice**: Command presents 2-4 mutually exclusive options for user to select
+2. **User Feedback**: Command needs confirmation before making modifications
+3. **Scope Selection**: Command offers different execution levels (full/critical/preview)
+
+### User Feedback Collection Table
+
+When presenting options to the user, use a standardized table format:
+
+```markdown
+## Your Choice
+
+| Option | Action | Description | Outcome |
+|--------|--------|-------------|---------|
+| **A** | [Choice 1] | [Description] | [Result] |
+| **B** | [Choice 2] | **Recommended: [Why]** | [Result] |
+| **C** | [Choice 3] | [Description] | [Result] |
+| **Other** | Custom | Describe what you want | Custom path |
+| Skip | Exit | No changes | Exit now |
+
+Your choice (A/B/C/Other/Skip): _
+```
+
+**Critical Rules:**
+- ✓ Show exactly ONE "Recommended" option (bold with explanation)
+- ✓ Include "Other" option when custom input makes sense
+- ✓ Always include "Skip" option
+- ✓ Max 4 lettered options (A/B/C/D)
+- ✓ Prompt format: `Your choice (A/B/C/Other/Skip): _`
+
+### Next Steps Table (ALWAYS REQUIRED)
+
+Every command MUST end with a Next Steps table that suggests what to do next:
+
+```markdown
+## Next Steps
+
+| Option | Action | Description | Command |
+|--------|--------|-------------|---------|
+| **A** | [Next action] | [Description] | `command` |
+| **B** | [Next action] | **Recommended if: [condition]** | `command` |
+| **C** | [Next action] | [Description] | `command` |
+| **Other** | Custom | What you need next | Describe |
+
+What would you like to do next? Choose from the table above or describe your next step.
+```
+
+**Critical Rules:**
+- ✓ Always provide 2-4 concrete next actions (never just 1)
+- ✓ Include specific commands (e.g., `/git:commit "msg"`)
+- ✓ Include "Other" option for custom follow-up
+- ✓ Mark ONE option as "Recommended if: [condition]"
+- ✓ End with: "What would you like to do next?"
+
+### Quality Checklist for Interactive Patterns
+
+When implementing interactive prompts, verify:
+
+- [ ] User Feedback Table (if present): Exactly ONE "Recommended" option
+- [ ] User Feedback Table (if present): "Other" option included (when relevant)
+- [ ] User Feedback Table (if present): "Skip" option always present
+- [ ] Next Steps Table (ALWAYS): Provides 2-4 actionable options
+- [ ] Next Steps Table (ALWAYS): Includes specific commands (e.g., `/git:commit "msg"`)
+- [ ] Next Steps Table (ALWAYS): Includes "Other" option for custom follow-up
+- [ ] Ends with: "What would you like to do next?"
+
+### Resources
+
+For detailed guidance on implementing the interactive pattern:
+- See `INTERACTIVE_PATTERN_GUIDE.md` in the specification directory
+- Review example commands: `/docs:sync`, `/git:complete`
+- Reference: `templates/commands/command-template.md` sections 183-352
+
 ```text

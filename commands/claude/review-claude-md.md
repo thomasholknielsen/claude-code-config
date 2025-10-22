@@ -6,6 +6,28 @@ allowed-tools: Read, Write, Edit, Grep, Glob, Task, Bash(python:*), Bash(cp:*)
 
 # Command: Review CLAUDE.md Quality
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Analyze CLAUDE.md for quality issues and provide prioritized recommendations with optional interactive fix application.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Detect analysis scope (project or user CLAUDE.md)
+2. ✓ Invoke docs-analyst for comprehensive quality analysis
+3. ✓ Categorize findings by priority (Critical/High/Medium/Low)
+4. ✓ Create backup before applying any changes
+5. ✓ Present interactive A/B/C/D/Skip options
+6. ✓ Apply selected fixes with progress reporting
+7. ✓ Display before/after metrics and context file location
+
+**Claude Code MUST NOT:**
+- ✗ Skip backup creation
+- ✗ Modify files without user choice
+- ✗ Leave incomplete file operations
+
+---
+
 ## Purpose
 
 Analyze CLAUDE.md files for documentation drift, verbosity, consistency, and quality issues, providing prioritized recommendations to improve clarity and reduce bloat.
@@ -431,7 +453,7 @@ Use case: When you want to review findings before deciding
 - **Related**:
   - `/docs:changelog` - Documentation consistency
   - `/system:guru` - Context-aware guidance system
-  - `/workflows:docs` - Comprehensive documentation workflow
+  - `/docs:sync` - Comprehensive documentation workflow
 
 ## Output
 

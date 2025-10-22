@@ -6,6 +6,30 @@ allowed-tools: Read, Write, Edit, mcp__sequential-thinking__sequentialthinking
 
 # Command: Task Sanitize
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Validate task dependency integrity and detect/fix data inconsistencies in tasks.md.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Load and parse tasks.md file
+2. ✓ Build dependency graph from depends_on relationships
+3. ✓ Check for orphaned dependencies (missing tasks)
+4. ✓ Detect circular dependencies (A→B→C→A)
+5. ✓ Identify status conflicts (completed blocking pending)
+6. ✓ Check priority inversions (low blocking high)
+7. ✓ Validate epic integrity
+8. ✓ Report issues by severity (Critical/Warning)
+9. ✓ Apply fixes only with --auto-fix flag and user confirmation
+
+**Claude Code MUST NOT:**
+- ✗ Modify tasks without --auto-fix flag
+- ✗ Skip backup before applying changes
+- ✗ Lose dependency information during fixes
+
+---
+
 ## Purpose
 
 Validates task dependency integrity and detects/fixes data inconsistencies:

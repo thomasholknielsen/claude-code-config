@@ -201,7 +201,7 @@ Creates pull requests with auto-generated descriptions and returns the PR URL fo
 
 - **Follows**: /git:push, development completion
 - **Followed by**: Code review process, CI/CD pipeline
-- **Related**: /git-flow:feature, /git:commit, /workflows:git
+- **Related**: /git-flow:feature, /git:commit, /git:complete
 
 ## Type Auto-Detection from Branch Changes
 

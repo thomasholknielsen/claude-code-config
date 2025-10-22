@@ -6,6 +6,28 @@ allowed-tools: Read, Write, Edit, Bash, mcp__sequential-thinking__sequentialthin
 
 # Command: Create Agent
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create new domain analyst agents with expert consultation using a generate-first workflow.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Initialize session context
+2. ✓ Invoke agent-expert for design consultation and analysis
+3. ✓ Read design brief from context file
+4. ✓ Auto-generate agent file from template with expert recommendations
+5. ✓ Present generation summary
+6. ✓ Offer iteration options (Edit/Regenerate/Finalize/Cancel)
+7. ✓ Update CLAUDE.md upon finalization
+
+**Claude Code MUST NOT:**
+- ✗ Prompt user before generating (generate first, then iterate)
+- ✗ Skip context file updates
+- ✗ Fail silently on agent generation
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)

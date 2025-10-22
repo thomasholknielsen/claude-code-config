@@ -298,7 +298,7 @@ Creates and manages git worktrees to enable parallel development of multiple bra
 
 - **Follows**: Repository setup, feature planning
 - **Followed by**: /git:commit, /git:push, parallel development workflows
-- **Related**: /git:branch, /workflows:git, /workflows:git
+- **Related**: /git:branch, /git:complete, /git:complete
 
 ## Quality Standards
 
