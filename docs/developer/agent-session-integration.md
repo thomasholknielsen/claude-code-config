@@ -8,7 +8,7 @@ Agents run in **separate Claude processes** with different process trees, so the
 
 ```bash
 # Agent tries to get current session from parent GPPID
-python3 session_manager.py current
+python session_manager.py current
 # Returns empty - agent's GPPID is different from main thread
 ```
 
@@ -22,7 +22,7 @@ Agents receive context file paths explicitly in the prompt, avoiding environment
 
 ```bash
 # 1. Get context directory for current session
-CONTEXT_DIR=$(python3 ~/.claude/scripts/session/session_manager.py context_dir)
+CONTEXT_DIR=$(python ~/.claude/scripts/session/session_manager.py context_dir)
 
 # 2. Pass explicit path in agent prompt (no environment variable needed)
 # 3. Agent writes findings to the provided path
@@ -39,7 +39,7 @@ CONTEXT_DIR=$(python3 ~/.claude/scripts/session/session_manager.py context_dir)
 When invoking agents from commands, use this pattern:
 
 ```python
-CONTEXT_DIR=$(python3 ~/.claude/scripts/session/session_manager.py context_dir)
+CONTEXT_DIR=$(python ~/.claude/scripts/session/session_manager.py context_dir)
 
 Task(
   subagent_type="<agent-name>",
@@ -66,7 +66,7 @@ Task(
 Already includes session context setup:
 
 1. **Check Active Session** (REQUIRED):
-   - Call: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
+   - Call: `python ~/.claude/scripts/session/session_manager.py context_dir`
    - If empty: Prompt user to start/link session
    - If exists: Pass path to agent in prompt
 
@@ -74,7 +74,7 @@ Already includes session context setup:
 
 Any command that invokes agents should:
 
-1. Check for active session: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
+1. Check for active session: `python ~/.claude/scripts/session/session_manager.py context_dir`
 2. Pass explicit path in agent prompt
 3. Agents write to provided location directly
 
@@ -85,7 +85,7 @@ Any command that invokes agents should:
 /session:start test-session "Test"
 
 # Verify session context path
-python3 ~/.claude/scripts/session/session_manager.py context_dir
+python ~/.claude/scripts/session/session_manager.py context_dir
 # Output: /path/to/project/.agent/Session-test-session/context
 
 # Pass this path to agents in prompts

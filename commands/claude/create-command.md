@@ -6,6 +6,28 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob, mcp__sequential-thinking__se
 
 # Command: Create Command
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Create new slash commands with expert consultation using a generate-first workflow.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Initialize session context
+2. ✓ Invoke command-expert for design consultation and analysis
+3. ✓ Read design brief from context file
+4. ✓ Auto-generate command file from appropriate template
+5. ✓ Present generation summary
+6. ✓ Offer iteration options (Edit/Regenerate/Finalize/Cancel)
+7. ✓ Update documentation upon finalization
+
+**Claude Code MUST NOT:**
+- ✗ Prompt user before generating (generate first, then iterate)
+- ✗ Skip documentation updates
+- ✗ Fail silently on command generation
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -68,13 +90,11 @@ Creates commands using expert design consultation, generates with smart defaults
    ```
 
 4. **Automatically Generate Command**
-   - Select template based on expert recommendation (atomic vs workflow)
-   - Read template: `templates/commands/command.md` or `command-workflow.md`
+   - Read unified template: `templates/commands/command.md`
    - Fill template with expert recommendations (no confirmation prompts)
    - Include frontmatter (description, argument-hint, allowed-tools)
    - Add purpose and usage sections
    - Include process steps from expert brief
-   - Add agent integration section (if workflow)
    - Include examples from expert recommendations
    - Write file: `commands/{category}/{command-name}.md`
 
@@ -90,8 +110,7 @@ Creates commands using expert design consultation, generates with smart defaults
 
    **Specifications Used**:
    - Category: {category}
-   - Type: {atomic | workflow}
-   - Template: {command.md | command-workflow.md}
+   - Template: command.md (unified for all commands)
 
    **Tool Permissions**:
    {list of allowed tools}
@@ -487,21 +506,12 @@ Command creation cancelled. Use existing commands:
 
 ## Template Selection
 
-Commands are automatically generated with the appropriate template based on expert recommendation:
+All commands use the unified template `command.md` which supports:
 
-**Atomic Commands** (`command.md`):
-
-- Single-purpose operations
-- Direct tool usage
-- Quick targeted execution
-- CRUD operations
-
-**Workflow Commands** (`command-workflow.md`):
-
-- Multi-analyst coordination
-- Parallel execution patterns
-- Comprehensive analysis
-- Cross-domain synthesis
+- Single-purpose atomic operations (most common)
+- Multi-analyst coordination patterns (via Task tool)
+- Parallel execution and synchronization
+- Interactive user feedback and next steps
 
 ## Error Handling
 
@@ -567,7 +577,7 @@ Solution:
 **Works Well With**:
 
 - `/claude:create-agent` - Create supporting domain analyst for workflow
-- `/workflows:docs` - Update documentation after creation
+- `/docs:sync` - Update documentation after creation
 - `/git:commit` - Commit new command file
 
 **Follows Well**:

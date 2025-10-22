@@ -6,6 +6,28 @@ allowed-tools: Read, Write, Edit, Bash(python:*)
 
 # Command: Apply Config to User CLAUDE.md
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Safely merge CLAUDE-GLOBAL.md template into user's global CLAUDE.md with intelligent conflict detection.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Validate CLAUDE-GLOBAL.md and user CLAUDE.md both exist
+2. ✓ Create backup with timestamp before any modifications
+3. ✓ Parse and compare sections from both files
+4. ✓ Present batch decision options (Apply All, Interactive, Keep Current)
+5. ✓ Apply selected changes based on user choice
+6. ✓ Verify result is valid Markdown
+7. ✓ Display before/after metrics
+
+**Claude Code MUST NOT:**
+- ✗ Skip backup creation
+- ✗ Modify files without user confirmation
+- ✗ Leave the user file in invalid state
+
+---
+
 ## Purpose
 
 Safely merge CLAUDE-GLOBAL.md (repository template) into user's global CLAUDE.md with intelligent conflict detection and streamlined resolution using batch decisions.

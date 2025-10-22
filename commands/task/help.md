@@ -6,6 +6,28 @@ allowed-tools: Read, mcp__sequential-thinking__sequentialthinking
 
 # Command: Task Help
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Provide comprehensive guidance on the unified task management system covering all task types, commands, and workflows.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Display three-origin explanation (adhoc/code-comment/github-issue)
+2. ✓ Show core commands with syntax examples
+3. ✓ Provide quick start scenarios for common situations
+4. ✓ Explain workflow patterns (daily/sprint/tech-debt)
+5. ✓ Document GitHub integration patterns
+6. ✓ Answer common questions and clarify behavior
+7. ✓ Guide users through appropriate command selection
+
+**Claude Code MUST NOT:**
+- ✗ Execute task commands (only document)
+- ✗ Skip three-origin explanation
+- ✗ Provide incomplete command syntax
+
+---
+
 ## Quick Start
 
 ```bash

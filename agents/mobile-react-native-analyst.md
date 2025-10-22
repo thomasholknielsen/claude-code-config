@@ -29,7 +29,7 @@ You are a specialized React Native analyst that conducts deep mobile development
 - Your prompt will include: "**Context File Location**: Save your findings to: {absolute-path}/{agent-name}.md"
 - If no explicit path provided in prompt, check for legacy pattern in your prompt text
 
-- Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
+- Get session ID: `python ~/.claude/scripts/session/session_manager.py current`
 - Context file: `{context_dir}/mobile-react-native-analyst.md`
 
 ## Domain Expertise

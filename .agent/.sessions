@@ -22,7 +22,9 @@
       "started": "2025-10-19T11:50:30",
       "status": "active",
       "terminals": [
-        "claude-70421"
+        "claude-70421",
+        "claude-34288-1000-1761020347",
+        "claude-12088-1000-1761020491"
       ]
     },
     "pre-commit-review": {

@@ -54,7 +54,7 @@ The context management system provides a hierarchical, incremental, collaborativ
 ### Initialize Session
 
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py start <name> [topic]
+python ~/.claude/scripts/session/session_manager.py start <name> [topic]
 ```
 
 Creates session directory and `session.md` file with metadata.
@@ -62,7 +62,7 @@ Creates session directory and `session.md` file with metadata.
 ### Get Current Session ID
 
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py current
+python ~/.claude/scripts/session/session_manager.py current
 ```
 
 Returns the current session ID (8-character UUID).
@@ -70,7 +70,7 @@ Returns the current session ID (8-character UUID).
 ### Get Context Directory
 
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py context_dir
+python ~/.claude/scripts/session/session_manager.py context_dir
 ```
 
 Returns full path to current session's context directory.
@@ -78,7 +78,7 @@ Returns full path to current session's context directory.
 ### List Agents Invoked
 
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py list_agents
+python ~/.claude/scripts/session/session_manager.py list_agents
 ```
 
 Lists all agents that have been invoked in the current session.
@@ -86,7 +86,7 @@ Lists all agents that have been invoked in the current session.
 ### Archive Session
 
 ```bash
-python3 ~/.claude/scripts/session/session_manager.py archive
+python ~/.claude/scripts/session/session_manager.py archive
 ```
 
 Marks the current session as completed in `session.md`.
@@ -198,8 +198,8 @@ context_file = f".agent/context/{session_id}/{agent_name}.md"
 
 ### When Invoked
 
-1. Get session ID: `python3 ~/.claude/scripts/session/session_manager.py current`
-2. Get context directory: `python3 ~/.claude/scripts/session/session_manager.py context_dir`
+1. Get session ID: `python ~/.claude/scripts/session/session_manager.py current`
+2. Get context directory: `python ~/.claude/scripts/session/session_manager.py context_dir`
 3. Check if context file exists: `{context_dir}/{agent-name}.md`
 
 **If file exists**:
@@ -479,13 +479,13 @@ Read(.agent/context/{session-id}/testing-analyst.md)
 
 ```bash
 # Check session ID
-python3 ~/.claude/scripts/session/session_manager.py current
+python ~/.claude/scripts/session/session_manager.py current
 
 # Check context directory exists
-python3 ~/.claude/scripts/session/session_manager.py context_dir
+python ~/.claude/scripts/session/session_manager.py context_dir
 
 # Initialize if needed
-python3 ~/.claude/scripts/session/session_manager.py start my-session
+python ~/.claude/scripts/session/session_manager.py start my-session
 ```
 
 ### Subagent Not Creating Context File

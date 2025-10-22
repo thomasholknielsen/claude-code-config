@@ -6,6 +6,28 @@ allowed-tools: Write, Read, Bash, mcp__sequential-thinking__sequentialthinking
 
 # Command: Save Artifact
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Capture Claude conversation artifacts and save them to session/task directories with context-aware organization.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Detect artifact type (plan/review/research/analysis/spec/docs/report)
+2. ✓ Get current session context
+3. ✓ Determine save location (session-level or task-specific)
+4. ✓ Extract artifact content with formatting preserved
+5. ✓ Generate filename ({type}-{title-slug}.md)
+6. ✓ Add metadata headers (artifact_type, created, session_id)
+7. ✓ Display confirmation with full path
+
+**Claude Code MUST NOT:**
+- ✗ Lose formatting or structure
+- ✗ Save to wrong directory (wrong session)
+- ✗ Fail silently on save operation
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -174,7 +196,7 @@ reports) and saves them as organized markdown files in the current session direc
 
 - **Follows**: Any Claude conversation producing valuable artifacts (plans, reviews, research, etc.)
 - **Followed by**: Review saved artifacts, share with team, reference in documentation
-- **Related**: `/workflows:docs`, `/review:code`, `/analyze:potential-issues`, `/speckit:specify`
+- **Related**: `/docs:sync`, `/review:code`, `/analyze:potential-issues`, `/speckit:specify`
 
 ## Quality Standards
 

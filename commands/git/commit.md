@@ -205,7 +205,7 @@ Creates logical, atomic commits with intelligent message generation and quality 
 
 - **Follows**: /git-flow:feature, code modifications
 - **Followed by**: /git:push, /git:pr
-- **Related**: /workflows:git
+- **Related**: /git:complete
 
 ## Type Auto-Detection from Uncommitted Files
 

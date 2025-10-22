@@ -8,13 +8,13 @@ Before diving into specific issues, run these diagnostic tools:
 
 ```bash
 # System health check
-python3 scripts/system_health_monitor.py
+python scripts/system_health_monitor.py
 
 # Command validation
-python3 scripts/validate_commands.py
+python scripts/validate_commands.py
 
 # Pre-commit validation
-python3 scripts/pre_commit_validation.py
+python scripts/pre_commit_validation.py
 ```
 
 ## Common Issues and Solutions
@@ -39,7 +39,7 @@ which claude
 ls ~/.claude
 
 # Check Python availability
-python3 --version
+python --version
 ```
 
 **Solutions:**
@@ -138,7 +138,7 @@ Start-Process powershell -Verb RunAs
 ls ~/.claude/agents/
 
 # Validate command templates
-python3 scripts/validate_commands.py | grep agent
+python scripts/validate_commands.py | grep agent
 
 # Check specific command
 grep -A 5 "agent:" ~/.claude/commands/category/command.md
@@ -148,7 +148,7 @@ grep -A 5 "agent:" ~/.claude/commands/category/command.md
 
 ```bash
 # Fix agent assignments
-python3 scripts/fix_command_templates.py
+python scripts/fix_command_templates.py
 
 # Verify agents exist
 ls ~/.claude/agents/analysis-specialists/
@@ -173,7 +173,7 @@ head -20 ~/.claude/agents/execution-specialists/reviewer.md
 tail ~/.claude/logs/security.log
 
 # Test security enforcement
-python3 hooks/security_enforcement.py --test-git "git status" "unauthorized-agent"
+python hooks/security_enforcement.py --test-git "git status" "unauthorized-agent"
 
 # Check settings
 grep -A 10 "git_constraints" ~/.claude/settings.json
@@ -191,7 +191,7 @@ grep -A 10 "git_constraints" ~/.claude/settings.json
 cat ~/.claude/settings.json | jq '.security.git_constraints'
 
 # Verify you're using authorized commands
-python3 scripts/validate_commands.py | grep git
+python scripts/validate_commands.py | grep git
 ```
 
 #### Issue: Template validation failures
@@ -206,7 +206,7 @@ python3 scripts/validate_commands.py | grep git
 
 ```bash
 # Run detailed validation
-python3 scripts/validate_commands.py --output validation_report.md
+python scripts/validate_commands.py --output validation_report.md
 
 # Check specific command
 head -20 ~/.claude/commands/category/problematic-command.md
@@ -219,7 +219,7 @@ grep -l "^---" ~/.claude/commands/**/*.md | wc -l
 
 ```bash
 # Auto-fix template issues
-python3 scripts/fix_command_templates.py
+python scripts/fix_command_templates.py
 
 # Manual fix for specific command
 # Add YAML frontmatter:
@@ -232,7 +232,7 @@ python3 scripts/fix_command_templates.py
 # ---
 
 # Re-validate after fixes
-python3 scripts/validate_commands.py
+python scripts/validate_commands.py
 ```
 
 ### Performance Issues
@@ -249,7 +249,7 @@ python3 scripts/validate_commands.py
 
 ```bash
 # Run performance monitoring
-python3 scripts/system_health_monitor.py
+python scripts/system_health_monitor.py
 
 # Check system resources
 # macOS/Linux:
@@ -267,7 +267,7 @@ du -sh ~/.claude/*
 # Remove large log files if needed
 
 # Optimize command files
-python3 scripts/fix_command_templates.py
+python scripts/fix_command_templates.py
 
 # Check for infinite loops in scripts
 ps aux | grep python
@@ -304,7 +304,7 @@ rm -rf ~/.claude/logs/*.tmp
 # Check settings.json for concurrent limits
 
 # Monitor with health check
-python3 scripts/system_health_monitor.py --watch 60
+python scripts/system_health_monitor.py --watch 60
 ```
 
 ### Documentation and Integration Issues
@@ -357,7 +357,7 @@ ls ~/.claude/docs/*/index.md
 grep -A 10 "mcp_tools" ~/.claude/settings.json
 
 # Test MCP tools
-python3 hooks/security_enforcement.py --test-mcp "mcp__context7__get-library-docs"
+python hooks/security_enforcement.py --test-mcp "mcp__context7__get-library-docs"
 
 # Check Claude Code MCP setup
 # Refer to setup guide
@@ -428,10 +428,10 @@ sudo xattr -rd com.apple.quarantine ~/.claude/scripts/
 ```bash
 # Use Homebrew Python
 brew install python
-which python3
+which python
 
 # Or use system Python with proper path
-export PATH="/usr/bin/python3:$PATH"
+export PATH="/usr/bin/python:$PATH"
 ```
 
 ### Linux-Specific Issues
@@ -441,12 +441,12 @@ export PATH="/usr/bin/python3:$PATH"
 ```bash
 # Ubuntu/Debian
 sudo apt update
-sudo apt install python3 python3-pip git
+sudo apt install python python-pip git
 
 # CentOS/RHEL
-sudo yum install python3 python3-pip git
+sudo yum install python python-pip git
 # OR
-sudo dnf install python3 python3-pip git
+sudo dnf install python python-pip git
 
 # Arch Linux
 sudo pacman -S python git
@@ -459,7 +459,7 @@ sudo pacman -S python git
 sudo setsebool -P allow_execheap 1
 
 # AppArmor issues (Ubuntu)
-sudo aa-complain /usr/bin/python3
+sudo aa-complain /usr/bin/python
 ```
 
 ## Advanced Troubleshooting
@@ -473,11 +473,11 @@ Enable debug mode for detailed troubleshooting:
 export CLAUDE_DEBUG=1
 
 # Run with verbose output
-python3 -v scripts/validate_commands.py
+python -v scripts/validate_commands.py
 
 # Enable logging
 export PYTHONPATH="$HOME/.claude/scripts:$PYTHONPATH"
-python3 -c "
+python -c "
 import logging
 logging.basicConfig(level=logging.DEBUG)
 # Your debugging code here
@@ -508,7 +508,7 @@ df -h ~/.claude
 find ~/.claude -name "*.md" -exec head -1 {} \; | grep -v "^#"
 
 # Verify file integrity
-find ~/.claude -type f -name "*.py" -exec python3 -m py_compile {} \;
+find ~/.claude -type f -name "*.py" -exec python -m py_compile {} \;
 ```
 
 ## Getting Additional Help
@@ -552,7 +552,7 @@ When reporting issues, include:
    ```bash
    uname -a  # Unix
    Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion  # Windows
-   python3 --version
+   python --version
    ```
 
 1. **Error Messages:**
@@ -563,7 +563,7 @@ When reporting issues, include:
 1. **System Health Report:**
 
    ```bash
-   python3 scripts/system_health_monitor.py --output health_report.json
+   python scripts/system_health_monitor.py --output health_report.json
    # Include the generated health_report.json
    ```
 

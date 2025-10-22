@@ -19,7 +19,7 @@ allowed-tools: Read, Edit, Bash, SlashCommand(/speckit:*), mcp__sequential-think
 /task:execute "fix authentication"
 ```
 
-## EXECUTION FLOW (START HERE)
+## EXECUTION INSTRUCTIONS (START HERE)
 
 ### MANDATORY: Read This BEFORE Proceeding
 

@@ -6,6 +6,27 @@ allowed-tools: Read, Glob, Grep, Bash(git:*), Bash(ls:*), Bash(find:*), Task, mc
 
 # Command: Guru
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Provide intelligent context-aware development guidance in two modes (smart suggestions or deep topic guidance).
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Analyze current project state (git status, file changes, project type)
+2. ✓ Detect execution mode (no args = smart suggestions, with topic = deep guidance)
+3. ✓ Provide 3-5 relevant command suggestions with rationale
+4. ✓ For smart mode: offer helpful prompts and quick workflow
+5. ✓ For deep mode: comprehensive topic guidance with best practices
+6. ✓ Always provide actionable, context-specific recommendations
+
+**Claude Code MUST NOT:**
+- ✗ Execute suggested commands (only recommend)
+- ✗ Skip context analysis
+- ✗ Provide generic guidance without project analysis
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -256,7 +277,7 @@ Recent test run shows failures in 3 test suites.
 ### Understand the Codebase
 1. **Architecture Overview**: `/explain:architecture --format=diagram`
 2. **Code Explanation**: `/explain:code` for specific components
-3. **Documentation Check**: `/workflows:docs` to ensure docs are current
+3. **Documentation Check**: `/docs:sync` to ensure docs are current
 
 ### Setup Verification
 ```
@@ -292,7 +313,7 @@ When user specifies a topic, provide deep guidance:
 - `/git:commit` - Conventional commits with auto-type detection
 - `/git:push` - Safe push with validation
 - `/git:pr` - Create pull requests (git-flow aware)
-- `/workflows:git` - Complete workflow: branch → commit → push → PR (git-flow aware)
+- `/git:complete` - Complete workflow: branch → commit → push → PR (git-flow aware)
 - `/git-flow:feature` - Create feature branch from develop
 - `/git-flow:release` - Create release branch with version management
 - `/git-flow:hotfix` - Create emergency hotfix branch from main
@@ -317,7 +338,7 @@ When user specifies a topic, provide deep guidance:
 /git:pr
 
 # Or complete workflow
-/workflows:git feature/new-feature
+/git:complete feature/new-feature
 ```
 
 ```markdown
@@ -380,7 +401,7 @@ Current repository: [Analyze branches to determine mode]
 - `/git:commit` - Smart conventional commits
 - `/git:push` - Safe push with validation
 - `/git:pr` - Auto-targets correct base branch
-- `/workflows:git` - Complete feature workflow
+- `/git:complete` - Complete feature workflow
 
 ### Workflow Sequences
 
@@ -577,7 +598,7 @@ Commands receive arguments as `$ARGUMENTS` variable:
 
 ```bash
 /explain:code --depth=<level>              # Detail level
-/workflows:docs                            # Documentation workflow
+/docs:sync                            # Documentation workflow
 ```
 
 ```markdown
@@ -695,10 +716,10 @@ Based on your current project state, try these prompts:
 
    Full review before creating PR (quality + security + performance)
 
-4. **`/workflows:git`** - Complete git workflow
+4. **`/git:complete`** - Complete git workflow
 
    ```bash
-   /workflows:git "Implement checkout flow with payment integration"
+   /git:complete "Implement checkout flow with payment integration"
    ```
 
    Automated: review → lint → commit → push → PR
@@ -727,7 +748,7 @@ Try these prompts based on your current situation:
 ```bash
 /workflows:run-security-audit    # Security first for payment code
 /lint:correct-all                # Clean up any issues
-/workflows:git "checkout flow"   # Complete git workflow
+/git:complete "checkout flow"   # Complete git workflow
 ```
 
 ## Pro Tips
@@ -808,7 +829,7 @@ git rebase origin/develop
 - `/git:branch [name]` - Create/switch branches
 - `/git:push` - Push with safety checks
 - `/git:pr [title]` - Create GitHub PR
-- `/workflows:git [branch]` - Complete flow: branch → commit → push → PR
+- `/git:complete [branch]` - Complete flow: branch → commit → push → PR
 
 ## Git Best Practices for This Project
 

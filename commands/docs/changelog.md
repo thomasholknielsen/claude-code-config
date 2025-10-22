@@ -6,6 +6,28 @@ allowed-tools: Bash, Read, Edit, Grep, mcp__sequential-thinking__sequentialthink
 
 # Command: Changelog
 
+## EXECUTION INSTRUCTIONS (START HERE)
+
+### ⚠️ MANDATORY: Read This BEFORE Proceeding
+
+**What this command does:** Maintain CHANGELOG.md following Keep a Changelog v1.1.0 standard with semantic versioning compliance.
+
+**Claude Code MUST execute this workflow:**
+1. ✓ Validate CHANGELOG.md format (Keep a Changelog v1.1.0)
+2. ✓ Support two modes: add-entry (new bullet to Unreleased) and release (migrate Unreleased to version)
+3. ✓ Enforce semantic versioning format (MAJOR.MINOR.PATCH)
+4. ✓ Validate category order (Added/Changed/Deprecated/Removed/Fixed/Security)
+5. ✓ Update comparison links for version diffs
+6. ✓ Preserve ISO 8601 date format (YYYY-MM-DD)
+7. ✓ Display confirmation with format validation
+
+**Claude Code MUST NOT:**
+- ✗ Allow non-semver versions
+- ✗ Disrupt category ordering
+- ✗ Skip format validation
+
+---
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
