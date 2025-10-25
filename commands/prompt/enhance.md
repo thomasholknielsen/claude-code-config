@@ -27,11 +27,11 @@ allowed-tools: Read, Write, Edit, Grep, Glob, TodoWrite, mcp__sequential-thinkin
 
 ### APE Framework (General Purpose)
 
-**A**ction: Transform vague user prompts into clear, well-articulated user requests using proven frameworks (RISEN for technical, CO-STAR for production, APE for general), convert to user voice (first-person, outcome-focused), apply enhancement patterns (specificity, constraints, format, role, context, execution strategy), detect delegation intent, validate Voice Authenticity (>90%), calculate CARE+V metrics (baseline → enhanced), present A/B/Skip table (Quick 70-80/100, Complete 85-92/100), **INVOKE Write tool to save file to .artifacts/prompts/ (MANDATORY - command fails without this)**, integrate with task system (Mode 2/3), recommend domain analysts
+**A**ction: Transform vague user prompts into clear, well-articulated user requests using proven frameworks (RISEN for technical, CO-STAR for production, APE for general), convert to user voice (first-person, outcome-focused), apply enhancement patterns (specificity, constraints, format, role, context, execution strategy), detect delegation intent, validate Voice Authenticity (>90%), calculate CARE+V metrics (baseline → enhanced), present A/B/Skip table (Quick 70-80/100, Complete 85-92/100), **INVOKE Write tool to save file to session context directory (MANDATORY - command fails without this)**, integrate with task system (Mode 2/3), recommend domain analysts
 
 **P**urpose: Help users articulate their needs clearly to Claude (NOT create AI task lists), systematically improve prompt quality from F/D-tier to B/S-tier (85-92 score), reduce ambiguity through structured frameworks, maintain user voice authenticity (no implementation steps), suggest optimal execution patterns (parallel analysts for multi-domain), persist enhanced prompts for reusability, integrate with unified task management system
 
-**E**xpectation: Enhanced prompt in pure user voice ("I need X because Y, please achieve Z") NOT task voice ("Action: Do X, Steps: 1, 2, 3"), quality improvement delta (e.g., 35/100 → 88/100, D → S-Tier), Voice Authenticity score >90%, **file created with Write tool** and saved to .artifacts/prompts/{date}-{slug}.md (verify file exists!), task entry updated (Mode 2/3), analyst recommendations (max 3 lines), no implementation leakage (validated against anti-patterns)
+**E**xpectation: Enhanced prompt in pure user voice ("I need X because Y, please achieve Z") NOT task voice ("Action: Do X, Steps: 1, 2, 3"), quality improvement delta (e.g., 35/100 → 88/100, D → S-Tier), Voice Authenticity score >90%, **file created with Write tool** and saved to session context directory (verify file exists!), task entry updated (Mode 2/3), analyst recommendations (max 3 lines), no implementation leakage (validated against anti-patterns)
 
 ## Quality Standards (CARE+V)
 
@@ -50,7 +50,7 @@ allowed-tools: Read, Write, Edit, Grep, Glob, TodoWrite, mcp__sequential-thinkin
 
 Transforms vague user requests into clear, well-articulated user requests using proven frameworks (RISEN, CO-STAR, APE). The output is always in **user voice** ("I need X because Y, please achieve Z"), never in task manager voice ("Action: Do X, Steps: 1, 2, 3"). The enhanced prompt helps the user communicate their intent, context, and success criteria more effectively to their AI assistant.
 
-Supports three modes: standalone prompt enhancement (Mode 1), single task enhancement with task.md integration (Mode 2), and batch processing of all tasks without prompts (Mode 3). Auto-saves all enhanced prompts to `.artifacts/prompts/` for version control and reusability.
+Supports three modes: standalone prompt enhancement (Mode 1), single task enhancement with task.md integration (Mode 2), and batch processing of all tasks without prompts (Mode 3). Auto-saves all enhanced prompts to session context directory for version control and reusability.
 
 ## Usage
 
@@ -157,32 +157,33 @@ Supports three modes: standalone prompt enhancement (Mode 1), single task enhanc
 
    Execute these actions in order:
 
-   a) **Create directory**:
+   a) **Get session context directory**:
 
       ```bash
-      mkdir -p .artifacts/prompts
+      CONTEXT_DIR=$(python ~/.claude/scripts/session/session_manager.py context_dir)
       ```
 
    b) **Generate filename**:
-      - Format: `2025-10-15-{first-3-5-words-from-prompt}.md`
+      - Format: `prompt-enhanced-{first-3-5-words-from-prompt}.md`
       - Lowercase, replace spaces with hyphens, max 40 chars total
-      - Example: "/workflow:docs starts work" → `2025-10-15-workflow-docs-starts-work.md`
+      - Example: "/workflow:docs starts work" → `prompt-enhanced-workflow-docs-starts-work.md`
 
    c) **Invoke Write tool** (THIS IS NOT OPTIONAL):
 
       ```
       Write(
-        file_path: ".artifacts/prompts/{YYYY-MM-DD}-{topic-slug}.md",
+        file_path: "{CONTEXT_DIR}/prompt-enhanced-{topic-slug}.md",
         content: "<!-- Original: \"{original_prompt}\" -->\n\n{enhanced_prompt}"
       )
       ```
 
       **You must actually call the Write tool here. Do not skip this.**
+      **CONTEXT_DIR** = Session context directory (from step a)
 
    d) **Store filepath for later display**:
 
       ```
-      filepath = ".artifacts/prompts/{YYYY-MM-DD}-{topic-slug}.md"
+      filepath = "{CONTEXT_DIR}/prompt-enhanced-{topic-slug}.md"
       ```
 
 7. **Present Results** (AFTER Write completes)
@@ -390,7 +391,7 @@ Your choice (A/B/C)?
 
 | Option | Action | Command |
 |--------|--------|---------|
-| 1 | Review enhanced prompt quality | Saved to `.artifacts/prompts/` directory |
+| 1 | Review enhanced prompt quality | Saved to session context directory |
 | 2 | Iterate on specific weaknesses | Run `/prompt:enhance` again with clarifications |
 | 3 | Execute the enhanced prompt | Use directly in `/task:execute` or as task description ← Recommended |
 | 4 | Batch enhance similar tasks | Use `/prompt:enhance --from-tasks` for all pending tasks |
@@ -476,7 +477,7 @@ are invalid.
 backward compatibility with existing user sessions.
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-fix-the-login-bug.md
+📁 Saved to: .agent/Session-{name}/context/prompt-enhanced-fix-the-login-bug.md
 
 ## Refine further?
 
@@ -519,7 +520,7 @@ Your choice: _
 **Style**: Technical but accessible, OpenAPI 3.0 standard, runnable code examples in JavaScript/Python/cURL
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-write-api-docs.md
+📁 Saved to: .agent/Session-{name}/context/prompt-enhanced-write-api-docs.md
 
 ## Refine further?
 
@@ -596,7 +597,7 @@ Your choice: _
 **Context**: Existing web app with user profiles, needs auth before adding payment features
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-add-user-authentication.md | ✅ Updated [TASK-042]
+📁 Saved to: .agent/Session-{name}/Task-042--add-user-authentication/prompt-enhanced-add-user-authentication.md | ✅ Updated [TASK-042]
 
 ## Refine further?
 
@@ -648,7 +649,7 @@ Your choice: _
 **Constraints**: Maintain backward compatibility, minimize deployment downtime, prioritize high-impact quick wins
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-improve-my-ecommerce-app.md
+📁 Saved to: .agent/Session-{name}/context/prompt-enhanced-improve-my-ecommerce-app.md
 
 ## Refine further?
 
@@ -694,7 +695,7 @@ Your choice: _
 **Context**: Existing web app with user profiles, needs auth before adding payment features
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-add-user-authentication.md | ✅ Updated [TASK-042]
+📁 Saved to: .agent/Session-{name}/Task-042--add-user-authentication/prompt-enhanced-add-user-authentication.md | ✅ Updated [TASK-042]
 
 ## Refine further?
 
@@ -739,7 +740,7 @@ Processing [TASK-015] "Optimize database queries"...
 **Constraints**: Use read replicas for analytics, maintain existing API contracts
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-optimize-database-queries.md | ✅ Updated [TASK-015]
+📁 Saved to: .agent/Session-{name}/Task-015--optimize-database-queries/prompt-enhanced-optimize-database-queries.md | ✅ Updated [TASK-015]
 
 ---
 
@@ -764,11 +765,11 @@ I need to investigate and fix a login validation error that occurs when users en
 **Important constraints**: Maintain security (prevent SQL injection), ensure backward compatibility with existing users.
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-fix-login-validation.md | ✅ Updated [TASK-023]
+📁 Saved to: .agent/Session-{name}/Task-023--fix-login-validation-error/prompt-enhanced-fix-login-validation.md | ✅ Updated [TASK-023]
 
 ---
 
-[TASK-042 saved to: .artifacts/prompts/2025-10-15-add-user-authentication.md | ✅ Updated [TASK-042]]
+[TASK-042 saved to: .agent/Session-{name}/Task-042--add-user-authentication/prompt-enhanced-add-user-authentication.md | ✅ Updated [TASK-042]]
 
 ---
 
@@ -791,7 +792,7 @@ I need to investigate and fix a login validation error that occurs when users en
 
 ## Explicit Constraints
 
-**IN SCOPE**: Prompt analysis (CARE+V metrics, weaknesses), framework selection (RISEN/CO-STAR/APE), user voice transformation, quality scoring (0-100, F/D/C/B/A/S tiers), interactive mode selection (Quick/Complete/Skip), analyst/parallelization recommendations, prompt saving (.artifacts/prompts/), task integration (Mode 2 & 3), delegation detection
+**IN SCOPE**: Prompt analysis (CARE+V metrics, weaknesses), framework selection (RISEN/CO-STAR/APE), user voice transformation, quality scoring (0-100, F/D/C/B/A/S tiers), interactive mode selection (Quick/Complete/Skip), analyst/parallelization recommendations, prompt saving (session context directory), task integration (Mode 2 & 3), delegation detection
 
 **OUT OF SCOPE**: AI implementation task creation, numbered step-by-step instructions, file operation commands, actual task implementation, agent invocation (recommends, doesn't spawn), project-specific context injection (user must provide)
 
@@ -841,7 +842,7 @@ I need to investigate and fix a login validation error that occurs when users en
 **Category**: feature
 **Origin**: adhoc
 **Created**: 2025-10-15T10:30:00Z
-**Prompt**: .artifacts/prompts/2025-10-15-add-user-authentication.md
+**Prompt**: .agent/Session-{name}/Task-042--add-user-authentication/prompt-enhanced-add-user-authentication.md
 
 **Description**:
 Design and implement secure user authentication system...
@@ -928,7 +929,7 @@ I need the /workflow:docs command to require confirmation before starting work..
 [rest of enhanced prompt]
 
 ---
-📁 Saved to: .artifacts/prompts/2025-10-15-workflow-docs-confirmation.md
+📁 Saved to: .agent/Session-{name}/context/prompt-enhanced-workflow-docs-confirmation.md
 
 ## Refine further?
 
