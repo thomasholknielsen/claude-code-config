@@ -115,6 +115,23 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 **Total**: 45 agents (42 domain analysts + 3 meta agents: agent-expert, command-expert, git-flow-analyst)
 
+### Implementing Commands by Domain
+
+After domain analysts complete their analysis, use these slash commands to implement recommendations:
+
+| Domain | Analyst | Implementation Command(s) |
+|--------|---------|--------------------------|
+| **API** | api-rest-analyst, api-graphql-analyst | `/task:execute` (triage) → `/speckit:implement` (build) → `/git:complete` (commit) |
+| **Database** | database-analyst, database-sql-analyst | `/task:execute` → `/speckit:implement` (schema changes) → `/git:complete` |
+| **Frontend** | frontend-react-analyst, frontend-nextjs-analyst | `/task:execute` → `/speckit:implement` (features) → `/git:complete` |
+| **Code Quality** | code-python-analyst, code-typescript-analyst | `/task:execute` → `/speckit:implement` (refactoring) → `/git:complete` |
+| **Security** | security-analyst | `/task:execute --priority=critical` → `/speckit:implement` → `/git:complete` |
+| **Infrastructure** | infrastructure-terraform-analyst | `/task:execute` → Edit Terraform → `/git:complete` |
+| **Documentation** | docs-analyst | `/docs:sync` → Update docs → `/git:commit` → `/git:pr` |
+| **Research** | research-codebase-analyst, research-web-analyst | `/task:execute` → `/task:add` (action items) → `/task:execute` (implement) |
+| **Testing** | testing-analyst | `/task:execute` → `/speckit:implement` (test code) → `/git:complete` |
+| **Performance** | performance-analyst | `/task:execute` → `/speckit:implement` (optimizations) → `/git:complete` |
+
 ### Agent Coordination
 
 - **Main Thread**: Parallelizes Task tools, invokes multiple domain analysts concurrently, runs one slash command at a time
