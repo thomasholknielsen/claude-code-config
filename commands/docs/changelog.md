@@ -38,6 +38,27 @@ allowed-tools: Bash, Read, Edit, Grep, mcp__sequential-thinking__sequentialthink
 
 **E**xpectation: Add-entry mode → new bullet in Unreleased section (category/description/reference), updated file. Release mode → version header [X.Y.Z] - YYYY-MM-DD, Unreleased entries moved to version, Unreleased reset, comparison links updated, semver validated. All modes preserve Keep a Changelog format (categories in order: Added/Changed/Deprecated/Removed/Fixed/Security)
 
+## Changelog Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Add to Unreleased section | **← Recommended** for ongoing development |
+| **B** | Create new version release | For preparing a production release |
+| **C** | Auto-generate from git commits | When commits follow Conventional Commits format |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review CHANGELOG entries | Verify categories, descriptions, and links |
+| 2 | Create git tag for version | Tag release commit for version tracking |
+| 3 | Push CHANGELOG and tag changes | Sync with repository and trigger release workflow |
+| 4 | Publish release notes | Create GitHub release or announce to team |
+
+What would you like to do next?
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% format compliance, Accuracy >90% version/date correctness, Relevance >85% user-focused descriptions, Efficiency <10s typical update)
@@ -50,6 +71,28 @@ allowed-tools: Bash, Read, Edit, Grep, mcp__sequential-thinking__sequentialthink
 ## Purpose
 
 Maintains project CHANGELOG.md following the [Keep a Changelog v1.1.0](https://keepachangelog.com/en/1.1.0/) standard with semantic versioning.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 

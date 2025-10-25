@@ -376,6 +376,29 @@ Best for: General purpose, quick tasks (80% of use cases)
 - **P**urpose: Why it matters (measurable goal)
 - **E**xpectation: Success criteria (deliverables)
 
+## User Feedback
+
+| Option | Mode | Details |
+|--------|------|---------|
+| **A** | Quick | Fast enhancement - add specifics, constraints, format | **← Recommended** for most use cases |
+| **B** | Complete | Comprehensive - Quick + role, context, examples | For complex multi-domain tasks |
+| **C** | Skip | Exit without enhancement | When prompt is already well-formed |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review enhanced prompt quality | Saved to `.artifacts/prompts/` directory |
+| 2 | Iterate on specific weaknesses | Run `/prompt:enhance` again with clarifications |
+| 3 | Execute the enhanced prompt | Use directly in `/task:execute` or as task description ← Recommended |
+| 4 | Batch enhance similar tasks | Use `/prompt:enhance --from-tasks` for all pending tasks |
+
+What would you like to do next?
+
+---
+
 **Quick Mode Example** (User Voice):
 
 ```

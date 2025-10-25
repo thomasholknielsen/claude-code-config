@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Auto-initialize session at conversation start.
 This hook runs before the first user prompt in a new conversation.
@@ -26,7 +26,7 @@ def main():
             return
 
         # Check if session already exists for current terminal
-        result = subprocess.run(["python3", str(session_manager), "current"], capture_output=True, text=True, timeout=5)
+        result = subprocess.run(["python", str(session_manager), "current"], capture_output=True, text=True, timeout=5)
 
         # If session exists, print compact confirmation and exit
         if result.returncode == 0 and result.stdout.strip():
@@ -46,7 +46,7 @@ def main():
         if is_interactive:
             # Interactive mode - try to select existing "adhoc" session first
             result = subprocess.run(
-                ["python3", str(session_manager), "select", "adhoc"],
+                ["python", str(session_manager), "select", "adhoc"],
                 capture_output=True,
                 text=True,
                 check=False,
@@ -59,7 +59,7 @@ def main():
             else:
                 # adhoc session doesn't exist - try to create it
                 result = subprocess.run(
-                    ["python3", str(session_manager), "start", "adhoc", "Ad-hoc development session"],
+                    ["python", str(session_manager), "start", "adhoc", "Ad-hoc development session"],
                     capture_output=True,
                     text=True,
                     check=False,
@@ -69,12 +69,12 @@ def main():
                     print("SessionStart:compact hook success: Created ad-hoc session", file=sys.stderr)
                 else:
                     # Session creation failed - fall back to legacy init
-                    subprocess.run(["python3", str(session_manager), "init"], check=False, timeout=5)
+                    subprocess.run(["python", str(session_manager), "init"], check=False, timeout=5)
         else:
             # Non-interactive mode (hook/script context) - create adhoc session
             # Try to select existing adhoc session first
             result = subprocess.run(
-                ["python3", str(session_manager), "select", "adhoc"],
+                ["python", str(session_manager), "select", "adhoc"],
                 capture_output=True,
                 text=True,
                 check=False,
@@ -88,7 +88,7 @@ def main():
             else:
                 # adhoc session doesn't exist - create it
                 result = subprocess.run(
-                    ["python3", str(session_manager), "start", "adhoc", "Ad-hoc development session"],
+                    ["python", str(session_manager), "start", "adhoc", "Ad-hoc development session"],
                     capture_output=True,
                     text=True,
                     check=False,

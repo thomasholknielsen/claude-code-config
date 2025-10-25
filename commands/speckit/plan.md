@@ -2,11 +2,54 @@
 description: Execute the implementation planning workflow using the plan template to generate design artifacts.
 ---
 
+## Plan Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Generate plan from existing spec.md | **← Recommended** for spec-driven development |
+| **B** | Create plan from scratch using template | For new features without formal specification |
+| **C** | Validate requirements before planning | When requirements may need clarification |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review generated implementation plan | Check phases, dependencies, and estimates |
+| 2 | Create implementation tasks from plan | Break down plan into actionable work items |
+| 3 | Start first phase implementation | Begin development on primary feature |
+| 4 | Share plan with team or stakeholders | Align team on approach and timeline |
+
+What would you like to do next?
+
 ## User Input
 
 ```text
 $ARGUMENTS
 ```
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 
 You **MUST** consider the user input before proceeding (if not empty).
 

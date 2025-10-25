@@ -28,6 +28,28 @@ allowed-tools: Bash(git:*), Read, mcp__sequential-thinking__sequentialthinking
 
 ## IMPLEMENTATION FLOW
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 ### Step 1: Analyze Current Branch
 Detect type and sync status
 
@@ -54,6 +76,17 @@ Display next steps (commit, push, finish, etc.)
 **P**urpose: Provide complete Git Flow repository overview with branch type identification, actionable recommendations (commit, push, pull, finish), workflow suggestions (next commands), branch hygiene alerts (stale branches), clear understanding of current state before operations
 
 **E**xpectation: Comprehensive status report with branch type visualization (icons: 🌿 feature, 🚀 release, 🔥 hotfix, 🏠 main, 🔀 develop), sync status alerts, working directory summary, merge target clarity, actionable recommendations prioritized, next steps guidance
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review current branch type | Understand whether you're on feature/release/hotfix/main/develop |
+| 2 | Address any warnings | Commit changes or pull updates if status shows issues |
+| 3 | Proceed with workflow | Use /feature, /finish, /commit, /push based on status indicators |
+| 4 | Check branch list | Review active branches to see team's parallel work |
+
+What would you like to do next?
 
 ## Quality Standards (CARE)
 

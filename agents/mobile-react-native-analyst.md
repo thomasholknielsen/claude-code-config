@@ -1,6 +1,6 @@
 ---
 name: mobile-react-native-analyst
-description: "Use PROACTIVELY for React Native analysis - provides React Native patterns, native module integration, performance optimization, and cross-platform mobile development. This agent conducts comprehensive React Native analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes React Native code and persists findings to .agent/context/{session-id}/mobile-react-native-analyst.md files. Invoke when: keywords 'React Native', 'Expo', 'native modules', 'mobile', 'iOS/Android'; files with React Native patterns."
+description: "Use PROACTIVELY for React Native analysis - provides React Native patterns, native module integration, performance optimization, and cross-platform mobile development. This agent conducts comprehensive React Native analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes React Native code and persists findings to .agent/Session-{name}/context/mobile-react-native-analyst.md files. Invoke when: keywords 'React Native', 'Expo', 'native modules', 'mobile', 'iOS/Android'; files with React Native patterns."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

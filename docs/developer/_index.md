@@ -34,9 +34,9 @@ Documentation for contributors and developers working on the Claude Code Command
 
 ### Agent Development
 
-- **Framework**: See [Concepts](../concepts/agent-orchestra-framework.md)
-- **Patterns**: Orchestrator vs Worker design
-- **Integration**: Command assignment and coordination
+- **Framework**: See [Concepts](../concepts/agent-specialist-framework.md)
+- **Patterns**: Domain Analyst Framework patterns
+- **Integration**: Command delegation and coordination
 
 ### Documentation
 
@@ -55,7 +55,7 @@ Documentation for contributors and developers working on the Claude Code Command
 | Component | Documentation | Purpose |
 |-----------|---------------|---------|
 | Commands | [Command Template](command-template.md) | Atomic operations standard |
-| Agents | [Agent Orchestra](../concepts/agent-orchestra-framework.md) | Coordination framework |
+| Agents | [Domain Analyst Framework](../concepts/agent-specialist-framework.md) | Coordination framework |
 | Hooks | [Hooks System](hooks-system.md) | Automation and integration |
 | Workflows | [Developer Workflows](developer-workflows.md) | Complex development patterns |
 

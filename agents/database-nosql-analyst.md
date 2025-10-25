@@ -1,6 +1,6 @@
 ---
 name: database-nosql-analyst
-description: "Use PROACTIVELY for NoSQL database analysis - provides MongoDB, Redis, Cassandra patterns, document modeling, key-value design, and NoSQL-specific optimization. This agent conducts comprehensive NoSQL analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes NoSQL code and persists findings to .agent/context/{session-id}/database-nosql-analyst.md files. Invoke when: keywords 'MongoDB', 'Redis', 'Cassandra', 'DynamoDB', 'document database', 'key-value'; files with NoSQL queries/schemas."
+description: "Use PROACTIVELY for NoSQL database analysis - provides MongoDB, Redis, Cassandra patterns, document modeling, key-value design, and NoSQL-specific optimization. This agent conducts comprehensive NoSQL analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes NoSQL code and persists findings to .agent/Session-{name}/context/database-nosql-analyst.md files. Invoke when: keywords 'MongoDB', 'Redis', 'Cassandra', 'DynamoDB', 'document database', 'key-value'; files with NoSQL queries/schemas."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: orange

@@ -28,6 +28,28 @@ allowed-tools: Bash(git:*), Read, Edit, mcp__sequential-thinking__sequentialthin
 ---
 
 ## IMPLEMENTATION FLOW
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 
 ### Step 1: Detect Branch Type
 Identify feature/release/hotfix
@@ -55,6 +77,27 @@ Delete branches locally and remotely
 **P**urpose: Automate Git Flow completion workflow with proper merge targets, enforce quality gates (tests, no conflicts), create version tags for releases/hotfixes, maintain dual merge for releases/hotfixes (main + develop), cleanup branches post-merge
 
 **E**xpectation: Branch merged to correct targets, tags created for releases/hotfixes (--no-tag to skip), branches deleted locally and remotely (--no-delete to keep), post-finish checklist displayed, clear next steps (deploy for releases/hotfixes, continue work for features)
+
+## Finish Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Proceed with defaults | **← Recommended** |
+| **B** | Keep branches locally | Use `--no-delete` flag for safety |
+| **C** | Skip version tagging | Use `--no-tag` flag (release/hotfix only) |
+
+Your choice (A/B/C):
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| **1** | Verify merge success | Check commit log: `git log --oneline -5` |
+| **2** | Update branch list | Fetch remote branches: `git fetch --prune` |
+| **3** | Start next work | Create new feature: `/git-flow:feature <name>` |
+| **4** | Deploy (if release) | Deploy to production if this was a release |
+
+What would you like to do next?
 
 ## Quality Standards (CARE)
 

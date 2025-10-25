@@ -2,8 +2,8 @@
 
 ## Architecture Overview
 
-The Claude Code Command System is built on the **Agent Specialist Framework**, a task-focused coordination system that
-replaces traditional domain-based agents with specialized analysis and execution specialists.
+The Claude Code Command System is built on the **Domain Analyst Framework**, a comprehensive coordination system with
+45 domain-specialized analysts for research, analysis, and recommendations.
 
 ### System Components
 
@@ -14,100 +14,63 @@ graph TB
         Claude[CLAUDE.md]
         Scripts[scripts/]
 
-        subgraph "Agent Specialist Framework"
-            AnalysisSpecialists[3 Strategic Specialists]
-            ExecutionSpecialists[5 Technical Specialists]
+        subgraph "Domain Analyst Framework"
+            DomainAnalysts[45 Domain Analysts<br/>across 13 domains]
         end
 
         subgraph "Commands"
-            Analyze[analyze/]
-            Clean[clean/]
-            Docs[docs/]
-            Fix[fix/]
-            Git[git/]
-            Review[review/]
-            SpecKit[speckit/]
-            Workflows[workflows/]
+            Claude_Cmd[claude/]
+            Docs_Cmd[docs/]
+            Explain_Cmd[explain/]
+            Git_Cmd[git/]
+            GitFlow_Cmd[git-flow/]
+            GitHub_Cmd[github/]
+            Lint_Cmd[lint/]
+            Prompt_Cmd[prompt/]
+            Session_Cmd[session/]
+            SpecKit_Cmd[speckit/]
+            System_Cmd[system/]
+            Task_Cmd[task/]
         end
 
         subgraph "Hooks System"
             PromptLog[Prompt Logging]
             Notifications[Smart Notifications]
-            SearchUpdate[Search Updates]
+            GitValidation[Git Validation]
         end
     end
 
     User --> Settings
-    Settings --> AnalysisSpecialists
-    AnalysisSpecialists --> ExecutionSpecialists
-    ExecutionSpecialists --> Commands
+    Settings --> DomainAnalysts
+    DomainAnalysts --> Commands
     Commands --> Hooks
 ```
 
-## Agent Specialist Framework
+## Domain Analyst Framework
 
-### Analysis Specialists (Advisory Layer)
+The system includes 44 domain-specialized analysts organized across 12 domains, providing comprehensive research and analysis capabilities:
 
-**Note**: Only the main Claude Code thread can orchestrate parallelization. Strategic specialists are advisory consultants that provide recommendations and strategic planning guidance.
+### Domain Analyst Categories
 
-#### 1. task-analysis-specialist
+- **API Analysis** (3): REST, GraphQL, and API documentation specialists
+- **Database** (4): SQL, NoSQL, architecture, and schema design specialists
+- **Frontend** (5): UI component, React, Next.js, accessibility, and design system specialists
+- **Code Quality** (5): Python, TypeScript, JavaScript, C#, and general quality analysts
+- **Infrastructure** (5): Terraform, cloud, network, DevOps, and monitoring specialists
+- **Mobile** (3): React Native, Flutter, and iOS/Swift specialists
+- **Documentation** (2): User documentation and Docusaurus specialists
+- **UI/UX** (2): User interface and CLI interface specialists
+- **Standalone** (9): Architecture, security, performance, testing, refactoring, debugging, SEO, product roadmap, and prompt engineering
+- **Research** (2): Codebase research and web research specialists
+- **Meta** (3): Agent design, command design, and Git-Flow specialists
 
-**Purpose**: General task analysis and strategic recommendations
+### Key Characteristics
 
-- Analyzes task complexity
-- Recommends appropriate technical specialists for consultation
-- Provides TodoWrite planning guidance
-- Advises on SlashCommand selection
-
-#### 2. research-analysis-specialist
-
-**Purpose**: Information gathering strategy and planning
-
-- Designs research strategies for main thread execution
-- Plans breadth-first search patterns using parallel tools
-- Provides guidance for aggregating findings from parallel operations
-- Advises on optimal tool selection for parallel information gathering
-
-#### 3. implementation-strategy-specialist
-
-**Purpose**: Implementation strategy and execution planning
-
-- Analyzes file dependencies
-- Provides guidance on proper execution order
-- Advises on state consistency approaches
-- Recommends strategies for complex multi-file changes
-
-### Technical Specialists (Advisory Layer)
-
-#### 1. code-writer
-
-- **Focus**: Code generation advice and patterns
-- **Advises on**: `/refactor:large-scale`, `/implement` command usage
-- **Specializes in**: Implementation patterns, code structure, architectural guidance
-
-#### 2. test-writer
-
-- **Focus**: Testing strategy and implementation guidance
-- **Advises on**: `/test`, `/speckit:tasks` command usage
-- **Specializes in**: Test framework selection, coverage strategies, testing patterns
-
-#### 3. bug-fixer
-
-- **Focus**: Debugging strategy and troubleshooting guidance
-- **Advises on**: `/fix:bug-quickly`, `/analyze:potential-issues` command usage
-- **Specializes in**: Root cause analysis approaches, systematic debugging strategies
-
-#### 4. reviewer
-
-- **Focus**: Code quality and security analysis guidance
-- **Advises on**: `/review:code`, `/review:security` command usage
-- **Specializes in**: Review strategies, quality assessment patterns, security best practices
-
-#### 5. documenter
-
-- **Focus**: Documentation strategy and format guidance
-- **Advises on**: `/docs:generate`, `/docs:api` command usage
-- **Specializes in**: Documentation patterns, format selection, content organization
+- **Advisory-Only**: Analysts conduct research and analysis, returning actionable findings
+- **Parallel Execution**: Main thread can invoke multiple analysts concurrently
+- **Context Persistence**: Analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
+- **Recommendation Focused**: Provide strategic guidance without implementing changes
+- **Domain Expertise**: Each analyst specializes in their domain for deep analysis
 
 ## Development Standards
 
@@ -167,6 +130,51 @@ Single clear sentence describing what this command does.
 - `test/` - Testing
 - `to-do/` - Task management
 - `workflows/` - Multi-step workflows
+
+#### 5. User Interaction Standards
+
+Commands should follow the **interactive pattern** for consistent user experience:
+
+**User Feedback Collection** (when command has multiple execution paths):
+- Present options as A/B/C table
+- Mark exactly ONE option as "Recommended"
+- Include "Other" for custom input
+- Include "Skip" for optional decisions
+
+Example:
+```markdown
+## Your Choice
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Full action | Comprehensive |
+| **B** | Quick action | **← Recommended** |
+| **C** | Preview | Review first |
+| **Other** | Custom | Custom variations |
+
+Your choice (A/B/C/Other/Skip): _
+```
+
+**Next Steps Table** (ALWAYS required):
+- Provide 2-4 specific next actions
+- Include exact commands (e.g., `/git:commit "msg"`)
+- Mark ONE option as recommended for common path
+- Close with: "What would you like to do next?"
+
+Example:
+```markdown
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| **1** | Review changes | `git diff` |
+| **2** | Commit | `/git:commit "message"` |
+| **3** | Push | `/git:push` |
+
+What would you like to do next?
+```
+
+For comprehensive guidance, see `INTERACTIVE_PATTERN_GUIDE.md` in specification directory.
 
 ### Creating New Agents
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Task Analyzer - Smart Metadata Extraction for Task Management
 

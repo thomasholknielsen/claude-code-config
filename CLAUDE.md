@@ -55,7 +55,7 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 ### Session Lifecycle Pattern
 
-**Initialization**: `python ~/.claude/scripts/session/session_manager.py init [topic]` → Creates session ID → Establishes context directory
+**Initialization**: `python ~/.claude/scripts/session/session_manager.py start <name> [topic]` → Creates session with name → Establishes context directory
 
 **Execution**: Domain analysts invoked → Create/update context files → Return summaries → Main thread implements → Updates "Main Thread Log"
 
@@ -105,13 +105,15 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 | **Research** | research-codebase-analyst, research-web-analyst |
 | **Documentation** | docs-analyst (multi-perspective: IA, content quality, user journey, semantic coherence), docs-docusaurus-analyst |
 | **UI/UX** | ui-ux-analyst, ui-ux-cli-analyst |
+| **Visualization** | mermaid-analyst |
+| **Compliance** | compliance-analyst |
 | **Standalone** | architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst |
 | **Engineering** | prompt-analyst |
 | **Meta** | agent-expert, command-expert, git-flow-analyst |
 
 **Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary with task counts
 
-**Total**: 43 agents (40 domain analysts + 3 meta agents: agent-expert, command-expert, git-flow-analyst)
+**Total**: 45 agents (42 domain analysts + 3 meta agents: agent-expert, command-expert, git-flow-analyst)
 
 ### Agent Coordination
 
@@ -173,7 +175,7 @@ Agents will use the provided path instead of trying to detect sessions themselve
 
 **Required**: All commands invoking agents MUST provide explicit context file paths in prompts (agents cannot detect sessions from separate processes)
 
-**Session Commands**: `python ~/.claude/scripts/session/session_manager.py [current|new [topic]|init [topic]|context_dir|list_agents|archive]`
+**Session Commands**: `python ~/.claude/scripts/session/session_manager.py [current|start <name> [topic]|select <name>|list|context_dir|list_agents|copy_task|set_task|clear_task|setup_task]`
 
 **Session Lifecycle**:
 
@@ -236,11 +238,11 @@ All automation uses Python with `pathlib.Path` for Windows/macOS/Linux compatibi
 
 ```bash
 # Correct (cross-platform)
-python ~/.claude/scripts/session/session_manager.py init [topic]
+python ~/.claude/scripts/session/session_manager.py start feature-auth "Authentication implementation"
 python scripts/validate_commands.py --help
 
 # Incorrect (Windows incompatible)
-python3 ~/.claude/scripts/session/session_manager.py init [topic]
+python3 ~/.claude/scripts/session/session_manager.py start feature-auth "Authentication implementation"
 python3 scripts/validate_commands.py --help
 ```
 
@@ -346,9 +348,34 @@ Do NOT just describe what should happen - actively execute [NOW/immediately] usi
 
 **Requirements**: Single-purpose, clear responsibility, composable design
 
-**User Input Standard**: A/B/C/D table format with "Skip" option (max 5 choices, scannability)
+**Interactive Pattern** (MANDATORY):
 
-**Creating Commands**: Use template from `templates/commands/*.md`, place in `commands/{category}/{name}.md`, assign to domain analyst, include MCP tools if relevant, ensure atomic design, add "EXECUTE THIS NOW" section after EXECUTION INSTRUCTIONS. Update CLAUDE.md after changes.
+All commands must implement the interactive pattern for consistent UX:
+
+1. **User Feedback Table** (when command has multiple execution paths):
+   - Present options as A/B/C table
+   - Exactly ONE option marked as "← Recommended" (bold with explanation)
+   - Include "Other" for custom input
+   - Include "Skip" for optional decisions
+   - Max 4 lettered options (A/B/C plus Other)
+
+2. **Next Steps Table** (ALWAYS required):
+   - 2-4 specific actionable next steps
+   - Include exact commands, not vague descriptions
+   - Mark ONE option as recommended for typical workflow
+   - Always close with: "What would you like to do next?"
+
+3. **Quality Gate**:
+   - User Feedback table (if present): Exactly ONE "Recommended"
+   - Next Steps table: Always present with specific commands
+   - Pattern must be scannable in <5 seconds
+
+**References**:
+- Full guide: `specs/002-consolidate-command-templates/INTERACTIVE_PATTERN_GUIDE.md`
+- Examples: `/docs:sync.md`, `/git:complete.md`
+- Developer guide: `docs/developer/command-integration-guide.md`
+
+**Creating Commands**: Use template from `templates/commands/*.md`, place in `commands/{category}/{name}.md`, implement interactive pattern (User Feedback + Next Steps), include MCP tools if relevant, ensure atomic design, add "EXECUTE THIS NOW" section after EXECUTION INSTRUCTIONS. Update CLAUDE.md after changes.
 
 ### Agent Development
 

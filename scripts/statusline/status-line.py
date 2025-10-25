@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Claude Code Context Monitor
 Real-time context usage monitoring with visual indicators and session analytics
@@ -8,9 +8,10 @@ import json
 from pathlib import Path
 import re
 import sys
+from typing import Optional, Dict, Any
 
 
-def parse_context_from_transcript(transcript_path):
+def parse_context_from_transcript(transcript_path: str) -> Optional[Dict[str, Any]]:
     """Parse context usage from transcript file."""
     if not transcript_path or not Path(transcript_path).exists():
         return None
@@ -67,7 +68,7 @@ def parse_context_from_transcript(transcript_path):
         return None
 
 
-def get_context_display(context_info):
+def get_context_display(context_info: Optional[Dict[str, Any]]) -> str:
     """Generate context display with visual indicators."""
     if not context_info:
         return "🔵 ???"
@@ -109,7 +110,7 @@ def get_context_display(context_info):
     return f"{icon}{color}{bar}{reset} {percent:.0f}%{alert_str}"
 
 
-def get_directory_display(workspace_data):
+def get_directory_display(workspace_data: Dict[str, Any]) -> str:
     """Get directory display name."""
     current_dir = workspace_data.get("current_dir", "")
     project_dir = workspace_data.get("project_dir", "")
@@ -126,7 +127,7 @@ def get_directory_display(workspace_data):
     return "unknown"
 
 
-def get_session_metrics(cost_data):
+def get_session_metrics(cost_data: Optional[Dict[str, Any]]) -> str:
     """Get session metrics display."""
     if not cost_data:
         return ""
@@ -173,7 +174,7 @@ def get_session_metrics(cost_data):
     return f" \033[90m|\033[0m {' '.join(metrics)}" if metrics else ""
 
 
-def main():
+def main() -> None:
     try:
         # Read JSON input from Claude Code
         data = json.load(sys.stdin)

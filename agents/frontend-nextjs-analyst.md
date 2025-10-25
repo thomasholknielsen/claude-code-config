@@ -1,6 +1,6 @@
 ---
 name: frontend-nextjs-analyst
-description: "MUST BE USED for Next.js framework analysis - provides App Router patterns, Server Components, ISR/SSR/SSG strategies, Next.js-specific optimizations, and framework best practices. This agent conducts comprehensive Next.js analysis (distinct from frontend-react-analyst for React library). It does NOT implement changes - it only analyzes Next.js code and persists findings to .agent/context/{session-id}/frontend-nextjs-analyst.md files. Invoke when: keywords 'Next.js', 'App Router', 'Server Components', 'ISR', 'SSR', 'SSG', 'getServerSideProps'; files in Next.js projects."
+description: "MUST BE USED for Next.js framework analysis - provides App Router patterns, Server Components, ISR/SSR/SSG strategies, Next.js-specific optimizations, and framework best practices. This agent conducts comprehensive Next.js analysis (distinct from frontend-react-analyst for React library). It does NOT implement changes - it only analyzes Next.js code and persists findings to .agent/Session-{name}/context/frontend-nextjs-analyst.md files. Invoke when: keywords 'Next.js', 'App Router', 'Server Components', 'ISR', 'SSR', 'SSG', 'getServerSideProps'; files in Next.js projects."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: cyan

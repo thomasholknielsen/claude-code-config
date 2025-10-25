@@ -101,6 +101,28 @@ Fetches GitHub issues using the `gh` CLI and saves them to `.agent/github-issues
 8. **Report Summary**: Show count and location
 9. **NO TASK IMPORT**: Issues stay in file, not converted to tasks (use `/github:convert-issues-to-tasks` for that)
 
+## User Feedback Table
+
+| Option | Description | Recommended |
+|--------|-------------|-------------|
+| **A. Assigned Issues** | Fetch your assigned open issues (no filters needed) | ← Recommended: Daily standup & task review |
+| **B. Milestone/Sprint** | Fetch issues from a specific milestone for sprint planning | - Use: `--milestone=sprint-X` or `--milestone=v2.0` |
+| **C. Bug Triage** | Fetch all open bugs across the repository for prioritization | - Use: `--label=bug --filter=all` |
+| **D. Other Filter** | Custom filter (e.g., created issues, all issues, combined filters) | - Specify your own arguments |
+
+**What type of issues would you like to fetch?**
+
+## Next Steps Table
+
+| Step | Action | Command |
+|------|--------|---------|
+| **1. Review Issues** | Read the fetched issues in markdown format to understand current state | `cat .agent/github-issues.md` |
+| **2. Import as Tasks** | Convert selected issues into trackable tasks for work management | `/github:convert-issues-to-tasks --source-file=.agent/github-issues.md` ← Recommended: Typical workflow |
+| **3. Refetch Updates** | Get the latest issue status and changes from GitHub | `/github:fetch-issues --filter=assigned` |
+| **4. Filter & Re-import** | Fetch again with different filters, then import specific subset | `/github:fetch-issues --label=bug` → `/github:convert-issues-to-tasks --filter="label:bug AND priority:critical"` |
+
+**What would you like to do next?**
+
 ## Output File Location
 
 Issues are saved to:

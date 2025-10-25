@@ -28,6 +28,28 @@ allowed-tools: Bash(git:*), mcp__sequential-thinking__sequentialthinking
 ---
 
 ## IMPLEMENTATION FLOW
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 
 ### Step 1: Parse Feature Name
 Extract and validate feature name
@@ -55,6 +77,27 @@ Push with -u flag to set up remote tracking
 **P**urpose: Enforce Git Flow branching strategy with proper feature branch creation from develop (not main), maintain clean working directory, ensure remote tracking for collaboration, follow kebab-case naming conventions
 
 **E**xpectation: New feature branch created with pattern `feature/<descriptive-name>`, tracking origin/feature/<name>, clean working directory, develop synced with remote, clear next steps for feature development workflow
+
+## Uncommitted Changes?
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Continue without changes | **← Recommended** |
+| **B** | Stash uncommitted changes | Save work temporarily, create clean branch |
+| **C** | Commit changes first | Preserve changes in history before branching |
+
+Your choice (A/B/C):
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| **1** | Implement your feature | Make commits using `git commit -m "feat: description"` |
+| **2** | Push regularly | Push changes to remote: `git push` |
+| **3** | Test before finishing | Run tests to ensure quality: `npm test` |
+| **4** | Finish when ready | Complete feature: `/git-flow:finish` |
+
+What would you like to do next?
 
 ## Quality Standards (CARE)
 

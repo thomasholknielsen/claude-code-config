@@ -88,16 +88,26 @@ Verify README links, CHANGELOG format, API docs accuracy, code examples current
 
 ---
 
-## Your Choice
+## Sync Options
 
-After analysis completes, Claude Code presents options for how to proceed:
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Analyze recent changes only | **← Recommended** for iterative updates |
+| **B** | Auto-fix identified issues immediately | For straightforward formatting and structure fixes |
+| **C** | Run full project audit | When performing comprehensive documentation review |
 
-| Option | Action | Description | Outcome |
-|--------|--------|-------------|---------|
-| **A** | Full workflow | Apply all recommended changes comprehensively | 10-15 min, complete |
-| **B** | Critical only | **Recommended: Fix FUNDAMENTAL issues first** | 3-5 min, priority-focused |
-| **C** | Show plan | Preview all changes before applying | 2 min, review first |
-| **Other** | Custom | Describe specific changes you want | Targeted scope |
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review identified documentation gaps | Check what changes are needed and why |
+| 2 | Commit documentation updates | Stage and commit synchronized changes |
+| 3 | Push to repository or docs branch | Sync with main repository or docs deployment |
+| 4 | Deploy updated documentation | Trigger docs rebuild and publish changes |
+
+What would you like to do next?
 | Skip | Exit | Don't modify documentation | No changes |
 
 **User Flow:**

@@ -28,6 +28,28 @@ allowed-tools: Bash(git:*), Read, Edit, Write, mcp__sequential-thinking__sequent
 ---
 
 ## IMPLEMENTATION FLOW
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 
 ### Step 1: Parse Version
 Extract and validate version (semver)
@@ -55,6 +77,27 @@ Push with -u flag
 **P**urpose: Enforce semantic versioning for release management, automate changelog generation from conventional commits, support Git Flow release workflow (develop → main merge), provide release checklist for quality gates
 
 **E**xpectation: Release branch created (release/v*) with updated version files, generated CHANGELOG.md grouped by type (Features/Fixes/Docs/etc.), release checklist displayed, PR creation guidance, ready for team review and merge to main
+
+## Version Selection
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Use suggested version | **← Recommended** |
+| **B** | Use custom version | Provide exact semantic version |
+| **C** | Review commit analysis | See MAJOR/MINOR/PATCH suggestion details |
+
+Your choice (A/B/C):
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| **1** | Review CHANGELOG | Check auto-generated changelog accuracy |
+| **2** | Run final tests | Execute full test suite: `npm test` |
+| **3** | Test on staging | Deploy and verify on staging environment |
+| **4** | Create PR for review | Submit to team: `gh pr create` |
+
+What would you like to do next?
 
 ## Quality Standards (CARE)
 

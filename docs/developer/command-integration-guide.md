@@ -215,6 +215,74 @@ This guide documents how commands work together, their relationships, and integr
 /workflows:run-cleanup-workflow → /workflows:run-optimization → /git:commit
 ```
 
+## Interactive Pattern Implementation
+
+All commands should implement the interactive pattern for consistent user experience:
+
+### User Feedback Collection
+
+For commands with multiple execution paths, present options as a table:
+
+```markdown
+## Your Choice
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Full processing | Comprehensive, takes longer |
+| **B** | Critical only | **← Recommended** (typical workflow) |
+| **C** | Preview | Review before committing |
+| **Other** | Custom scope | Specify your preference |
+
+Your choice (A/B/C/Other/Skip): _
+```
+
+**Rules:**
+- Show exactly ONE "Recommended" option (bold with explanation)
+- Include "Other" for custom variations
+- Max 4 lettered options (A/B/C)
+- Always include "Skip" for optional decisions
+
+### Next Steps Table
+
+Every command MUST end with next steps guidance:
+
+```markdown
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| **1** | Review results | Run: `git diff` |
+| **2** | Commit changes | `/git:commit "description"` |
+| **3** | Push changes | `/git:push origin branch` |
+
+What would you like to do next?
+```
+
+**Rules:**
+- Provide 2-4 specific next actions (never just 1)
+- Include exact commands where applicable
+- Always close with: "What would you like to do next?"
+- Adapt next steps based on user's choice from feedback table
+
+### Real-World Example
+
+**Command `/docs:sync` with Interactive Pattern:**
+
+1. **User initiates**: `/docs:sync`
+2. **Analysis completes**: Finds documentation issues (FUNDAMENTAL/STRUCTURAL/SURFACE)
+3. **Present choices**:
+   - A: Full sync all issues
+   - B: Fix critical only (Recommended)
+   - C: Show plan first
+4. **User selects**: B
+5. **Execute**: Apply critical fixes
+6. **Show results**: List files modified
+7. **Next Steps**: Suggest commit, push, PR
+
+See `/docs:sync.md` and `/git:complete.md` for production examples.
+
+---
+
 ## Agent Coordination Patterns
 
 ### Orchestrator → Worker Delegation

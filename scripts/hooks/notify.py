@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Cross-platform notification wrapper for Claude Code hooks.
 Detects the operating system and routes to the appropriate notification script.
@@ -8,6 +8,7 @@ from pathlib import Path
 import platform
 import subprocess
 import sys
+from typing import List
 
 
 # Constants
@@ -87,7 +88,7 @@ def run_notification(os_type: str, script_dir: Path, stdin_data: str) -> None:
     _execute_notification(cmd, stdin_data)
 
 
-def _get_notification_command(os_type: str, script_dir: Path) -> list[str]:
+def _get_notification_command(os_type: str, script_dir: Path) -> List[str]:
     """
     Get the appropriate notification command for the OS.
 
@@ -109,10 +110,10 @@ def _get_notification_command(os_type: str, script_dir: Path) -> list[str]:
 
     # Windows or WSL
     script_path = script_dir / "notify-windows.ps1"
-    return ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script_path)]
+    return ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File", str(script_path)]
 
 
-def _execute_notification(cmd: list[str], stdin_data: str) -> None:
+def _execute_notification(cmd: List[str], stdin_data: str) -> None:
     """
     Execute the notification script and handle errors.
 

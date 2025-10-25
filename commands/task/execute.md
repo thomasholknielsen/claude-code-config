@@ -1,6 +1,6 @@
 ---
-description: "Intelligent task execution with dependency-aware workflow and validation"
-argument-hint: "[TASK-XXX ...] [--status=state] [--notes=\"text\"] [--complete] [--validate]"
+description: "Intelligent task execution with value-based prioritization and dependency awareness"
+argument-hint: "[TASK-XXX ...] [--status=state] [--notes=\"text\"] [--complete] [--validate] [--priority=level] [--value]"
 allowed-tools: Read, Edit, Bash, SlashCommand(/speckit:*), mcp__sequential-thinking__sequentialthinking
 ---
 
@@ -28,6 +28,28 @@ allowed-tools: Read, Edit, Bash, SlashCommand(/speckit:*), mcp__sequential-think
 1. **Interactive Mode** (no arguments) → Show all tasks with dependency info, offer grouping
 2. **Direct Mode** (with arguments) → STEP 0 (Dependency Check) → STEP 1 (Smart Task Gate) → STEP 2-10
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 **NEW**: Dependency awareness at every step - shows blockers, recommends execution order
 
 **YOU MUST NOT**:
@@ -51,6 +73,11 @@ allowed-tools: Read, Edit, Bash, SlashCommand(/speckit:*), mcp__sequential-think
 
 **IF no arguments** → Execute **Interactive Mode** (skip Direct Mode)
 **IF task-related arguments provided** → Execute **Direct Mode** (include STEP 0)
+
+**NEW**: Value-Based Task Filtering Flags:
+- `--priority=critical|high|medium|low` - Filter tasks by priority tier
+- `--value` - Sort all tasks by Impact/Effort ratio (highest value first)
+- These flags modify task display but don't change core workflow
 
 ---
 
@@ -345,23 +372,55 @@ Extract task data:
 
 Limit to first 10 tasks for display.
 
-### STEP I2: Display All Tasks (Merged Table Format)
+### STEP I2: Display All Tasks (Merged Table Format with Value Scores)
+
+**FIRST**: Show recommended highest-value ready task:
+
+```
+🌟 RECOMMENDED TASK (Highest Value + Ready to Execute):
+
+TASK-102: Fix 3 commands missing components
+Value: 8.0 (Impact 8/Effort 1) | Status: pending | Ready: YES
+Est. Time: 30 min | ROI: Highest - quick fix, 3 core commands
+
+This task has:
+- Highest value/effort ratio
+- No blocking dependencies
+- Minimal estimated time
+- Immediate impact
+
+Ready to proceed? [Y/n/Other]
+```
+
+**If user selects Yes → Go directly to STEP 2 with TASK-102**
+**If user selects n → Show full task list below**
+**If user selects Other → Proceed to full list**
+
+---
+
+**THEN**: Show all available tasks with value scoring:
 
 ```
 Available tasks (showing 4 of 10):
 
-| Option | Task ID   | Description                                              | Status      | Priority |
-|--------|-----------|----------------------------------------------------------|-------------|----------|
-| A      | TASK-015  | Use speckit to refactor context management               | in-progress | high     |
-| B      | TASK-019  | Review and refactor artifacts directory                  | in-progress | medium   |
-| C      | TASK-020  | Rename /prompt:enhance-prompt to /prompt:enhance         | pending     | low      |
-| D      | TASK-030  | Change name of task:execute to task:implement            | pending     | medium   |
-| More   | —         | Show next batch of tasks                                 | —           | —        |
-| Search | —         | Search for specific task by keyword                      | —           | —        |
-| Skip   | —         | Exit without selecting                                   | —           | —        |
+| Option | Task ID   | Description                          | Value | Status      | Ready |
+|--------|-----------|--------------------------------------|-------|-------------|-------|
+| A      | TASK-102  | Fix 3 commands missing components    | 8.0   | pending     | ✓     |
+| B      | TASK-201  | Build task value evaluation framework| 2.33  | pending     | ⚠️    |
+| C      | TASK-101  | Apply interactive pattern to 35 cmds | 1.25  | pending     | ✓     |
+| D      | TASK-203  | Convert all tasks to value-scored fmt| 1.5   | pending     | ⚠️    |
+| More   | —         | Show next batch of tasks             | —     | —           | —     |
+| Search | —         | Search for specific task by keyword  | —     | —           | —     |
+| Skip   | —         | Exit without selecting               | —     | —           | —     |
 
 Your choice (A-D, More, Search, or Skip): _
 ```
+
+**Value Column**:
+- Shows Impact/Effort ratio (higher = better ROI)
+- Sorted by value descending (highest value first)
+- CRITICAL (>2.0) shown first
+- Helps user prioritize high-ROI work
 
 ### STEP I3: Handle Selection
 
@@ -448,40 +507,54 @@ Error: Cannot read tasks.md
 **IF validation passes**:
 - Continue to STEP 1b (search)
 
-### STEP 1b: Smart Task Search
+### STEP 1b: Smart Task Search (Value-Aware Ranking)
 
 1. Read `.agent/tasks.md` - all pending/in-progress/blocked tasks
 2. Search for matches: title, description, category, priority
-3. Rank by relevance:
-   - Exact phrase match: 100 points
-   - All words match: 80 points
-   - Most words match (>50%): 60 points
-   - Any word match: 40 points
-   - Priority boost: +5 (critical/high), +2 (medium)
-4. Limit to top 5 results (most relevant first)
+3. Rank by relevance AND value:
+   - **Text Match Scoring**:
+     - Exact phrase match: 100 points
+     - All words match: 80 points
+     - Most words match (>50%): 60 points
+     - Any word match: 40 points
+   - **Value Boost** (Impact/Effort ratio):
+     - CRITICAL (>2.0): +20 points
+     - HIGH (1.0-2.0): +10 points
+     - MEDIUM (0.7-1.0): +5 points
+     - LOW (<0.7): +0 points
+   - **Priority boost**: +5 (critical/high), +2 (medium)
+   - **Final Rank Score** = Text Match + Value Boost + Priority Boost
+4. Sort by final score descending (highest value/relevance first)
+5. Limit to top 5 results (most relevant first)
 
-### STEP 1c: Enhanced Selection Gate (Merged Table Format)
+### STEP 1c: Enhanced Selection Gate (Value-Aware, Merged Table Format)
 
-Display results with visual status indicators in a **single merged table**:
+Display results with visual status indicators AND value scores in a **single merged table**:
 
 ```
-Searching for tasks matching: "authentication"
+Searching for tasks matching: "commands" (sorted by relevance + value)
 
 Showing 5 of 18 matches:
 
-| Option   | Task ID   | Status   | Priority | Description                                        |
-|----------|-----------|----------|----------|-----------------------------------------------------|
-| A        | TASK-012  | [ACTIVE] | [!]      | Fix authentication bug causing login failures      |
-| B        | TASK-014  | [ACTIVE] | [*]      | Implement rate limiting for API endpoints          |
-| C        | TASK-006  | [DONE]   | -        | Review authentication code (completed 2025-10-16)  |
-| More     | —         | —        | —        | Display more matches (13 additional)               |
-| Search   | —         | —        | —        | Try different search terms                         |
-| Create   | —         | —        | —        | Create new task (/task:add)                        |
-| Show all | —         | —        | —        | See all pending tasks (interactive)                |
-| Skip     | —         | —        | —        | Exit without executing                             |
+| Option   | Task ID   | Value | Status   | Description                                     |
+|----------|-----------|-------|----------|--------------------------------------------------|
+| A        | TASK-102  | 8.0   | [READY]  | Fix 3 commands missing components (30 min)      |
+| B        | TASK-201  | 2.33  | [ACTIVE] | Build task value evaluation framework (60 min)  |
+| C        | TASK-101  | 1.25  | [READY]  | Apply interactive pattern to 35 commands (4hr)  |
+| More     | —         | —     | —        | Display more matches (15 additional)            |
+| Search   | —         | —     | —        | Try different search terms                      |
+| Create   | —         | —     | —        | Create new task (/task:add)                     |
+| Show all | —         | —     | —        | See all pending tasks (interactive)             |
+| Skip     | —         | —     | —        | Exit without executing                          |
 
 Your choice (A-C, More, Search, Create, Show all, or Skip): _
 ```
+
+**Value Column Meaning**:
+- Shows Impact/Effort ratio from tasks.md
+- Higher value = better ROI (fastest impact relative to effort)
+- Helps user make informed prioritization decisions
+- Reflects both relevance to search AND high-value work
 
 **Status Indicators**:
 - `[ACTIVE]` = pending/in-progress/blocked
@@ -888,14 +961,23 @@ Present implementation options with workflow guidance:
 - **Option C**: User reviews context files and continues independently
 - **Option D**: Task marked complete, context files preserved
 
-### STEP 10: Mark Task Complete (Optional)
+### STEP 10: Mark Task Complete (MANDATORY - DO IMMEDIATELY AFTER COMPLETION)
 
-**Execute this step when analysis/research is complete and user selects completion.**
+**⚠️ CRITICAL: This step is NOT optional. Mark tasks complete IMMEDIATELY after implementation finishes.**
+
+**Execute this step as soon as:**
+- Implementation/analysis/research is 100% complete
+- All tests/validations pass
+- No further work remains on this task
+- Documentation is updated
+- Code is committed (if applicable)
+
+**DO NOT leave tasks in `in-progress` state if work is done. This breaks task tracking.**
 
 1. **Check if task should be marked complete**:
-   - User selected option "C) Mark task complete" from handover menu
-   - OR `--complete` flag was provided in arguments
-   - OR agents completed all analysis and no further work needed
+   - Work is finished and verified complete
+   - `--complete` flag is provided in arguments
+   - OR after handover menu selection completes the work
 
 2. **Update tasks.md** (master file):
    ```python
@@ -951,6 +1033,10 @@ Present implementation options with workflow guidance:
 # Interactive mode
 /task:execute
 
+# Interactive mode with value-based filtering
+/task:execute --value               # Show all tasks sorted by value
+/task:execute --priority=critical   # Show only CRITICAL-VALUE tasks
+
 # Direct mode (task IDs)
 /task:execute TASK-001
 /task:execute TASK-001 TASK-002 TASK-003
@@ -961,13 +1047,23 @@ Present implementation options with workflow guidance:
 # Status updates
 /task:execute TASK-001 --status=blocked --notes="Waiting for API key"
 /task:execute TASK-001 --complete --notes="Tests passing, PR created"
+
+# Value-aware filtering in direct mode
+/task:execute --priority=high       # Show only HIGH-VALUE tasks (Value 1.0-2.0)
+/task:execute --priority=critical   # Show CRITICAL-VALUE tasks (Value > 2.0) - BEST ROI
 ```
 
 **Key Features**:
-- Smart task search: Use freeform text instead of task IDs
-- Intelligent grouping: Detects related tasks automatically
-- Session-aware: Requires active named session for context routing
-- Seamless handover: Smooth transition to speckit or development workflows
+- **Value-Based Prioritization**: Tasks scored by Impact/Effort ratio (ROI) for intelligent prioritization
+- **Recommended First**: Shows highest-value ready task immediately in interactive mode
+- **Smart Task Search**: Use freeform text instead of task IDs, ranked by value + relevance
+- **Priority Filtering**: Filter tasks by CRITICAL/HIGH/MEDIUM/LOW value tiers with `--priority` flag
+- **Value Sorting**: Sort all tasks by Impact/Effort ratio with `--value` flag
+- **Dependency Awareness**: Blocks execution of tasks with unmet dependencies
+- **Intelligent grouping**: Detects related tasks automatically
+- **Session-aware**: Requires active named session for context routing
+- **Seamless handover**: Smooth transition to speckit or development workflows
+- **⚠️ Task Completion Discipline**: MANDATORY completion marking - `--complete` flag or STEP 10 closes tasks immediately after work finishes
 
 **Integration Points**:
 - Follows: `/task:add`, `/task:scan-project`, `/github:convert-issues-to-tasks`
@@ -1005,3 +1101,53 @@ Present implementation options with workflow guidance:
 - Reusable by `/task:execute` and `/task:search`
 - Supports ranking, filtering, pagination
 - Handles edge cases (empty files, corrupted data)
+
+## ⚠️ Task Completion Discipline (CRITICAL - Aligned with Global Standards)
+
+**This command enforces mandatory task completion marking per global CLAUDE.md standards.**
+
+### Non-Negotiable Rules
+
+1. **Mark tasks complete IMMEDIATELY after work finishes**
+   - Do NOT leave tasks in `in-progress` state when done
+   - Use `/task:execute TASK-XXX --complete` flag
+   - Or complete through STEP 10 of direct mode workflow
+
+2. **What "complete" means:**
+   - ✅ Implementation finished and tested
+   - ✅ All tests passing
+   - ✅ Documentation updated
+   - ✅ Code committed (if applicable)
+   - ✅ No further work remains on this task
+   - ✅ All blockers resolved
+
+3. **Why this is mandatory:**
+   - Prevents confusion about actual task status
+   - Enables accurate dependency tracking
+   - Keeps task list maintainable and current
+   - Critical for `/task:execute` prioritization
+   - Provides audit trail of completed work
+
+4. **Consequences of NOT marking complete:**
+   - Task list becomes inaccurate
+   - Dependencies cannot be properly tracked
+   - `/task:execute` shows false pending tasks
+   - Future work cannot properly estimate scope
+   - Team loses visibility into actual completion
+
+### Usage Pattern
+
+After implementation finishes:
+
+```bash
+# Option 1: Quick flag (one-liner)
+/task:execute TASK-102 --complete --notes="Tests passing, PR created"
+
+# Option 2: Full workflow (goes through STEP 10)
+/task:execute TASK-102
+# ... complete work ...
+# ... reaches handover menu ...
+# ... select to mark complete ...
+```
+
+**See also**: Global CLAUDE.md "Task Completion Discipline" section for full standards

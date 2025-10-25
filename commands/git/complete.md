@@ -28,6 +28,28 @@ allowed-tools: Bash, Read, Grep
 
 ---
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 ## VALIDATION & PREREQUISITES
 
 **Before executing, Claude Code MUST validate:**
@@ -58,6 +80,29 @@ else
   exit "❌ No uncommitted changes to commit"
 fi
 ```
+
+---
+
+## Workflow Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Create draft PR for review before marking ready | **← Recommended** for team collaboration |
+| **B** | Create ready PR immediately for merging | For simple hotfixes or confident changes |
+| **C** | Push branch only, skip PR creation | When branch is WIP or awaiting external input |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review created PR in browser | Check diff, CI status, and requested reviewers |
+| 2 | Merge PR or request changes | Approve and merge, or address review feedback |
+| 3 | Create next feature branch | Start work on next feature or bugfix |
+| 4 | Monitor deployment status | Ensure changes deployed successfully |
+
+What would you like to do next?
 
 ---
 

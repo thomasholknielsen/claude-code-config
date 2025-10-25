@@ -84,6 +84,28 @@ Create single or multiple grouped commits
 **IN SCOPE**: Conventional commit creation, type auto-detection from uncommitted files, pre-commit linting with auto-fix, batch commit grouping by type, commit message validation, scope extraction, amend support
 **OUT OF SCOPE**: Pushing to remote (use /git:push), PR creation (use /git:pr), branch management (use /git-flow:*), merge operations, git history rewriting beyond amend
 
+## Commit Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Single atomic commit | **← Recommended** for focused changes |
+| **B** | Batch logical commits | For multiple unrelated features/fixes grouped by type |
+| **C** | Amend last commit | Fix the previous commit instead of creating new one |
+| **D** | Review changes first | Use `git diff` to review before committing |
+
+Your choice (A/B/C/D)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Push to remote | Use `/git:push` to share commits with team |
+| 2 | Create pull request | Use `/git:pr "title"` for team review |
+| 3 | View commit details | Run `git log -1 --stat` to see what was committed |
+| 4 | Continue development | Start on next feature or task |
+
+What would you like to do next?
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% commit requirements, Accuracy >90% type detection, Relevance >85% conventional format, Efficiency <15s for typical commits)
@@ -91,6 +113,28 @@ Create single or multiple grouped commits
 ## Purpose
 
 Creates logical, atomic commits with intelligent message generation and quality validation.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 
@@ -200,6 +244,21 @@ Creates logical, atomic commits with intelligent message generation and quality 
 - Commit hashes and summaries
 - Files included in each commit
 - Guidance on next steps (push, PR creation, etc.)
+
+## Next Steps
+
+After creating your commit, here are recommended next actions:
+
+| Option | Action | Command |
+|--------|--------|---------|
+| A | Push to remote branch ← Recommended | `/git:push` |
+| B | Create pull request | `/git:pr "PR Title"` |
+| C | View commit details | `git log -1 --stat` |
+| D | Continue working | Go back to development |
+
+**Recommended workflow**: Push your commit with `/git:push`, then create a PR with `/git:pr` if ready for review.
+
+---
 
 ## Integration Points
 

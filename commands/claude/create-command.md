@@ -46,6 +46,157 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob, mcp__sequential-thinking__se
 
 Creates commands using expert design consultation, generates with smart defaults, and provides iterative refinement options for fast, high-quality command creation.
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+---
+
+## Quality Checklist for Commands
+
+**Every new command MUST meet these criteria before creation:**
+
+### Pre-Generation Checklist
+
+Before generating a command, the command-expert must validate:
+
+- [ ] **Purpose Clarity** (5 pts) - Clear, single-purpose responsibility (not overlapping with existing commands)
+- [ ] **Naming Convention** (5 pts) - Follows slash-command format: `/category:command-name` with lowercase
+- [ ] **Category Appropriate** (5 pts) - Placed in correct category (claude, docs, git, etc.)
+- [ ] **Tool Permissions** (10 pts) - Only requests necessary tools, no over-permissioning
+- [ ] **Documentation Complete** (15 pts) - Usage examples, process steps, expected outputs clear
+- [ ] **Interactive Pattern** (15 pts) - Includes User Feedback + Next Steps tables
+- [ ] **Error Handling** (10 pts) - Clear error messages and recovery paths
+- [ ] **Integration Ready** (10 pts) - Compatible with existing command ecosystem
+- [ ] **Atomic Design** (10 pts) - Single responsibility, composable with other commands
+- [ ] **No Placeholders** (5 pts) - No TODO, dummy data, or incomplete sections
+
+**Subtotal Pre-Generation: 90 points max**
+
+### Post-Generation Auto-Scoring (CARE Metrics)
+
+After command file is generated, calculate CARE score:
+
+- **Completeness** (25 pts): All required frontmatter, sections, examples present
+  - Full frontmatter (description, argument-hint, allowed-tools): +10
+  - Usage section with examples: +8
+  - Error handling documented: +7
+
+- **Accuracy** (25 pts): Content matches recommendations, no errors
+  - Frontmatter matches design brief: +10
+  - Examples are realistic and runnable: +10
+  - Tool permissions match design: +5
+
+- **Relevance** (25 pts): Solves actual user problem, adds value
+  - Purpose aligned with use case: +8
+  - No duplication with existing commands: +10
+  - Clear next-step guidance: +7
+
+- **Efficiency** (15 pts): Generation quality and usability
+  - Generated in <30 seconds: +5
+  - File is well-formatted: +5
+  - Interactive pattern quality: +5
+
+- **Voice Authenticity** (10 pts): User-centric, clear communication
+  - Clear, accessible language: +5
+  - Helpful tone and guidance: +5
+
+**Total Score: 100 points**
+
+### Quality Gates
+
+**Score Ranges**:
+- **85-100**: Excellent - Proceed to finalize
+- **75-84**: Good - Minor refinements recommended, can proceed
+- **60-74**: Fair - Refinements required before finalization
+- **Below 60**: Needs Work - Must iterate on design and regenerate
+
+### Scoring Display
+
+When presenting generation summary, include:
+
+```
+=== Quality Assessment ===
+
+CARE Score: 87/100 (Excellent)
+
+Breakdown:
+- Completeness: 23/25
+- Accuracy: 24/25
+- Relevance: 24/25
+- Efficiency: 12/15
+- Voice Authenticity: 10/10
+
+✓ Command meets quality standards
+✓ Ready for finalization
+```
+
+**For scores 60-84**:
+
+```
+=== Quality Assessment ===
+
+CARE Score: 72/100 (Fair - Refinements Recommended)
+
+Breakdown:
+- Completeness: 20/25 (missing error handling example)
+- Accuracy: 22/25 (example output needs clarification)
+- Relevance: 23/25 (purpose clear, integration could be stronger)
+- Efficiency: 12/15
+- Voice Authenticity: 9/10
+
+⚠️ Recommendations:
+1. Add comprehensive error handling examples
+2. Clarify example outputs
+3. Strengthen integration guidance
+
+Suggested Action: Edit and regenerate
+
+Proceed anyway? [Y/n]
+```
+
+**For scores below 60**:
+
+```
+=== Quality Assessment ===
+
+CARE Score: 48/100 (Needs Work)
+
+⚠️ This command does not meet quality standards.
+
+Critical Issues:
+- Missing required sections (completeness: 15/25)
+- Unclear purpose and overlap with existing commands (relevance: 10/25)
+- No error handling or examples (accuracy: 18/25)
+
+Recommended Actions:
+1. Return to design phase with command-expert
+2. Clarify purpose and differentiate from existing commands
+3. Add comprehensive documentation and examples
+4. Regenerate after improvements
+
+Abort and return to design? [Y/n]
+```
+
+---
+
 ## Usage
 
 ```bash
@@ -98,7 +249,19 @@ Creates commands using expert design consultation, generates with smart defaults
    - Include examples from expert recommendations
    - Write file: `commands/{category}/{command-name}.md`
 
-5. **Present Generation Summary**
+4.5. **Calculate CARE Score (NEW - Quality Assurance)**
+   - Auto-calculate CARE score (100 points max) based on:
+     - Completeness (25): frontmatter, sections, examples
+     - Accuracy (25): content matches design brief, realistic examples
+     - Relevance (25): solves user problem, no duplication, clear guidance
+     - Efficiency (15): generation quality, formatting
+     - Voice Authenticity (10): user-centric, clear communication
+   - Store score in command generation summary
+   - If score < 60: Flag for design review (see Quality Gates section)
+   - If score 60-84: Flag as "Fair - Refinements Recommended"
+   - If score >= 85: Flag as "Excellent - Ready to Finalize"
+
+5. **Present Generation Summary (WITH QUALITY SCORE)**
    Display what was created:
 
    ```
@@ -126,19 +289,62 @@ Creates commands using expert design consultation, generates with smart defaults
 
    **Uniqueness**: {validation-result}
 
+   === NEW: Quality Assessment ===
+
+   **CARE Score**: {score}/100 ({rating})
+
+   **Breakdown**:
+   - Completeness: {points}/25 (frontmatter, sections, examples)
+   - Accuracy: {points}/25 (content matches design, realistic examples)
+   - Relevance: {points}/25 (solves problem, no duplication)
+   - Efficiency: {points}/15 (generation quality, formatting)
+   - Voice Authenticity: {points}/10 (user-centric, clear communication)
+
+   **Status**: {Excellent | Good | Fair | Needs Work}
+   **Recommendation**: {Proceed to finalize | Refinements recommended | Return to design}
+
    ===
    ```
 
-6. **Offer Iteration Options**
+6. **Offer Iteration Options (Quality-Aware)**
 
+   Based on CARE score, present appropriate options:
+
+   **If CARE Score >= 85 (Excellent)**:
    ```
    What would you like to do?
    (E) Edit specifications and regenerate
    (R) Regenerate with current specs
-   (F) Finalize (update documentation and complete)
+   (F) Finalize (update documentation and complete) ← RECOMMENDED
    (C) Cancel and delete
 
    Choice [F]:
+   ```
+
+   **If CARE Score 60-84 (Good/Fair)**:
+   ```
+   What would you like to do?
+   (E) Edit specifications and refine (recommended)
+   (R) Regenerate with current specs
+   (F) Finalize anyway (update documentation and complete)
+   (C) Cancel and delete
+
+   ⚠️ Command scored {score}/100. Consider refinements before finalizing.
+
+   Choice [E]:
+   ```
+
+   **If CARE Score < 60 (Needs Work)**:
+   ```
+   ⚠️ Command scored {score}/100 (below quality threshold of 60).
+
+   Required Action: Return to design phase
+
+   (D) Return to design with command-expert (recommended)
+   (F) Force finalize anyway (not recommended)
+   (C) Cancel and delete
+
+   Choice [D]:
    ```
 
 7. **Handle User Choice**
@@ -571,6 +777,21 @@ Solution:
 2. Find appropriate category section
 3. Add entry following existing pattern
 ```
+
+## Next Steps
+
+After creating your command, here are recommended follow-up actions:
+
+| Option | Action | Command |
+|--------|--------|---------|
+| A | Test the new command ← Recommended | Restart Claude Code, then: `/{category}:{command-name} [args]` |
+| B | Create supporting agent if needed | `/claude:create-agent` |
+| C | Update documentation | `/docs:sync --scope=changes` |
+| D | Commit the new command | `/git:commit "feat: add {category}:{command-name} command"` |
+
+**Recommended workflow**: Restart Claude Code to register the new command, test it with the examples from the design brief, then commit with `/git:commit`.
+
+---
 
 ## Integration Points
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Task Schema Manager
 Handles parsing, extracting, and populating task.md sections
@@ -374,8 +374,8 @@ def extract_findings_from_agents(context_dir: str, agent_list: Optional[List[str
                 all_findings.append(f"\n--- {agent_name} ---\n")
                 all_findings.extend(findings)
 
-        except Exception:
-            # Skip files that can't be read
+        except (OSError, UnicodeDecodeError):
+            # Skip files that can't be read (permission denied, file not found, encoding errors)
             continue
 
     return "\n".join(all_findings)
@@ -397,7 +397,8 @@ def write_task_md(file_path: str, content: str) -> bool:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content)
         return True
-    except Exception:
+    except OSError:
+        # Handle file system errors (permission denied, disk full, path too long, etc.)
         return False
 
 

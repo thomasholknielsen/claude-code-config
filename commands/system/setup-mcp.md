@@ -35,6 +35,27 @@ allowed-tools: Read, Write, Bash(docker:*), Bash(npm:*), Bash(brew:*), Bash(whic
 
 **E**xpectation: MCP servers configured in ~/.claude.json, prerequisites verified (Docker running, Node.js installed, uv available), backup created (~/.claude.json.backup), configuration validated (JSON syntax), restart instructions provided, verification commands suggested
 
+## Setup Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Interactive wizard with recommended servers | **← Recommended** for guided setup |
+| **B** | Configure specific MCP servers only | When you know exactly which servers needed |
+| **C** | Manual configuration with validation | For advanced customization of settings |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Configure selected MCP servers | Add authentication and connection details |
+| 2 | Test server connections and access | Verify each server is working correctly |
+| 3 | Add additional servers if needed | Expand capabilities with more MCP services |
+| 4 | Save configuration and test commands | Verify setup with actual command usage |
+
+What would you like to do next?
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% server config, Accuracy >90% prerequisite checks, Relevance >85% instructions, Efficiency <60s typical setup)
@@ -42,6 +63,28 @@ allowed-tools: Read, Write, Bash(docker:*), Bash(npm:*), Bash(brew:*), Bash(whic
 ## Purpose
 
 Interactive wizard that guides users through setting up Model Context Protocol (MCP) servers in their `~/.claude.json` configuration with prerequisite checking and validation.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 

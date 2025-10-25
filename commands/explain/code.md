@@ -33,6 +33,27 @@ allowed-tools: Read, Grep, Glob, Task, mcp__sequential-thinking__sequentialthink
 
 **E**xpectation: Clear code explanation with context (problem solved, business logic, system relationships), implementation breakdown (algorithms, patterns, key variables, execution flow), quality assessment (readability, issues, trade-offs), concrete examples and usage scenarios, visual aids (flowcharts/diagrams when helpful), related code/documentation suggestions, depth-appropriate technical detail (brief/detailed/comprehensive)
 
+## Code Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Explain selected code section with context | **← Recommended** for focused understanding |
+| **B** | Explain entire module or file | For comprehensive module overview |
+| **C** | Explain interaction between components | For cross-component behavior analysis |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review code explanation with examples | Understand purpose, logic, and edge cases |
+| 2 | Check for potential bugs or improvements | Note security or performance issues |
+| 3 | Write tests for explained functionality | Validate behavior with test coverage |
+| 4 | Continue reading code or refactor | Improve implementation based on understanding |
+
+What would you like to do next?
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% code coverage, Accuracy >90% explanation correctness, Relevance >85% audience appropriateness, Efficiency <30s typical explanation)
@@ -45,6 +66,28 @@ allowed-tools: Read, Grep, Glob, Task, mcp__sequential-thinking__sequentialthink
 ## Purpose
 
 Provides clear code explanations with context-appropriate depth, helping understand functionality, purpose, and implementation details.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 
@@ -108,6 +151,39 @@ Provides clear code explanations with context-appropriate depth, helping underst
 **Multi-Level Analysis**: Simultaneously analyze code at different levels (syntax, logic, architecture) to provide comprehensive understanding.
 
 **Context Enrichment**: Run parallel analysis of related code, tests, and documentation to provide fuller context for explanations.
+
+## Error Handling
+
+**If target code cannot be found:**
+- Check file/function name spelling
+- Use Glob to search: `Glob("**/*.js")` for pattern matching
+- Verify path format matches project structure
+- If directory specified, examine all files within
+
+**If target is too large or complex:**
+- Reduce scope with `--focus` to specific aspect
+- Use `--depth=brief` for high-level overview
+- Combine with specific function/class names
+
+**If analysis cannot complete:**
+- Report partial findings with clear context boundaries
+- Explain what analysis succeeded vs. what couldn't be completed
+- Suggest alternative approaches (specific function instead of module, etc.)
+
+## Next Steps
+
+After understanding the code, consider these follow-up actions:
+
+| Option | Action | Command |
+|--------|--------|---------|
+| A | Refactor the code ← If improvements identified | `/explain:architecture [focus]` or `/task:add` |
+| B | Test the functionality | Write unit tests, run `npm test` |
+| C | Dive deeper into specific area | `/explain:code [function-name] --depth=comprehensive` |
+| D | Document findings | Update code comments or docs |
+
+**Recommended next step**: If you identified improvement opportunities, use `task:add` to track them.
+
+---
 
 ## Examples
 

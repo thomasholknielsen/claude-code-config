@@ -24,6 +24,39 @@ This file contains **project-agnostic** patterns and standards that apply across
 
 **Execution Pattern:** Analyze → Plan → Execute incrementally → Validate → Report completion
 
+### Continuous Execution Discipline
+
+**CRITICAL PRINCIPLE**: Never pause or stop between steps/phases unless the user explicitly requests it.
+
+**Core Rules:**
+- ✅ **Default to continuous execution**: Execute all steps through to completion without artificial pauses
+- ✅ **Only stop on explicit user request**: Pause only if user says "stop", "pause", "cancel", "skip", or similar
+- ✅ **No confirmation prompts between steps**: Don't create "Continue? [Y/n]" prompts between workflow steps
+- ✅ **Progress through phases seamlessly**: Move from analysis → planning → execution → validation without waiting
+- ✅ **Validation gates are exceptions**: Decision tables with user choices (selecting options) still require input
+
+**Why This Matters:**
+- Prevents workflow interruption and context loss
+- Maximizes productivity by eliminating unnecessary wait points
+- Keeps momentum through multi-step operations
+- Respects user time and attention
+
+**Examples:**
+- `/task:execute`: Progress from STEP 1 → STEP 10 without pausing between steps
+- `/speckit:implement`: Execute all implementation steps sequentially without "next step?" prompts
+- `/git:complete`: Commit → push → create PR seamlessly unless user explicitly cancels
+
+**Exception: User-Driven Decision Points:**
+- Decision tables with A/B/C options still require user selection (these are explicit choice points)
+- Critical validation gates that block unsafe operations still require confirmation
+- Error conditions that prevent continuation require user intervention
+
+**When to Stop Execution:**
+- User explicitly says: "stop", "wait", "pause", "cancel", "skip"
+- Non-recoverable error occurs (file not found, network error, permission denied)
+- Critical validation fails and no recovery option exists
+- User interrupts (Ctrl+C, etc.)
+
 ## Security & Quality Standards
 
 ### Critical Security Rules (NON-NEGOTIABLE)
@@ -110,10 +143,10 @@ All work maintains your full ownership and authenticity. Never modify git config
 
 **Every development session must:**
 
-1. Initialize session: `python {claude_config}/scripts/session/session_manager.py init [topic]`
-2. Get session ID: `python {claude_config}/scripts/session/session_manager.py current`
+1. Start session: `python {claude_config}/scripts/session/session_manager.py start <name> [topic]`
+2. Get current session: `python {claude_config}/scripts/session/session_manager.py current`
 3. Get context directory: `python {claude_config}/scripts/session/session_manager.py context_dir`
-4. Context structure: `{project}/.agent/context/{session-id}/{agent-name}.md`
+4. Context structure: `{project}/.agent/Session-{name}/context/{agent-name}.md`
 5. Update context files incrementally throughout session (main thread + ALL sub-agents)
 
 **Note:** `{claude_config}` = `~/.claude` (macOS/Linux) or `%USERPROFILE%\.claude` (Windows)
@@ -124,20 +157,20 @@ All work maintains your full ownership and authenticity. Never modify git config
 
 **ALL sub-agents are analysis-only** - they conduct comprehensive research and analysis but **DO NOT implement any changes**. Sub-agents:
 
-- ✅ **DO**: Analyze code, research best practices, identify issues, generate actionable task lists, persist lean findings to `.agent/context/{session-id}/{agent-name}.md` files
+- ✅ **DO**: Analyze code, research best practices, identify issues, generate actionable task lists, persist lean findings to `.agent/Session-{name}/context/{agent-name}.md` files
 - ❌ **DO NOT**: Modify code files, create new files, execute implementations, make any changes to the codebase
 
 **Main Thread Responsibilities:**
 
 - Invoke sub-agents for analysis and recommendations
 - **MUST implement** all recommended changes from sub-agent analysis
-- Read sub-agent context files before continuing work (`.agent/context/{session-id}/{agent-name}.md`)
+- Read sub-agent context files before continuing work (`.agent/Session-{name}/context/{agent-name}.md`)
 - **Update context file Main Thread Log** after completing implementation with what was done, deferred, or modified
 
 **Sub-Agent Requirements (ALL AGENTS MUST):**
 
 - Conduct comprehensive analysis within isolated context
-- Check if context file exists: `.agent/context/{session-id}/{agent-name}.md`
+- Check if context file exists: `.agent/Session-{name}/context/{agent-name}.md`
 - If exists: Read, update incrementally (add new findings, mark obsolete with ~~strikethrough~~, increment iteration)
 - If new: Create lean structure with Objective, Analysis, Actionable Tasks (Critical/Important/Enhancements), Main Thread Log
 - Keep context quickly scannable - focus on actionable tasks, not verbose explanations
@@ -146,7 +179,7 @@ All work maintains your full ownership and authenticity. Never modify git config
 
 ### Context File Structure
 
-**Directory**: `{project}/.agent/context/{session-id}/`
+**Directory**: `{project}/.agent/Session-{name}/context/`
 **Files**:
 
 - `session.md` - Session metadata, agents invoked, overall summary
