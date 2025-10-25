@@ -68,6 +68,15 @@
       "terminals": [
         "claude-33692-1000-1761416062"
       ]
+    },
+    "command-recommendations": {
+      "topic": "Review slash command usage in CLAUDE.md and command cross-references",
+      "started": "2025-10-25T23:08:19",
+      "status": "active",
+      "terminals": [
+        "claude-26524-1000-1761426499",
+        "claude-29692-1000-1761426521"
+      ]
     }
   }
 }
