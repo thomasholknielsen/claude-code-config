@@ -155,7 +155,7 @@ Subagents follow this pattern:
 
 ```python
 # 1. Read existing context
-context_file = f".agent/Session-{name}/context/{session_id}/{agent_name}.md"
+context_file = f".agent/Session-{name}/context/{agent_name}.md"
 
 # 2. Check what changed
 # - New files analyzed?
