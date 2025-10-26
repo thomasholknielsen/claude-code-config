@@ -325,7 +325,7 @@ Persist comprehensive security assessment to the path provided in your prompt us
 
 **Immediate Actions Required**: {top 3 fixes}
 
-**Full Assessment**: `.agent/context/security-assessment-{timestamp}.md`
+**Full Assessment**: `.agent/Session-{name}/context/security-assessment-{timestamp}.md`
 ```
 
 ### To Artifact File (Comprehensive)

@@ -171,7 +171,7 @@ Results:
 **Execution Pattern:**
 1. Spawn analysts in parallel (using Task tool)
 2. Wait for all to complete
-3. Read `.agent/context/{session-id}/{analyst-name}.md` files
+3. Read `.agent/Session-{name}/context/{analyst-name}.md` files
 4. Consolidate findings and prioritize by severity
 5. Execute recommended changes (main thread responsibility)
 

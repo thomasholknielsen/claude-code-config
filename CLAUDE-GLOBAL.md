@@ -209,7 +209,7 @@ All work maintains your full ownership and authenticity. Never modify git config
 ### Context Management Pattern
 
 **Problem**: Verbose research output creates context pollution
-**Solution**: Subagents conduct comprehensive research, persist to `.agent/context/`, return focused summaries
+**Solution**: Subagents conduct comprehensive research, persist to `.agent/Session-{name}/context/`, return focused summaries
 
 Use subagents for extensive research work, keep main thread clean for implementation.
 

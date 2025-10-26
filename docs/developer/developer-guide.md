@@ -15,7 +15,7 @@ graph TB
         Scripts[scripts/]
 
         subgraph "Domain Analyst Framework"
-            DomainAnalysts[45 Domain Analysts<br/>across 13 domains]
+            DomainAnalysts[45 Domain Analysts<br/>across 14 domainsacross 13 domains]
         end
 
         subgraph "Commands"
@@ -48,7 +48,7 @@ graph TB
 
 ## Domain Analyst Framework
 
-The system includes 44 domain-specialized analysts organized across 12 domains, providing comprehensive research and analysis capabilities:
+The system includes 45 domain-specialized analysts organized across 14 domains, providing comprehensive research and analysis capabilities:
 
 ### Domain Analyst Categories
 
@@ -60,7 +60,10 @@ The system includes 44 domain-specialized analysts organized across 12 domains, 
 - **Mobile** (3): React Native, Flutter, and iOS/Swift specialists
 - **Documentation** (2): User documentation and Docusaurus specialists
 - **UI/UX** (2): User interface and CLI interface specialists
-- **Standalone** (9): Architecture, security, performance, testing, refactoring, debugging, SEO, product roadmap, and prompt engineering
+- **Visualization** (1): Mermaid diagram specialists
+- **Compliance** (1): GDPR/CCPA/LGPD compliance specialists
+- **Standalone** (8): Architecture, security, performance, testing, refactoring, debugging, SEO, and product roadmap
+- **Engineering** (1): Prompt engineering specialists
 - **Research** (2): Codebase research and web research specialists
 - **Meta** (3): Agent design, command design, and Git-Flow specialists
 
@@ -68,7 +71,7 @@ The system includes 44 domain-specialized analysts organized across 12 domains, 
 
 - **Advisory-Only**: Analysts conduct research and analysis, returning actionable findings
 - **Parallel Execution**: Main thread can invoke multiple analysts concurrently
-- **Context Persistence**: Analysts persist findings to `.agent/context/{session-id}/{agent-name}.md`
+- **Context Persistence**: Analysts persist findings to `.agent/Session-{name}/context/{agent-name}.md`
 - **Recommendation Focused**: Provide strategic guidance without implementing changes
 - **Domain Expertise**: Each analyst specializes in their domain for deep analysis
 

@@ -32,7 +32,7 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob, mcp__sequential-thinking__se
 
 ### APE Framework (General Purpose)
 
-**A**ction: Create slash commands via command-expert consultation with generate-first workflow (auto-generate → present summary → iterate → finalize), read design brief from context (.agent/context/{session-id}/command-expert.md), select template (atomic vs workflow), fill template, update docs/command-decision-guide.md
+**A**ction: Create slash commands via command-expert consultation with generate-first workflow (auto-generate → present summary → iterate → finalize), read design brief from context (.agent/Session-{name}/context/command-expert.md), select template (atomic vs workflow), fill template, update docs/command-decision-guide.md
 
 **P**urpose: Enable rapid high-quality command creation with expert recommendations as smart defaults, enforce command uniqueness validation across all categories, support atomic vs workflow type selection, reduce upfront decision fatigue through show-don't-ask pattern, maintain template compliance
 
@@ -761,7 +761,7 @@ Solution:
 Error: Failed to generate command file.
 
 Solution:
-1. Check design brief in .agent/context/{session-id}/command-expert.md
+1. Check design brief in .agent/Session-{name}/context/command-expert.md
 2. Verify template is valid
 3. Check file permissions for commands/ directory
 4. Try regenerating with (R) option

@@ -50,7 +50,7 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
 - `research-codebase-analyst` - Comprehensive sequential codebase research across domains
 - `research-web-analyst` - Advanced web research and multi-source verification
 
-**Domain Analysts** (45 total across 13 domains):
+**Domain Analysts** (45 total across 14 domains):
 
 - **API**: api-rest-analyst, api-graphql-analyst, api-docs-analyst
 - **Database**: database-analyst, database-sql-analyst, database-nosql-analyst, database-architecture-analyst
@@ -60,11 +60,13 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
 - **Mobile**: mobile-react-native-analyst, mobile-flutter-analyst, mobile-ios-swift-analyst
 - **Documentation**: docs-analyst, docs-docusaurus-analyst
 - **UI/UX**: ui-ux-analyst, ui-ux-cli-analyst
+- **Visualization**: mermaid-analyst
 - **Compliance**: compliance-analyst
-- **Standalone**: architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst, prompt-analyst
+- **Standalone**: architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst
+- **Engineering**: prompt-analyst
 - **Meta**: agent-expert, command-expert, git-flow-analyst
 
-**Pattern**: Analysts conduct extensive research → persist to `.agent/context/{session-id}/{agent-name}.md` → return concise summaries
+**Pattern**: Analysts conduct extensive research → persist to `.agent/Session-{name}/context/{agent-name}.md` → return concise summaries
 
 ### Command Categories (12 total)
 

@@ -941,7 +941,7 @@ Main thread implements recommended optimizations:
 # Step 1: Analyze
 /workflows:run-optimization
 
-# Step 2: Review findings in .agent/context/
+# Step 2: Review findings in .agent/Session-{name}/context/
 # - Read performance-analysis-*.md
 # - Read database-analysis-*.md
 # - Read frontend-analysis-*.md

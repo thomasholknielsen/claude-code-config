@@ -124,7 +124,7 @@ The system includes three automatic hooks:
 
 ## Domain Analyst Framework
 
-The system uses **43 domain analysts** as advisory subagents. Only the main Claude Code thread can orchestrate parallel execution. Domain analysts conduct comprehensive research in their specialty, persist findings to `.agent/context/` files, and return concise summaries.
+The system uses **43 domain analysts** as advisory subagents. Only the main Claude Code thread can orchestrate parallel execution. Domain analysts conduct comprehensive research in their specialty, persist findings to `.agent/Session-{name}/context/` files, and return concise summaries.
 
 ### Analyst Organization (12 Domains)
 
@@ -141,7 +141,7 @@ The system uses **43 domain analysts** as advisory subagents. Only the main Clau
 - **Engineering** - prompt-analyst
 - **Meta** - agent-expert, command-expert, git-flow-analyst
 
-**Pattern**: Main thread invokes analysts → Analysts research → Persist to `.agent/context/{session-id}/{analyst-name}.md` → Return summary → Main thread implements
+**Pattern**: Main thread invokes analysts → Analysts research → Persist to `.agent/Session-{name}/context/{analyst-name}.md` → Return summary → Main thread implements
 
 For complete analyst details, see [Agent Specialist System](../concepts/agent-specialist-system.md)
 

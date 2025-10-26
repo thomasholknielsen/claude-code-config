@@ -1,6 +1,6 @@
 ---
 name: {domain}-analyst
-description: "MUST BE USED PROACTIVELY for {domain} - provides {specific insights} and {actionable recommendations}. This agent conducts comprehensive {domain} analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes code and persists findings to .agent/context/{domain}-*.md files. The main thread is responsible for executing recommended changes based on the analysis. Expect a concise summary with {key metrics}, {priorities}, and a reference to the full analysis artifact. Invoke when: {keywords}, {file patterns}, or {analysis contexts}."
+description: "MUST BE USED PROACTIVELY for {domain} - provides {specific insights} and {actionable recommendations}. This agent conducts comprehensive {domain} analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes code and persists findings to .agent/Session-{name}/context/{domain}-*.md files. The main thread is responsible for executing recommended changes based on the analysis. Expect a concise summary with {key metrics}, {priorities}, and a reference to the full analysis artifact. Invoke when: {keywords}, {file patterns}, or {analysis contexts}."
 color: green
 model: inherit  # Inherits from main thread; use opus + ultrathink only for complex reasoning tasks
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking

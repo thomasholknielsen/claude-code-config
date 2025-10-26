@@ -5,10 +5,10 @@ This directory stores session-based context files created by domain analysts dur
 ## File Pattern
 
 ```text
-.agent/context/{session-id}/{agent-name}.md
+.agent/Session-{name}/context/{agent-name}.md
 ```
 
-**Example**: `.agent/context/abc123/python-analyst.md`
+**Example**: `.agent/Session-{name}/context/abc123/python-analyst.md`
 
 ## Purpose
 

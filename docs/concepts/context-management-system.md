@@ -155,7 +155,7 @@ Subagents follow this pattern:
 
 ```python
 # 1. Read existing context
-context_file = f".agent/context/{session_id}/{agent_name}.md"
+context_file = f".agent/Session-{name}/context/{session_id}/{agent_name}.md"
 
 # 2. Check what changed
 # - New files analyzed?
@@ -235,7 +235,7 @@ context_file = f".agent/context/{session_id}/{agent_name}.md"
 
 **Updates** (for incremental): {Updated sections | New findings}
 
-**See**: `.agent/context/{session-id}/{agent-name}.md`
+**See**: `.agent/Session-{name}/context/{agent-name}.md`
 ```
 
 ## Main Thread Responsibilities
@@ -319,12 +319,12 @@ analyze the meaning of life from coding perspective using 2 subagents
 ```python
 # First invocation
 Task("python-analyst: Analyze codebase for PEP 8 compliance")
-# Creates: .agent/context/{session-id}/python-analyst.md
+# Creates: .agent/Session-{name}/context/python-analyst.md
 # Iteration: 1
 
 # Second invocation (after code changes)
 Task("python-analyst: Re-analyze after refactoring")
-# Updates: .agent/context/{session-id}/python-analyst.md
+# Updates: .agent/Session-{name}/context/python-analyst.md
 # Iteration: 2
 # - Adds new findings
 # - Marks old findings as resolved with ~~strikethrough~~
@@ -392,7 +392,7 @@ Every task includes:
 ```python
 # Workflow invokes analyst for research
 1. Invoke {domain}-analyst for analysis
-2. Read .agent/context/{session-id}/{domain}-analyst.md
+2. Read .agent/Session-{name}/context/{domain}-analyst.md
 3. Execute actionable tasks from context
 4. Update Main Thread Log with completion status
 5. Delegate to next command (daisy-chain)
@@ -406,12 +406,12 @@ Task("quality-analyst: Analyze code quality for feature/x")
 Task("security-analyst: Perform vulnerability assessment for feature/x")
 Task("testing-analyst: Assess test coverage for feature/x")
 
-# Each creates: .agent/context/{session-id}/{agent}-analyst.md
+# Each creates: .agent/Session-{name}/context/{agent}-analyst.md
 
 # Phase 2: Main Thread Synthesis
-Read(.agent/context/{session-id}/quality-analyst.md)
-Read(.agent/context/{session-id}/security-analyst.md)
-Read(.agent/context/{session-id}/testing-analyst.md)
+Read(.agent/Session-{name}/context/quality-analyst.md)
+Read(.agent/Session-{name}/context/security-analyst.md)
+Read(.agent/Session-{name}/context/testing-analyst.md)
 
 # Phase 3: Execute Tasks
 # Implement recommendations from all analysts
@@ -451,7 +451,7 @@ Read(.agent/context/{session-id}/testing-analyst.md)
 
 ### Backward Compatibility
 
-- Old `.agent/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` files remain untouched
+- Old `.agent/Session-{name}/context/{YYYY-MM-DD}-{topic}-{sessionid}.md` files remain untouched
 - New sessions automatically use new structure
 - No breaking changes to existing workflows
 - Session manager creates directories as needed
@@ -461,16 +461,16 @@ Read(.agent/context/{session-id}/testing-analyst.md)
 **Old System**:
 
 ```text
-.agent/context/2025-10-06-python-analysis-abc123.md
-.agent/context/2025-10-06-security-scan-abc123.md
+.agent/Session-{name}/context/2025-10-06-python-analysis-abc123.md
+.agent/Session-{name}/context/2025-10-06-security-scan-abc123.md
 ```
 
 **New System**:
 
 ```text
-.agent/context/abc123/python-analyst.md
-.agent/context/abc123/security-analyst.md
-.agent/context/abc123/session.md
+.agent/Session-{name}/context/abc123/python-analyst.md
+.agent/Session-{name}/context/abc123/security-analyst.md
+.agent/Session-{name}/context/abc123/session.md
 ```
 
 ## Troubleshooting

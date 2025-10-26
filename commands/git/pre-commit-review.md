@@ -36,7 +36,7 @@ allowed-tools: Task, Bash, Read, Grep
 3. ✓ Detect changed files: `git diff HEAD --name-only` or by scope
 4. ✓ Categorize files by type and determine applicable analysts
 5. ✓ Launch 8-20 analysts in parallel concurrently via Task tool
-6. ✓ Each analyst writes findings to `.agent/context/{session-id}/{analyst-name}.md`
+6. ✓ Each analyst writes findings to `.agent/Session-{name}/context/{analyst-name}.md`
 7. ✓ Consolidate findings, deduplicate overlaps, prioritize by severity
 8. ✓ Generate prioritized fix plan with execution order
 

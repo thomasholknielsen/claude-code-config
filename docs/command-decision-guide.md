@@ -244,7 +244,7 @@ Commands automatically detect repository mode:
 
 **Characteristics**:
 
-- Session context tracking in `.agent/context/{session-id}/`
+- Session context tracking in `.agent/Session-{name}/context/`
 - Topic-based organization
 - Optional archival of completed sessions
 

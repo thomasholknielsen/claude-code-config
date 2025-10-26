@@ -137,7 +137,7 @@ Task("code-typescript-analyst: Analyze TypeScript/JavaScript files and identify 
 Task("code-python-analyst: Analyze Python files for linting issues (ruff, black compliance)") # if Python detected
 Task("frontend-react-analyst: Analyze React-specific patterns and identify violations") # if React detected
 
-# Each analyst persists findings to .agent/context/{session-id}/ and returns recommendations
+# Each analyst persists findings to .agent/Session-{name}/context/ and returns recommendations
 
 # Phase 2: Parallel Implementation (Main thread executes multiple linters concurrently)
 # Single message with multiple concurrent operations for maximum performance:
@@ -187,7 +187,7 @@ Summary:
 ✓ 46 issues fixed automatically
 ⚠ 2 issues require manual intervention
 
-Remaining issues persisted to .agent/context/quality-analysis-*.md
+Remaining issues persisted to .agent/Session-{name}/context/quality-analysis-*.md
 ```
 
 ### Example 2: Documentation Repository

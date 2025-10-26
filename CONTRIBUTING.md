@@ -7,7 +7,7 @@ Code Command System! This document provides guidelines for contributing to this 
 
 The Claude Code Command System is built on the **Domain Analyst Framework** with:
 
-- **43 Domain Analysts**: Specialized analysts across 12 domains (API, Database, Frontend, Code Quality, Infrastructure, Mobile, Research, Documentation, UI/UX, Standalone, Engineering, Meta)
+- **45 Domain Analysts across 14 domains (API, Database, Frontend, Code Quality, Infrastructure, Mobile, Research, Documentation, UI/UX, Standalone, Engineering, Meta)
 - **48 Commands**: Atomic operations across 13 categories
 - **Cross-Platform Compatibility**: Windows, macOS, and Linux support
 - **MCP Integration**: Context7, Playwright, and 5 other MCP servers

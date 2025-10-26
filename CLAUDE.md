@@ -17,7 +17,7 @@
 User Request
     ↓
 Main Thread (parallelizes Task tools, runs slash commands sequentially)
-    ├─→ Domain Analysts (parallel research, persist to .agent/context/)
+    ├─→ Domain Analysts (parallel research, persist to .agent/Session-{name}/context/)
     ├─→ Slash Commands (orchestrate workflows, delegate to analysts)
     └─→ Direct Operations (file ops, bash commands, git via /git:*)
 ```
@@ -26,7 +26,7 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 - **Main Thread** → **Domain Analysts**: Spawns parallel analysis tasks, reads context files
 - **Slash Commands** → **Domain Analysts**: Delegates specialized analysis (series/parallel)
-- **Domain Analysts** → **Context Files**: Persists findings to `.agent/context/{session-id}/{agent-name}.md`
+- **Domain Analysts** → **Context Files**: Persists findings to `.agent/Session-{name}/context/{agent-name}.md`
 - **All Components** → **MCP Servers**: Access external tools (Context7, Playwright, Terraform, etc.)
 - **Git Operations**: Exclusively handled by `/git:*` and `/git-flow:*` commands
 
@@ -43,7 +43,7 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 
 **Parallel Research**: Main thread spawns multiple domain analysts concurrently, each analyzing different aspects (security + performance + quality). Analysts work in isolated contexts, cannot parallelize internally.
 
-**Context Persistence**: Every analyst MUST persist findings to `.agent/context/{session-id}/{agent-name}.md` (lean, actionable format). Incremental updates use strikethrough for obsolete items, increment iteration count.
+**Context Persistence**: Every analyst MUST persist findings to `.agent/Session-{name}/context/{agent-name}.md` (lean, actionable format). Incremental updates use strikethrough for obsolete items, increment iteration count.
 
 **Context Elision**: Analysts return concise summaries with task counts to main thread, keeping main context clean. Full analysis details remain in context files.
 
@@ -111,7 +111,7 @@ Main Thread (parallelizes Task tools, runs slash commands sequentially)
 | **Engineering** | prompt-analyst |
 | **Meta** | agent-expert, command-expert, git-flow-analyst |
 
-**Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/context/{session-id}/{agent-name}.md` → return concise summary with task counts
+**Pattern**: Conduct comprehensive research → persist lean, actionable findings to `.agent/Session-{name}/context/{agent-name}.md` → return concise summary with task counts
 
 **Total**: 45 agents (42 domain analysts + 3 meta agents: agent-expert, command-expert, git-flow-analyst)
 
