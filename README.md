@@ -200,7 +200,7 @@ See [Command Selection Guide](docs/user/command-selection-guide.md) for visual d
 ## 📁 System Structure
 
 ```text
-├── agents/                   # 45 Domain Analysts across 13 domains
+├── agents/                   # 45 Domain Analysts across 14 domains
 ├── commands/                 # 45 Commands across 12 categories
 │   ├── claude/              # Agent/command creation and guru
 │   ├── docs/                # Documentation management
