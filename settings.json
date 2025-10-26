@@ -155,7 +155,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "python -c \"import os; exec(open(os.path.expanduser('~/.claude/scripts/statusline/status-line.py')).read())\""
+    "command": "python -u C:\\Users\\thn\\.claude\\scripts\\statusline\\status-line.py"
   },
   "alwaysThinkingEnabled": false
 }
