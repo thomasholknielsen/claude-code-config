@@ -15,7 +15,7 @@ graph TB
         Scripts[scripts/]
 
         subgraph "Domain Analyst Framework"
-            DomainAnalysts[45 Domain Analysts<br/>across 14 domainsacross 13 domains]
+            DomainAnalysts[45 Domain Analysts<br/>across 14 domains]
         end
 
         subgraph "Commands"
