@@ -17,6 +17,17 @@ from typing import Optional, Dict, Any
 # Terminal capability detection
 def supports_unicode() -> bool:
     """Check if terminal supports Unicode rendering."""
+    # Check actual stdout encoding first (most reliable)
+    try:
+        encoding = sys.stdout.encoding or ''
+        if encoding.lower() in ('utf-8', 'utf8'):
+            return True
+        # Windows cp1252 (charmap) cannot render Unicode
+        if 'cp' in encoding.lower() or 'iso' in encoding.lower():
+            return False
+    except Exception:
+        pass
+
     # Windows default: NO Unicode support (most Windows terminals can't render emojis)
     if platform.system() == 'Windows':
         # Only enable for known modern terminals
@@ -378,7 +389,7 @@ def get_git_flow_status() -> str:
 
         # Format sync status as [STATUS:count]
         if ahead > 0 and behind > 0:
-            sync_info = f" [DIVERGED:{ahead}↑/{behind}↓]"
+            sync_info = f" [DIVERGED:{ahead}{EMOJI['git_ahead']}/{behind}{EMOJI['git_behind']}]"
         elif ahead > 0:
             sync_info = f" [AHEAD:{ahead}]"
         elif behind > 0:
@@ -453,11 +464,17 @@ def main() -> None:
         print(status_line)
 
     except Exception as e:
-        # Fallback display with full error message
+        # Fallback display with full error message (safe encoding)
         error_msg = str(e)
-        if len(error_msg) > 50:
-            error_msg = error_msg[:47] + "..."
-        print(f"\033[94m[Claude]\033[0m \033[93m{EMOJI['directory']} {Path.cwd().name}\033[0m {EMOJI['context']} \033[31m[Error: {error_msg}]\033[0m")
+        # Encode to ASCII with backslashreplace to avoid charmap errors
+        try:
+            error_msg_safe = error_msg.encode('ascii', 'backslashreplace').decode('ascii')
+        except Exception:
+            error_msg_safe = "Unknown error"
+
+        if len(error_msg_safe) > 50:
+            error_msg_safe = error_msg_safe[:47] + "..."
+        print(f"\033[94m[Claude]\033[0m \033[93m{EMOJI['directory']} {Path.cwd().name}\033[0m {EMOJI['context']} \033[31m[Error: {error_msg_safe}]\033[0m")
 
 
 if __name__ == "__main__":
