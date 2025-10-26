@@ -1,6 +1,6 @@
 ---
 name: ui-ux-cli-analyst
-description: "Use PROACTIVELY for CLI UI analysis - provides terminal interface design, CLI aesthetics, command-line UX patterns, and terminal-inspired web interfaces. This agent conducts comprehensive CLI UI analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes CLI interfaces and persists findings to .agent/context/{session-id}/ui-ux-cli-analyst.md files. Invoke when: keywords 'CLI', 'terminal', 'command-line interface', 'terminal UI', 'TUI'; CLI application files."
+description: "Use PROACTIVELY for CLI UI analysis - provides terminal interface design, CLI aesthetics, command-line UX patterns, and terminal-inspired web interfaces. This agent conducts comprehensive CLI UI analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes CLI interfaces and persists findings to .agent/Session-{name}/context/ui-ux-cli-analyst.md files. Invoke when: keywords 'CLI', 'terminal', 'command-line interface', 'terminal UI', 'TUI'; CLI application files."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: cyan

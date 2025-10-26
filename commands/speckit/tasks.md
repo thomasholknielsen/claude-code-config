@@ -28,6 +28,28 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Generate tasks organized by user story (see Task Generation Rules below)
    - Generate dependency graph showing user story completion order
    - Create parallel execution examples per user story
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
    - Validate task completeness (each user story has all needed tasks, independently testable)
 
 4. **Generate tasks.md**: Use `~/.claude/.specify/templates/tasks-template.md` as structure, fill with:

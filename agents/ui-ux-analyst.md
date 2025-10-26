@@ -1,6 +1,6 @@
 ---
 name: ui-ux-analyst
-description: "Use PROACTIVELY for UI/UX analysis - provides user-centered design, interface systems, wireframes, design systems, prototyping, and user experience optimization. This agent conducts comprehensive UI/UX analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes design and persists findings to .agent/context/{session-id}/ui-ux-analyst.md files. Invoke when: keywords 'UI', 'UX', 'design', 'user experience', 'interface', 'usability', 'design system'."
+description: "Use PROACTIVELY for UI/UX analysis - provides user-centered design, interface systems, wireframes, design systems, prototyping, and user experience optimization. This agent conducts comprehensive UI/UX analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes design and persists findings to .agent/Session-{name}/context/ui-ux-analyst.md files. Invoke when: keywords 'UI', 'UX', 'design', 'user experience', 'interface', 'usability', 'design system'."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__playwright__browser_navigate, mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_close, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: cyan

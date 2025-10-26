@@ -1,6 +1,6 @@
 ---
 name: product-roadmap-analyst
-description: "Use PROACTIVELY for product strategy analysis - provides product positioning, market analysis, feature prioritization, roadmap planning, and competitive intelligence. This agent conducts comprehensive product strategy analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes product strategy and persists findings to .agent/context/{session-id}/product-roadmap-analyst.md files. Invoke when: keywords 'product strategy', 'roadmap', 'feature prioritization', 'market analysis', 'competitive analysis'."
+description: "Use PROACTIVELY for product strategy analysis - provides product positioning, market analysis, feature prioritization, roadmap planning, and competitive intelligence. This agent conducts comprehensive product strategy analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes product strategy and persists findings to .agent/Session-{name}/context/product-roadmap-analyst.md files. Invoke when: keywords 'product strategy', 'roadmap', 'feature prioritization', 'market analysis', 'competitive analysis'."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

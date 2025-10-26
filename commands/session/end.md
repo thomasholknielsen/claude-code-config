@@ -47,6 +47,27 @@ Display confirmation with action taken
 
 ---
 
+## End Session Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Archive session for future reference | **← Recommended** for preserving analysis history |
+| **B** | Delete session completely | When session was temporary or exploratory |
+| **C** | Keep session active for later | For work-in-progress needing continuation |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review session findings and context | Summarize analysis and decisions made |
+| 2 | Archive session metadata if selected | Preserve for future reference or auditing |
+| 3 | Create final session summary report | Document outcomes and next steps |
+| 4 | Start new session or review archived | Continue work or begin new analysis |
+
+What would you like to do next?
+
 ## Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -64,6 +85,28 @@ Display confirmation with action taken
 ## Purpose
 
 Ends the current session by displaying session summary and providing interactive cleanup options. Supports three cleanup strategies: delete (atomic removal), archive (preserve for reference), or keep (mark completed).
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 

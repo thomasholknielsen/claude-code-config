@@ -37,6 +37,28 @@ Safely merge CLAUDE-GLOBAL.md (repository template) into user's global CLAUDE.md
 - **macOS/Linux**: `~/CLAUDE.md` → `/Users/{username}/CLAUDE.md` or `/home/{username}/CLAUDE.md`
 - **Windows**: `~/CLAUDE.md` → `C:\Users\{username}\CLAUDE.md` (via `Path.home()`)
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| **A** | Default workflow | **← Recommended** |
+| **B** | Alternative approach | For different use case |
+| **C** | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output/results | Check generated content |
+| 2 | Iterate or refine | Run command again with adjustments ← Recommended |
+| 3 | Continue workflow | Proceed to next step in your workflow |
+| 4 | Get help | Use `/claude:guru` for guidance |
+
+What would you like to do next?
+
+
 ## Usage
 
 ```

@@ -36,7 +36,7 @@ FOLLOW-UP TODOS:
 
 **Every analysis must leverage domain specialists with clear responsibility boundaries.**
 
-- Domain analysts conduct comprehensive research and persist findings to `.agent/context/{session-id}/{agent-name}.md`
+- Domain analysts conduct comprehensive research and persist findings to `.agent/Session-{name}/context/{agent-name}.md`
 - Analysts return concise summaries with task counts to minimize context pollution
 - Main thread coordinates parallel analyst invocation for optimal performance
 - No overlapping responsibilities between agents
@@ -70,7 +70,7 @@ FOLLOW-UP TODOS:
 **Every session must maintain structured context with incremental updates.**
 
 - All sessions initialized via `session_manager.py start <name> [topic]`
-- Context structure: `.agent/context/{session-id}/session.md` + `{agent-name}.md`
+- Context structure: `.agent/Session-{name}/context/session.md` + `{agent-name}.md`
 - Domain analysts MUST persist lean, actionable findings (not verbose analysis)
 - Main thread updates context file "Main Thread Log" after implementing recommendations
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Session Name Generator Utility
 Generates meaningful session name suggestions from freeform user input.

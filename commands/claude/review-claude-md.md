@@ -32,6 +32,28 @@ allowed-tools: Read, Write, Edit, Grep, Glob, Task, Bash(python:*), Bash(cp:*)
 
 Analyze CLAUDE.md files for documentation drift, verbosity, consistency, and quality issues, providing prioritized recommendations to improve clarity and reduce bloat.
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 ## Usage
 
 ```
@@ -110,7 +132,7 @@ Analyze CLAUDE.md files for documentation drift, verbosity, consistency, and qua
    - Present concise summary to user
    - Show before/after metrics (token count, issue count)
    - If `--output` specified, save detailed findings to file
-   - Reference context file: `.agent/context/{session-id}/docs-analyst.md`
+   - Reference context file: `.agent/Session-{name}/context/docs-analyst.md`
 
 ## Interactive Selection Format
 
@@ -150,7 +172,7 @@ Uses standard A/B/C/D table format for clarity and consistency:
   - **Necessity Focus**: Flag commentary, nice-to-have, non-essential info
   - **Consistency Validation**: Verify template alignment, naming, cross-references
   - **Completeness**: Check for missing commands, terminology, workflows
-- **Coordination**: Docs-analyst persists findings to `.agent/context/{session-id}/docs-analyst.md`, returns concise summary with recommendation counts by priority (Critical/High/Medium/Low)
+- **Coordination**: Docs-analyst persists findings to `.agent/Session-{name}/context/docs-analyst.md`, returns concise summary with recommendation counts by priority (Critical/High/Medium/Low)
 
 **Coordination Pattern**:
 
@@ -234,7 +256,7 @@ Your choice: _
 📊 Before: 3,200 tokens, 16 issues
 📊 After: 2,380 tokens, 6 issues (4 medium + 2 low)
 💾 Backup saved: .claude/CLAUDE.md.backup-20250114-143022
-📁 Context: .agent/context/{session-id}/docs-analyst.md
+📁 Context: .agent/Session-{name}/context/docs-analyst.md
 
 Remaining issues: 4 medium + 2 low priority (run command again to address)
 ```
@@ -248,7 +270,7 @@ Remaining issues: 4 medium + 2 low priority (run command again to address)
 → Reads .claude/CLAUDE.md
 → Invokes docs-analyst for analysis
 → Presents all recommendations with priorities
-→ Saves to .agent/context/{session-id}/docs-analyst.md
+→ Saves to .agent/Session-{name}/context/docs-analyst.md
 → Exits without prompting for fixes (user applies manually)
 
 Use case: When you want to review findings before deciding
@@ -458,7 +480,7 @@ Use case: When you want to review findings before deciding
 ## Output
 
 - **User Summary**: Concise findings with recommendation counts by priority
-- **Context File**: `.agent/context/{session-id}/docs-analyst.md` with detailed analysis
+- **Context File**: `.agent/Session-{name}/context/docs-analyst.md` with detailed analysis
 - **Optional File**: Detailed recommendations saved to specified path if `--output` provided
 - **Actionable Format**: Each recommendation includes:
   - Priority level (Critical/High/Medium/Low)

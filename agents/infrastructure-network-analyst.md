@@ -1,6 +1,6 @@
 ---
 name: infrastructure-network-analyst
-description: "Use PROACTIVELY for network infrastructure analysis - provides load balancer configuration, DNS resolution, SSL/TLS setup, CDN optimization, and network security. This agent conducts comprehensive network analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes network configuration and persists findings to .agent/context/{session-id}/infrastructure-network-analyst.md files. Invoke when: keywords 'load balancer', 'DNS', 'SSL', 'TLS', 'CDN', 'network security', 'firewall'."
+description: "Use PROACTIVELY for network infrastructure analysis - provides load balancer configuration, DNS resolution, SSL/TLS setup, CDN optimization, and network security. This agent conducts comprehensive network analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes network configuration and persists findings to .agent/Session-{name}/context/infrastructure-network-analyst.md files. Invoke when: keywords 'load balancer', 'DNS', 'SSL', 'TLS', 'CDN', 'network security', 'firewall'."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__terraform__get_latest_provider_version, mcp__terraform__get_latest_module_version, mcp__terraform__get_provider_details, mcp__terraform__get_module_details, mcp__terraform__search_providers, mcp__terraform__search_modules, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

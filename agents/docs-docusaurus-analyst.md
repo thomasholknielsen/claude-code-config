@@ -1,6 +1,6 @@
 ---
 name: docs-docusaurus-analyst
-description: "Use PROACTIVELY for Docusaurus analysis - provides Docusaurus site configuration, content management, theming, versioning, and deployment. This agent conducts comprehensive Docusaurus analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes Docusaurus setup and persists findings to .agent/context/{session-id}/docs-docusaurus-analyst.md files. Invoke when: keywords 'Docusaurus', 'docs site', 'documentation site'; files docusaurus.config.js, sidebars.js."
+description: "Use PROACTIVELY for Docusaurus analysis - provides Docusaurus site configuration, content management, theming, versioning, and deployment. This agent conducts comprehensive Docusaurus analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes Docusaurus setup and persists findings to .agent/Session-{name}/context/docs-docusaurus-analyst.md files. Invoke when: keywords 'Docusaurus', 'docs site', 'documentation site'; files docusaurus.config.js, sidebars.js."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__fetch__fetch, mcp__markitdown__convert_to_markdown, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

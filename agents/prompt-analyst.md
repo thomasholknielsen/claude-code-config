@@ -1,6 +1,6 @@
 ---
 name: prompt-analyst
-description: "Use PROACTIVELY for prompt engineering analysis - provides LLM prompt optimization, system prompt design, prompt patterns, and AI feature development. This agent conducts comprehensive prompt analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes prompts and persists findings to .agent/context/{session-id}/prompt-analyst.md files. Invoke when: keywords 'prompt', 'LLM', 'AI feature', 'system prompt', 'prompt engineering'."
+description: "Use PROACTIVELY for prompt engineering analysis - provides LLM prompt optimization, system prompt design, prompt patterns, and AI feature development. This agent conducts comprehensive prompt analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes prompts and persists findings to .agent/Session-{name}/context/prompt-analyst.md files. Invoke when: keywords 'prompt', 'LLM', 'AI feature', 'system prompt', 'prompt engineering'."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

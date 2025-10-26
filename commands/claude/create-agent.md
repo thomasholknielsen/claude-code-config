@@ -32,7 +32,7 @@ allowed-tools: Read, Write, Edit, Bash, mcp__sequential-thinking__sequentialthin
 
 ### APE Framework (General Purpose)
 
-**A**ction: Create domain analyst agents via agent-expert consultation with generate-first workflow (auto-generate → present summary → iterate → finalize), read design brief from context (.agent/context/{session-id}/agent-expert.md), fill agent-domain-specialist.md template, update CLAUDE.md Domain Analyst Framework section
+**A**ction: Create domain analyst agents via agent-expert consultation with generate-first workflow (auto-generate → present summary → iterate → finalize), read design brief from context (.agent/Session-{name}/context/agent-expert.md), fill agent-domain-specialist.md template, update CLAUDE.md Domain Analyst Framework section
 
 **P**urpose: Enable rapid high-quality agent creation with expert recommendations as smart defaults, reduce upfront decision fatigue through show-don't-ask pattern, support iterative refinement (edit specs/regenerate/cancel), enforce domain uniqueness validation, maintain template compliance
 
@@ -45,6 +45,28 @@ allowed-tools: Read, Write, Edit, Bash, mcp__sequential-thinking__sequentialthin
 ## Purpose
 
 Creates agents using expert design consultation, generates with smart defaults, and provides iterative refinement options for fast, high-quality agent creation.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 
@@ -510,7 +532,7 @@ Solution:
 Error: Failed to generate agent file.
 
 Solution:
-1. Check design brief in .agent/context/{session-id}/agent-expert.md
+1. Check design brief in .agent/Session-{name}/context/agent-expert.md
 2. Verify template is valid
 3. Check file permissions for agents/ directory
 4. Try regenerating with (R) option

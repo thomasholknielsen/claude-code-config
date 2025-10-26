@@ -5,10 +5,10 @@ This directory stores session-based context files created by domain analysts dur
 ## File Pattern
 
 ```text
-.agent/context/{session-id}/{agent-name}.md
+.agent/Session-{name}/context/{agent-name}.md
 ```
 
-**Example**: `.agent/context/abc123/python-analyst.md`
+**Example**: `.agent/Session-{name}/context/abc123/python-analyst.md`
 
 ## Purpose
 
@@ -62,4 +62,4 @@ All 16 domain analysts persist findings here:
 - security-analyst, performance-analyst, testing-analyst, accessibility-analyst
 - documentation-analyst, database-analyst, frontend-analyst, shadcn-analyst
 
-Agents obtain session ID via: `python3 ~/.claude/scripts/session/session_manager.py current`
+Agents obtain session ID via: `python ~/.claude/scripts/session/session_manager.py current`

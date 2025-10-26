@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Session Manager for Claude Code
 Cross-platform session ID generation and management with context directory support

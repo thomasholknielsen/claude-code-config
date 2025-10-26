@@ -1,6 +1,6 @@
 ---
 name: infrastructure-terraform-analyst
-description: "Use PROACTIVELY for Terraform IaC analysis - provides Terraform module design, state management, best practices, provider configuration, and workspace management. This agent conducts comprehensive Terraform analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes Terraform code and persists findings to .agent/context/{session-id}/infrastructure-terraform-analyst.md files. Invoke when: keywords 'Terraform', 'IaC', 'tf files', 'terraform state', 'modules'; files *.tf, terraform.tfvars."
+description: "Use PROACTIVELY for Terraform IaC analysis - provides Terraform module design, state management, best practices, provider configuration, and workspace management. This agent conducts comprehensive Terraform analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes Terraform code and persists findings to .agent/Session-{name}/context/infrastructure-terraform-analyst.md files. Invoke when: keywords 'Terraform', 'IaC', 'tf files', 'terraform state', 'modules'; files *.tf, terraform.tfvars."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__terraform__get_latest_provider_version, mcp__terraform__get_latest_module_version, mcp__terraform__get_provider_details, mcp__terraform__get_module_details, mcp__terraform__search_providers, mcp__terraform__search_modules, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

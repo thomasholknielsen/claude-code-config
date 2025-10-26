@@ -28,6 +28,28 @@ allowed-tools: Bash(git:*), Read, Edit, Write, mcp__sequential-thinking__sequent
 ---
 
 ## IMPLEMENTATION FLOW
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 
 ### Step 1: Parse Hotfix Name
 Extract and validate hotfix name
@@ -55,6 +77,27 @@ Push with -u flag
 **P**urpose: Support emergency production fixes with proper Git Flow workflow (main → hotfix → merge to main AND develop), enforce PATCH version bumps only, provide emergency workflow checklist, warn non-critical issues should use feature branches
 
 **E**xpectation: Hotfix branch created (hotfix/<name>) from production main, version suggestion provided (PATCH bump), emergency workflow checklist displayed, clear guidance for minimal changes only, dual merge reminder (main + develop)
+
+## Critical Emergency Confirmed?
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Confirm critical emergency | **← Recommended** |
+| **B** | Use regular feature branch | For non-critical fixes |
+| **C** | Review hotfix guidelines | Understand critical issue criteria |
+
+Your choice (A/B/C):
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| **1** | Reproduce and fix issue | Make minimal changes only |
+| **2** | Test thoroughly | Run full test suite: `npm test` |
+| **3** | Create emergency PR | Mark with `hotfix,critical` labels |
+| **4** | Deploy immediately | Production deployment required after merge |
+
+What would you like to do next?
 
 ## Quality Standards (CARE)
 

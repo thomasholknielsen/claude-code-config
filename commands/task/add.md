@@ -70,6 +70,17 @@ Append to tasks.md and report success
 /task:add "Refactor widget system" --priority=high
 ```
 
+## Next Steps Table
+
+| Option | Action | Command | Recommended |
+|--------|--------|---------|-------------|
+| **A** | Work on the newly created task | `/task:execute TASK-XXX` | ← Typical workflow |
+| **B** | Capture related tasks while ideas are fresh | `/task:add "related description"` | If dependencies identified |
+| **C** | Share with team on GitHub | `/github:create-issue-from-task TASK-XXX` | For team collaboration |
+| **D** | Review all pending tasks | `/task:execute` | To prioritize backlog |
+
+**What would you like to do next?**
+
 ## Quality Standards (CARE)
 
 **Target**: 90+ overall (Completeness >98% metadata fields, Inference Accuracy >85% dependencies/epic, Reasoning Clarity >90%, Efficiency <5s capture with smart inference)
@@ -79,6 +90,28 @@ Append to tasks.md and report success
 Captures adhoc work items and ideas with SMART METADATA INFERENCE into the unified task management system at `.agent/tasks.md`. Analyzes noisy input to automatically detect dependencies, epic assignments, priority, and categories.
 
 **⚠️ STRICT CONSTRAINT: This command MUST NOT implement, code, or execute any tasks. It only captures task descriptions with smart inference.**
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 

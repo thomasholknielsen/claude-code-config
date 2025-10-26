@@ -1,6 +1,6 @@
 ---
 name: mobile-flutter-analyst
-description: "Use PROACTIVELY for Flutter analysis - provides Flutter widget patterns, state management (Provider, Riverpod, Bloc), platform channels, and Dart optimization. This agent conducts comprehensive Flutter analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes Flutter code and persists findings to .agent/context/{session-id}/mobile-flutter-analyst.md files. Invoke when: keywords 'Flutter', 'Dart', 'widget', 'platform channel', 'Provider', 'Bloc'; files *.dart, pubspec.yaml."
+description: "Use PROACTIVELY for Flutter analysis - provides Flutter widget patterns, state management (Provider, Riverpod, Bloc), platform channels, and Dart optimization. This agent conducts comprehensive Flutter analysis and returns actionable recommendations. It does NOT implement changes - it only analyzes Flutter code and persists findings to .agent/Session-{name}/context/mobile-flutter-analyst.md files. Invoke when: keywords 'Flutter', 'Dart', 'widget', 'platform channel', 'Provider', 'Bloc'; files *.dart, pubspec.yaml."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

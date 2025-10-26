@@ -33,6 +33,27 @@ allowed-tools: Glob, Read, Grep, Bash, Task, mcp__sequential-thinking__sequentia
 
 **E**xpectation: Comprehensive architectural analysis with high-level system diagram, component map with responsibilities, key architectural decisions and trade-offs, data flow descriptions and interaction patterns, Mermaid diagrams (system architecture, component interaction, data flow, deployment), improvement recommendations, focus-specific deep-dives if requested (data-flow/modules/patterns/dependencies)
 
+## Analysis Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Analyze full application architecture from codebase | **← Recommended** for comprehensive understanding |
+| **B** | Focus on specific subsystem or component | For targeted analysis of one area |
+| **C** | Analyze patterns and dependencies only | For high-level overview without full structure |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Review generated architecture diagram | Understand components, layers, and dependencies |
+| 2 | Identify refactoring opportunities | Note anti-patterns or architectural issues |
+| 3 | Document architectural decisions | Create guide for future maintainers |
+| 4 | Continue analysis or refactor | Implement improvements based on findings |
+
+What would you like to do next?
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% component coverage, Accuracy >90% pattern identification, Relevance >85% actionable insights, Efficiency <60s typical analysis)
@@ -45,6 +66,28 @@ allowed-tools: Glob, Read, Grep, Bash, Task, mcp__sequential-thinking__sequentia
 ## Purpose
 
 Analyzes entire application to understand architecture, patterns, and how components work together, providing comprehensive system overview.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 

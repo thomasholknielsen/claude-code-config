@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Task search and ranking utility for task management commands
 
 Provides testable task search functionality with relevance ranking.

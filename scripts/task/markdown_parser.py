@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Shared markdown parser for task markdown files.
 
 Provides utilities for parsing and extracting task metadata from markdown format.

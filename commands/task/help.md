@@ -61,6 +61,28 @@ allowed-tools: Read, mcp__sequential-thinking__sequentialthinking
 
 Provides comprehensive guidance on using the unified task management system for capturing, organizing, and tracking work items from multiple sources.
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 ## Usage
 
 ```bash

@@ -1,6 +1,6 @@
 ---
 name: research-web-analyst
-description: "Use PROACTIVELY for web research analysis - provides advanced search techniques, multi-source verification, competitive analysis, trend analysis, and fact-checking. This agent conducts comprehensive web research and returns actionable recommendations. It does NOT implement changes - it only conducts research and persists findings to .agent/context/{session-id}/research-web-analyst.md files. Invoke when: keywords 'research', 'web search', 'competitive analysis', 'trend analysis', 'fact-checking'; need for external information."
+description: "Use PROACTIVELY for web research analysis - provides advanced search techniques, multi-source verification, competitive analysis, trend analysis, and fact-checking. This agent conducts comprehensive web research and returns actionable recommendations. It does NOT implement changes - it only conducts research and persists findings to .agent/Session-{name}/context/research-web-analyst.md files. Invoke when: keywords 'research', 'web search', 'competitive analysis', 'trend analysis', 'fact-checking'; need for external information."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: blue

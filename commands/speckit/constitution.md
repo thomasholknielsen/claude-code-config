@@ -28,6 +28,28 @@ Follow this execution flow:
      * MAJOR: Backward incompatible governance/principle removals or redefinitions.
      * MINOR: New principle/section added or materially expanded guidance.
      * PATCH: Clarifications, wording, typo fixes, non-semantic refinements.
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
    - If version bump type ambiguous, propose reasoning before finalizing.
 
 3. Draft the updated constitution content:

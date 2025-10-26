@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Task semantic matching module.
 
 Handles finding existing tasks that match keywords semantically.

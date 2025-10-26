@@ -1,6 +1,6 @@
 ---
 name: api-graphql-analyst
-description: "MUST BE USED for GraphQL API analysis - provides GraphQL schema design, resolver optimization, N+1 problem detection, federation patterns, subscription implementation, and GraphQL performance optimization. This agent conducts comprehensive GraphQL analysis (merged from graphql-architect + graphql-performance-optimizer) and returns actionable recommendations. It does NOT implement changes - it only analyzes GraphQL code and persists findings to .agent/context/{session-id}/api-graphql-analyst.md files. Invoke when: keywords 'GraphQL', 'schema', 'resolver', 'N+1', 'federation', 'subscription'; files *.graphql, resolver files."
+description: "MUST BE USED for GraphQL API analysis - provides GraphQL schema design, resolver optimization, N+1 problem detection, federation patterns, subscription implementation, and GraphQL performance optimization. This agent conducts comprehensive GraphQL analysis (merged from graphql-architect + graphql-performance-optimizer) and returns actionable recommendations. It does NOT implement changes - it only analyzes GraphQL code and persists findings to .agent/Session-{name}/context/api-graphql-analyst.md files. Invoke when: keywords 'GraphQL', 'schema', 'resolver', 'N+1', 'federation', 'subscription'; files *.graphql, resolver files."
 tools: Read, Grep, Glob, WebSearch, Bash, Edit, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__sequential-thinking__sequentialthinking
 model: inherit
 color: purple

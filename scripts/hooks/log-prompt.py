@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Cross-platform user prompt logging for Claude Code hooks.
 Logs all user prompts to daily rotating log files.

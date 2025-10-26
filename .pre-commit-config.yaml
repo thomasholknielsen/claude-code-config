@@ -82,7 +82,7 @@ repos:
 
 # Global configuration
 default_language_version:
-  python: python3
+  python: python
 
 # Performance settings
 default_stages: [pre-commit]

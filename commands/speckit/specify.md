@@ -28,6 +28,28 @@ Given that feature description, do this:
        Identify: actors, actions, data, constraints
     3. For unclear aspects:
        - Make informed guesses based on context and industry standards
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
        - Only mark with [NEEDS CLARIFICATION: specific question] if:
          - The choice significantly impacts feature scope or user experience
          - Multiple reasonable interpretations exist with different implications
@@ -206,3 +228,16 @@ Success criteria must be:
 - "Database can handle 1000 TPS" (implementation detail, use user-facing metric)
 - "React components render efficiently" (framework-specific)
 - "Redis cache hit rate above 80%" (technology-specific)
+
+## Next Steps
+
+Now that your specification is created, here's what you can do next:
+
+| # | Action | Command | When to Use |
+|---|--------|---------|------------|
+| 1 | **Review Quality Checklist** ← Recommended | `cat .specify/features/{FEATURE_NAME}/checklists/requirements.md` | Always - verify all quality items pass before proceeding |
+| 2 | Clarify Unclear Aspects | `/speckit:clarify {FEATURE_NAME}` | If any [NEEDS CLARIFICATION] markers remain |
+| 3 | Generate Implementation Plan | `/speckit:plan {FEATURE_NAME}` | When spec is validated and ready for architecture design |
+| 4 | Get Expert Feedback | `/speckit:review {FEATURE_NAME}` | Optional - before proceeding to implementation |
+
+**What would you like to do next?**

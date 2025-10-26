@@ -32,6 +32,27 @@ allowed-tools: Task, Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch, m
 
 **E**xpectation: Languages detected (file counts per type), parallel analyst analysis launched (3 max concurrently - recommendations only), main thread executes all linters concurrently (single message with multiple Bash/Edit calls), comprehensive report (auto-fixed counts by language, manual intervention required with file:line, TODO list if needed), exit code indicates success/failure, ready-to-commit status, substantial performance improvement vs sequential execution
 
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| **A** | Auto-fix all detected linting issues | **← Recommended** - Standard cleanup for maximum coverage |
+| **B** | Review changes before auto-fixing | For cautious validation of fixes before applying |
+| **C** | Fix only specific languages | When you want to target certain linters selectively |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review all detected lint issues | Run lint checks without auto-fix first |
+| 2 | Run build/test validation | Confirm fixes don't break functionality |
+| 3 | Commit corrected code | `/git:commit` to create checkpoint with improvements ← Recommended |
+| 4 | Continue development | Resume work or push changes to remote |
+
+What would you like to do next?
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% language coverage, Accuracy >90% auto-fix safety, Relevance >85% actionable reports, Efficiency varies by project size with substantial parallelization speedup)
@@ -116,7 +137,7 @@ Task("code-typescript-analyst: Analyze TypeScript/JavaScript files and identify 
 Task("code-python-analyst: Analyze Python files for linting issues (ruff, black compliance)") # if Python detected
 Task("frontend-react-analyst: Analyze React-specific patterns and identify violations") # if React detected
 
-# Each analyst persists findings to .agent/context/{session-id}/ and returns recommendations
+# Each analyst persists findings to .agent/Session-{name}/context/ and returns recommendations
 
 # Phase 2: Parallel Implementation (Main thread executes multiple linters concurrently)
 # Single message with multiple concurrent operations for maximum performance:
@@ -166,7 +187,7 @@ Summary:
 ✓ 46 issues fixed automatically
 ⚠ 2 issues require manual intervention
 
-Remaining issues persisted to .agent/context/quality-analysis-*.md
+Remaining issues persisted to .agent/Session-{name}/context/quality-analysis-*.md
 ```
 
 ### Example 2: Documentation Repository

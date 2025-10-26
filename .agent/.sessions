@@ -24,7 +24,16 @@
       "terminals": [
         "claude-70421",
         "claude-34288-1000-1761020347",
-        "claude-12088-1000-1761020491"
+        "claude-12088-1000-1761020491",
+        "claude-7404-1000-1761340966",
+        "claude-45904-1000-1761341234",
+        "claude-47704-1000-1761341251",
+        "claude-2012-1000-1761341284",
+        "claude-5848-1000-1761396819",
+        "claude-13320-1000-1761398592",
+        "claude-34372-1000-1761404491",
+        "claude-32296-1000-1761404542",
+        "claude-18764-1000-1761412583"
       ]
     },
     "pre-commit-review": {
@@ -42,6 +51,31 @@
       "status": "active",
       "terminals": [
         "claude-30866"
+      ]
+    },
+    "mermaid-analyst": {
+      "topic": "Mermaid Chart Analyst Agent",
+      "started": "2025-10-24T13:35:44",
+      "status": "active",
+      "terminals": [
+        "claude-32936-1000-1761305744"
+      ]
+    },
+    "docs-audit": {
+      "topic": "Documentation audit against current codebase",
+      "started": "2025-10-25T20:14:23",
+      "status": "active",
+      "terminals": [
+        "claude-33692-1000-1761416062"
+      ]
+    },
+    "command-recommendations": {
+      "topic": "Review slash command usage in CLAUDE.md and command cross-references",
+      "started": "2025-10-25T23:08:19",
+      "status": "active",
+      "terminals": [
+        "claude-26524-1000-1761426499",
+        "claude-29692-1000-1761426521"
       ]
     }
   }

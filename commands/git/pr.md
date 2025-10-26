@@ -43,6 +43,31 @@ Do NOT just describe what should happen - actively create the pull request NOW u
 
 ---
 
+## Your Choice
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Create ready PR (standard workflow) | **← Recommended** |
+| **B** | Create draft PR | For WIP or early feedback before formal review |
+| **C** | Override auto-detected base branch | For non-standard merge targets |
+
+Your choice (A/B/C):
+
+---
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| **1** | Check PR status | Visit the PR URL to monitor CI/tests and build status |
+| **2** | Add reviewers (if needed) | `gh pr edit <pr-number> --add-reviewer alice,bob` |
+| **3** | Address feedback | Respond to review comments and make requested changes |
+| **4** | Merge when ready | Merge after approval and checks pass: `git merge <branch>` |
+
+**What would you like to do next?**
+
+---
+
 ## IMPLEMENTATION FLOW
 
 ### Step 1: Detect Workflow Mode
@@ -79,6 +104,28 @@ Execute gh pr create with title/description
 ## Purpose
 
 Creates pull requests with auto-generated descriptions and returns the PR URL for immediate access.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 

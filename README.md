@@ -1,6 +1,6 @@
 # Claude Code Command System
 
-A comprehensive development automation system built on the **Agent Specialist Framework** that
+A comprehensive development automation system built on the **Domain Analyst Framework** that
 transforms Claude Code into a powerful, coordinated development environment.
 
 ## 🎨 Professional Output Styles
@@ -50,7 +50,7 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
 - `research-codebase-analyst` - Comprehensive sequential codebase research across domains
 - `research-web-analyst` - Advanced web research and multi-source verification
 
-**Domain Analysts** (43 total across 12 domains):
+**Domain Analysts** (45 total across 14 domains):
 
 - **API**: api-rest-analyst, api-graphql-analyst, api-docs-analyst
 - **Database**: database-analyst, database-sql-analyst, database-nosql-analyst, database-architecture-analyst
@@ -60,25 +60,28 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
 - **Mobile**: mobile-react-native-analyst, mobile-flutter-analyst, mobile-ios-swift-analyst
 - **Documentation**: docs-analyst, docs-docusaurus-analyst
 - **UI/UX**: ui-ux-analyst, ui-ux-cli-analyst
-- **Standalone**: architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst, prompt-analyst
+- **Visualization**: mermaid-analyst
+- **Compliance**: compliance-analyst
+- **Standalone**: architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst
+- **Engineering**: prompt-analyst
 - **Meta**: agent-expert, command-expert, git-flow-analyst
 
-**Pattern**: Analysts conduct extensive research → persist to `.agent/context/{session-id}/{agent-name}.md` → return concise summaries
+**Pattern**: Analysts conduct extensive research → persist to `.agent/Session-{name}/context/{agent-name}.md` → return concise summaries
 
-### Command Categories
+### Command Categories (12 total)
 
-- **`/workflows/*`** - Orchestrate parallel analyst execution for comprehensive analysis
-- **`/git/*`** - Complete Git operation toolset (only /git/* commands can perform git operations)
-- **`/speckit/*`** - Feature development workflow automation
+- **`/claude/*`** - Agent/command creation and system guidance
 - **`/docs/*`** - Documentation generation and maintenance
-- **`/clean/*`** - Code cleanup and formatting automation
-- **`/to-do/*`** - TODO management and tracking
-- **`/refactor/*`** - Code improvement (apply + large-scale)
 - **`/explain/*`** - Code and architecture explanation
-- **`/fix/*`** - Bug fixes and issue resolution
-- **`/implement/*`** - Feature implementation workflows
-- **`/review/*`** - Intelligent code review orchestrator
-- **`/utility/*`** - Utility commands (save artifacts, prompts, creation tools)
+- **`/git/*`** - Complete Git operation toolset (only /git/* commands can perform git operations)
+- **`/git-flow/*`** - Git-Flow workflow commands (feature, release, hotfix)
+- **`/github/*`** - GitHub issue integration and task conversion
+- **`/lint/*`** - Linting and formatting automation
+- **`/prompt/*`** - Prompt engineering and enhancement
+- **`/session/*`** - Session management and tracking
+- **`/speckit/*`** - Feature development workflow automation
+- **`/system/*`** - System utilities and setup
+- **`/task/*`** - Task management and execution
 
 ## 📚 Documentation
 
@@ -101,16 +104,9 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
   - [Hooks System](docs/developer/hooks-system.md) - Cross-platform automation guide
   - [Developer Workflows](docs/developer/developer-workflows.md) - Advanced development patterns
 
-### For Administrators
-
-- **[Admin Documentation](docs/admin/)** - System administration and monitoring
-  - [Command Audit Report](docs/admin/command-audit-report.md) - System analysis and compliance
-  - [Implementation Summary](docs/admin/implementation-summary.md) - Technical implementation details
-
 ### Concepts and Architecture
 
 - **[Conceptual Documentation](docs/concepts/)** - Deep architecture insights
-  - [Agent Specialist Framework](docs/concepts/agent-specialist-framework.md) - Specialist agent coordination
   - [Spec-Kit Workflow](docs/concepts/speckit-workflow.md) - Feature development process
   - [Parallel Execution Patterns](docs/concepts/parallel-execution-patterns.md) - Performance optimization
 
@@ -153,27 +149,25 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
 **Git & Version Control:**
 
 ```bash
-/workflows:git "description"       # Complete workflow: review → lint → commit → PR
 /git:commit "message"              # Smart commit with validation
+/git:complete branch-name          # Feature branch: commit, push, PR
 /git:pr "title"                    # Create pull request
 /git:worktree feature-name         # Parallel development
 ```
 
-**Code Quality & Review:**
+**Code Quality & Linting:**
 
 ```bash
-/workflows:run-comprehensive-review  # Multi-perspective code review
-/workflows:run-security-audit        # Security-focused audit
-/lint:correct-all                    # Fix all linting issues
-/workflows:run-refactor-workflow     # Refactoring analysis
+/lint:correct-all                  # Fix all linting issues
+/git-flow:status                   # Check Git-Flow branch status
 ```
 
 **Feature Development:**
 
 ```bash
-/speckit:specify "feature"        # Create feature spec
-/speckit:plan                     # Generate implementation plan
-/speckit:implement                # Execute implementation
+/speckit:specify "feature"         # Create feature spec
+/speckit:plan                      # Generate implementation plan
+/speckit:implement                 # Execute implementation
 ```
 
 **Code Understanding:**
@@ -181,21 +175,21 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
 ```bash
 /explain:code path/to/file         # Explain specific code
 /explain:architecture              # Explain system architecture
-/system:find-comments              # Find TODOs and issues
+/claude:guru                       # Get context-aware command suggestions
 ```
 
 **Documentation:**
 
 ```bash
-/workflows:docs                    # Complete documentation workflow
-/docs:changelog                    # Manage CHANGELOG.md
+/docs:sync                         # Sync docs to match code changes
+/docs:changelog version            # Manage CHANGELOG.md
 ```
 
-**System & Setup:**
+**Task Management:**
 
 ```bash
-/claude:guru                       # Get personalized guidance & suggestions
-/system:setup-mcp                  # Setup MCP servers
+/task:execute TASK-XXX             # Execute specific task
+/task:search "keyword"             # Search tasks
 /session:start topic               # Start work session
 ```
 
@@ -206,8 +200,8 @@ See [Command Selection Guide](docs/user/command-selection-guide.md) for visual d
 ## 📁 System Structure
 
 ```text
-├── agents/                   # 43 Domain Analysts across 12 domains
-├── commands/                 # 48 Commands across 13 categories
+├── agents/                   # 45 Domain Analysts across 14 domains
+├── commands/                 # 45 Commands across 12 categories
 │   ├── claude/              # Agent/command creation and guru
 │   ├── docs/                # Documentation management
 │   ├── explain/             # Code and architecture explanation
@@ -219,8 +213,7 @@ See [Command Selection Guide](docs/user/command-selection-guide.md) for visual d
 │   ├── session/             # Session management
 │   ├── speckit/             # Feature development workflow
 │   ├── system/              # System utilities
-│   ├── task/                # Task management
-│   └── workflows/           # Multi-step orchestration
+│   └── task/                # Task management
 ├── docs/                     # Comprehensive documentation
 ├── scripts/                  # Hook automation scripts
 ├── settings.json             # System configuration
@@ -274,7 +267,7 @@ All complex workflows include **Mermaid diagrams** for clear understanding:
 This system follows strict development standards:
 
 - **Template-based development** for consistency
-- **Agent Specialist Framework compliance** for coordination
+- **Domain Analyst Framework compliance** for coordination
 - **Security-first design** with Git operation constraints
 - **Quality gates** for all changes
 - **Visual documentation** for complex processes
@@ -284,19 +277,19 @@ See [CLAUDE.md](CLAUDE.md) for complete development rules.
 ## 🤝 Contributing
 
 1. **Follow the templates** in `docs/command-template.md`
-2. **Use Agent Specialist Framework patterns** from the developer guide
+2. **Use Domain Analyst Framework patterns** from the developer guide
 3. **Include visual documentation** for complex features
 4. **Test Git operation constraints** thoroughly
 5. **Update relevant documentation** with all changes
 
 ## 📖 Learn More
 
-- **[Agent Specialist Framework](docs/concepts/agent-specialist-framework.md)** - Deep dive into the architecture
 - **[Hooks System](docs/developer/hooks-system.md)** - Event-driven automation details
-- **[Spec-Kit Workflow](docs/speckit-workflow.md)** - Complete feature development process
+- **[Spec-Kit Workflow](docs/concepts/speckit-workflow.md)** - Complete feature development process
 - **[Developer Guide](docs/developer/developer-guide.md)** - Extend and customize the system
+- **[Domain Analyst Framework](CLAUDE.md)** - Complete framework documentation
 
 ---
 
 **Ready to supercharge your development workflow?** Start with the [User Guide](docs/user/user-guide.md) and
-discover what the Agent Specialist Framework can do for you! 🎼✨
+discover what the Domain Analyst Framework can do for you! 🎼✨

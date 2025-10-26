@@ -72,6 +72,26 @@ Create task entries in tasks.md with origin=code-comment
 /task:scan-project src/ --types=TODO,FIXME,HACK
 ```
 
+## User Feedback
+
+| Option | Description |
+|--------|-------------|
+| A | Consolidate all findings to .agent/tasks.md for systematic tracking |
+| B | Filter and re-scan with specific comment types (e.g., only FIXME,BUG) |
+| C | ← Recommended: Review findings first, decide about consolidation later |
+| D | Skip for now - these were just informational |
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Consolidate findings to tasks | `/task:scan-project --consolidate` |
+| 2 | ← Recommended: Review and prioritize created tasks | `/task:execute` |
+| 3 | Create GitHub issues from critical tasks | `/github:create-issue-from-task TASK-010 --labels=tech-debt` |
+| 4 | Update code comments with task references | Manually edit comments: `// TODO: ... (TASK-XXX)` |
+
+**What would you like to do next?**
+
 ## Quality Standards (CARE)
 
 **Target**: 85+ overall (Completeness >95% comment detection, Accuracy >90% context extraction, Relevance >85% priority inference, Efficiency <15s typical scan)

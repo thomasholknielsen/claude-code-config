@@ -47,6 +47,27 @@ Show session name, directory path, and terminal identifier
 
 ---
 
+## Session Options
+
+| Option | Action | Recommendation |
+|--------|--------|-----------------|
+| **A** | Create new session with chosen topic | **← Recommended** for focused work sessions |
+| **B** | Resume existing active session | For continuing previous work |
+| **C** | Create session without topic | For exploratory or ad-hoc work |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Initialize session context directory | Set up tracking for analysis and findings |
+| 2 | Review available analysts and tools | Understand capabilities for this session |
+| 3 | Start first analysis or work task | Begin session activities |
+| 4 | Track progress and create context | Invoke analysts or create task tracking |
+
+What would you like to do next?
+
 ## User Story & Framework Structure (S-Tier Pattern)
 
 ### APE Framework (General Purpose)
@@ -64,6 +85,28 @@ Show session name, directory path, and terminal identifier
 ## Purpose
 
 Creates a new named session in the current project and links the current terminal via TTY detection. All domain analyst work in this session will use the session directory for context file organization.
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
 
 ## Usage
 

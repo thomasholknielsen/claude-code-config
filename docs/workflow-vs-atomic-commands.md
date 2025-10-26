@@ -33,7 +33,7 @@ Phase 1: Parallel Analysis
 └─ Task(analyst3: comprehensive domain analysis)
 
 Phase 2: Main Thread Synthesis
-├─ Read all analyst artifacts (.agent/context/*.md)
+├─ Read all analyst artifacts (.agent/Session-{name}/context/*.md)
 ├─ Consolidate findings
 └─ Implement changes OR generate consolidated report
 

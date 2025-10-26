@@ -38,7 +38,7 @@ This document provides realistic workflow patterns using the Claude Code Command
 
 **Development Commands**: See `docs/command-decision-guide.md` for complete catalog
 
-**Domain Analysts**: 43 domain analysts across 12 domains for comprehensive analysis
+**Domain Analysts**: 45 domain analysts across 14 domains for comprehensive analysis
 
 - **Research**: research-codebase-analyst, research-web-analyst
 - **Standalone**: architecture-analyst, security-analyst, performance-analyst, testing-analyst, refactoring-analyst, debugger-analyst, seo-analyst, product-roadmap-analyst

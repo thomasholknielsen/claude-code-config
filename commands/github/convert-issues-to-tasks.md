@@ -67,6 +67,47 @@ Update tasks.md with import summary
 
 Converts GitHub issues into trackable tasks in `.agent/tasks.md` with origin `github-issue`, enabling local task management while maintaining GitHub issue links.
 
+## How would you like to import issues?
+
+| Option | Method | Source | Recommended |
+|--------|--------|--------|-------------|
+| **A** | Import from file | Use pre-fetched issues from `/github:fetch-issues` | |
+| **B** | Direct filter import | Query GitHub with --filter/--milestone/--label | ← Recommended |
+| **C** | Import assigned issues | Import all assigned open issues (default) | |
+| **Other** | Custom arguments | Specify custom --filter syntax | |
+| **Skip** | Cancel | Don't import issues now | |
+
+## What would you like to do next?
+
+| # | Action | Command | Recommended |
+|---|--------|---------|-------------|
+| 1 | Execute import with your selection | `/github:convert-issues-to-tasks {your-selection}` | ← Recommended |
+| 2 | View imported tasks by priority | `/task:execute --origin=github-issue --priority=critical,high` | |
+| 3 | Start work on first high-priority task | `/task:execute --origin=github-issue --priority=critical --status=in-progress` | |
+| 4 | Return to main menu | Exit and choose different operation | |
+
+## User Feedback
+
+| Option | Action | Details |
+|--------|--------|---------|
+| A | Default workflow | [RECOMMENDED] |
+| B | Alternative approach | For different use case |
+| C | Skip | Exit without changes |
+
+Your choice (A/B/C)?
+
+## Next Steps
+
+| Option | Action | Command |
+|--------|--------|---------|
+| 1 | Review output | Check generated content |
+| 2 | Iterate or refine | Run command again [RECOMMENDED] |
+| 3 | Continue workflow | Proceed to next step |
+| 4 | Get help | Use /claude:guru for guidance |
+
+What would you like to do next?
+
+
 ## Usage
 
 ```bash

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Task analyzer configuration module.
 
 Centralized location for algorithm parameters and thresholds.
