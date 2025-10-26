@@ -16,34 +16,43 @@ from typing import Optional, Dict, Any
 
 # Terminal capability detection
 def supports_unicode() -> bool:
-    """Check if terminal supports Unicode rendering."""
-    # Check actual stdout encoding first (most reliable)
+    """Check if terminal supports Unicode/emoji rendering via actual test."""
+    # First: check encoding
     try:
         encoding = sys.stdout.encoding or ''
+        # UTF-8 encoding explicitly supports Unicode
         if encoding.lower() in ('utf-8', 'utf8'):
             return True
-        # Windows cp1252 (charmap) cannot render Unicode
+        # Windows cp1252 (charmap) explicitly cannot render Unicode
         if 'cp' in encoding.lower() or 'iso' in encoding.lower():
             return False
     except Exception:
         pass
 
-    # Windows default: NO Unicode support (most Windows terminals can't render emojis)
+    # Second: try to actually render a test emoji
+    test_emoji = '🔵'  # Blue circle - simple, common emoji
+    try:
+        # Try to encode the test emoji to stdout encoding
+        test_str = f"test{test_emoji}test"
+        test_str.encode(sys.stdout.encoding or 'utf-8')
+        # If we get here, encoding succeeded - emoji will render
+        return True
+    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+        # Encoding failed - emoji won't render
+        return False
+
+    # Third: fallback to terminal detection
     if platform.system() == 'Windows':
-        # Only enable for known modern terminals
+        # Check for known modern terminals
         term_program = os.environ.get('TERM_PROGRAM', '')
         term_emulator = os.environ.get('TERM', '')
 
-        # Check for modern Windows terminals explicitly
         if term_program in ['WindowsTerminal', 'ConEmu']:
             return True
         if 'mintty' in term_emulator:  # Git Bash, Cygwin
             return True
-        if 'ANSICON' in os.environ:  # ANSICON support
+        if 'ANSICON' in os.environ:
             return True
-
-        # Default for Windows: use ASCII fallback
-        # This handles Command Prompt, older PowerShell, etc.
         return False
 
     # Unix/Linux/macOS: check environment
@@ -52,7 +61,6 @@ def supports_unicode() -> bool:
     if os.environ.get('LANG', '').lower().endswith('utf-8'):
         return True
 
-    # Default for Unix-like systems: support Unicode
     return True
 
 
@@ -223,11 +231,13 @@ def get_context_display(context_info: Optional[Dict[str, Any]]) -> str:
     else:
         bar = "=" * filled + "-" * (segments - filled)
 
-    # Build cache info if available
+    # Build cache info if available with color indicating efficiency
     cache_str = ""
     if cache_total > 0:
         cache_kb = cache_total / 1000
-        cache_str = f" (cache:{cache_kb:.0f}k)"
+        # Color cache efficiency: higher cache = better reuse (cyan/bright)
+        cache_color = "\033[36m"  # Cyan for cache hits (efficient)
+        cache_str = f" {cache_color}(cache:{cache_kb:.0f}k)\033[0m"
 
     # Special warnings override normal alert
     if warning == "auto-compact":
@@ -387,18 +397,26 @@ def get_git_flow_status() -> str:
         except (ValueError, subprocess.TimeoutExpired):
             pass
 
-        # Format sync status as [STATUS:count]
+        # Format sync status with color-coding based on state
         if ahead > 0 and behind > 0:
-            sync_info = f" [DIVERGED:{ahead}{EMOJI['git_ahead']}/{behind}{EMOJI['git_behind']}]"
+            # Diverged: red (conflict state)
+            sync_color = "\033[31m"  # Red
+            sync_info = f"{sync_color}[DIVERGED:+{ahead}/-{behind}]\033[0m"
         elif ahead > 0:
-            sync_info = f" [AHEAD:{ahead}]"
+            # Ahead: green (ready to push)
+            sync_color = "\033[32m"  # Green
+            sync_info = f"{sync_color}[AHEAD:+{ahead}]\033[0m"
         elif behind > 0:
-            sync_info = f" [BEHIND:{behind}]"
+            # Behind: yellow (needs pull)
+            sync_color = "\033[33m"  # Yellow
+            sync_info = f"{sync_color}[BEHIND:-{behind}]\033[0m"
         else:
-            sync_info = " [IN-SYNC]"
+            # In sync: green (good state)
+            sync_color = "\033[32m"  # Green
+            sync_info = f"{sync_color}[IN-SYNC]\033[0m"
 
-        # Format output (file changes removed)
-        branch_info = f"{icon} {branch}{sync_info}"
+        # Format output with colored branch name
+        branch_info = f"{icon} {sync_color}{branch}\033[0m{sync_info}"
 
         if target:
             branch_info = f"{branch_info} {EMOJI['git_target']} {target}"
