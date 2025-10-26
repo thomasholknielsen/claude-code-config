@@ -309,22 +309,6 @@ def get_session_metrics(cost_data: Optional[Dict[str, Any]]) -> str:
         duration_str = f"{duration_ms // 1000}s" if minutes < 1 else f"{minutes:.0f}m"
         metrics.append(f"{duration_color}{EMOJI['duration']} {duration_str}\033[0m")
 
-    # Lines changed
-    lines_added = cost_data.get("total_lines_added", 0)
-    lines_removed = cost_data.get("total_lines_removed", 0)
-    if lines_added > 0 or lines_removed > 0:
-        net_lines = lines_added - lines_removed
-
-        if net_lines > 0:
-            lines_color = "\033[32m"  # Green for additions
-        elif net_lines < 0:
-            lines_color = "\033[31m"  # Red for deletions
-        else:
-            lines_color = "\033[33m"  # Yellow for neutral
-
-        sign = "+" if net_lines >= 0 else ""
-        metrics.append(f"{lines_color}{EMOJI['lines']} {sign}{net_lines}\033[0m")
-
     return f" \033[90m|\033[0m {' '.join(metrics)}" if metrics else ""
 
 
