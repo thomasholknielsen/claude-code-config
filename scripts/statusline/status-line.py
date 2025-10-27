@@ -98,14 +98,28 @@ EMOJI = {
 
 def parse_context_from_transcript(transcript_path: str) -> Optional[Dict[str, Any]]:
     """Parse context usage from transcript file with cache tracking and system message parsing."""
-    if not transcript_path:
-        # Try to find transcript in common locations
-        transcript_path = find_transcript_file()
-        if not transcript_path:
-            return None
+    # Use provided path first, then search for alternatives
+    search_paths = []
 
-    transcript_path_obj = Path(transcript_path)
-    if not transcript_path_obj.exists():
+    if transcript_path:
+        search_paths.append(Path(transcript_path))
+
+    # Add fallback search paths
+    search_paths.extend([
+        Path.home() / ".claude" / "transcript.jsonl",
+        Path.home() / ".claude" / "sessions" / "current" / "transcript.jsonl",
+        Path.cwd() / ".claude" / "transcript.jsonl",
+    ])
+
+    # Find first existing transcript file
+    transcript_path_obj = None
+    for path in search_paths:
+        if path.exists():
+            transcript_path_obj = path
+            break
+
+    # If no transcript found yet, return None (new session)
+    if not transcript_path_obj:
         return None
 
     try:
@@ -200,7 +214,8 @@ def find_transcript_file() -> Optional[str]:
 def get_context_display(context_info: Optional[Dict[str, Any]]) -> str:
     """Generate context display with progress bar, cache info, and alerts."""
     if not context_info:
-        return f"{EMOJI['status_unknown']} ???"
+        # New session or transcript not yet available - show friendly message
+        return f"{EMOJI['status_unknown']} new"
 
     percent = context_info.get("percent", 0)
     warning = context_info.get("warning")
