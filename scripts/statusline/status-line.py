@@ -215,7 +215,7 @@ def get_context_display(context_info: Optional[Dict[str, Any]]) -> str:
     """Generate context display with progress bar, cache info, and alerts."""
     if not context_info:
         # New session or transcript not yet available - show friendly message
-        return f"{EMOJI['status_unknown']} new"
+        return "new"
 
     percent = context_info.get("percent", 0)
     warning = context_info.get("warning")
