@@ -35,27 +35,27 @@ Claude Code's output styles feature addresses several key challenges:
 
 ### Business & Strategy
 
-- **[Product Manager](../output-styles/product-manager.md)** - User-centric strategy with data-driven prioritization
-- **[Strategic Consultant](../output-styles/strategic-consultant.md)** - C-suite communication with framework-driven analysis
-- **[Marketing Strategist](../output-styles/marketing-strategist.md)** - Brand-focused campaigns with audience optimization
+- **[Product Manager](../../output-styles/product-manager.md)** - User-centric strategy with data-driven prioritization
+- **[Strategic Consultant](../../output-styles/strategic-consultant.md)** - C-suite communication with framework-driven analysis
+- **[Marketing Strategist](../../output-styles/marketing-strategist.md)** - Brand-focused campaigns with audience optimization
 
 ### Technical & Analysis
 
-- **[Data Scientist](../output-styles/data-scientist.md)** - Statistical rigor with methodology transparency
-- **[Technical Writer](../output-styles/technical-writer.md)** - Clear documentation with user-centric structure
-- **[System Administrator](../output-styles/system-administrator.md)** - Infrastructure focus with operational reliability
+- **[Data Scientist](../../output-styles/data-scientist.md)** - Statistical rigor with methodology transparency
+- **[Technical Writer](../../output-styles/technical-writer.md)** - Clear documentation with user-centric structure
+- **[System Administrator](../../output-styles/system-administrator.md)** - Infrastructure focus with operational reliability
 
 ### Creative & Design
 
-- **[Brand Voice Curator](../output-styles/brand-voice-curator.md)** - Consistent brand communication across channels
-- **[Presentation Designer](../output-styles/presentation-designer.md)** - Visual storytelling with audience engagement
-- **[UX Researcher](../output-styles/ux-researcher.md)** - Evidence-based design with user behavior insights
+- **[Brand Voice Curator](../../output-styles/brand-voice-curator.md)** - Consistent brand communication across channels
+- **[Presentation Designer](../../output-styles/presentation-designer.md)** - Visual storytelling with audience engagement
+- **[UX Researcher](../../output-styles/ux-researcher.md)** - Evidence-based design with user behavior insights
 
 ### Operations & Compliance
 
-- **[Project Coordinator](../output-styles/project-coordinator.md)** - Structured task management with dependency tracking
-- **[Quality Assurance](../output-styles/quality-assurance.md)** - Systematic testing with defect prevention focus
-- **[Compliance Officer](../output-styles/compliance-officer.md)** - Regulatory adherence with audit preparation
+- **[Project Coordinator](../../output-styles/project-coordinator.md)** - Structured task management with dependency tracking
+- **[Quality Assurance](../../output-styles/quality-assurance.md)** - Systematic testing with defect prevention focus
+- **[Compliance Officer](../../output-styles/compliance-officer.md)** - Regulatory adherence with audit preparation
 
 ## Installation & Usage
 

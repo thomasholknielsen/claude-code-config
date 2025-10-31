@@ -301,4 +301,4 @@ export PLAYWRIGHT_HEADLESS=false
 3. **Custom Workflows** - Create custom commands that leverage MCP capabilities
 4. **Monitor Usage** - Check logs and performance of MCP integrations
 
-For advanced configuration and custom MCP server development, see the [Developer Guide](developer-guide.md).
+For advanced configuration and custom MCP server development, see the [Developer Guide](../developer/developer-guide.md).

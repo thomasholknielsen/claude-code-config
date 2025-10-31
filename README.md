@@ -107,7 +107,7 @@ with MCP integration (7 servers: Context7 for docs, Playwright for browser autom
 ### Concepts and Architecture
 
 - **[Conceptual Documentation](docs/concepts/)** - Deep architecture insights
-  - [Spec-Kit Workflow](docs/concepts/speckit-workflow.md) - Feature development process
+  - [Spec-Kit Workflow](docs/concepts/spec-kit-workflow.md) - Feature development process
   - [Parallel Execution Patterns](docs/concepts/parallel-execution-patterns.md) - Performance optimization
 
 ## 🛠️ Key Features
@@ -285,7 +285,7 @@ See [CLAUDE.md](CLAUDE.md) for complete development rules.
 ## 📖 Learn More
 
 - **[Hooks System](docs/developer/hooks-system.md)** - Event-driven automation details
-- **[Spec-Kit Workflow](docs/concepts/speckit-workflow.md)** - Complete feature development process
+- **[Spec-Kit Workflow](docs/concepts/spec-kit-workflow.md)** - Complete feature development process
 - **[Developer Guide](docs/developer/developer-guide.md)** - Extend and customize the system
 - **[Domain Analyst Framework](CLAUDE.md)** - Complete framework documentation
 
