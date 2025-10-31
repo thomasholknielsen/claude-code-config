@@ -602,6 +602,5 @@ That's it! You're using the unified task management system.
 
 ## Related Documentation
 
-- [Task Management Migration Guide](../../docs/user/task-management-migration.md) - Migrating from old commands
 - [User Guide](../../docs/user/user-guide.md) - Complete system documentation
 - [CLAUDE.md](../../CLAUDE.md) - Task management patterns and constraints

@@ -5,8 +5,7 @@ Deep dive into the architectural concepts, frameworks, and design principles beh
 ## Core Concepts
 
 - **[Agent Specialist Framework](agent-specialist-framework.md)** - Multi-agent advisory architecture
-- **[Agent Specialist System](agent-specialist-system.md)** - System implementation details
-- **[Spec-Kit Workflow](speckit-workflow.md)** - 7-step feature development process
+- **[Spec-Kit Workflow](spec-kit-workflow.md)** - 7-step feature development process
 - **[Parallel Execution Patterns](parallel-execution-patterns.md)** - Efficient multi-task coordination
 - **[Parallelization Guide](parallelization-guide.md)** - Comprehensive parallelization strategies
 - **[Parallelization Workflows](../user/parallelization-workflows.md)** - Real-world parallelization examples
@@ -88,7 +87,7 @@ The system is built on a sophisticated multi-agent architecture:
 
 ### For System Designers
 
-- Examine [Spec-Kit Workflow](speckit-workflow.md) for process design
+- Examine [Spec-Kit Workflow](spec-kit-workflow.md) for process design
 - Analyze command categorization and organization patterns
 - Review integration approaches and dependency management
 
@@ -112,7 +111,7 @@ The [Agent Specialist Framework](agent-specialist-framework.md) provides the adv
 
 ### Feature Development
 
-The [Spec-Kit Workflow](speckit-workflow.md) guides systematic feature development, ensuring quality and
+The [Spec-Kit Workflow](spec-kit-workflow.md) guides systematic feature development, ensuring quality and
 integration with existing system capabilities.
 
 ## Advanced Topics

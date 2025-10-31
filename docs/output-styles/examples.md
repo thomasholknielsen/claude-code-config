@@ -129,7 +129,7 @@ Authenticate users and retrieve access tokens for API requests.
 
 ## Prerequisites
 
-- Valid API key (obtain from [Developer Dashboard](link))
+- Valid API key (obtain from your Developer Dashboard)
 - User must have active account status
 - HTTPS required for all authentication requests
 
@@ -206,9 +206,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ## Next Steps
 
-- [Using Access Tokens](tokens.md)
-- [API Rate Limits](rate-limits.md)
-- [Error Handling Best Practices](error-handling.md)
+*Example related documentation links (these would link to actual API documentation):*
+- Using Access Tokens
+- API Rate Limits  
+- Error Handling Best Practices
 
 ## 🎨 Creative & Design Examples
 

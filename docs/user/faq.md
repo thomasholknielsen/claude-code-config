@@ -300,7 +300,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 After reorganization, update links:
 
 - **Old**: `[Guide](docs/user-guide.md)`
-- **New**: `[Guide](docs/user/user-guide.md)`
+- **New**: `[Guide](user-guide.md)`
 
 **Systematic fix:**
 
@@ -425,7 +425,6 @@ See [CHANGELOG.md](../../CHANGELOG.md) for version history and upcoming features
 
 - [User Documentation](../user/) - Setup and usage guides
 - [Developer Documentation](../developer/) - Architecture and contribution
-- [Admin Documentation](../admin/) - System administration
 - [Conceptual Documentation](../concepts/) - Deep architecture insights
 
 **Support channels:**

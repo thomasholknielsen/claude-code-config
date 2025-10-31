@@ -333,7 +333,7 @@ ls -la ~/.claude/docs/developer/
 ```bash
 # Update documentation links after reorganization
 # Old: [Guide](docs/user-guide.md)
-# New: [Guide](docs/user/user-guide.md)
+# New: [Guide](user-guide.md)
 
 # Verify all index files exist
 ls ~/.claude/docs/*/index.md

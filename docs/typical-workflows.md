@@ -724,7 +724,7 @@ Task("documentation-analyst: API documentation completeness")
 
 - [Command Decision Guide](./command-decision-guide.md) - Choose the right command
 - [Workflow vs Atomic Commands](./workflow-vs-atomic-commands.md) - Understand complementary architecture
-- [Command Reference](./developer/command-reference.md) - Complete command catalog
+- [Command Selection Guide](./user/command-selection-guide.md) - Complete command catalog
 - [Agent Specialist Framework](./concepts/agent-specialist-framework.md) - Domain analyst patterns
 - [GitHub Automation](./github-automation.md) - Git integration
 - [MCP Tool Assignment](./MCP-TOOL-ASSIGNMENT-MATRIX.md) - External tool integration

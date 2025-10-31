@@ -77,6 +77,14 @@
         "claude-26524-1000-1761426499",
         "claude-29692-1000-1761426521"
       ]
+    },
+    "docs-review": {
+      "topic": "Comprehensive documentation review",
+      "started": "2025-10-30T14:46:20",
+      "status": "active",
+      "terminals": [
+        "claude-3257-1001-1761835580"
+      ]
     }
   }
 }
