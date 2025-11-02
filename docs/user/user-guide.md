@@ -143,7 +143,7 @@ The system uses **43 domain analysts** as advisory subagents. Only the main Clau
 
 **Pattern**: Main thread invokes analysts → Analysts research → Persist to `.agent/Session-{name}/context/{analyst-name}.md` → Return summary → Main thread implements
 
-For complete analyst details, see [Agent Specialist System](../concepts/agent-specialist-system.md)
+For complete analyst details, see [Agent Specialist Framework](../concepts/agent-specialist-framework.md)
 
 ## Common Workflows
 
