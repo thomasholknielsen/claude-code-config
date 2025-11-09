@@ -98,6 +98,10 @@ settings.local.json
 # Specification files (project-local, not committed)
 specs/
 
+# Task management (project-local, not committed)
+tasks.md
+tasks-archive.md
+
 # Allow agents, commands, and scripts directories (explicitly not ignored)
 __pycache__/
 

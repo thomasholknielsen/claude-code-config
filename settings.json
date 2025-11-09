@@ -101,7 +101,6 @@
       "Bash(wget:*)"
     ]
   },
-  "model": "haiku",
   "hooks": {
     "UserPromptSubmit": [
       {
