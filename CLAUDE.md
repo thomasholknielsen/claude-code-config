@@ -220,6 +220,54 @@ Agents will use the provided path instead of trying to detect sessions themselve
 
 **Discovery**: Use file explorer or `ls commands/*/` to discover available commands. Each command file contains purpose, usage, and examples.
 
+## Skills System
+
+**What Skills Are**: Model-invoked capabilities that extend Claude's expertise. Unlike slash commands (user-invoked), Skills automatically activate when Claude detects they're relevant to your request based on their description.
+
+**Storage Locations**:
+- **Personal Skills** (`~/.claude/skills/`): Individual use only
+- **Project Skills** (`./.claude/skills/`): Team-shared, committed to git, auto-available on pull
+- **Plugin Skills**: Bundled capabilities from installed plugins
+
+**File Structure**:
+```
+skill-name/
+├── SKILL.md              # Core file (REQUIRED)
+├── scripts/              # Optional: helper executables
+└── resources/            # Optional: templates, configs
+```
+
+**Creating Skills**:
+1. Use `/skills:create SKILL-NAME [--scope=personal|project]` command for guided setup
+2. Or manually: `cp ~/.claude/templates/skills/skill.md ./.claude/skills/skill-name/SKILL.md`
+3. Fill frontmatter: `name` (identifier), `description` (discovery keywords + use cases), optional `allowed-tools` (restrictions)
+4. Document instructions, examples, best practices
+5. Test by asking Claude a matching question matching the description
+6. Commit to git for team availability (if project scope)
+
+**Skills Command**: `/skills:create` - Interactive command for creating new Skills with template, directory setup, validation, and customization guidance (see `commands/skills/create.md`)
+
+**Key Principles**:
+- **Focused scope**: One capability per Skill
+- **Discoverable description**: Include trigger keywords and use cases
+- **Progressive examples**: Basic → Advanced scenarios
+- **Best practices**: Domain-specific guidance
+- **Tool restrictions**: Use `allowed-tools` for read-only or safety-sensitive Skills
+
+**Documentation**:
+- **User Guide**: `docs/user/skills-guide.md` - Complete guide for using and understanding Skills
+- **Developer Guide**: `docs/developer/skills-development-guide.md` - Creating and maintaining Skills
+- **Template**: `templates/skills/skill.md` - Starter template for new Skills
+
+**Current Project Skills**:
+- `azure-devops` - Azure DevOps workflows (pipelines, work items, PRs, CI/CD)
+- `json-formatter` - JSON formatting and validation
+
+**Integration**:
+- Skills work alongside Commands and Agents
+- Commands orchestrate workflows; Skills provide expertise; Agents conduct analysis
+- Skills can guide on tool usage but don't invoke MCP tools directly
+
 ## MCP Integration
 
 **Configuration**: `~/.claude.json` (per-project user-local)

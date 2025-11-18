@@ -17,6 +17,80 @@ Each task scored by:
 
 ## Active Tasks
 
+### TASK-606: Conduct deep research for Claude Code best practices
+
+**Status**: pending
+**Priority**: medium
+**Category**: research
+**Epic**: Best Practices
+**Depends On**: (none)
+**Related**: TASK-605
+**Origin**: adhoc
+**Created**: 2025-11-02T00:00:00Z
+
+**Description**:
+Conduct deep research for Claude Code "best practices" to inform improvements and standardization across the system.
+
+**Impact**: 8 | **Effort**: 6 | **Value**: 1.33
+
+---
+
+### TASK-605: Integrate Claude Code agent skills best practices
+
+**Status**: pending
+**Priority**: medium
+**Category**: research
+**Epic**: Skills System
+**Depends On**: (none)
+**Related**: (none)
+**Origin**: adhoc
+**Created**: 2025-11-02T00:00:00Z
+
+**Description**:
+Read https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices and integrate the best practices into this repository. Consider how these principles might be relevant to more of the skills.
+
+**Impact**: 7 | **Effort**: 5 | **Value**: 1.4
+
+---
+
+### TASK-604: Remove status-line debug log feature
+
+**Status**: pending
+**Priority**: medium
+**Category**: chore
+**Epic**: Statusline
+**Depends On**: (none)
+**Related**: (none)
+**Origin**: adhoc
+**Created**: 2025-11-02T00:00:00Z
+
+**Description**:
+Remove the debug log feature from the status-line system.
+
+**Impact**: 4 | **Effort**: 3 | **Value**: 1.33
+
+---
+
+### TASK-603: Ensure repository works with Azure DevOps
+
+**Status**: in-progress
+**Priority**: medium
+**Category**: feature
+**Epic**: DevOps Integration
+**Depends On**: (none)
+**Related**: (none)
+**Origin**: adhoc
+**Created**: 2025-10-27T00:00:00Z
+**Last Updated**: 2025-10-27T21:25:00Z
+**Details**: `.agent/Session-task-603/Task-603--ensure-repository-works-with-azure-devops`
+
+**Description**:
+Ensure that the repository works with Azure DevOps, enabling platform compatibility alongside existing CI/CD solutions.
+
+**Impact**: 7 | **Effort**: 6 | **Value**: 1.17
+
+---
+
 ### TASK-602: Improve slash command usage in CLAUDE.md and command recommendations
 
 **Status**: completed

@@ -107,3 +107,6 @@ __pycache__/
 
 # Windows null file (git artifact)
 nul
+
+# Skill verification files (temporary debugging)
+deep-research-skill-was-executed.md

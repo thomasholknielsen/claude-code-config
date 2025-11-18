@@ -156,5 +156,6 @@
     "type": "command",
     "command": "python -u C:\\Users\\thn\\.claude\\scripts\\statusline\\status-line.py"
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": false,
+  "model": "haiku"
 }

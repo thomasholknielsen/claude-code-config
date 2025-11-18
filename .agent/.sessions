@@ -85,6 +85,40 @@
       "terminals": [
         "claude-3257-1001-1761835580"
       ]
+    },
+    "best-practice": {
+      "topic": "Claude Code best practices research",
+      "started": "2025-11-02T14:59:41",
+      "status": "active",
+      "terminals": [
+        "claude-39860-1000-1762091980",
+        "claude-43828-1000-1762092006"
+      ]
+    },
+    "research-best-practices": {
+      "topic": "Deep research on Claude Code best practices",
+      "started": "2025-11-02T21:18:41",
+      "status": "active",
+      "terminals": [
+        "claude-23508-1000-1762114721",
+        "claude-6548-1000-1762114733"
+      ]
+    },
+    "deep-research": {
+      "topic": "Claude Code best practices research",
+      "started": "2025-11-03T05:34:08",
+      "status": "active",
+      "terminals": [
+        "claude-9732-1000-1762144447"
+      ]
+    },
+    "claude-code-research": {
+      "topic": "Deep research on Claude Code best practices",
+      "started": "2025-11-03T09:06:52",
+      "status": "active",
+      "terminals": [
+        "claude-2740-1000-1762157211"
+      ]
     }
   }
 }

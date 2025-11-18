@@ -7,6 +7,7 @@ Welcome to the Claude Code Command System user documentation. This section conta
 - **[User Guide](user-guide.md)** - Complete setup and usage instructions
 - **[MCP Setup Guide](mcp-setup-guide.md)** - Configure external tool integrations
 - **[Typical Workflows](typical-workflows.md)** - Common usage patterns with examples
+- **[Deep Research Quick Start](deep-research-quick-start.md)** - Comprehensive multi-source research system
 
 ## Quick Navigation
 
@@ -36,6 +37,11 @@ All user documentation includes instructions for:
 - **macOS** (Terminal with Zsh/Bash)
 - **Linux** (Bash and compatible shells)
 
+## Research Capabilities
+
+- **[Deep Research Quick Start](deep-research-quick-start.md)** - Multi-source research with iterative refinement
+- **[Research to Implementation](research-to-implementation-guide.md)** - Using research findings in development
+
 ## Quick Reference
 
 | Topic | Document | Description |
@@ -43,5 +49,6 @@ All user documentation includes instructions for:
 | Installation | [User Guide](user-guide.md) | Complete setup process |
 | Daily Usage | [Typical Workflows](typical-workflows.md) | Common command patterns |
 | Tool Integration | [MCP Setup Guide](mcp-setup-guide.md) | External tool configuration |
+| Deep Research | [Deep Research Quick Start](deep-research-quick-start.md) | Comprehensive multi-source research |
 
 Happy coding with Claude Code! 🚀
